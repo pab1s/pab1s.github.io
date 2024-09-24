@@ -1,0 +1,7 @@
+<ul class="recent-projects-list">
+    {{ range first .Page.Paginator.PageSize (where .Site.RegularPages "Type" "projects") }}
+    <li>
+        <a href="{{ .Permalink }}">{{ .Title }}</a> - {{ .Date.Format "Jan 02, 2006" }}
+    </li>
+    {{ end }}
+</ul>

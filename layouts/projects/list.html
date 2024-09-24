@@ -1,0 +1,216 @@
+{{- define "main" }}
+{{- if (and site.Params.profileMode.enabled .IsHome) }}
+  {{- partial "index_profile.html" . }}
+{{- else }} {{/* if not profileMode */}}
+
+<style>
+:root {
+    --nav-width: 1380px;
+    --article-width: 650px;
+    --toc-width: 300px;
+    --profile-width: 300px;
+    --gap: 20px;
+    --border: #e1e4e8;
+    --entry: #f6f8fa;
+    --secondary: #586069;
+    --radius: 6px;
+    /*--color-muted: #6a737d;*/
+    --color-link: #0366d6;
+    --color-link-hover: #0366d6;
+    --color-accent: #0366d6;
+}
+
+/* Projects Section */
+.projects-section {
+    padding: 1.7rem; 
+}
+
+/* Flexbox layout for projects */
+.portfolio-projects {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0rem;
+}
+
+/* Ensure the whole card is clickable */
+.project-link {
+    width: 100%;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.project {
+    background-color: var(--color-card-background);
+    border-radius: 8px;
+    padding: 1rem;
+    margin: auto;
+    color: var(--color-text);
+    box-shadow: var(--card-shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 2px solid var(--color-border);
+    height: 100%;
+    width: calc(50% - 2rem); /* 50% width with gap management */
+    box-sizing: border-box; /* Ensure padding and border are included in the width */
+}
+
+.project:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    border-color: var(--color-accent);
+}
+
+/* Project header (folder icon and links) */
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: left;
+    margin-bottom: 1rem;
+}
+
+/* Project Tags */
+.project-tags {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-start; /* Align tags to the left */
+    max-width: 100%; /* Allow full width for wrapping */
+}
+
+/* Individual tag styling */
+.tag {
+    font-family: 'Ubuntu Mono', monospace;
+    background-color: transparent;
+    color: #007bff;
+    border-radius: 4px;
+    border: 1px solid #007bff;
+    padding: 2px 6px;
+    font-size: 0.85em;
+    white-space: nowrap; 
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* On hover, change the tag background */
+.tag:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+</style>
+
+{{- if not .IsHome | and .Title }}
+<header class="page-header">
+  {{- partial "breadcrumbs.html" . }}
+  <h1>{{ .Title }}
+    {{- if and (or (eq .Kind `term`) (eq .Kind `section`)) (.Param "ShowRssButtonInSectionTermList") }}
+    {{- with .OutputFormats.Get "rss" }}
+    <a href="{{ .RelPermalink }}" title="RSS" aria-label="RSS">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" height="23">
+        <path d="M4 11a9 9 0 0 1 9 9" />
+        <path d="M4 4a16 16 0 0 1 16 16" />
+        <circle cx="5" cy="19" r="1" />
+      </svg>
+    </a>
+    {{- end }}
+    {{- end }}
+  </h1>
+  {{- if .Description }}
+  <div class="post-description">
+    {{ .Description | markdownify }}
+  </div>
+  {{- end }}
+</header>
+{{- end }}
+
+{{- if .Content }}
+<div class="post-content">
+  {{- if not (.Param "disableAnchoredHeadings") }}
+  {{- partial "anchored_headings.html" .Content -}}
+  {{- else }}{{ .Content }}{{ end }}
+</div>
+{{- end }}
+
+{{- $pages := union .RegularPages .Sections }}
+
+{{- if .IsHome }}
+{{- $pages = where site.RegularPages "Type" "in" site.Params.mainSections }}
+{{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true"  }}
+{{- end }}
+
+{{- $paginator := .Paginate $pages }}
+
+{{- if and .IsHome site.Params.homeInfoParams (eq $paginator.PageNumber 1) }}
+{{- partial "home_info.html" . }}
+{{- end }}
+
+<div class="projects-section">
+  <div class="portfolio-projects">
+    {{ $projects := .Site.Data.projects.projects }}
+    {{ range $index, $element := $projects }}
+    
+      <div class="project">
+        <a href="{{ .gitHubLink }}" target="_blank" rel="noopener noreferrer" class="project-link">
+        <div class="project-header">
+          <i class="fa-regular fa-folder-open folder-icon"></i>
+          <div class="small-icons">
+            {{ if .gitHubLink }}
+            <i class="fa-brands fa-github"></i>
+            {{ end }}
+            {{ if .liveLink }}
+            <a href="{{ .liveLink }}" target="_blank" rel="noopener noreferrer">
+              <i class="fa-solid fa-up-right-from-square"></i>
+            </a>
+            {{ end }}
+          </div>
+        </div>
+
+        <!-- Ensure image is properly linked -->
+        {{ if .image }}
+        <div class="project-banner" style="background-image: url('{{ .image | absURL }}');">
+        </div>
+        {{ end }}
+
+        <h3>{{ .title }}</h3>
+        <p>{{ .description }}</p>
+      </a>
+
+        <!-- Display project tags with links to tag pages -->
+        {{ if .tags }}
+        <div class="project-tags">
+          {{ range .tags }}
+          <a href="/tags/{{ . | urlize }}" class="tag">{{ . }}</a>
+          {{ end }}
+        </div>
+        {{ end }}
+
+      </div>
+    {{ end }}
+  </div>
+</div>
+
+{{- if gt $paginator.TotalPages 1 }}
+<footer class="page-footer">
+  <nav class="pagination">
+    {{- if $paginator.HasPrev }}
+    <a class="prev" href="{{ $paginator.Prev.URL | absURL }}">
+      «&nbsp;{{ i18n "prev_page" }}&nbsp;
+      {{- if (.Param "ShowPageNums") }}
+      {{- sub $paginator.PageNumber 1 }}/{{ $paginator.TotalPages }}
+      {{- end }}
+    </a>
+    {{- end }}
+    {{- if $paginator.HasNext }}
+    <a class="next" href="{{ $paginator.Next.URL }}">
+      {{- i18n "next_page" }}&nbsp;
+      {{- if (.Param "ShowPageNums") }}
+      {{- add 1 $paginator.PageNumber }}/{{ $paginator.TotalPages }}
+      {{- end }}&nbsp;»
+    </a>
+    {{- end }}
+  </nav>
+</footer>
+{{- end }}
+{{- end }}{{/* end profileMode */}}
+{{- end }}{{/* end main */}}

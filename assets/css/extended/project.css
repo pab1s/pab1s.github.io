@@ -1,0 +1,230 @@
+:root {
+    --nav-width: 1380px;
+    --article-width: 650px;
+    --toc-width: 300px;
+    --profile-width: 300px;
+    --gap: 20px;
+    --border: #e1e4e8;
+    --entry: #f6f8fa;
+    --secondary: #586069;
+    --radius: 6px;
+    /*--color-muted: #6a737d;*/
+    --color-link: #0366d6;
+    --color-link-hover: #0366d6;
+    --color-accent: #0366d6;
+}
+
+/* Projects Section */
+.projects-section {
+    padding: 1.7rem; 
+}
+
+/* Flexbox layout for projects */
+.portfolio-projects {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+
+/* Ensure the whole card is clickable */
+.project-link {
+    width: calc(50% - 2rem); /* Two projects per row */
+    text-decoration: none; /* Remove underline from link */
+    color: inherit; /* Ensure text color stays consistent */
+    display: block;
+}
+
+.project {
+    background-color: var(--color-card-background);
+    border-radius: 8px;
+    padding: 1rem;
+    color: var(--color-text);
+    box-shadow: var(--card-shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 2px solid var(--color-border); /* Add border */
+    height: 100%; /* Ensure the project takes up full height */
+}
+
+.project:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    border-color: var(--color-accent); /* Change border color on hover */
+}
+
+/* Project header (folder icon and links) */
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.folder-icon {
+    color: var(--color-icon);
+    font-size: 2rem;
+}
+
+.small-icons {
+    display: flex;
+    align-items: center;
+}
+
+.small-icons i {
+    margin-left: 0.5rem;
+    color: var(--color-icon);
+}
+
+.small-icons a {
+    margin-left: 0.5rem;
+    color: var(--color-icon);
+    text-decoration: none;
+}
+
+.small-icons a:hover {
+    color: var(--color-accent);
+}
+
+/* Project title */
+.project h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Project description */
+.project p {
+    font-size: 1rem;
+    color: var(--color-muted);
+}
+
+/* Project banner image with landscape ratio */
+.project-banner {
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Show More button */
+.see-all-btn {
+    background-color: var(--color-button-background);
+    color: var(--color-button-text);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 1rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    text-decoration: none; /* Remove underline from the link */
+}
+
+.see-all-btn {
+    max-width: 200px;
+        color: var(--theme);
+        font-size: 13px;
+        line-height: 36px;
+        background: var(--primary);
+        border-radius: calc(36px / 2);
+        padding: 0 16px;
+    }
+
+/* Hidden projects by default */
+.hidden-project {
+    display: none;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .project-link {
+        width: 100%; /* Full width on smaller screens */
+    }
+}
+
+.project img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure the image covers the whole area */
+    border-radius: 8px;
+}
+
+.toc {
+    margin: 0 2px 40px 2px;
+    border: 1px solid var(--border);
+    background: var(--entry);
+    border-radius: var(--radius);
+    padding: 0.4em;
+}
+
+.toc-container.wide {
+    position: absolute;
+    height: 100%;
+    border-right: 1px solid var(--border);
+    left: calc((var(--toc-width) + var(--gap)) * -1);
+    top: calc(var(--gap) * 2);
+    width: var(--toc-width);
+}
+
+.wide .toc {
+    position: sticky;
+    top: var(--gap);
+    border: unset;
+    background: unset;
+    border-radius: unset;
+    width: 100%;
+    margin: 0 2px 40px 2px;
+}
+
+.toc details summary {
+    cursor: pointer;
+    margin-inline-start: 20px;
+    padding: 12px 0;
+}
+
+.toc details[open] summary {
+    font-weight: 500;
+}
+
+.toc-container.wide .toc .inner {
+    margin: 0;
+}
+
+.active {
+    font-size: 110%;
+    font-weight: 600;
+}
+
+.toc ul {
+    list-style-type: circle;
+}
+
+.toc .inner {
+    margin: 0 0 0 20px;
+    padding: 0px 15px 15px 20px;
+    font-size: 16px;
+}
+
+.toc li ul {
+    margin-inline-start: calc(var(--gap) * 0.5);
+    list-style-type: none;
+}
+
+.toc li {
+    list-style: none;
+    font-size: 0.95rem;
+    padding-bottom: 5px;
+}
+
+.toc li a:hover {
+    color: var(--secondary);
+}
