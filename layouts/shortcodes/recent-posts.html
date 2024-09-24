@@ -1,0 +1,9 @@
+{{ $recentPosts := .Site.RegularPages | first 5 }}
+<ul>
+  {{ range $recentPosts }}
+    <li>
+      <a href="{{ .Permalink }}">{{ .Title }}</a>
+      <p>{{ .Summary }}</p>
+    </li>
+  {{ end }}
+</ul>
