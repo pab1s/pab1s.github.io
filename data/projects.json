@@ -56,26 +56,6 @@
             ]
         },
         {
-            "title": "credit-fraud-detection",
-            "description": "No description provided.",
-            "gitHubLink": "https://github.com/pab1s/credit-fraud-detection",
-            "liveLink": "",
-            "image": "/projects/credit-fraud-detection.webp",
-            "tags": []
-        },
-        {
-            "title": "deepspace-java",
-            "description": "Spacecraft card game written in Java for the Object Oriented Programming and Design Course in UGR.",
-            "gitHubLink": "https://github.com/pab1s/deepspace-java",
-            "liveLink": "",
-            "image": "/projects/deepspace-java.webp",
-            "tags": [
-                "game",
-                "java",
-                "oop"
-            ]
-        },
-        {
             "title": "ETSIIT-info-NUI",
             "description": "Interactive kiosk web application powered by Leap Motion.",
             "gitHubLink": "https://github.com/pab1s/ETSIIT-info-NUI",
@@ -91,15 +71,17 @@
             ]
         },
         {
-            "title": "deepspace-ruby",
-            "description": "Spacecraft card game written in Ruby for the Object Oriented Programming and Design Course in UGR.",
-            "gitHubLink": "https://github.com/pab1s/deepspace-ruby",
+            "title": "TFG",
+            "description": "Bachelor's Thesis of Mathematics and Computer Science in UGR.",
+            "gitHubLink": "https://github.com/pab1s/TFG",
             "liveLink": "",
-            "image": "/projects/deepspace-ruby.webp",
+            "image": "/projects/TFG.webp",
             "tags": [
-                "game",
-                "oop",
-                "ruby"
+                "latex",
+                "regularization",
+                "topological-data-analysis",
+                "convolutional-neural-networks",
+                "transfer-learning"
             ]
         },
         {
@@ -113,11 +95,46 @@
             ]
         },
         {
-            "title": "DGIIM",
-            "description": "This repo will host all the code written during the Degree on Computer Science and Mathematics in UGR.",
-            "gitHubLink": "https://github.com/pab1s/DGIIM",
+            "title": "reactive-belkan-worlds",
+            "description": "Reactive Agent to discover as much as posible in Belkan Worlds. Artificial Intelligence Project in UGR.",
+            "gitHubLink": "https://github.com/pab1s/reactive-belkan-worlds",
             "liveLink": "",
-            "image": "/projects/DGIIM.webp",
+            "image": "/projects/reactive-belkan-worlds.webp",
+            "tags": [
+                "agents"
+            ]
+        },
+        {
+            "title": "deepspace-java",
+            "description": "Spacecraft card game written in Java for the Object Oriented Programming and Design Course in UGR.",
+            "gitHubLink": "https://github.com/pab1s/deepspace-java",
+            "liveLink": "",
+            "image": "/projects/deepspace-java.webp",
+            "tags": [
+                "game",
+                "java",
+                "oop",
+                "gui"
+            ]
+        },
+        {
+            "title": "deepspace-ruby",
+            "description": "Spacecraft card game written in Ruby for the Object Oriented Programming and Design Course in UGR.",
+            "gitHubLink": "https://github.com/pab1s/deepspace-ruby",
+            "liveLink": "",
+            "image": "/projects/deepspace-ruby.webp",
+            "tags": [
+                "game",
+                "oop",
+                "ruby"
+            ]
+        },
+        {
+            "title": "credit-fraud-detection",
+            "description": "No description provided.",
+            "gitHubLink": "https://github.com/pab1s/credit-fraud-detection",
+            "liveLink": "",
+            "image": "/projects/credit-fraud-detection.webp",
             "tags": []
         },
         {
@@ -159,28 +176,12 @@
             ]
         },
         {
-            "title": "reactive-belkan-worlds",
-            "description": "Reactive Agent to discover as much as posible in Belkan Worlds. Artificial Intelligence Project in UGR.",
-            "gitHubLink": "https://github.com/pab1s/reactive-belkan-worlds",
+            "title": "DGIIM",
+            "description": "This repo will host all the code written during the Degree on Computer Science and Mathematics in UGR.",
+            "gitHubLink": "https://github.com/pab1s/DGIIM",
             "liveLink": "",
-            "image": "/projects/reactive-belkan-worlds.webp",
-            "tags": [
-                "agents"
-            ]
-        },
-        {
-            "title": "TFG",
-            "description": "Bachelor's Thesis of Mathematics and Computer Science in UGR.",
-            "gitHubLink": "https://github.com/pab1s/TFG",
-            "liveLink": "",
-            "image": "/projects/TFG.webp",
-            "tags": [
-                "latex",
-                "regularization",
-                "topological-data-analysis",
-                "convolutional-neural-networks",
-                "transfer-learning"
-            ]
+            "image": "/projects/DGIIM.webp",
+            "tags": []
         },
         {
             "title": "30-Days-Of-Python",
