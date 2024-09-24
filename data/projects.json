@@ -1,0 +1,197 @@
+{
+    "projects": [
+        {
+            "title": "tda-nn-analysis",
+            "description": "This project aims to explore the optimization and transferability of knowledge using Topological Data Analysis (TDA) and Convolutional Neural Networks (CNN).",
+            "gitHubLink": "https://github.com/pab1s/tda-nn-analysis",
+            "liveLink": "",
+            "image": "/projects/tda-nn-analysis.webp",
+            "tags": [
+                "convolutional-neural-networks",
+                "deep-learning",
+                "interpretability",
+                "topological-data-analysis",
+                "optimization",
+                "transfer-learning"
+            ]
+        },
+        {
+            "title": "feature-weight-metaheuristics",
+            "description": "This project explores metaheuristic algorithms for feature weight learning in 1NN classification.",
+            "gitHubLink": "https://github.com/pab1s/feature-weight-metaheuristics",
+            "liveLink": "",
+            "image": "/projects/feature-weight-metaheuristics.webp",
+            "tags": [
+                "bioinspired-algorithms",
+                "feature-weighting",
+                "metaheuristics",
+                "optimization"
+            ]
+        },
+        {
+            "title": "granada-parking-segmentation",
+            "description": "This GitHub repository hosts a project focused on the detection of parked cars in the city of Granada through advanced image segmentation techniques.",
+            "gitHubLink": "https://github.com/pab1s/granada-parking-segmentation",
+            "liveLink": "",
+            "image": "/projects/granada-parking-segmentation.webp",
+            "tags": [
+                "aerial-imagery",
+                "convolutional-neural-networks",
+                "deeplab-v3-plus",
+                "image-segmentation",
+                "pspnet",
+                "u-net"
+            ]
+        },
+        {
+            "title": "minimax-parcheesi",
+            "description": "Modified Parcheesi game implementing rivals applying Alpha-Beta Prunning. Artificial Intelligence Project in UGR.",
+            "gitHubLink": "https://github.com/pab1s/minimax-parcheesi",
+            "liveLink": "",
+            "image": "/projects/minimax-parcheesi.webp",
+            "tags": [
+                "ai",
+                "alpha-beta-pruning",
+                "game"
+            ]
+        },
+        {
+            "title": "credit-fraud-detection",
+            "description": "No description provided.",
+            "gitHubLink": "https://github.com/pab1s/credit-fraud-detection",
+            "liveLink": "",
+            "image": "/projects/credit-fraud-detection.webp",
+            "tags": []
+        },
+        {
+            "title": "deepspace-java",
+            "description": "Spacecraft card game written in Java for the Object Oriented Programming and Design Course in UGR.",
+            "gitHubLink": "https://github.com/pab1s/deepspace-java",
+            "liveLink": "",
+            "image": "/projects/deepspace-java.webp",
+            "tags": [
+                "game",
+                "java",
+                "oop"
+            ]
+        },
+        {
+            "title": "ETSIIT-info-NUI",
+            "description": "Interactive kiosk web application powered by Leap Motion.",
+            "gitHubLink": "https://github.com/pab1s/ETSIIT-info-NUI",
+            "liveLink": "",
+            "image": "/projects/ETSIIT-info-NUI.webp",
+            "tags": [
+                "css",
+                "express",
+                "html",
+                "javascript",
+                "leap-motion",
+                "natural-user-interface"
+            ]
+        },
+        {
+            "title": "deepspace-ruby",
+            "description": "Spacecraft card game written in Ruby for the Object Oriented Programming and Design Course in UGR.",
+            "gitHubLink": "https://github.com/pab1s/deepspace-ruby",
+            "liveLink": "",
+            "image": "/projects/deepspace-ruby.webp",
+            "tags": [
+                "game",
+                "oop",
+                "ruby"
+            ]
+        },
+        {
+            "title": "deliberative-belkan-worlds",
+            "description": "Deliberative Agent to achieve as many targets as posible in Belkan Worlds. Artificial Intelligence Project in UGR.",
+            "gitHubLink": "https://github.com/pab1s/deliberative-belkan-worlds",
+            "liveLink": "",
+            "image": "/projects/deliberative-belkan-worlds.webp",
+            "tags": [
+                "agents"
+            ]
+        },
+        {
+            "title": "DGIIM",
+            "description": "This repo will host all the code written during the Degree on Computer Science and Mathematics in UGR.",
+            "gitHubLink": "https://github.com/pab1s/DGIIM",
+            "liveLink": "",
+            "image": "/projects/DGIIM.webp",
+            "tags": []
+        },
+        {
+            "title": "ETSIIT-info-app",
+            "description": "App to give facilities to people who need information about UGR giving the best UX.",
+            "gitHubLink": "https://github.com/pab1s/ETSIIT-info-app",
+            "liveLink": "",
+            "image": "/projects/ETSIIT-info-app.webp",
+            "tags": [
+                "android",
+                "dialogflow",
+                "flutter",
+                "sensors",
+                "user-experience"
+            ]
+        },
+        {
+            "title": "ETSIIT-info-dialog",
+            "description": "VoiceXML Project to give information about University of Granada's ETSIIT orally.",
+            "gitHubLink": "https://github.com/pab1s/ETSIIT-info-dialog",
+            "liveLink": "",
+            "image": "/projects/ETSIIT-info-dialog.webp",
+            "tags": [
+                "voice-assistant",
+                "voicexml"
+            ]
+        },
+        {
+            "title": "flutter-netflix-responsive-ui",
+            "description": "Flutter Netflix Responsive UI Clone.",
+            "gitHubLink": "https://github.com/pab1s/flutter-netflix-responsive-ui",
+            "liveLink": "",
+            "image": "/projects/flutter-netflix-responsive-ui.webp",
+            "tags": [
+                "application",
+                "flutter",
+                "netflix",
+                "responsive"
+            ]
+        },
+        {
+            "title": "reactive-belkan-worlds",
+            "description": "Reactive Agent to discover as much as posible in Belkan Worlds. Artificial Intelligence Project in UGR.",
+            "gitHubLink": "https://github.com/pab1s/reactive-belkan-worlds",
+            "liveLink": "",
+            "image": "/projects/reactive-belkan-worlds.webp",
+            "tags": [
+                "agents"
+            ]
+        },
+        {
+            "title": "TFG",
+            "description": "Bachelor's Thesis of Mathematics and Computer Science in UGR.",
+            "gitHubLink": "https://github.com/pab1s/TFG",
+            "liveLink": "",
+            "image": "/projects/TFG.webp",
+            "tags": [
+                "latex",
+                "regularization",
+                "topological-data-analysis",
+                "convolutional-neural-networks",
+                "transfer-learning"
+            ]
+        },
+        {
+            "title": "30-Days-Of-Python",
+            "description": "This repository will store all the code written by me during the course '30 Days of Python' done by Asabeneh Yetayeh.",
+            "gitHubLink": "https://github.com/pab1s/30-Days-Of-Python",
+            "liveLink": "",
+            "image": "/projects/30-Days-Of-Python.webp",
+            "tags": [
+                "python",
+                "tutorial-exercises"
+            ]
+        }
+    ]
+}

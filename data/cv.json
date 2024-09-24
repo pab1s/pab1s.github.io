@@ -1,0 +1,193 @@
+{
+  "basics": {
+    "name": "Pablo Olivares Martínez",
+    "label": "Budding Data Scientist",
+    "email": "pablolivares1502@gmail.com",
+    "location": {
+      "city": "Madrid",
+      "countryCode": "ES"
+    },
+    "profiles": [
+      {
+        "network": "LinkedIn",
+        "username": "pablolivares",
+        "url": "https://www.linkedin.com/in/pablolivares"
+      },
+      {
+        "network": "GitHub",
+        "username": "pab1s",
+        "url": "https://github.com/pab1s"
+      }
+    ],
+    "summary": "Budding Data Scientist with a strong foundation in Computer Science and Mathematics. Deeply passionate about leveraging data and AI to solve complex problems and make a meaningful impact. Excel in challenging environments that promote learning, teamwork, and out-of-the-box thinking."
+  },
+  "work": [
+    {
+      "name": "Santander Bank",
+      "position": "Data Architect Intern",
+      "location": "Spain",
+      "url": "https://www.santanderbank.com/",
+      "startDate": "2024-06",
+      "summary": "Selected for the Santander Data Science Talent Program",
+      "highlights": [
+        "Conducted statistical controls for data ingestion processes.",
+        "Identified and developed 'successes' features for LLM training model evaluation.",
+        "Optimized previous attributes constraints evaluation, achieving a 12x speed improvement.",
+        "Assisted in the design of scalable data systems, gaining experience in big data technologies.",
+        "Utilized Jira for project management, applying Kanban and Scrum methodologies to enhance workflow efficiency."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Escuela de Organización Industrial (EOI), Spain",
+      "area": "Big Data & Business Analytics",
+      "studyType": "Master of Science",
+      "startDate": "2024-06",
+      "endDate": "Current",
+      "courses": [
+        "Big Data Architecture",
+        "Data Visualization",
+        "Natural Language Processing"
+      ]
+    },
+    {
+      "institution": "University of Granada, Spain",
+      "area": "Mathematics",
+      "studyType": "Bachelor of Science",
+      "startDate": "2019-09",
+      "endDate": "2024-07",
+      "courses": [
+        "Functional Analysis",
+        "Numerical Methods",
+        "Differential Equations"
+      ]
+    },
+    {
+      "institution": "University of Granada, Spain",
+      "area": "Computer Science",
+      "studyType": "Bachelor of Science",
+      "specialization": "Intelligent Systems",
+      "startDate": "2019-09",
+      "endDate": "2024-07",
+      "courses": [
+        "Computer Vision",
+        "Metaheuristics",
+        "Artificial Intelligence"
+      ]
+    },
+    {
+      "institution": "University of Łódź, Poland",
+      "studyType": "Erasmus+ Programme",
+      "startDate": "2022-09",
+      "endDate": "2023-07",
+      "courses": [
+        "Machine Learning",
+        "Operations Research",
+        "Statistical Inference",
+        "Stochastic Processes"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Topological Data Analysis in CNNs",
+      "description": "Explored the integration of Topological Data Analysis (TDA) with convolutional neural networks (CNNs) to enhance understanding of CNN data manipulation.",
+      "highlights": [
+        "Applied persistent homology techniques to analyze data structure during CNN processing.",
+        "Proposed topological regularization in models like EfficientNet-B0 and DenseNet-121, improving classification accuracy and generalization.",
+        "Demonstrated improved knowledge transfer through topological modifications, suggesting new strategies for CNN optimization."
+      ],
+      "url": "https://github.com/pab1s/TFG",
+      "startDate": "2023-09",
+      "endDate": "2024-07"
+    },
+    {
+      "name": "Parking Detection in the city of Granada",
+      "description": "Applied semantic segmentation for urban planning, focusing on parking space detection in Granada using models like PSPNet and DeepLabV3+.",
+      "highlights": [
+        "Achieved 80% F1 Score, enhancing urban mobility plans."
+      ],
+      "url": "https://github.com/pab1s/granada-parking-segmentation",
+      "startDate": "2022-11",
+      "endDate": "2023-01"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Programming",
+      "keywords": [
+        "Python",
+        "C++",
+        "SQL",
+        "Java",
+        "R",
+        "LaTeX",
+        "C",
+        "Ruby"
+      ]
+    },
+    {
+      "name": "Data Science & Machine Learning",
+      "keywords": [
+        "PyTorch",
+        "Scikit-learn",
+        "Keras",
+        "Pandas",
+        "Tidyverse",
+        "Spark",
+        "MLOps"
+      ]
+    },
+    {
+      "name": "Other Technical Skills",
+      "keywords": [
+        "Git",
+        "Databricks",
+        "OpenMP",
+        "OpenMPI",
+        "Object-Oriented Programming (OOP)"
+      ]
+    }
+  ],
+  "languages": [
+    {
+      "language": "Spanish",
+      "fluency": "Native"
+    },
+    {
+      "language": "English",
+      "fluency": "Proficient (C1 Cambridge)"
+    },
+    {
+      "language": "French",
+      "fluency": "Independent"
+    }
+  ],
+  "volunteer": [
+    {
+      "organization": "LibreIM",
+      "position": "Member and Collaborator",
+      "url": "https://libreim.github.io/",
+      "startDate": "2021-02",
+      "endDate": "Present",
+      "summary": "Developed and maintained extensive notes in LaTeX for LibreIM, a non-profit organization, focusing on Formal Logic and Topology."
+    },
+    {
+      "organization": "Busca Tu Profesor",
+      "position": "Private Tutor",
+      "url": "https://buscatuprofesor.es/",
+      "startDate": "2021-09",
+      "endDate": "2022-06",
+      "summary": "Successfully managed to give lessons in mathematics and basic programming to high school children while maintaining college studies."
+    },
+    {
+      "organization": "Imhlala Panzi Scouts",
+      "position": "Member",
+      "url": "https://www.imhlala-panzi.com/",
+      "startDate": "2012",
+      "endDate": "2019",
+      "summary": "Organized charity and environmental tasks including cleaning natural environments, charitable collections to aid minorities, awareness campaigns, and social inclusion activities."
+    }
+  ]
+}
