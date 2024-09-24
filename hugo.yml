@@ -1,0 +1,50 @@
+baseURL: 'https://pab1s.github.io/'
+languageCode: en-us
+title: Pablo Olivares
+theme: PaperMod
+paginate: 6
+
+params:
+  # Papermod specific settings
+  defaultTheme: auto
+  showDarkModeSwitch: true
+  mainSections: ["blog"]
+  ShowReadingTime: true
+  ShowShareButtons: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  disableSpecial1stPost: true
+  ShowToc: true
+  math: true
+  profileSubtitle: "Data Scientist & Nature Lover!"
+  profileImage: 'avatar.png'
+
+  socialIcons:
+    - name: linkedin
+      url: "https://www.linkedin.com/in/pablolivares/?locale=en_US"
+    - name: github
+      url: "https://github.com/pab1s"
+    - name: email
+      url: "mailto:pablolivares1502@gmail.com"
+
+menu:
+  main:
+    - identifier: blog
+      name: Blog
+      url: "/blog/"
+      weight: 1
+    - identifier: projects
+      name: Projects
+      url: "/projects/"
+      weight: 2
+    - identifier: resume
+      name: Resume
+      url: "/resume/"
+      weight: 3
+
+outputs:
+  home: 
+    - HTML
+    - RSS
+    - JSON
