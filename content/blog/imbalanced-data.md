@@ -1,6 +1,6 @@
 ---
 title: "Beyond Probabilistic Learning: Rethinking Machine Learning in the Era of Imbalanced Data"
-date: 2024-08-31
+date: 2024-10-11
 description: "Is it really all about probabilities?"
 author: "Pablo Olivares"
 tags: ["machine-learning", "imbalanced-data", "calibration", "distribution-shift"]
@@ -11,8 +11,6 @@ draft: false
 Modern machine learning (ML) is at a crossroads. As deep learning models and ensemble techniques reach unparalleled levels of performance, it’s becoming clear that traditional statistical foundations may no longer be sufficient to explain or guide the most advanced models. Despite the success of strong learners like deep neural networks, these models excel in real-world scenarios even when violating the core principles of classical statistical learning theory.
 
 Particularly, imbalanced data and calibration problems expose the limitations of traditional theory. Models that dominate competitions like Kaggle often achieve high accuracy while producing unreliable probabilistic estimates. This brings us to a concerning question: Is the traditional statistical and probabilistic framework still enough to understand why modern machine learning models work so well?
-
-This article will explore this question by examining the disconnect between classical theory and modern machine learning, focusing on key challenges like calibration, imbalanced data, distribution shift, and the paradox of strong learners' success. We’ll also argue that the time has come to rethink the foundational assumptions of learning theory, suggesting a broader framework to understand machine learning's real-world complexities.
 
 ### The Statistical Foundations of Learning: From Weak to Strong Learners
 
