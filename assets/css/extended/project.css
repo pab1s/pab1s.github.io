@@ -33,6 +33,12 @@
     text-decoration: none; /* Remove underline from link */
     color: inherit; /* Ensure text color stays consistent */
     display: block;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.project-link:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 .project {
@@ -124,17 +130,19 @@
     margin-bottom: 1.5rem;
     text-align: center;
     text-decoration: none; /* Remove underline from the link */
+    max-width: 200px;
+    color: var(--theme);
+    font-size: 13px;
+    line-height: 36px;
+    background: var(--primary);
+    border-radius: calc(36px / 2);
+    padding: 0 16px;
+    transition: opacity 0.2s ease-in-out;
 }
 
-.see-all-btn {
-    max-width: 200px;
-        color: var(--theme);
-        font-size: 13px;
-        line-height: 36px;
-        background: var(--primary);
-        border-radius: calc(36px / 2);
-        padding: 0 16px;
-    }
+.see-all-btn:hover {
+    opacity: 0.9;
+}
 
 /* Hidden projects by default */
 .hidden-project {

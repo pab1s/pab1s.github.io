@@ -17,8 +17,14 @@ params:
   disableSpecial1stPost: true
   ShowToc: true
   math: true
-  profileSubtitle: "Data Scientist & Nature Lover!"
+  profileSubtitle: "ML Engineer, Data Alchemist & Nature Lover!"
   profileImage: 'avatar.png'
+  disableSearch: false
+  searchIncludeContent: true
+  fuseOpts:
+    minMatchCharLength: 2
+    threshold: 0.3
+    keys: [title, permalink, summary, content, tags]
 
   socialIcons:
     - name: linkedin
