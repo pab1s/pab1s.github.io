@@ -128,3 +128,22 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Hugo specific
+/public/
+/resources/_gen/
+/assets/jsconfig.json
+.hugo_build.lock
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# IDE specific
+.idea/
+*.swp
+*.swo
+*~
+
+# Local Netlify folder
+.netlify
