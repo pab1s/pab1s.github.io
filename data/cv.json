@@ -1,7 +1,7 @@
 {
   "basics": {
     "name": "Pablo Olivares Martínez",
-    "label": "Data Scientist | Data Architect",
+    "label": "ML Engineer | Data Scientist",
     "email": "pablolivares1502@gmail.com",
     "location": {
       "city": "Madrid",
@@ -19,22 +19,21 @@
         "url": "https://github.com/pab1s"
       }
     ],
-    "summary": "Budding Data Scientist with a strong foundation in Computer Science and Mathematics. Deeply passionate about leveraging data and AI to solve complex problems and make a meaningful impact. Excel in challenging environments that promote learning, teamwork, and out-of-the-box thinking."
+    "summary": "ML Engineer and Data Scientist selected for the Santander Data Science Talent Program. Proven ability to apply deep learning and achieve impactful results in data projects, along with a strong foundation in Mathematics and Computer Science."
   },
   "work": [
     {
       "name": "Santander Bank",
-      "position": "Data Architect Intern",
-      "location": "Spain",
+      "position": "ML Engineer | Data Scientist",
+      "location": "Madrid, Spain",
       "url": "https://www.santanderbank.com/",
       "startDate": "2024-06",
-      "summary": "Selected for the Santander Data Science Talent Program",
+      "summary": "Selected for the Santander Data Science Talent Program, now contributing to advanced analytics and scalable data solutions within the Data & AI Models team.",
       "highlights": [
-        "Conducted statistical controls for data ingestion processes.",
-        "Identified and developed 'successes' features for LLM training model evaluation.",
-        "Optimized previous attributes constraints evaluation, achieving a 12x speed improvement.",
-        "Assisted in the design of scalable data systems, gaining experience in big data technologies.",
-        "Utilized Jira for project management, applying Kanban and Scrum methodologies to enhance workflow efficiency."
+        "Developed an LLM explainability solution for predictive models by identifying key features from underlying data to justify commercial opportunities.",
+        "Designed and implemented scalable data pipelines using PySpark for efficient data ingestion for model training.",
+        "Developed a health insurance subscription prediction model achieving 92% AUC, leading to a 23% increase in customer acquisition.",
+        "Designed and implemented a data quality control system for a Customer 360 project, improving data integrity and process execution time by up to 97%."
       ]
     }
   ],
@@ -92,21 +91,22 @@
   "projects": [
     {
       "name": "Topological Data Analysis in CNNs",
-      "description": "Explored the integration of Topological Data Analysis (TDA) with convolutional neural networks (CNNs) to enhance understanding of CNN data manipulation.",
+      "description": "Explored the integration of Topological Data Analysis (TDA) with convolutional neural networks (CNNs) to enhance understanding of CNN data manipulation, resulting in improved classification accuracy and generalization.",
       "highlights": [
         "Applied persistent homology techniques to analyze data structure during CNN processing.",
-        "Proposed topological regularization in models like EfficientNet-B0 and DenseNet-121, improving classification accuracy and generalization.",
-        "Demonstrated improved knowledge transfer through topological modifications, suggesting new strategies for CNN optimization."
+        "Proposed topological regularization in models like EfficientNet-B0 and DenseNet-121.",
+        "Awarded 'Best Bachelor Thesis 2024 Promotion' for outstanding work."
       ],
       "url": "https://github.com/pab1s/TFG",
       "startDate": "2023-09",
       "endDate": "2024-07"
     },
     {
-      "name": "Parking Detection in the city of Granada",
-      "description": "Applied semantic segmentation for urban planning, focusing on parking space detection in Granada using models like PSPNet and DeepLabV3+.",
+      "name": "Semantic Segmentation for Urban Mobility",
+      "description": "Developed a deep learning solution for parking space detection in the city of Granada using semantic segmentation techniques, contributing to urban planning and mobility improvement.",
       "highlights": [
-        "Achieved 80% F1 Score, enhancing urban mobility plans."
+        "Created an image segmentation dataset with a novel data augmentation technique tailored for parking detection.",
+        "Implemented architectures like PSPNet and DeepLabV3+, achieving an 80% F1-score in validation."
       ],
       "url": "https://github.com/pab1s/granada-parking-segmentation",
       "startDate": "2022-11",
@@ -118,35 +118,37 @@
       "name": "Programming",
       "keywords": [
         "Python",
-        "C++",
         "SQL",
+        "C/C++",
         "Java",
-        "R",
         "LaTeX",
-        "C",
-        "Ruby"
+        "R"
       ]
     },
     {
-      "name": "Data Science & Machine Learning",
+      "name": "Machine Learning & Data Science",
       "keywords": [
-        "PyTorch",
-        "Scikit-learn",
-        "Keras",
-        "Pandas",
-        "Tidyverse",
-        "Spark",
+        "Large Language Models (LLMs)",
+        "Natural Language Processing (NLP)",
+        "Convolutional Neural Networks (CNNs)",
+        "Computer Vision",
+        "Deep Learning",
+        "Imbalanced Data",
         "MLOps"
       ]
     },
     {
-      "name": "Other Technical Skills",
+      "name": "Technologies & Tools",
       "keywords": [
+        "Azure Databricks",
+        "Spark",
+        "PyTorch",
+        "MLflow",
+        "OpenCV",
+        "Scikit-learn",
         "Git",
-        "Databricks",
-        "OpenMP",
-        "OpenMPI",
-        "Object-Oriented Programming (OOP)"
+        "Jira",
+        "Confluence"
       ]
     }
   ],
@@ -171,7 +173,7 @@
       "url": "https://libreim.github.io/",
       "startDate": "2021-02",
       "endDate": "Present",
-      "summary": "Developed and maintained extensive notes in LaTeX for LibreIM, a non-profit organization, focusing on Formal Logic and Topology."
+      "summary": "Developed and maintained extensive LaTeX notes for LibreIM, a non-profit organization, focusing on Formal Logic and Topology."
     },
     {
       "organization": "Busca Tu Profesor",
@@ -179,7 +181,7 @@
       "url": "https://buscatuprofesor.es/",
       "startDate": "2021-09",
       "endDate": "2022-06",
-      "summary": "Successfully managed to give lessons in mathematics and basic programming to high school children while maintaining college studies."
+      "summary": "Conducted mathematics and basic programming lessons for high school students while managing college studies."
     },
     {
       "organization": "Imhlala Panzi Scouts",
@@ -187,7 +189,7 @@
       "url": "https://www.imhlala-panzi.com/",
       "startDate": "2012",
       "endDate": "2019",
-      "summary": "Organized charity and environmental tasks including cleaning natural environments, charitable collections to aid minorities, awareness campaigns, and social inclusion activities."
+      "summary": "Organized charity and environmental tasks including natural environment cleanups, charity collections to aid minorities, awareness campaigns, and social inclusion activities."
     }
   ]
 }

@@ -25,6 +25,10 @@ params:
     minMatchCharLength: 2
     threshold: 0.3
     keys: [title, permalink, summary, content, tags]
+  assets:
+    disableFingerprinting: true
+  customCSS:
+    - assets/css/extended/fonts.css
 
   socialIcons:
     - name: linkedin
