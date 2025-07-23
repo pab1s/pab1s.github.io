@@ -148,3 +148,4 @@ Thumbs.db
 # Local Netlify folder
 .netlify
 github-json.py
+generate-favicons.html

@@ -15,14 +15,16 @@
     </script>
 {{ end }}
 {{- /* Head custom content area start */ -}}
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_GA_ID"></script>
+{{- /* Google Analytics - Configure with your actual GA ID in hugo.yml under params.analytics.google.id */ -}}
+{{- if site.Params.analytics.google.id }}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.Params.analytics.google.id }}"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'YOUR_GA_ID');
+  gtag('config', '{{ site.Params.analytics.google.id }}');
 </script>
+{{- end }}
 <!-- Meta tags for SEO -->
 <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}">
 <meta name="keywords" content="{{ with .Keywords }}{{ delimit . ", " }}{{ else }}{{ with .Site.Params.keywords }}{{ delimit . ", " }}{{ end }}{{ end }}">
