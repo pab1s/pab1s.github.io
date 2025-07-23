@@ -15,6 +15,11 @@ params:
     name: Pablo Olivares
     email: pablolivares1502@gmail.com
   
+  # Google Analytics (replace with your actual Measurement ID)
+  analytics:
+    google:
+      id: "G-Q6BZDBC20J"
+  
   # Papermod specific settings
   defaultTheme: auto
   showDarkModeSwitch: true
