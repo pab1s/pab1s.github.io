@@ -23,35 +23,55 @@
 .portfolio-projects {
     display: flex;
     flex-wrap: wrap;
-    gap: 2rem; /* Add proper gap between cards */
+    gap: 1rem; /* Increased gap between cards */
+}
+
+/* Project container wrapper */
+.project-container {
+    width: calc(50% - 0.5rem); /* Two columns: 50% minus half the gap */
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    background-color: var(--entry);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    overflow: hidden;
+}
+
+.project-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border-color: var(--primary);
 }
 
 /* Ensure the whole card is clickable */
 .project-link {
-    width: calc(50% - 1rem); /* Two columns with gap */
+    width: 100%;
     text-decoration: none;
     color: inherit;
     display: block;
-    margin-bottom: 2rem; /* Vertical spacing between rows */
+    box-sizing: border-box;
+    flex-grow: 1;
+    background: transparent !important;
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none !important;
 }
 
 .project {
-    background-color: var(--color-card-background);
-    border-radius: 8px;
     padding: 1rem;
-    color: var(--color-text);
-    box-shadow: var(--card-shadow);
-    transition: transform 0.2s, box-shadow 0.2s;
-    border: 2px solid var(--color-border);
+    color: var(--content);
     height: 100%;
-    width: 100%; /* Full width of its container */
+    width: 100%;
     box-sizing: border-box;
-}
-
-.project:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-    border-color: var(--color-accent);
+    overflow: hidden; /* Prevent content from overflowing */
+    min-width: 0; /* Allow flexbox shrinking */
+    background: transparent;
+    border: none;
+    border-radius: 0;
 }
 
 /* Project header (folder icon and links) */
@@ -64,12 +84,14 @@
 
 /* Project Tags */
 .project-tags {
-    margin-top: 10px;
+    padding: 0.5rem 1rem 1rem 1rem; /* Match project padding */
+    margin: 0;
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    justify-content: flex-start; /* Align tags to the left */
-    max-width: 100%; /* Allow full width for wrapping */
+    gap: 4px;
+    justify-content: flex-start;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* Individual tag styling */
@@ -77,12 +99,14 @@
     font-family: 'Ubuntu Mono', monospace;
     background-color: transparent;
     color: #007bff;
-    border-radius: 4px;
+    border-radius: 3px;
     border: 1px solid #007bff;
     padding: 2px 6px;
-    font-size: 0.85em;
-    white-space: nowrap; 
+    font-size: 0.8em;
+    white-space: nowrap;
     transition: background-color 0.3s, color 0.3s;
+    text-decoration: none; /* Remove underline for links */
+    display: inline-block;
 }
 
 /* On hover, change the tag background */
@@ -120,12 +144,17 @@
 .project h3 {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 /* Project description */
 .project p {
     font-size: 1rem;
-    color: var(--color-muted);
+    color: var(--secondary);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
 }
 
 /* Project banner image with landscape ratio */
@@ -133,10 +162,12 @@
     width: 100%;
     height: 0;
     padding-bottom: 56.25%; /* 16:9 aspect ratio */
-    border-radius: 8px;
-    margin-bottom: 1rem;
+    border-radius: var(--radius);
+    margin: 0 0 1rem 0; /* Normal margin */
     background-size: cover;
-    background-position: center;
+    background-position: center center; /* Explicitly center both axes */
+    background-repeat: no-repeat;
+    position: relative;
 }
 
 /* Show More button */
@@ -176,13 +207,13 @@
 
 /* Media query for responsiveness */
 @media (max-width: 768px) {
-    .project-link {
+    .project-container {
         width: 100%; /* Single column on mobile */
-        margin-bottom: 1rem; /* Less vertical spacing on mobile */
+        margin-bottom: 1rem; /* Add spacing between project containers on mobile */
     }
     
     .portfolio-projects {
-        gap: 1rem; /* Smaller gap on mobile */
+        gap: 0.5rem; /* Same gap on mobile */
     }
 }
 

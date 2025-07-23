@@ -3,28 +3,39 @@
     {{ $projects := .Site.Data.projects.projects }}
     {{ $visibleProjects := 6 }}
     {{ range $index, $element := first $visibleProjects $projects }}
-      <a href="{{ .gitHubLink }}" target="_blank" rel="noopener noreferrer" class="project-link">
-        <div class="project">
-          <div class="project-header">
-            <i class="fa-regular fa-folder-open folder-icon"></i>
-            <div class="small-icons">
-              {{ if .gitHubLink }}
-                <i class="fa-brands fa-github"></i>
-              {{ end }}
-              {{ if .liveLink }}
-                <a href="{{ .liveLink }}" target="_blank" rel="noopener noreferrer">
-                  <i class="fa-solid fa-up-right-from-square"></i>
-                </a>
-              {{ end }}
+      <div class="project-container">
+        <a href="{{ .gitHubLink }}" target="_blank" rel="noopener noreferrer" class="project-link">
+          <div class="project">
+            <div class="project-header">
+              <i class="fa-regular fa-folder-open folder-icon"></i>
+              <div class="small-icons">
+                {{ if .gitHubLink }}
+                  <i class="fa-brands fa-github"></i>
+                {{ end }}
+                {{ if .liveLink }}
+                  <a href="{{ .liveLink }}" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-solid fa-up-right-from-square"></i>
+                  </a>
+                {{ end }}
+              </div>
             </div>
+            {{ if .image }}
+              <div class="project-banner" style="background-image: url('{{ .image }}');"></div>
+            {{ end }}
+            <h3>{{ .title }}</h3>
+            <p>{{ .description }}</p>
           </div>
-          {{ if .image }}
-            <div class="project-banner" style="background-image: url('{{ .image }}');"></div>
+        </a>
+        
+        <!-- Display project tags outside the clickable link -->
+        {{ if .tags }}
+        <div class="project-tags">
+          {{ range .tags }}
+          <span class="tag">{{ . }}</span>
           {{ end }}
-          <h3>{{ .title }}</h3>
-          <p>{{ .description }}</p>
         </div>
-      </a>
+        {{ end }}
+      </div>
     {{ end }}
   </div>
 

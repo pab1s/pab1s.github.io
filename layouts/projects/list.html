@@ -53,37 +53,39 @@
   <div class="portfolio-projects">
     {{ $projects := .Site.Data.projects.projects }}
     {{ range $index, $element := $projects }}
-      <a href="{{ .gitHubLink }}" target="_blank" rel="noopener noreferrer" class="project-link">
-        <div class="project">
-          <div class="project-header">
-            <i class="fa-regular fa-folder-open folder-icon"></i>
-            <div class="small-icons">
-              {{ if .gitHubLink }}
-                <i class="fa-brands fa-github"></i>
-              {{ end }}
-              {{ if .liveLink }}
-                <a href="{{ .liveLink }}" target="_blank" rel="noopener noreferrer">
-                  <i class="fa-solid fa-up-right-from-square"></i>
-                </a>
-              {{ end }}
+      <div class="project-container">
+        <a href="{{ .gitHubLink }}" target="_blank" rel="noopener noreferrer" class="project-link">
+          <div class="project">
+            <div class="project-header">
+              <i class="fa-regular fa-folder-open folder-icon"></i>
+              <div class="small-icons">
+                {{ if .gitHubLink }}
+                  <i class="fa-brands fa-github"></i>
+                {{ end }}
+                {{ if .liveLink }}
+                  <a href="{{ .liveLink }}" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-solid fa-up-right-from-square"></i>
+                  </a>
+                {{ end }}
+              </div>
             </div>
-          </div>
-          {{ if .image }}
-            <div class="project-banner" style="background-image: url('{{ .image | absURL }}');"></div>
-          {{ end }}
-          <h3>{{ .title }}</h3>
-          <p>{{ .description }}</p>
-          
-          <!-- Display project tags with links to tag pages -->
-          {{ if .tags }}
-          <div class="project-tags">
-            {{ range .tags }}
-            <a href="/tags/{{ . | urlize }}" class="tag">{{ . }}</a>
+            {{ if .image }}
+              <div class="project-banner" style="background-image: url('{{ .image | absURL }}');"></div>
             {{ end }}
+            <h3>{{ .title }}</h3>
+            <p>{{ .description }}</p>
           </div>
+        </a>
+        
+        <!-- Display project tags with links to tag pages -->
+        {{ if .tags }}
+        <div class="project-tags">
+          {{ range .tags }}
+          <a href="/tags/{{ . | urlize }}" class="tag">{{ . }}</a>
           {{ end }}
         </div>
-      </a>
+        {{ end }}
+      </div>
     {{ end }}
   </div>
 </div>
