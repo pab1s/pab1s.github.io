@@ -2,7 +2,7 @@
     <div class="profile">
         {{ with .Site.Params.profileImage }}
         <div class="profile-img">
-            <img src="{{ . }}" alt="{{ $.Site.Author.name }}" height="150" width="150">
+            <img src="{{ . }}" alt="{{ $.Site.Params.author.name }}" height="150" width="150">
         </div>
         {{ end }}
         <h3 class="profile-name">{{ .Site.Params.author.name }}</h3>

@@ -5,16 +5,16 @@ theme: PaperMod
 pagination:
   pagerSize: 6
 
-# Author information
-author:
-  name: Pablo Olivares
-  email: pablolivares1502@gmail.com
-
 # Site metadata
 description: "Pablo Olivares - ML Engineer & Data Scientist passionate about AI, Topological Data Analysis, and nature. Explore my projects, blog posts, and professional journey."
 keywords: ["machine learning", "data science", "artificial intelligence", "topological data analysis", "pablo olivares", "ML engineer", "data alchemist"]
 
 params:
+  # Author information (moved to params for Hugo v0.124.0+ compatibility)
+  author:
+    name: Pablo Olivares
+    email: pablolivares1502@gmail.com
+  
   # Papermod specific settings
   defaultTheme: auto
   showDarkModeSwitch: true
