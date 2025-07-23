@@ -23,29 +23,29 @@
 .portfolio-projects {
     display: flex;
     flex-wrap: wrap;
-    gap: 0rem;
+    gap: 2rem; /* Add proper gap between cards */
 }
 
 /* Ensure the whole card is clickable */
 .project-link {
-    width: 100%;
+    width: calc(50% - 1rem); /* Two columns with gap */
     text-decoration: none;
     color: inherit;
     display: block;
+    margin-bottom: 2rem; /* Vertical spacing between rows */
 }
 
 .project {
     background-color: var(--color-card-background);
     border-radius: 8px;
     padding: 1rem;
-    margin: auto;
     color: var(--color-text);
     box-shadow: var(--card-shadow);
     transition: transform 0.2s, box-shadow 0.2s;
     border: 2px solid var(--color-border);
     height: 100%;
-    width: calc(50% - 2rem); /* 50% width with gap management */
-    box-sizing: border-box; /* Ensure padding and border are included in the width */
+    width: 100%; /* Full width of its container */
+    box-sizing: border-box;
 }
 
 .project:hover {
@@ -176,8 +176,13 @@
 
 /* Media query for responsiveness */
 @media (max-width: 768px) {
-    .project {
-        width: 100%; /* Make each project take full width on small screens */
+    .project-link {
+        width: 100%; /* Single column on mobile */
+        margin-bottom: 1rem; /* Less vertical spacing on mobile */
+    }
+    
+    .portfolio-projects {
+        gap: 1rem; /* Smaller gap on mobile */
     }
 }
 
