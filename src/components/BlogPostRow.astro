@@ -1,0 +1,134 @@
+---
+interface Props {
+  slug: string;
+  title: string;
+  date: Date;
+  description?: string;
+  tags: string[];
+}
+
+const { slug, title, date, description, tags } = Astro.props;
+
+const dateStr = date.toISOString().slice(0, 10).replace(/-/g, ".");
+
+function tagColor(tag: string): string {
+  const t = tag.toLowerCase();
+  if (t.includes("ai") || t.includes("ml") || t.includes("learning")) return "#D4A574";
+  if (t.includes("math") || t.includes("stat")) return "#8FBC8F";
+  return "#7BA7BC";
+}
+---
+
+<div class="blog-post-row">
+  <time class="blog-post-date" datetime={date.toISOString()}>
+    {dateStr}
+  </time>
+  <div class="blog-post-content">
+    <h3 class="blog-post-title">
+      <a href={`/blog/${slug}/`}>{title}</a>
+    </h3>
+    {description?.trim() ? (
+      <p class="blog-post-description">{description}</p>
+    ) : null}
+    {tags.length ? (
+      <div class="blog-post-tags">
+        {tags.map((t) => (
+          <span class="blog-post-tag">
+            <span
+              class="blog-post-tag-dot"
+              style={`background-color: ${tagColor(t)}`}
+            />
+            <span class="blog-post-tag-text">{t}</span>
+          </span>
+        ))}
+      </div>
+    ) : null}
+  </div>
+</div>
+
+<style>
+  .blog-post-row {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 1.5rem;
+    align-items: baseline;
+    padding: 1.5rem 0;
+    transition: transform 200ms ease;
+  }
+
+  .blog-post-row:hover {
+    transform: translateX(4px);
+  }
+
+  .blog-post-date {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  .blog-post-content {
+    min-width: 0;
+  }
+
+  .blog-post-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0;
+    font-family: var(--font-display);
+    line-height: 1.2;
+  }
+
+  .blog-post-title a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 150ms ease;
+  }
+
+  .blog-post-title a:hover {
+    color: var(--accent);
+  }
+
+  .blog-post-description {
+    font-size: 0.9rem;
+    color: var(--muted);
+    max-width: 50ch;
+    line-height: 1.5;
+    margin: 0.35rem 0 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .blog-post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .blog-post-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+  }
+
+  .blog-post-tag-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 640px) {
+    .blog-post-row {
+      grid-template-columns: 1fr;
+      gap: 0.35rem;
+    }
+  }
+</style>

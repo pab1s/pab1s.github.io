@@ -1,48 +1,34 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import SiteHeader from "../../components/SiteHeader.astro";
+import WorkshopNav from "../../components/WorkshopNav.astro";
+import BlogPostRow from "../../components/BlogPostRow.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
 import { getCollection } from "astro:content";
-import { siteConfig } from "../../site-config";
 
 const posts = (await getCollection("blog"))
   .filter((p) => !p.data.draft)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
-<BaseLayout title="Blog" description={siteConfig.description}>
-  <SiteHeader currentPath={Astro.url.pathname} />
+<BaseLayout title="Blog" description="Notes on ML, math, and the art of data alchemy.">
+  <WorkshopNav currentPath={Astro.url.pathname} />
 
-  <header class="frame section-lead">
-    <p class="stamp">Logbook</p>
-    <h1 style="margin: 0.35rem 0 0; border: none; padding: 0;">Blog</h1>
-    <p class="meta-row" style="margin: 0.35rem 0 0;">
-      Machine learning, theory detours, and build notes.
-    </p>
+  <header class="section-hero">
+    <h1>Lab Notebook</h1>
+    <p>Notes on ML, math, and the art of data alchemy.</p>
   </header>
 
-  <ul style="list-style: none; padding: 0; margin: 0;">
+  <ul class="blog-list stagger-in">
     {
-      posts.map((post) => (
-        <li class="frame" style="margin-bottom: 0.48rem;">
-          <a href={`/blog/${post.slug}/`} style="font-weight: 600;">
-            {post.data.title}
-          </a>
-          <div class="meta-row" style="margin-top: 0.28rem;">
-            <time datetime={post.data.date.toISOString()}>
-              {post.data.date.toISOString().slice(0, 10)}
-            </time>
-          </div>
-          {post.data.description?.trim() ? (
-            <p style="margin: 0.38rem 0 0;">{post.data.description}</p>
-          ) : null}
-          {post.data.tags.length ? (
-            <div style="margin-top: 0.38rem;">
-              {post.data.tags.map((t) => (
-                <span class="chip">{t}</span>
-              ))}
-            </div>
-          ) : null}
+      posts.map((post, i) => (
+        <li style={`--index: ${i}`}>
+          <BlogPostRow
+            slug={post.slug}
+            title={post.data.title}
+            date={post.data.date}
+            description={post.data.description}
+            tags={post.data.tags}
+          />
         </li>
       ))
     }
