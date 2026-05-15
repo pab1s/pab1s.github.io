@@ -106,17 +106,18 @@ const navItems = [
     z-index: 50;
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    background: rgba(12, 14, 18, 0.75);
-    border: 1px solid var(--line);
+    background: rgba(251, 251, 251, 0.88);
+    border: 1px solid rgba(0, 0, 0, 0.10);
     border-radius: 999px;
     width: calc(100% - 2rem);
     max-width: 920px;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 4px 1px rgba(0,0,0,0.05), 0 1px 1px 0px rgba(0,0,0,0.10), 0 -1px 1px 1px #FFF inset;
   }
 
-  html[data-theme="light"] .workshop-nav {
-    background: rgba(247, 245, 240, 0.88);
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  html[data-theme="dark"] .workshop-nav {
+    background: rgba(10, 10, 10, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
   }
 
   .workshop-nav-inner {

@@ -6,11 +6,11 @@ import SiteFooter from "../components/SiteFooter.astro";
 
 <BaseLayout title="404 — off the map" description="No fixture at this coordinate.">
   <WorkshopNav currentPath={Astro.url.pathname} />
-  <div style="text-align: center; padding: 4rem 1rem;">
-    <p class="stamp">Signal lost</p>
+  <header class="section-hero" style="text-align: center; padding: 4rem 1rem;">
+    <span class="fig-label">ERR_404 · not found</span>
     <h1 style="margin: 1rem 0; font-size: 3rem;">404</h1>
     <p style="color: var(--muted); margin-bottom: 2rem;">This experiment hasn't been conducted yet.</p>
     <a href="/" style="color: var(--accent); text-decoration: none;">Return to the workshop →</a>
-  </div>
+  </header>
   <SiteFooter />
 </BaseLayout>
