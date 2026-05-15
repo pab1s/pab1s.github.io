@@ -172,7 +172,7 @@ body {
   z-index: 1;
   max-width: 72rem;
   margin: 0 auto;
-  padding: 0.65rem clamp(0.65rem, 4vw, 2rem) 1.65rem;
+  padding: 5rem clamp(0.65rem, 4vw, 2rem) 1.65rem;
 }
 
 a {
