@@ -42,7 +42,7 @@ const liveLink = featuredProject.liveLink?.trim() ?? "";
 
 <section class="bento-section">
   <div class="bento-grid">
-    <!-- Cell 1: Latest Blog Posts (spans 2x2) -->
+    <!-- Cell 1: Latest Blog Posts (2×2) -->
     <div class="bento-cell bento-cell--blog" style="--index: 0;">
       <SpotlightCard class="bento-card">
         <div class="bento-card-inner">
@@ -64,7 +64,7 @@ const liveLink = featuredProject.liveLink?.trim() ?? "";
       </SpotlightCard>
     </div>
 
-    <!-- Cell 2: Featured Project (spans 2x1) -->
+    <!-- Cell 2: Featured Project (2×1) -->
     <div class="bento-cell bento-cell--project" style="--index: 1;">
       <SpotlightCard class="bento-card">
         <div class="bento-card-inner">
@@ -96,11 +96,11 @@ const liveLink = featuredProject.liveLink?.trim() ?? "";
       </SpotlightCard>
     </div>
 
-    <!-- Cell 3: Tinkering Widget -->
+    <!-- Cell 3: Tinkering Widget (1×1) -->
     <div class="bento-cell bento-cell--tinkering" style="--index: 2;">
       <SpotlightCard class="bento-card">
         <div class="bento-card-inner">
-          <h3 class="bento-title">What I'm tinkering with</h3>
+          <h3 class="bento-title">Tinkering</h3>
           <ul class="bento-tinkering-list">
             {
               tinkeringItems.map((item) => (
@@ -115,11 +115,11 @@ const liveLink = featuredProject.liveLink?.trim() ?? "";
       </SpotlightCard>
     </div>
 
-    <!-- Cell 4: Stats Widget -->
+    <!-- Cell 4: Stats Widget (1×1) -->
     <div class="bento-cell bento-cell--stats" style="--index: 3;">
       <SpotlightCard class="bento-card">
         <div class="bento-card-inner">
-          <h3 class="bento-title">Workshop stats</h3>
+          <h3 class="bento-title">Stats</h3>
           <ul class="bento-stats-list">
             {
               stats.map((stat) => (
@@ -145,29 +145,35 @@ const liveLink = featuredProject.liveLink?.trim() ?? "";
   .bento-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr 1fr auto;
     gap: 1rem;
+    align-items: stretch;
   }
 
   .bento-cell {
     animation: fade-in-up 500ms cubic-bezier(0.16, 1, 0.3, 1) both;
     animation-delay: calc(var(--index, 0) * 120ms);
+    min-height: 0;
   }
 
   .bento-cell--blog {
-    grid-column: span 2;
-    grid-row: span 2;
+    grid-column: 1 / 3;
+    grid-row: 1 / 3;
   }
 
   .bento-cell--project {
-    grid-column: span 2;
+    grid-column: 3 / 5;
+    grid-row: 1 / 2;
   }
 
   .bento-cell--tinkering {
-    grid-column: span 1;
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
   }
 
   .bento-cell--stats {
-    grid-column: span 1;
+    grid-column: 4 / 5;
+    grid-row: 2 / 3;
   }
 
   :global(.spotlight-card.bento-card) {
@@ -244,7 +250,7 @@ const liveLink = featuredProject.liveLink?.trim() ?? "";
   }
 
   .bento-project-banner {
-    height: 120px;
+    height: 100px;
     background-size: cover;
     background-position: center;
     border-radius: 6px;
@@ -361,26 +367,34 @@ const liveLink = featuredProject.liveLink?.trim() ?? "";
   @media (max-width: 1024px) {
     .bento-grid {
       grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: auto;
     }
     .bento-cell--blog {
-      grid-column: span 2;
-      grid-row: span 1;
+      grid-column: 1 / 3;
+      grid-row: 1 / 2;
     }
     .bento-cell--project {
-      grid-column: span 2;
+      grid-column: 1 / 3;
+      grid-row: 2 / 3;
+    }
+    .bento-cell--tinkering,
+    .bento-cell--stats {
+      grid-column: span 1;
+      grid-row: auto;
     }
   }
 
   @media (max-width: 640px) {
     .bento-grid {
       grid-template-columns: 1fr;
+      grid-template-rows: auto;
     }
     .bento-cell--blog,
     .bento-cell--project,
     .bento-cell--tinkering,
     .bento-cell--stats {
-      grid-column: span 1;
-      grid-row: span 1;
+      grid-column: 1 / 2;
+      grid-row: auto;
     }
   }
 

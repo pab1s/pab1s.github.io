@@ -1,7 +1,6 @@
 ---
 import NeuralNetViz from "./NeuralNetViz.astro";
 import SocialIconRow from "./SocialIconRow.astro";
-import SpotlightCard from "./SpotlightCard.astro";
 import { siteConfig } from "../site-config";
 
 interface Props {
@@ -42,15 +41,12 @@ const { featuredProject } = Astro.props;
     </div>
 
     <div class="hero-right">
-      <SpotlightCard class="hero-viz-card">
-        <div class="hero-viz-inner">
-          <div class="hero-viz-header">
-            <span class="stamp">MANIFOLD UNFOLDING</span>
-            <span class="hero-viz-sub">3 → 16 → 1 · Adam · ReLU</span>
-          </div>
-          <NeuralNetViz />
-        </div>
-      </SpotlightCard>
+      <div class="hero-viz-wrap">
+        <NeuralNetViz />
+      </div>
+      <p class="hero-viz-label">
+        Training: {featuredProject.title}
+      </p>
     </div>
   </div>
 </section>
@@ -116,37 +112,25 @@ const { featuredProject } = Astro.props;
     align-items: center;
   }
 
-  .hero-viz-card :global(.spotlight-card) {
-    height: 100%;
+  .hero-viz-wrap {
+    aspect-ratio: 16 / 10;
+    max-width: 520px;
     width: 100%;
-  }
-
-  .hero-viz-inner {
-    height: 100%;
-    min-height: 380px;
-    display: flex;
-    flex-direction: column;
+    margin-left: auto;
     position: relative;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--panel);
   }
 
-  .hero-viz-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    padding: 0.75rem 1rem 0.5rem;
-    flex-shrink: 0;
-  }
-
-  .hero-viz-sub {
+  .hero-viz-label {
     font-family: var(--font-mono);
     font-size: 0.65rem;
     color: var(--muted);
-    letter-spacing: 0.04em;
-  }
-
-  .hero-viz-inner :global(.nn-viz-mount) {
-    flex: 1;
-    min-height: 0;
+    text-align: center;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
   }
 
   @media (max-width: 768px) {
@@ -158,8 +142,10 @@ const { featuredProject } = Astro.props;
       order: -1;
     }
 
-    .hero-viz-inner {
-      min-height: 320px;
+    .hero-viz-wrap {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 100%;
     }
   }
 </style>
