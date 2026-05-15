@@ -115,6 +115,11 @@ html {
   scroll-behavior: smooth;
 }
 
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -167,7 +172,7 @@ body {
   z-index: 1;
   max-width: 72rem;
   margin: 0 auto;
-  padding: 0.65rem clamp(0.65rem, 2vw, 1rem) 1.65rem;
+  padding: 0.65rem clamp(0.65rem, 4vw, 2rem) 1.65rem;
 }
 
 a {
@@ -1127,7 +1132,33 @@ html[data-theme="light"] .theme-cycle-svg--sun {
 .section-hero p { color: var(--muted); font-size: 1.05rem; margin: 0.5rem 0 0; }
 .project-featured-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 .project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
-@media (max-width: 768px) { .project-featured-grid { grid-template-columns: 1fr; } }
+@media (max-width: 768px) {
+  .project-featured-grid { grid-template-columns: 1fr; }
+  .bento-grid { grid-template-columns: 1fr; }
+  .hero-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .blog-post-row { grid-template-columns: 1fr; }
+  .workshop-nav-label { display: none; }
+}
 
 .blog-list { list-style: none; margin: 0; padding: 0; }
 .blog-list li { border-bottom: none; }
+
+@media print {
+  .noise-overlay, .stars, .workshop-nav, .theme-cycle-btn, .orbit-hub-mount {
+    display: none !important;
+  }
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  a {
+    text-decoration: underline;
+    color: black !important;
+  }
+  .frame, .spotlight-card {
+    border: 1px solid #ccc !important;
+    background: white !important;
+  }
+}

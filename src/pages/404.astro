@@ -1,20 +1,16 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import SiteHeader from "../components/SiteHeader.astro";
+import WorkshopNav from "../components/WorkshopNav.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 ---
 
 <BaseLayout title="404 — off the map" description="No fixture at this coordinate.">
-  <SiteHeader currentPath={Astro.url.pathname} />
-
-  <div class="frame" style="text-align: center; padding: 1.1rem 0.75rem;">
+  <WorkshopNav currentPath={Astro.url.pathname} />
+  <div style="text-align: center; padding: 4rem 1rem;">
     <p class="stamp">Signal lost</p>
-    <h1 style="margin: 0.55rem 0; border: none; padding: 0;">404</h1>
-    <p class="meta-row">This bearing does not resolve to a published sheet.</p>
-    <p style="margin-top: 0.85rem;">
-      <a href="/">Return to mission brief</a>
-    </p>
+    <h1 style="margin: 1rem 0; font-size: 3rem;">404</h1>
+    <p style="color: var(--muted); margin-bottom: 2rem;">This experiment hasn't been conducted yet.</p>
+    <a href="/" style="color: var(--accent); text-decoration: none;">Return to the workshop →</a>
   </div>
-
   <SiteFooter />
 </BaseLayout>

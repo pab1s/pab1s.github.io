@@ -19,8 +19,11 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .stagger-in > * {
-    animation: none;
-    opacity: 1;
+  .stagger-in > *,
+  .bento-cell,
+  .hero-section,
+  .spotlight-card {
+    animation: none !important;
+    transition: none !important;
   }
 }
