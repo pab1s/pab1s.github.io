@@ -133,11 +133,11 @@ const dateStr = post.data.date.toISOString().slice(0, 10);
   .post-article {
     max-width: 65ch;
     margin: 0 auto;
-    padding: 2rem 1rem 4rem;
+    padding: 3rem 1.5rem 5rem;
   }
 
   .post-masthead {
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
   }
 
   .post-meta-row {
@@ -211,8 +211,8 @@ const dateStr = post.data.date.toISOString().slice(0, 10);
   }
 
   .post-content {
-    font-size: 1.05rem;
-    line-height: 1.62;
+    font-size: 1.1rem;
+    line-height: 1.75;
   }
 
   .post-content :global(h2) {
@@ -222,8 +222,8 @@ const dateStr = post.data.date.toISOString().slice(0, 10);
     text-transform: uppercase;
     letter-spacing: 0.02em;
     color: var(--accent);
-    margin-top: 3rem;
-    margin-bottom: 1rem;
+    margin-top: 4rem;
+    margin-bottom: 1.25rem;
     position: relative;
     padding-left: 1.5rem;
   }
@@ -246,12 +246,12 @@ const dateStr = post.data.date.toISOString().slice(0, 10);
     text-transform: uppercase;
     letter-spacing: 0.02em;
     color: var(--ink);
-    margin-top: 2rem;
-    margin-bottom: 0.75rem;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
   }
 
   .post-content :global(p) {
-    margin: 0 0 1.25rem;
+    margin: 0 0 1.75rem;
     text-align: justify;
     hyphens: auto;
   }
@@ -259,15 +259,15 @@ const dateStr = post.data.date.toISOString().slice(0, 10);
   .post-content :global(p:first-of-type)::first-letter {
     font-family: var(--font-display);
     float: left;
-    font-size: 4.2rem;
-    line-height: 0.85;
-    padding: 0.06em 0.14em 0 0;
+    font-size: 5rem;
+    line-height: 0.82;
+    padding: 0.05em 0.12em 0 0;
     color: var(--accent);
   }
 
   .post-content :global(hr) {
     border: 0;
-    margin: 2.5rem 0;
+    margin: 3.5rem 0;
     height: 6px;
     background-image:
       repeating-linear-gradient(to right, var(--accent) 0, var(--accent) 4px, transparent 4px, transparent 8px),
@@ -284,28 +284,32 @@ const dateStr = post.data.date.toISOString().slice(0, 10);
   }
 
   .post-content :global(blockquote) {
-    margin: 1.5rem 0;
-    padding: 0.5rem 0 0.5rem 1.25rem;
+    margin: 2rem 0;
+    padding: 0.75rem 0 0.75rem 1.5rem;
     border-left: 3px solid var(--accent);
     font-style: italic;
     color: var(--muted);
   }
 
   .post-content :global(blockquote p) {
-    margin: 0;
+    margin: 0 0 1rem;
     text-align: left;
+  }
+
+  .post-content :global(blockquote p:last-child) {
+    margin-bottom: 0;
   }
 
   .post-content :global(pre) {
     background: var(--pre-bg);
     border: 1px solid var(--line);
     border-radius: var(--radius);
-    padding: 1rem 1.25rem;
+    padding: 1.25rem 1.5rem;
     overflow-x: auto;
     font-size: 0.9rem;
-    line-height: 1.5;
+    line-height: 1.6;
     box-shadow: inset 0 0 0 2px rgba(0,0,0,0.02);
-    margin: 1.5rem 0;
+    margin: 2rem 0;
   }
 
   html[data-theme="dark"] .post-content :global(pre) {
@@ -327,12 +331,12 @@ const dateStr = post.data.date.toISOString().slice(0, 10);
   }
 
   .post-content :global(ul, ol) {
-    margin: 1rem 0;
+    margin: 1.5rem 0;
     padding-left: 1.5em;
   }
 
   .post-content :global(li) {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
   }
 
   .post-content :global(img) {
@@ -340,14 +344,14 @@ const dateStr = post.data.date.toISOString().slice(0, 10);
     height: auto;
     border: 1px solid var(--line);
     border-radius: var(--radius);
-    margin: 1.5rem 0;
+    margin: 2rem 0;
   }
 
   .post-content :global(table) {
     border-collapse: collapse;
     width: 100%;
     font-size: 0.9rem;
-    margin: 1.5rem 0;
+    margin: 2rem 0;
   }
 
   .post-content :global(th, td) {
