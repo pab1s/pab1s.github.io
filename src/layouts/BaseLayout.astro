@@ -29,6 +29,8 @@ const desc = description ?? "";
 
 import { siteConfig } from "../site-config";
 import "../styles/global.css";
+import AchievementSystem from "../components/AchievementSystem.astro";
+import ToastNotification from "../components/ToastNotification.astro";
 ---
 
 <!doctype html>
@@ -152,5 +154,7 @@ gtag('config', gaId);`}
         );
       })();
     </script>
+    <AchievementSystem />
+    <ToastNotification />
   </body>
 </html>
