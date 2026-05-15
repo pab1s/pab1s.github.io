@@ -1,0 +1,57 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import WorkshopNav from "../components/WorkshopNav.astro";
+import HeroSection from "../components/HeroSection.astro";
+import BentoGrid from "../components/BentoGrid.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import NoiseOverlay from "../components/NoiseOverlay.astro";
+import { getCollection } from "astro:content";
+import { siteConfig } from "../site-config";
+import projectsData from "../data/projects.json";
+
+const dockPosts = (await getCollection("blog"))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3)
+  .map((post) => ({
+    slug: post.slug,
+    title: post.data.title,
+    date: post.data.date.toISOString().slice(0, 10),
+    tag: post.data.tags[0],
+  }));
+
+const projList = projectsData.projects;
+const featuredTitleWant = siteConfig.homeFeed.featuredProjectTitle.trim();
+const featuredRaw =
+  (featuredTitleWant && projList.find((p) => p.title === featuredTitleWant)) ?? projList[0];
+
+const featuredProject = featuredRaw
+  ? {
+      title: featuredRaw.title,
+      description: featuredRaw.description,
+      gitHubLink: featuredRaw.gitHubLink,
+      liveLink: featuredRaw.liveLink,
+      image: featuredRaw.image,
+      tags: featuredRaw.tags,
+    }
+  : {
+      title: "—",
+      description: "No projects defined.",
+      gitHubLink: "/projects/",
+      liveLink: "",
+      image: "",
+      tags: [],
+    };
+---
+
+<BaseLayout title={siteConfig.title} description={siteConfig.description}>
+  <WorkshopNav currentPath={Astro.url.pathname} />
+
+  <main id="main-content">
+    <HeroSection featuredProject={featuredProject} />
+    <BentoGrid posts={dockPosts} featuredProject={featuredProject} />
+  </main>
+
+  <SiteFooter />
+  <NoiseOverlay />
+</BaseLayout>

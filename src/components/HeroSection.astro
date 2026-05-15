@@ -1,0 +1,145 @@
+---
+import OrbitOptimizationHub from "./OrbitOptimizationHub.astro";
+import SocialIconRow from "./SocialIconRow.astro";
+import { siteConfig } from "../site-config";
+
+interface Props {
+  featuredProject: {
+    title: string;
+    description?: string;
+    gitHubLink?: string;
+    liveLink?: string;
+    image?: string;
+    tags?: string[];
+  };
+}
+
+const { featuredProject } = Astro.props;
+---
+
+<section class="hero-section">
+  <div class="hero-grid">
+    <div class="hero-left">
+      <img
+        class="hero-avatar"
+        src={siteConfig.avatarSrc}
+        width="80"
+        height="80"
+        alt={`${siteConfig.author} portrait`}
+        loading="eager"
+        decoding="async"
+      />
+      <h1 class="hero-title">Hi, I'm Pablo.</h1>
+      <p class="hero-subtitle">ML engineer · data alchemist · tinkerer</p>
+      <p class="hero-desc">
+        I turn raw data into insight, build things with PyTorch and curiosity,
+        and cook up experiments in my digital workshop. Currently engineering ML
+        at Santander.
+      </p>
+      <SocialIconRow />
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-orbit-wrap">
+        <OrbitOptimizationHub />
+      </div>
+      <p class="hero-orbit-label">
+        Currently optimizing: {featuredProject.title}
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-section {
+    padding: clamp(2rem, 5vw, 4rem) 0;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .hero-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    border: 2px solid var(--accent);
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    color: var(--ink);
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 0;
+    text-transform: none;
+  }
+
+  .hero-subtitle {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .hero-desc {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 45ch;
+    line-height: 1.65;
+    margin-top: 0.75rem;
+    margin-bottom: 0;
+  }
+
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-orbit-wrap {
+    aspect-ratio: 1;
+    max-width: 500px;
+    width: 100%;
+    margin-left: auto;
+    position: relative;
+  }
+
+  .hero-orbit-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 768px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-right {
+      order: -1;
+    }
+
+    .hero-orbit-wrap {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+</style>

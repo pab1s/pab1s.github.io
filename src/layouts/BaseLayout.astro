@@ -97,9 +97,12 @@ gtag('config', gaId);`}
     }
   </head>
   <body class:list={[{ "layout-home-orbit": layout === "home-orbit" }]}>
+    <a href="#main-content" class="skip-link">Skip to content</a>
     <div class="stars" aria-hidden="true"></div>
     <div class:list={["page-wrap", layout === "home-orbit" && "page-wrap-orbit"]}>
-      <slot />
+      <main id="main-content">
+        <slot />
+      </main>
     </div>
     <script is:inline>
       (function () {

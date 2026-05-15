@@ -1,0 +1,29 @@
+---
+---
+
+<div class="orbit-hub-mount">
+  <div class="orbit-hub-legend">
+    <span class="stamp">ÓRBITA</span>
+    <p class="orbit-hub-caption">Plano proyectado · CMA‑ES en el lienzo (λ arcos)</p>
+  </div>
+  <canvas id="orbit-hub-canvas" class="orbit-hub-canvas" width="720" height="720" aria-hidden="true"
+  ></canvas>
+  <div class="orbit-hub-coords" data-orbit-coords aria-hidden="true">
+    <span class="orbit-hub-coords-sat"></span>
+    <span class="orbit-hub-coords-ptr" hidden></span>
+  </div>
+</div>
+
+<script>
+  import { attachOrbitOptimization } from "../lib/orbit-optimization-viz";
+
+  function boot() {
+    const canvas = document.getElementById("orbit-hub-canvas");
+    if (!(canvas instanceof HTMLCanvasElement)) return;
+
+    attachOrbitOptimization(canvas);
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
+  else boot();
+</script>

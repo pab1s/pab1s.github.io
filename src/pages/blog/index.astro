@@ -1,0 +1,52 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import { getCollection } from "astro:content";
+import { siteConfig } from "../../site-config";
+
+const posts = (await getCollection("blog"))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="Blog" description={siteConfig.description}>
+  <SiteHeader currentPath={Astro.url.pathname} />
+
+  <header class="frame section-lead">
+    <p class="stamp">Logbook</p>
+    <h1 style="margin: 0.35rem 0 0; border: none; padding: 0;">Blog</h1>
+    <p class="meta-row" style="margin: 0.35rem 0 0;">
+      Machine learning, theory detours, and build notes.
+    </p>
+  </header>
+
+  <ul style="list-style: none; padding: 0; margin: 0;">
+    {
+      posts.map((post) => (
+        <li class="frame" style="margin-bottom: 0.48rem;">
+          <a href={`/blog/${post.slug}/`} style="font-weight: 600;">
+            {post.data.title}
+          </a>
+          <div class="meta-row" style="margin-top: 0.28rem;">
+            <time datetime={post.data.date.toISOString()}>
+              {post.data.date.toISOString().slice(0, 10)}
+            </time>
+          </div>
+          {post.data.description?.trim() ? (
+            <p style="margin: 0.38rem 0 0;">{post.data.description}</p>
+          ) : null}
+          {post.data.tags.length ? (
+            <div style="margin-top: 0.38rem;">
+              {post.data.tags.map((t) => (
+                <span class="chip">{t}</span>
+              ))}
+            </div>
+          ) : null}
+        </li>
+      ))
+    }
+  </ul>
+
+  <SiteFooter />
+</BaseLayout>

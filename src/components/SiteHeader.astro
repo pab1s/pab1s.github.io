@@ -1,0 +1,56 @@
+---
+import { siteConfig } from "../site-config";
+import ThemeCycleButton from "./ThemeCycleButton.astro";
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+
+function navActive(href: string, path: string): boolean {
+  const p = path.replace(/\/+$/, "") || "/";
+  const h = href.replace(/\/+$/, "");
+  if (h === "/" || href === "/") return p === "/";
+  return p === h || p.startsWith(h + "/");
+}
+---
+
+<header class="frame frame-ticks compact-header">
+  <div
+    style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.55rem 0.85rem;"
+  >
+    <a
+      href="/"
+      style="text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 0.12rem;"
+    >
+      <span class="stamp">REF·001</span>
+      <span
+        style="font-family: var(--font-display); font-size: 1.1rem; letter-spacing: 0.07em; text-transform: uppercase; color: var(--accent-hot);"
+      >
+        {siteConfig.title}
+      </span>
+      <span class="meta-row">{siteConfig.tagline}</span>
+    </a>
+
+    <div class="header-controls">
+      <ThemeCycleButton ariaLabel="Toggle light or dark theme" />
+      <nav aria-label="Primary" style="display: flex; flex-wrap: wrap; gap: 0.35rem 0.72rem;">
+        {
+          siteConfig.nav.map((item) => (
+            <a
+              href={item.href}
+              style={
+                navActive(item.href, currentPath)
+                  ? "font-weight: 600; color: var(--accent-hot);"
+                  : undefined
+              }
+            >
+              [{item.name}]
+            </a>
+          ))
+        }
+      </nav>
+    </div>
+  </div>
+</header>

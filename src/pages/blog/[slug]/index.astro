@@ -1,0 +1,83 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
+import PostTOC from "../../../components/PostTOC.astro";
+import { getCollection, render } from "astro:content";
+import { siteConfig } from "../../../site-config";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts
+    .filter((p) => !p.data.draft)
+    .map((post) => ({
+      params: { slug: post.slug },
+      props: { post },
+    }));
+}
+
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+
+function chartCoords(d: Date) {
+  const day = d.getUTCDate();
+  const month = d.getUTCMonth() + 1;
+  const h = d.getUTCHours();
+  const m = d.getUTCMinutes();
+  return `DEC +${String(day).padStart(2, "0")}.${String(month).padStart(2, "0")} · RA ${String(h).padStart(2, "0")}h ${String(m).padStart(2, "0")}m`;
+}
+
+const desc =
+  post.data.description?.trim() || siteConfig.description;
+const tocItems = headings.filter((h) => h.depth >= 2 && h.depth <= 4);
+---
+
+<BaseLayout title={post.data.title} description={desc}>
+  <SiteHeader currentPath={Astro.url.pathname} />
+
+  <article>
+    <header class="frame" style="margin-bottom: 0.82rem;">
+      <nav class="meta-row" style="margin-bottom: 0.32rem;">
+        <a href="/blog/">« Logbook</a>
+      </nav>
+      <h1 style="margin: 0 0 0.32rem; border: none; padding: 0;">{post.data.title}</h1>
+      {desc ? <p style="margin: 0;">{desc}</p> : null}
+      <p class="meta-row" style="margin-top: 0.42rem;">[COORDS: {chartCoords(post.data.date)}]</p>
+      <div class="meta-row" style="margin-top: 0.38rem;">
+        <time datetime={post.data.date.toISOString()}>{post.data.date.toISOString().slice(0, 10)}</time>
+        {post.data.author ? <> · {post.data.author}</> : null}
+      </div>
+      {
+        post.data.tags?.length ? (
+          <div style="margin-top: 0.42rem;">
+            {post.data.tags.map((t) => (
+              <span class="chip">{t}</span>
+            ))}
+          </div>
+        ) : null
+      }
+    </header>
+
+    {
+      tocItems.length > 0 ? (
+        <div class="grid-2 cols">
+          <PostTOC headings={tocItems} />
+          <div class="prose">
+            <Content />
+          </div>
+        </div>
+      ) : (
+        <div class="prose">
+          <Content />
+        </div>
+      )
+    }
+  </article>
+
+  <SiteFooter />
+</BaseLayout>

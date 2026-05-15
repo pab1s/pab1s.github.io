@@ -1,0 +1,67 @@
+---
+interface DockPost {
+  slug: string;
+  title: string;
+  date: string;
+  tag?: string;
+}
+
+interface DockProject {
+  title: string;
+  description: string;
+  gitHubLink: string;
+  liveLink?: string;
+}
+
+interface Props {
+  posts: DockPost[];
+  featuredProject: DockProject;
+  telemetryLine: string;
+}
+
+const { posts, featuredProject, telemetryLine } = Astro.props;
+
+const live = featuredProject.liveLink?.trim() ?? "";
+---
+
+<section class="orbit-feed-dock frame frame-ticks" aria-label="Registro reciente y canal de proyecto">
+  <div class="orbit-feed-dock-inner">
+    <div class="orbit-feed-dock-main">
+      <div class="orbit-feed-dock-col orbit-feed-dock-log">
+        <div class="orbit-feed-dock-bar">
+          <p class="stamp orbit-feed-dock-stamp">LOG · RX</p>
+          <a href="/blog/" class="orbit-feed-dock-all">Ver todo →</a>
+        </div>
+        <ul class="orbit-feed-dock-list">
+          {
+            posts.map((p) => (
+              <li>
+                <a class="orbit-feed-dock-row" href={`/blog/${p.slug}/`}>
+                  <span class="orbit-feed-dock-date">{p.date}</span>
+                  <span class="orbit-feed-dock-title">{p.title}</span>
+                  {p.tag ? <span class="orbit-feed-dock-chip">{p.tag}</span> : null}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="orbit-feed-dock-col orbit-feed-dock-channel">
+        <div class="orbit-feed-dock-bar">
+          <p class="stamp orbit-feed-dock-stamp">CHANNEL</p>
+          <a href="/projects/" class="orbit-feed-dock-all">Projects →</a>
+        </div>
+        <div class="orbit-feed-dock-project">
+          <p class="orbit-feed-dock-project-name">{featuredProject.title}</p>
+          <p class="orbit-feed-dock-desc">{featuredProject.description}</p>
+          <div class="orbit-feed-dock-actions">
+            <a href={featuredProject.gitHubLink} class="orbit-feed-dock-action">GitHub</a>
+            {live ? <a href={live} class="orbit-feed-dock-action">Live</a> : null}
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="orbit-feed-dock-telem">{telemetryLine}</p>
+  </div>
+</section>

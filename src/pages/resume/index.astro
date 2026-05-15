@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import ResumeContent from "../../components/ResumeContent.astro";
+---
+
+<BaseLayout
+  title="Resume"
+  description="Work history, studies, skills — condensed for humans and hiring pipelines."
+>
+  <SiteHeader currentPath={Astro.url.pathname} />
+
+  <header class="frame section-lead">
+    <p class="stamp">Résumé dossier</p>
+    <h1 style="margin: 0.35rem 0 0; border: none; padding: 0;">Resume</h1>
+    <p class="meta-row" style="margin: 0.35rem 0 0;">Snapshot from JSON — print-friendly enough.</p>
+  </header>
+
+  <ResumeContent />
+
+  <SiteFooter />
+</BaseLayout>

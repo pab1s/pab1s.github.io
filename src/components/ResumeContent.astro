@@ -1,0 +1,143 @@
+---
+import cv from "../data/cv.json";
+---
+
+<section class="resume-content prose">
+  <header style="text-align: center;">
+    <h1>{cv.basics.name}</h1>
+    <p class="meta-row" style="margin: 0.35rem 0;">
+      {cv.basics.label}
+    </p>
+    <p style="margin: 0;">
+      <a href={`mailto:${cv.basics.email}`}>{cv.basics.email}</a>
+    </p>
+    <p class="meta-row" style="margin: 0.22rem 0;">
+      {cv.basics.location.city}, {cv.basics.location.countryCode}
+    </p>
+  </header>
+
+  <section>
+    <h2>Summary</h2>
+    <p>{cv.basics.summary}</p>
+  </section>
+
+  <section>
+    <h2>Work experience</h2>
+    {
+      cv.work.map((job) => (
+        <article>
+          <h3>
+            {job.position}{" "}
+            <span style="color: var(--muted); font-weight: 400;">@</span>{" "}
+            <a href={job.url} target="_blank" rel="noopener noreferrer">
+              {job.name}
+            </a>
+          </h3>
+          <p class="meta-row">
+            {job.startDate} — {(job as { endDate?: string }).endDate ?? "Present"}
+          </p>
+          <p class="meta-row">{job.location}</p>
+          {"summary" in job && (job as { summary?: string }).summary ? (
+            <p>{(job as { summary: string }).summary}</p>
+          ) : null}
+          <ul>
+            {job.highlights.map((line) => (
+              <li>{line}</li>
+            ))}
+          </ul>
+        </article>
+      ))
+    }
+  </section>
+
+  <section>
+    <h2>Education</h2>
+    {
+      cv.education.map((edu) => (
+        <article>
+          <h3>
+            {edu.studyType} in {edu.area} at {edu.institution}
+          </h3>
+          <p class="meta-row">
+            {edu.startDate} — {edu.endDate}
+          </p>
+          <ul>
+            {(edu.courses ?? []).map((c) => (
+              <li>{c}</li>
+            ))}
+          </ul>
+        </article>
+      ))
+    }
+  </section>
+
+  <section>
+    <h2>Highlighted projects</h2>
+    {
+      cv.projects.map((proj) => (
+        <article>
+          <h3>
+            <a href={proj.url} target="_blank" rel="noopener noreferrer">
+              {proj.name}
+            </a>
+          </h3>
+          <p class="meta-row">
+            {proj.startDate} — {proj.endDate}
+          </p>
+          <p>{proj.description}</p>
+          <ul>
+            {proj.highlights.map((line) => (
+              <li>{line}</li>
+            ))}
+          </ul>
+        </article>
+      ))
+    }
+  </section>
+
+  <section>
+    <h2>Skills</h2>
+    <ul style="padding-left: 1.05rem; margin-top: 0.25rem;">
+      {
+        cv.skills.map((s) => (
+          <li style="margin-bottom: 0.28rem;">
+            <strong>{s.name}:</strong> {s.keywords.join(", ")}
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section>
+    <h2>Languages</h2>
+    <ul style="padding-left: 1.05rem; margin-top: 0.25rem;">
+      {
+        cv.languages.map((l) => (
+          <li>
+            {l.language} — {l.fluency}
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section>
+    <h2>Volunteering</h2>
+    {
+      cv.volunteer.map((v) => (
+        <article>
+          <h3>
+            {v.position} @{" "}
+            <a href={v.url} target="_blank" rel="noopener noreferrer">
+              {v.organization}
+            </a>
+          </h3>
+          <p class="meta-row">
+            {v.startDate} — {v.endDate ?? "Present"}
+          </p>
+          <p>{v.summary}</p>
+        </article>
+      ))
+    }
+  </section>
+</section>

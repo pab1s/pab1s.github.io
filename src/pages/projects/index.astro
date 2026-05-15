@@ -1,0 +1,71 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import projectsData from "../../data/projects.json";
+
+const projects = projectsData.projects;
+---
+
+<BaseLayout title="Projects" description="Repositories and prototypes from the bench.">
+  <SiteHeader currentPath={Astro.url.pathname} />
+
+  <header class="frame section-lead">
+    <p class="stamp">Prototype bay</p>
+    <h1 style="margin: 0.35rem 0 0; border: none; padding: 0;">Projects</h1>
+    <p class="meta-row" style="margin: 0.35rem 0 0;">
+      Rough schematics linking out to repos. Images load from `/public/projects/` when present.
+    </p>
+  </header>
+
+  <div class="project-grid">
+    {
+      projects.map((proj) => (
+        <article class="frame">
+          <a
+            href={proj.gitHubLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            style="text-decoration: none; color: inherit;"
+          >
+            {proj.image ? (
+              <div
+                class="project-banner"
+                style={`background-image: url("${proj.image}")`}
+              />
+            ) : (
+              <div class="project-banner meta-row">No preview</div>
+            )}
+            <h2 style="font-size: 0.92rem; margin: 0 0 0.32rem; border: none; padding: 0;">
+              {proj.title}
+            </h2>
+            <p style="margin: 0; font-size: 0.92em; line-height: 1.48;">{proj.description}</p>
+          </a>
+          {proj.tags?.length ? (
+            <div style="margin-top: 0.42rem;">
+              {proj.tags.map((t: string) => (
+                <span class="chip">{t}</span>
+              ))}
+            </div>
+          ) : null}
+          <div style="margin-top: 0.42rem;">
+            <a href={proj.gitHubLink} target="_blank" rel="noopener noreferrer">
+              Open repo ⟶
+            </a>
+            {proj.liveLink ? (
+              <>
+                {" "}
+                <span class="meta-row"> · </span>{" "}
+                <a href={proj.liveLink} target="_blank" rel="noopener noreferrer">
+                  Live
+                </a>
+              </>
+            ) : null}
+          </div>
+        </article>
+      ))
+    }
+  </div>
+
+  <SiteFooter />
+</BaseLayout>

@@ -1,3 +1,18 @@
 # pab1s.github.io
 
-This is my personal blog. I will be posting about my projects, thoughts, and other things that I find interesting.
+Personal site and notebook for Pablo Olivares — Astro, blueprint / lab-sheet styling, Markdown posts, resume and projects sourced from JSON.
+
+## Develop
+
+```bash
+npm install
+npm run dev
+```
+
+## Production check (includes Pagefind)
+
+```bash
+npm run build && npm run preview
+```
+
+GitHub Actions deploys `dist/` to Pages on pushes to `main`.

@@ -1,5 +1,6 @@
 ---
 import ThemeCycleButton from "./ThemeCycleButton.astro";
+import { siteConfig } from "../site-config";
 
 interface Props {
   currentPath: string;
@@ -15,102 +16,86 @@ function navActive(href: string, path: string): boolean {
 }
 
 const navItems = [
-  {
-    name: "Blog",
-    href: "/blog/",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M12 19l7-7 3 3-7 7-3-3z" />
-        <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
-        <path d="M2 2l7.586 7.586" />
-        <circle cx="11" cy="11" r="2" />
-      </svg>
-    ),
-  },
-  {
-    name: "Projects",
-    href: "/projects/",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <circle cx="12" cy="12" r="3" />
-        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
-      </svg>
-    ),
-  },
-  {
-    name: "Resume",
-    href: "/resume/",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-        <polyline points="14 2 14 8 20 8" />
-        <line x1="16" y1="13" x2="8" y2="13" />
-        <line x1="16" y1="17" x2="8" y2="17" />
-        <polyline points="10 9 9 9 8 9" />
-      </svg>
-    ),
-  },
-  {
-    name: "Search",
-    href: "/search/",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <circle cx="11" cy="11" r="8" />
-        <line x1="21" y1="21" x2="16.65" y2="16.65" />
-      </svg>
-    ),
-  },
-  {
-    name: "Kitchen",
-    href: "/kitchen/",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M10 2v7.31" />
-        <path d="M14 9.3V1.99" />
-        <path d="M8.5 2h7" />
-        <path d="M14 9.3a6.5 6.5 0 1 1-4 0" />
-        <path d="M5.52 16h12.96" />
-      </svg>
-    ),
-  },
+  { name: "Blog", href: "/blog/" },
+  { name: "Projects", href: "/projects/" },
+  { name: "Resume", href: "/resume/" },
+  { name: "Search", href: "/search/" },
+  { name: "Kitchen", href: "/kitchen/" },
 ];
 ---
 
-<nav class="workshop-nav" aria-label="Primary">
+<header class="workshop-nav">
   <div class="workshop-nav-inner">
     <a href="/" class="workshop-nav-brand">
       <img
-        src="/avatar.svg"
+        src={siteConfig.avatarSrc}
         alt=""
-        class="workshop-nav-avatar"
         width="32"
         height="32"
+        class="workshop-nav-avatar"
+        loading="eager"
       />
-      <span class="workshop-nav-name">Pablo Olivares</span>
+      <span class="workshop-nav-name">{siteConfig.title}</span>
     </a>
 
-    <ul class="workshop-nav-list">
-      {
-        navItems.map((item) => (
-          <li class="workshop-nav-item">
-            <a
-              href={item.href}
-              class="workshop-nav-link"
-              aria-current={navActive(item.href, currentPath) ? "page" : undefined}
-              data-active={navActive(item.href, currentPath) ? "true" : undefined}
-            >
-              <span class="workshop-nav-icon">{item.icon}</span>
-              <span class="workshop-nav-label">{item.name}</span>
-            </a>
-          </li>
-        ))
-      }
-      <li class="workshop-nav-item">
-        <ThemeCycleButton ariaLabel="Toggle light or dark theme" />
-      </li>
-    </ul>
+    <nav class="workshop-nav-links" aria-label="Primary">
+      <ul class="workshop-nav-list">
+        {
+          navItems.map((item) => (
+            <li class="workshop-nav-item">
+              <a
+                href={item.href}
+                class="workshop-nav-link"
+                data-active={navActive(item.href, currentPath) ? "true" : "false"}
+              >
+                {item.name === "Blog" && (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 19l7-7 3 3-7 7-3-3z" />
+                    <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
+                    <path d="M2 2l7.586 7.586" />
+                    <circle cx="11" cy="11" r="2" />
+                  </svg>
+                )}
+                {item.name === "Projects" && (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="3" />
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                  </svg>
+                )}
+                {item.name === "Resume" && (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                    <polyline points="10 9 9 9 8 9" />
+                  </svg>
+                )}
+                {item.name === "Search" && (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="11" cy="11" r="8" />
+                    <path d="m21 21-4.35-4.35" />
+                  </svg>
+                )}
+                {item.name === "Kitchen" && (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M10 2v7.31" />
+                    <path d="M14 9.3V1.99" />
+                    <path d="M8.5 2h7" />
+                    <path d="M14 9.3a6.5 6.5 0 1 1-4 0" />
+                    <path d="M5.52 16h12.96" />
+                  </svg>
+                )}
+                <span class="workshop-nav-label">{item.name}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <ThemeCycleButton ariaLabel="Toggle light or dark theme" />
+    </nav>
   </div>
-</nav>
+</header>
 
 <style>
   .workshop-nav {
@@ -128,12 +113,12 @@ const navItems = [
   }
 
   .workshop-nav-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     max-width: 1280px;
     margin: 0 auto;
     padding: 0.75rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     gap: 1rem;
   }
 
@@ -150,33 +135,30 @@ const navItems = [
     width: 32px;
     height: 32px;
     border-radius: 8px;
-    object-fit: cover;
     border: 1px solid var(--line);
-    background: var(--panel);
-    flex-shrink: 0;
+    object-fit: cover;
   }
 
   .workshop-nav-name {
     font-family: var(--font-display);
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     font-weight: 600;
     color: var(--ink);
-    letter-spacing: 0.02em;
   }
 
-  .workshop-nav-list {
+  .workshop-nav-links {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+  }
+
+  .workshop-nav-list {
     list-style: none;
     margin: 0;
     padding: 0;
-    flex-wrap: wrap;
-  }
-
-  .workshop-nav-item {
     display: flex;
     align-items: center;
+    gap: 0.25rem;
   }
 
   .workshop-nav-link {
@@ -188,29 +170,24 @@ const navItems = [
     color: var(--muted);
     font-size: 0.85rem;
     font-weight: 500;
-    border-radius: var(--radius);
+    border-radius: 6px;
     transition: color 150ms ease, background 150ms ease;
     position: relative;
-    white-space: nowrap;
   }
 
   .workshop-nav-link:hover {
-    color: var(--accent-hot);
+    color: var(--accent);
     background: rgba(212, 165, 116, 0.06);
   }
 
-  html[data-theme="light"] .workshop-nav-link:hover {
-    background: rgba(184, 115, 51, 0.06);
-  }
-
   .workshop-nav-link[data-active="true"] {
-    color: var(--accent-hot);
+    color: var(--accent);
   }
 
   .workshop-nav-link[data-active="true"]::after {
-    content: "";
+    content: '';
     position: absolute;
-    bottom: -0.4rem;
+    bottom: -2px;
     left: 0.6rem;
     right: 0.6rem;
     height: 2px;
@@ -218,48 +195,23 @@ const navItems = [
     border-radius: 1px;
   }
 
-  .workshop-nav-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .workshop-nav-icon svg {
-    display: block;
+  .workshop-nav-label {
+    display: inline;
   }
 
   @media (max-width: 640px) {
     .workshop-nav-inner {
       padding: 0.75rem 1rem;
     }
-
-    .workshop-nav-list {
-      gap: 0.25rem;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-      max-width: 100%;
-    }
-
-    .workshop-nav-list::-webkit-scrollbar {
-      display: none;
-    }
-
-    .workshop-nav-link {
-      padding: 0.35rem 0.45rem;
-      font-size: 0.8rem;
-    }
-
     .workshop-nav-label {
       display: none;
     }
-
+    .workshop-nav-link {
+      padding: 0.4rem;
+    }
     .workshop-nav-link[data-active="true"]::after {
-      left: 0.45rem;
-      right: 0.45rem;
-      bottom: -0.35rem;
+      left: 0.4rem;
+      right: 0.4rem;
     }
   }
 </style>

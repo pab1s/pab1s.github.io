@@ -1,0 +1,27 @@
+---
+import type { MarkdownHeading } from "astro";
+
+interface Props {
+  headings: MarkdownHeading[];
+}
+
+const { headings } = Astro.props;
+const items = headings.filter((h) => h.depth >= 2 && h.depth <= 4);
+---
+
+{
+  items.length > 0 && (
+    <aside class="frame" style="position: sticky; top: 0.62rem;">
+      <p class="stamp" style="margin-bottom: 0.42rem;">
+        Chart index
+      </p>
+      <ul class="toc-list">
+        {items.map((h) => (
+          <li style={`padding-left:${(h.depth - 2) * 0.52}rem;margin-bottom:0.22rem`}>
+            <a href={`#${h.slug}`}>{h.text}</a>
+          </li>
+        ))}
+      </ul>
+    </aside>
+  )
+}

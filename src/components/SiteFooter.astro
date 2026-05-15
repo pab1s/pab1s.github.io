@@ -1,0 +1,39 @@
+---
+import { siteConfig, telemetryLines } from "../site-config";
+---
+
+<footer class="frame site-footer-compact">
+  <div
+    class="meta-row"
+    style="display: flex; flex-wrap: wrap; gap: 0.45rem 0.95rem; justify-content: space-between; align-items: center;"
+  >
+    <span data-telemetry data-lines={JSON.stringify(telemetryLines)} id="telemetry-slot">
+      {telemetryLines[0]}
+    </span>
+    <div style="display: flex; flex-wrap: wrap; gap: 0.45rem 0.72rem;">
+      {
+        siteConfig.social.map((s) => (
+          <a href={s.href} rel="me noopener noreferrer" target="_blank">
+            ⟡ {s.name}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+  <p class="meta-row" style="margin-top: 0.45rem; opacity: 0.85;">
+    Lab notebook / personal site · blueprints strictly aspirational · built with{" "}
+    <a href="https://astro.build">Astro</a>
+  </p>
+</footer>
+
+<script>
+  const el = document.getElementById("telemetry-slot");
+  if (el?.dataset.lines) {
+    const lines = JSON.parse(el.dataset.lines) as string[];
+    let i = 0;
+    setInterval(() => {
+      i = (i + 1) % lines.length;
+      el.textContent = lines[i];
+    }, 5200);
+  }
+</script>
