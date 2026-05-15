@@ -1,205 +1,534 @@
 ---
 import cv from "../data/cv.json";
+
+// Map proficiency level to dots (all skills shown at 4/5 for this portfolio)
+const proficiencyDots = (level: number = 4) => {
+  const filled = "●".repeat(level);
+  const empty = "○".repeat(5 - level);
+  return filled + empty;
+};
+
+// Format dates nicely
+const fmtDate = (d: string) => {
+  if (!d || d === "Current") return "Present";
+  const [year, month] = d.split("-");
+  const months = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  return `${months[parseInt(month)]} ${year}`;
+};
 ---
 
-<section class="resume-content prose">
-  <header>
-    <h1>{cv.basics.name}</h1>
-    <p class="meta-row">{cv.basics.label}</p>
-    <p>
+<section class="dossier">
+  {/* Header */}
+  <header class="dossier-header">
+    <div class="dossier-meta-row">
+      <span class="fig-label">DOC_001 · résumé</span>
+      <a href="/resume/resume.pdf" class="dossier-pdf-link" target="_blank" rel="noopener noreferrer">PDF ↓</a>
+    </div>
+    <h1 class="dossier-name">{cv.basics.name}</h1>
+    <p class="dossier-role">{cv.basics.label}</p>
+    <p class="dossier-currently">
+      Currently engineering ML at Santander · Madrid
+      <span class="dossier-interests">Reading · Cooking · Stargazing · Tinkering</span>
+    </p>
+    <div class="dossier-contact">
       <a href={`mailto:${cv.basics.email}`}>{cv.basics.email}</a>
-    </p>
-    <p class="meta-row">
-      {cv.basics.location.city}, {cv.basics.location.countryCode}
-    </p>
+      <span class="dossier-sep">·</span>
+      <span>{cv.basics.location.city}, {cv.basics.location.countryCode}</span>
+      <span class="dossier-sep">·</span>
+      {cv.basics.profiles.map((p, i) => (
+        <>
+          {i > 0 ? <span class="dossier-sep">·</span> : null}
+          <a href={p.url} target="_blank" rel="noopener noreferrer">{p.network}</a>
+        </>
+      ))}
+    </div>
+    <div class="ascii-rule" style="margin-top: 2rem;"></div>
   </header>
 
-  <section>
-    <h2>Summary</h2>
-    <p>{cv.basics.summary}</p>
+  {/* Summary */}
+  <section class="dossier-section">
+    <h2 class="dossier-section-title">§ Summary</h2>
+    <p class="dossier-summary">{cv.basics.summary}</p>
   </section>
 
-  <section>
-    <h2>Work experience</h2>
-    {
-      cv.work.map((job) => (
-        <article>
-          <h3>
-            {job.position}{" "}
-            <span class="at-separator">@</span>{" "}
-            <a href={job.url} target="_blank" rel="noopener noreferrer">
-              {job.name}
-            </a>
-          </h3>
-          <p class="meta-row">
-            {job.startDate} — {(job as { endDate?: string }).endDate ?? "Present"}
-          </p>
-          <p class="meta-row">{job.location}</p>
-          {"summary" in job && (job as { summary?: string }).summary ? (
-            <p>{(job as { summary: string }).summary}</p>
-          ) : null}
-          <ul>
-            {job.highlights.map((line) => (
-              <li>{line}</li>
-            ))}
-          </ul>
+  {/* Experience with Timeline */}
+  <section class="dossier-section">
+    <h2 class="dossier-section-title">§ Experience</h2>
+    <div class="dossier-timeline">
+      {cv.work.map((job) => (
+        <article class="dossier-timeline-item">
+          <div class="dossier-timeline-marker"></div>
+          <div class="dossier-timeline-content">
+            <div class="dossier-entry-header">
+              <span class="dossier-date">{fmtDate(job.startDate)} — {fmtDate((job as any).endDate ?? "")}</span>
+              <h3 class="dossier-entry-title">
+                {job.position}
+                <span class="dossier-at">@</span>
+                <a href={job.url} target="_blank" rel="noopener noreferrer">{job.name}</a>
+              </h3>
+              <span class="dossier-location">{job.location}</span>
+            </div>
+            {(job as any).summary ? <p class="dossier-entry-summary">{(job as any).summary}</p> : null}
+            <ul class="dossier-highlights">
+              {job.highlights.map((line) => (
+                <li>{line}</li>
+              ))}
+            </ul>
+          </div>
         </article>
-      ))
-    }
+      ))}
+    </div>
   </section>
 
-  <section>
-    <h2>Education</h2>
-    {
-      cv.education.map((edu) => (
-        <article>
-          <h3>
-            {edu.studyType} in {edu.area} at {edu.institution}
-          </h3>
-          <p class="meta-row">
-            {edu.startDate} — {edu.endDate}
-          </p>
-          <ul>
-            {(edu.courses ?? []).map((c) => (
-              <li>{c}</li>
-            ))}
-          </ul>
+  {/* Education with Timeline */}
+  <section class="dossier-section">
+    <h2 class="dossier-section-title">§ Education</h2>
+    <div class="dossier-timeline">
+      {cv.education.map((edu) => (
+        <article class="dossier-timeline-item">
+          <div class="dossier-timeline-marker"></div>
+          <div class="dossier-timeline-content">
+            <div class="dossier-entry-header">
+              <span class="dossier-date">{fmtDate(edu.startDate)} — {fmtDate(edu.endDate)}</span>
+              <h3 class="dossier-entry-title">
+                {edu.studyType} in {edu.area}
+                <span class="dossier-at">@</span>
+                <span>{edu.institution}</span>
+              </h3>
+              {edu.specialization ? <span class="dossier-specialization">Specialization: {edu.specialization}</span> : null}
+            </div>
+            {edu.courses?.length ? (
+              <ul class="dossier-courses">
+                {edu.courses.map((c) => (
+                  <li>{c}</li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
         </article>
-      ))
-    }
+      ))}
+    </div>
   </section>
 
-  <section>
-    <h2>Highlighted projects</h2>
-    {
-      cv.projects.map((proj) => (
-        <article>
-          <h3>
-            <a href={proj.url} target="_blank" rel="noopener noreferrer">
-              {proj.name}
-            </a>
-          </h3>
-          <p class="meta-row">
-            {proj.startDate} — {proj.endDate}
-          </p>
-          <p>{proj.description}</p>
-          <ul>
-            {proj.highlights.map((line) => (
-              <li>{line}</li>
-            ))}
-          </ul>
+  {/* Projects */}
+  <section class="dossier-section">
+    <h2 class="dossier-section-title">§ Projects</h2>
+    <div class="dossier-timeline">
+      {cv.projects.map((proj) => (
+        <article class="dossier-timeline-item">
+          <div class="dossier-timeline-marker"></div>
+          <div class="dossier-timeline-content">
+            <div class="dossier-entry-header">
+              <span class="dossier-date">{fmtDate(proj.startDate)} — {fmtDate(proj.endDate)}</span>
+              <h3 class="dossier-entry-title">
+                <a href={proj.url} target="_blank" rel="noopener noreferrer">{proj.name}</a>
+              </h3>
+            </div>
+            <p class="dossier-entry-summary">{proj.description}</p>
+            <ul class="dossier-highlights">
+              {proj.highlights.map((line) => (
+                <li>{line}</li>
+              ))}
+            </ul>
+          </div>
         </article>
-      ))
-    }
+      ))}
+    </div>
   </section>
 
-  <section>
-    <h2>Skills</h2>
-    {
-      cv.skills.map((category) => (
-        <div class="skill-category">
-          <h3>{category.name}</h3>
-          <div class="skill-grid">
+  {/* Skills */}
+  <section class="dossier-section">
+    <h2 class="dossier-section-title">§ Skills</h2>
+    <div class="dossier-skills">
+      {cv.skills.map((category) => (
+        <div class="dossier-skill-group">
+          <h3 class="dossier-skill-category">{category.name}</h3>
+          <div class="dossier-skill-items">
             {category.keywords.map((skill) => (
-              <div class="skill-item">
-                <span class="skill-name">{skill}</span>
-                <div class="skill-bar-outer">
-                  <div class="skill-bar-inner" />
-                </div>
-              </div>
+              <span class="dossier-skill-tag">
+                <span class="dossier-skill-dots">{proficiencyDots()}</span>
+                {skill}
+              </span>
             ))}
           </div>
         </div>
-      ))
-    }
+      ))}
+    </div>
   </section>
 
-  <section>
-    <h2>Languages</h2>
-    <ul class="language-list">
-      {
-        cv.languages.map((l) => (
-          <li>
-            {l.language} — {l.fluency}
-          </li>
-        ))
-      }
-    </ul>
+  {/* Languages */}
+  <section class="dossier-section">
+    <h2 class="dossier-section-title">§ Languages</h2>
+    <div class="dossier-languages">
+      {cv.languages.map((l) => (
+        <div class="dossier-language">
+          <span class="dossier-language-name">{l.language}</span>
+          <span class="dossier-language-level">{l.fluency}</span>
+        </div>
+      ))}
+    </div>
   </section>
 
-  <section>
-    <h2>Volunteering</h2>
-    {
-      cv.volunteer.map((v) => (
-        <article>
-          <h3>
-            {v.position} @{" "}
-            <a href={v.url} target="_blank" rel="noopener noreferrer">
-              {v.organization}
-            </a>
-          </h3>
-          <p class="meta-row">
-            {v.startDate} — {v.endDate ?? "Present"}
-          </p>
-          <p>{v.summary}</p>
+  {/* Volunteering */}
+  <section class="dossier-section">
+    <h2 class="dossier-section-title">§ Volunteering</h2>
+    <div class="dossier-timeline">
+      {cv.volunteer.map((v) => (
+        <article class="dossier-timeline-item">
+          <div class="dossier-timeline-marker"></div>
+          <div class="dossier-timeline-content">
+            <div class="dossier-entry-header">
+              <span class="dossier-date">{fmtDate(v.startDate)} — {fmtDate(v.endDate ?? "")}</span>
+              <h3 class="dossier-entry-title">
+                {v.position}
+                <span class="dossier-at">@</span>
+                <a href={v.url} target="_blank" rel="noopener noreferrer">{v.organization}</a>
+              </h3>
+            </div>
+            <p class="dossier-entry-summary">{v.summary}</p>
+          </div>
         </article>
-      ))
-    }
+      ))}
+    </div>
   </section>
 </section>
 
 <style>
-  .resume-content header {
-    text-align: center;
-    margin-bottom: 1.5rem;
-  }
-  .resume-content header h1 {
-    margin: 0.35rem 0 0;
-    border: none;
-    padding: 0;
-  }
-  .resume-content header .meta-row {
-    margin: 0.35rem 0;
-  }
-  .resume-content header p:last-of-type.meta-row {
-    margin: 0.22rem 0;
+  .dossier {
+    max-width: 65ch;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
   }
 
-  .at-separator {
+  .dossier-header {
+    margin-bottom: 3rem;
+  }
+
+  .dossier-meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1.5rem;
+  }
+
+  .dossier-pdf-link {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     color: var(--muted);
+    text-decoration: none;
+    border: 1px solid var(--line);
+    padding: 0.25rem 0.6rem;
+    transition: color 150ms ease, border-color 150ms ease;
+  }
+
+  .dossier-pdf-link:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .dossier-name {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 6vw, 3.6rem);
     font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    margin: 0 0 0.5rem;
+    line-height: 1;
   }
 
-  .skill-category {
-    margin-bottom: 1.5rem;
+  .dossier-role {
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    color: var(--muted);
+    margin: 0 0 1.5rem;
   }
 
-  .skill-grid {
+  .dossier-currently {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0 0 1rem;
+  }
+
+  .dossier-interests {
+    display: block;
+    margin-top: 0.25rem;
+    opacity: 0.7;
+  }
+
+  .dossier-contact {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--muted);
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem 1.5rem;
-    margin-top: 0.5rem;
+    gap: 0.35rem 0.75rem;
+    align-items: center;
   }
 
-  .skill-item {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-    min-width: 140px;
+  .dossier-contact a {
+    color: var(--accent);
+    text-decoration: none;
   }
 
-  .skill-name {
-    font-size: 0.85rem;
+  .dossier-contact a:hover {
+    text-decoration: underline;
+  }
+
+  .dossier-sep {
+    color: var(--line-strong);
+  }
+
+  .dossier-section {
+    margin-bottom: 3.5rem;
+  }
+
+  .dossier-section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 3vw, 1.8rem);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    margin: 0 0 1.5rem;
+    position: relative;
+    padding-left: 1.5rem;
+  }
+
+  .dossier-section-title::before {
+    content: "§";
+    position: absolute;
+    left: 0;
+    top: 0.1em;
+    font-family: var(--font-mono);
+    font-size: 0.6em;
+    color: var(--accent);
+    opacity: 0.8;
+  }
+
+  .dossier-summary {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: var(--ink);
+    margin: 0;
+    text-align: justify;
+  }
+
+  /* Timeline */
+  .dossier-timeline {
+    position: relative;
+    padding-left: 1.5rem;
+  }
+
+  .dossier-timeline::before {
+    content: "";
+    position: absolute;
+    left: 0.35rem;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 1px;
+    border-left: 1px dotted var(--line-strong);
+  }
+
+  .dossier-timeline-item {
+    position: relative;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px dotted var(--line);
+  }
+
+  .dossier-timeline-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  .dossier-timeline-marker {
+    position: absolute;
+    left: -1.5rem;
+    top: 0.35rem;
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    transform: translateX(-3.5px);
+  }
+
+  .dossier-timeline-content {
+    padding-left: 0.5rem;
+  }
+
+  .dossier-entry-header {
+    margin-bottom: 0.75rem;
+  }
+
+  .dossier-date {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.35rem;
+  }
+
+  .dossier-entry-title {
+    font-family: var(--font-sans);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0 0 0.25rem;
+    line-height: 1.3;
+  }
+
+  .dossier-entry-title a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .dossier-entry-title a:hover {
+    text-decoration: underline;
+  }
+
+  .dossier-at {
+    color: var(--muted);
+    font-weight: 400;
+    margin: 0 0.15rem;
+  }
+
+  .dossier-location,
+  .dossier-specialization {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    display: block;
+    margin-top: 0.15rem;
+  }
+
+  .dossier-entry-summary {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--muted);
+    margin: 0 0 0.75rem;
+  }
+
+  .dossier-highlights {
+    margin: 0;
+    padding-left: 1.25em;
+    font-size: 0.92rem;
+    line-height: 1.55;
     color: var(--ink);
   }
 
-  .language-list {
-    padding-left: 1.05rem;
-    margin-top: 0.25rem;
+  .dossier-highlights li {
+    margin-bottom: 0.4rem;
+  }
+
+  .dossier-courses {
+    margin: 0.5rem 0 0;
+    padding-left: 1.25em;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  .dossier-courses li {
+    margin-bottom: 0.2rem;
+  }
+
+  /* Skills */
+  .dossier-skills {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .dossier-skill-group {
+    border-bottom: 1px dotted var(--line);
+    padding-bottom: 1.5rem;
+  }
+
+  .dossier-skill-group:last-child {
+    border-bottom: none;
+  }
+
+  .dossier-skill-category {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 0.75rem;
+  }
+
+  .dossier-skill-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1rem;
+  }
+
+  .dossier-skill-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--ink);
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--line);
+  }
+
+  .dossier-skill-dots {
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  /* Languages */
+  .dossier-languages {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .dossier-language {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.5rem 0;
+    border-bottom: 1px dotted var(--line);
+  }
+
+  .dossier-language-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .dossier-language-level {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
   }
 
   @media print {
-    .resume-content { max-width: 100%; }
-    .workshop-nav, .noise-overlay, .stars, .theme-cycle-btn { display: none !important; }
+    .dossier { padding: 0; max-width: 100%; }
+    .dossier-timeline::before { border-left-style: solid; }
+    .dossier-timeline-item { break-inside: avoid; }
+    .dossier-skill-tag { border: 1px solid #ccc; }
+  }
+
+  @media (max-width: 640px) {
+    .dossier { padding: 1.5rem 1rem 3rem; }
+    .dossier-name { font-size: clamp(1.8rem, 8vw, 2.4rem); }
+    .dossier-contact { flex-direction: column; gap: 0.25rem; }
+    .dossier-languages { grid-template-columns: 1fr; }
+    .dossier-timeline { padding-left: 1.25rem; }
+    .dossier-timeline-marker { left: -1.25rem; transform: translateX(-3px); }
   }
 </style>
