@@ -46,19 +46,19 @@ function generateInterlockingTori(n: number): Point3D[] {
     });
   }
 
-  // Torus B: lying in XZ plane (rotated 90° around X), same R
+  // Torus B: lying in XZ plane (major circle around Y axis), same R, r
+  // The tube of B passes through the hole of A, and vice versa
   for (let i = 0; i < half; i++) {
     const u = (Math.PI * 2 * i) / half + (Math.random() - 0.5) * 0.3;
     const v = Math.random() * Math.PI * 2;
     const R = 2.0, r = 0.5;
     const noise = 0.12;
-    const tx = (R + r * Math.cos(v)) * Math.cos(u);
-    const ty = r * Math.sin(v);
-    const tz = (R + r * Math.cos(v)) * Math.sin(u);
+    // Major circle in XZ plane: x = (R + r*cos(v)) * cos(u), z = (R + r*cos(v)) * sin(u)
+    // Tube cross-section extends in Y: y = r * sin(v)
     data.push({
-      x: tx + (Math.random() - 0.5) * noise,
-      y: tz + (Math.random() - 0.5) * noise,
-      z: ty + (Math.random() - 0.5) * noise,
+      x: (R + r * Math.cos(v)) * Math.cos(u) + (Math.random() - 0.5) * noise,
+      y: r * Math.sin(v) + (Math.random() - 0.5) * noise,
+      z: (R + r * Math.cos(v)) * Math.sin(u) + (Math.random() - 0.5) * noise,
       label: 1,
     });
   }
