@@ -139,6 +139,7 @@ const liveLink = featuredProject.liveLink?.trim() ?? "";
 <style>
   .bento-section {
     padding: 2rem 0 4rem;
+    border-top: 1px solid var(--line);
   }
 
   .bento-grid {
@@ -277,9 +278,13 @@ const liveLink = featuredProject.liveLink?.trim() ?? "";
     font-family: var(--font-mono);
     font-size: 0.6rem;
     padding: 0.15rem 0.45rem;
-    border: 1px solid rgba(53, 83, 255, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.15);
     border-radius: 999px;
     color: var(--accent);
+  }
+
+  html[data-theme="dark"] .bento-tag {
+    border-color: rgba(255, 255, 255, 0.15);
   }
 
   .bento-project-actions {
