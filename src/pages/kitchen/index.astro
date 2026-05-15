@@ -1,0 +1,70 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import WorkshopNav from "../../components/WorkshopNav.astro";
+import KitchenRecipeCard from "../../components/KitchenRecipeCard.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import recipesData from "../../data/recipes.json";
+
+const recipes = recipesData.recipes;
+---
+
+<BaseLayout
+  title="The Kitchen"
+  description="Data isn't the only thing I alchemize. Here are some recipes I love."
+>
+  <WorkshopNav currentPath={Astro.url.pathname} />
+
+  <header class="section-hero">
+    <h1>The Kitchen</h1>
+    <p>Data isn't the only thing I alchemize. Here are some recipes I love.</p>
+  </header>
+
+  <div class="recipe-grid">
+    {recipes.map((recipe) => <KitchenRecipeCard recipe={recipe} />)}
+  </div>
+
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .section-hero {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 2rem;
+  }
+
+  .section-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    color: var(--ink);
+    margin: 0 0 0.5rem 0;
+  }
+
+  .section-hero p {
+    color: var(--muted);
+    font-size: 1rem;
+    max-width: 50ch;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .recipe-grid {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1.5rem 3rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 640px) {
+    .recipe-grid {
+      grid-template-columns: 1fr;
+      padding: 0 1rem 2rem;
+    }
+
+    .section-hero {
+      padding: 2rem 1rem 1.5rem;
+    }
+  }
+</style>

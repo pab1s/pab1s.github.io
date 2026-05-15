@@ -1,0 +1,26 @@
+{
+  "recipes": [
+    {
+      "title": "Sourdough Bread",
+      "cuisine": "European",
+      "difficulty": "Advanced",
+      "prepTime": "24h (including fermentation)",
+      "ingredients": ["500g strong white flour", "350ml water", "100g sourdough starter", "10g salt"],
+      "method": ["Mix flour and water, autolyse 1 hour", "Add starter and salt, knead 10 min", "Bulk ferment 4-6 hours with folds", "Shape and cold proof overnight", "Bake at 230C with steam"],
+      "photo": "/projects/TFG.webp",
+      "personalNote": "This was my first successful sourdough. It taught me that patience and precise measurement matter — just like in data pipelines.",
+      "alchemyPrinciple": "Fermentation is gradient descent: small steps, long time, incredible results."
+    },
+    {
+      "title": "Spanish Tortilla",
+      "cuisine": "Spanish",
+      "difficulty": "Intermediate",
+      "prepTime": "45 min",
+      "ingredients": ["6 eggs", "3 potatoes", "1 onion", "Olive oil", "Salt"],
+      "method": ["Slice potatoes and onion thinly", "Fry gently in olive oil until soft", "Drain and mix with beaten eggs", "Cook in pan, flip to finish", "Rest before serving"],
+      "photo": "/projects/granada-parking-segmentation.webp",
+      "personalNote": "A staple from my grandmother. Simple ingredients, perfect technique.",
+      "alchemyPrinciple": "Feature engineering: the right ingredients, prepared correctly, make all the difference."
+    }
+  ]
+}
