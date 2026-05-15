@@ -1,6 +1,6 @@
 /**
  * Neural Network Layer-by-Layer 3D Visualization
- * Trains a feedforward network (3→8→1) on interlocking 3D tori.
+ * Trains a feedforward network (3→16→1) on interlocking 3D tori.
  * Cycles through Input → Hidden → Output layers with smooth morphing.
  */
 
@@ -32,12 +32,12 @@ function generateInterlockingTori(n: number): Point3D[] {
   const data: Point3D[] = [];
   const half = Math.floor(n / 2);
 
-  // Torus A: lying in XY plane, major radius R=2, minor r=0.5
+  // Torus A: XY plane, tube around Z axis
   for (let i = 0; i < half; i++) {
     const u = (Math.PI * 2 * i) / half + (Math.random() - 0.5) * 0.3;
     const v = Math.random() * Math.PI * 2;
-    const R = 2.0, r = 0.5;
-    const noise = 0.12;
+    const R = 2.2, r = 0.55;
+    const noise = 0.08;
     data.push({
       x: (R + r * Math.cos(v)) * Math.cos(u) + (Math.random() - 0.5) * noise,
       y: (R + r * Math.cos(v)) * Math.sin(u) + (Math.random() - 0.5) * noise,
@@ -46,15 +46,12 @@ function generateInterlockingTori(n: number): Point3D[] {
     });
   }
 
-  // Torus B: lying in XZ plane (major circle around Y axis), same R, r
-  // The tube of B passes through the hole of A, and vice versa
+  // Torus B: XZ plane, tube around Y axis
   for (let i = 0; i < half; i++) {
     const u = (Math.PI * 2 * i) / half + (Math.random() - 0.5) * 0.3;
     const v = Math.random() * Math.PI * 2;
-    const R = 2.0, r = 0.5;
-    const noise = 0.12;
-    // Major circle in XZ plane: x = (R + r*cos(v)) * cos(u), z = (R + r*cos(v)) * sin(u)
-    // Tube cross-section extends in Y: y = r * sin(v)
+    const R = 2.2, r = 0.55;
+    const noise = 0.08;
     data.push({
       x: (R + r * Math.cos(v)) * Math.cos(u) + (Math.random() - 0.5) * noise,
       y: r * Math.sin(v) + (Math.random() - 0.5) * noise,
@@ -66,62 +63,113 @@ function generateInterlockingTori(n: number): Point3D[] {
   return data;
 }
 
-// ─── Neural Network (3 → 8 → 1) ────────────────────────────────────────────
+// ─── Adam Neural Network (3 → 16 → 1) ──────────────────────────────────────
 
 class NeuralNet3D {
-  W1: number[][]; // 8 x 3
-  b1: number[];   // 8
-  W2: number[];   // 8
-  b2: number;
+  // Architecture: 3 inputs → 16 hidden → 1 output
+  nInput = 3;
+  nHidden = 16;
+  nOutput = 1;
 
-  z1: number[] = Array(8).fill(0);
-  a1: number[] = Array(8).fill(0);
-  z2: number = 0;
-  a2: number = 0;
+  W1: number[][];  // 16 x 3
+  b1: number[];    // 16
+  W2: number[][];  // 1 x 16
+  b2: number[];    // 1
 
-  lr = 0.25;
+  // Adam state
+  mW1: number[][]; vW1: number[][];
+  mb1: number[];   vb1: number[];
+  mW2: number[][]; vW2: number[][];
+  mb2: number[];   vb2: number[];
+
+  // Activations
+  z1: number[];
+  a1: number[];
+  z2: number[];
+  a2: number[];
+
+  lr = 0.01;
+  beta1 = 0.9;
+  beta2 = 0.999;
+  eps = 1e-8;
+  weightDecay = 0.001;
+  t = 0; // timestep
+
   loss = 0;
   accuracy = 0;
 
   constructor() {
-    // Xavier init
-    const s3 = Math.sqrt(6 / 3);
-    const s8 = Math.sqrt(6 / 8);
-    this.W1 = Array.from({ length: 8 }, () => [
-      (Math.random() - 0.5) * s3,
-      (Math.random() - 0.5) * s3,
-      (Math.random() - 0.5) * s3,
-    ]);
-    this.b1 = Array(8).fill(0);
-    this.W2 = Array.from({ length: 8 }, () => (Math.random() - 0.5) * s8);
-    this.b2 = 0;
+    // He initialization for ReLU
+    const he = Math.sqrt(2 / this.nInput);
+    this.W1 = Array.from({ length: this.nHidden }, () =>
+      Array.from({ length: this.nInput }, () => (Math.random() - 0.5) * 2 * he)
+    );
+    this.b1 = Array(this.nHidden).fill(0);
+
+    const he2 = Math.sqrt(2 / this.nHidden);
+    this.W2 = Array.from({ length: this.nOutput }, () =>
+      Array.from({ length: this.nHidden }, () => (Math.random() - 0.5) * 2 * he2)
+    );
+    this.b2 = Array(this.nOutput).fill(0);
+
+    // Adam buffers
+    this.mW1 = Array.from({ length: this.nHidden }, () => Array(this.nInput).fill(0));
+    this.vW1 = Array.from({ length: this.nHidden }, () => Array(this.nInput).fill(0));
+    this.mb1 = Array(this.nHidden).fill(0);
+    this.vb1 = Array(this.nHidden).fill(0);
+
+    this.mW2 = Array.from({ length: this.nOutput }, () => Array(this.nHidden).fill(0));
+    this.vW2 = Array.from({ length: this.nOutput }, () => Array(this.nHidden).fill(0));
+    this.mb2 = Array(this.nOutput).fill(0);
+    this.vb2 = Array(this.nOutput).fill(0);
+
+    this.z1 = Array(this.nHidden).fill(0);
+    this.a1 = Array(this.nHidden).fill(0);
+    this.z2 = Array(this.nOutput).fill(0);
+    this.a2 = Array(this.nOutput).fill(0);
   }
 
-  tanh(x: number): number { return Math.tanh(x); }
+  relu(x: number): number { return Math.max(0, x); }
+  reluDeriv(x: number): number { return x > 0 ? 1 : 0; }
   sigmoid(x: number): number {
     const z = Math.exp(-Math.max(-10, Math.min(10, x)));
     return 1 / (1 + z);
   }
 
   forward(x: number, y: number, z: number): number {
-    for (let i = 0; i < 8; i++) {
+    // Hidden layer
+    for (let i = 0; i < this.nHidden; i++) {
       this.z1[i] = this.W1[i][0] * x + this.W1[i][1] * y + this.W1[i][2] * z + this.b1[i];
-      this.a1[i] = this.tanh(this.z1[i]);
+      this.a1[i] = this.relu(this.z1[i]);
     }
-    this.z2 = this.b2;
-    for (let i = 0; i < 8; i++) this.z2 += this.W2[i] * this.a1[i];
-    this.a2 = this.sigmoid(this.z2);
-    return this.a2;
+    // Output layer
+    this.z2[0] = this.b2[0];
+    for (let i = 0; i < this.nHidden; i++) this.z2[0] += this.W2[0][i] * this.a1[i];
+    this.a2[0] = this.sigmoid(this.z2[0]);
+    return this.a2[0];
+  }
+
+  private adamUpdate(
+    w: number, m: number, v: number, grad: number, lr: number, t: number
+  ): [number, number, number] {
+    const mNew = this.beta1 * m + (1 - this.beta1) * grad;
+    const vNew = this.beta2 * v + (1 - this.beta2) * grad * grad;
+    const mHat = mNew / (1 - Math.pow(this.beta1, t));
+    const vHat = vNew / (1 - Math.pow(this.beta2, t));
+    const wNew = w - lr * (mHat / (Math.sqrt(vHat) + this.eps));
+    return [wNew, mNew, vNew];
   }
 
   trainStep(data: Point3D[]): void {
+    this.t++;
     this.loss = 0;
     let correct = 0;
 
-    const dW1 = Array.from({ length: 8 }, () => [0, 0, 0]);
-    const db1 = Array(8).fill(0);
-    const dW2 = Array(8).fill(0);
-    let db2 = 0;
+    // Accumulate gradients
+    const dW1 = Array.from({ length: this.nHidden }, () => [0, 0, 0]);
+    const db1 = Array(this.nHidden).fill(0);
+    const dW2 = Array.from({ length: this.nOutput }, () => Array(this.nHidden).fill(0));
+    const db2 = Array(this.nOutput).fill(0);
 
     for (const p of data) {
       const pred = this.forward(p.x, p.y, p.z);
@@ -131,11 +179,12 @@ class NeuralNet3D {
       if ((pred > 0.5 ? 1 : 0) === target) correct++;
       this.loss += -(target * Math.log(pred + 1e-8) + (1 - target) * Math.log(1 - pred + 1e-8));
 
+      // Backprop
       const dz2 = err;
-      db2 += dz2;
-      for (let i = 0; i < 8; i++) {
-        dW2[i] += dz2 * this.a1[i];
-        const dz1 = dz2 * this.W2[i] * (1 - this.a1[i] * this.a1[i]);
+      db2[0] += dz2;
+      for (let i = 0; i < this.nHidden; i++) {
+        dW2[0][i] += dz2 * this.a1[i];
+        const dz1 = dz2 * this.W2[0][i] * this.reluDeriv(this.z1[i]);
         db1[i] += dz1;
         dW1[i][0] += dz1 * p.x;
         dW1[i][1] += dz1 * p.y;
@@ -147,14 +196,41 @@ class NeuralNet3D {
     this.loss /= n;
     this.accuracy = correct / n;
 
-    for (let i = 0; i < 8; i++) {
-      this.W1[i][0] -= this.lr * (dW1[i][0] / n);
-      this.W1[i][1] -= this.lr * (dW1[i][1] / n);
-      this.W1[i][2] -= this.lr * (dW1[i][2] / n);
-      this.b1[i] -= this.lr * (db1[i] / n);
-      this.W2[i] -= this.lr * (dW2[i] / n);
+    // Cosine annealing LR
+    const maxEpochs = 200;
+    const progress = Math.min(this.t / maxEpochs, 1);
+    const lr = this.lr * (0.5 + 0.5 * Math.cos(progress * Math.PI));
+
+    // Adam update with weight decay
+    for (let i = 0; i < this.nHidden; i++) {
+      for (let j = 0; j < this.nInput; j++) {
+        const grad = dW1[i][j] / n + this.weightDecay * this.W1[i][j];
+        const [wNew, mNew, vNew] = this.adamUpdate(this.W1[i][j], this.mW1[i][j], this.vW1[i][j], grad, lr, this.t);
+        this.W1[i][j] = wNew;
+        this.mW1[i][j] = mNew;
+        this.vW1[i][j] = vNew;
+      }
+      const gradB = db1[i] / n;
+      const [bNew, mNew, vNew] = this.adamUpdate(this.b1[i], this.mb1[i], this.vb1[i], gradB, lr, this.t);
+      this.b1[i] = bNew;
+      this.mb1[i] = mNew;
+      this.vb1[i] = vNew;
     }
-    this.b2 -= this.lr * (db2 / n);
+
+    for (let i = 0; i < this.nOutput; i++) {
+      for (let j = 0; j < this.nHidden; j++) {
+        const grad = dW2[i][j] / n + this.weightDecay * this.W2[i][j];
+        const [wNew, mNew, vNew] = this.adamUpdate(this.W2[i][j], this.mW2[i][j], this.vW2[i][j], grad, lr, this.t);
+        this.W2[i][j] = wNew;
+        this.mW2[i][j] = mNew;
+        this.vW2[i][j] = vNew;
+      }
+      const gradB = db2[i] / n;
+      const [bNew, mNew, vNew] = this.adamUpdate(this.b2[i], this.mb2[i], this.vb2[i], gradB, lr, this.t);
+      this.b2[i] = bNew;
+      this.mb2[i] = mNew;
+      this.vb2[i] = vNew;
+    }
   }
 }
 
@@ -204,11 +280,33 @@ export function attachNeuralNetViz(canvas: HTMLCanvasElement): () => void {
   let cssW = 720;
   let cssH = 720;
 
-  const data = generateInterlockingTori(200);
+  const rawData = generateInterlockingTori(300);
+
+  // Normalize inputs
+  let meanX = 0, meanY = 0, meanZ = 0;
+  let stdX = 0, stdY = 0, stdZ = 0;
+  for (const p of rawData) {
+    meanX += p.x; meanY += p.y; meanZ += p.z;
+  }
+  meanX /= rawData.length; meanY /= rawData.length; meanZ /= rawData.length;
+  for (const p of rawData) {
+    stdX += (p.x - meanX) ** 2; stdY += (p.y - meanY) ** 2; stdZ += (p.z - meanZ) ** 2;
+  }
+  stdX = Math.sqrt(stdX / rawData.length) || 1;
+  stdY = Math.sqrt(stdY / rawData.length) || 1;
+  stdZ = Math.sqrt(stdZ / rawData.length) || 1;
+
+  const data: Point3D[] = rawData.map(p => ({
+    x: (p.x - meanX) / stdX,
+    y: (p.y - meanY) / stdY,
+    z: (p.z - meanZ) / stdZ,
+    label: p.label,
+  }));
+
   const net = new NeuralNet3D();
   const predictions = new Float64Array(data.length);
   let epoch = 0;
-  const maxEpochs = 150;
+  const maxEpochs = 200;
   let pausedFrames = 0;
   let converged = false;
 
@@ -223,9 +321,9 @@ export function attachNeuralNetViz(canvas: HTMLCanvasElement): () => void {
   let phaseFrame = 0;
   let currentPhase = 0;
   const phaseNames = ["INPUT", "HIDDEN", "OUTPUT"];
-  const phaseLabels = ["INPUT SPACE · R³", "HIDDEN LAYER · φ(x)", "OUTPUT · σ(W₂h + b₂)"];
+  const phaseLabels = ["INPUT SPACE · R³", "HIDDEN LAYER · ReLU(W₁x + b₁)", "OUTPUT · σ(W₂h + b₂)"];
 
-  // Data bounds
+  // Data bounds (normalized)
   let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity, minZ = Infinity, maxZ = -Infinity;
   for (const p of data) {
     if (p.x < minX) minX = p.x;
@@ -263,14 +361,14 @@ export function attachNeuralNetViz(canvas: HTMLCanvasElement): () => void {
   function updatePositions() {
     for (let i = 0; i < data.length; i++) {
       const p = data[i];
-      // Input: normalized
+      // Input: normalized centered coordinates
       positions[i].input = {
         x: (p.x - centerX) / maxRange * 3.2,
         y: (p.y - centerY) / maxRange * 3.2,
         z: (p.z - centerZ) / maxRange * 3.2,
       };
 
-      // Hidden: first 3 activations
+      // Hidden: first 3 activations (from 16 total)
       predictions[i] = net.forward(p.x, p.y, p.z);
       positions[i].hidden = {
         x: net.a1[0] * 2.2,
@@ -324,7 +422,6 @@ export function attachNeuralNetViz(canvas: HTMLCanvasElement): () => void {
 
     for (let i = 0; i <= steps; i++) {
       const t = (i / steps) * 2 - 1;
-      // X lines
       const p1 = project3D(rotateX(rotateY({ x: t * gridSize, y: -gridSize, z: 0 }, rotY), rotX), fov, camDist);
       const p2 = project3D(rotateX(rotateY({ x: t * gridSize, y: gridSize, z: 0 }, rotY), rotX), fov, camDist);
       ctx.beginPath();
@@ -332,7 +429,6 @@ export function attachNeuralNetViz(canvas: HTMLCanvasElement): () => void {
       ctx.lineTo(cx + p2.x, cy - p2.y);
       ctx.stroke();
 
-      // Y lines
       const p3 = project3D(rotateX(rotateY({ x: -gridSize, y: t * gridSize, z: 0 }, rotY), rotX), fov, camDist);
       const p4 = project3D(rotateX(rotateY({ x: gridSize, y: t * gridSize, z: 0 }, rotY), rotX), fov, camDist);
       ctx.beginPath();
@@ -367,7 +463,7 @@ export function attachNeuralNetViz(canvas: HTMLCanvasElement): () => void {
     // Sort by depth (back to front)
     projected.sort((a, b) => b.z - a.z);
 
-    // Draw points — small crisp dots
+    // Draw points
     for (const p of projected) {
       const size = Math.max(1.2, Math.min(2.8, p.scale * 0.12));
 
@@ -421,14 +517,15 @@ export function attachNeuralNetViz(canvas: HTMLCanvasElement): () => void {
     const cx = cssW / 2;
     const cy = bottomY + height / 2;
 
+    // Show 3 → 16 → 1, but only label a subset of hidden neurons
     const layers = [
       { x: cx - availW * 0.32, nodes: 3, labels: ["x", "y", "z"] },
-      { x: cx, nodes: 8, labels: ["h₀", "h₁", "h₂", "h₃", "h₄", "h₅", "h₆", "h₇"] },
+      { x: cx, nodes: 16, labels: Array.from({ length: 16 }, (_, i) => `h${i}`) },
       { x: cx + availW * 0.32, nodes: 1, labels: ["ŷ"] },
     ];
 
-    const nodeR = Math.min(6, height * 0.07);
-    const layerSpacing = Math.min(12, height * 0.16);
+    const nodeR = Math.min(5, height * 0.055);
+    const layerSpacing = Math.min(9, height * 0.11);
     const activeLayerIdx = currentPhase;
 
     // Connections
@@ -444,15 +541,15 @@ export function attachNeuralNetViz(canvas: HTMLCanvasElement): () => void {
         for (let j = 0; j < toLayer.nodes; j++) {
           let w = 0;
           if (l === 0) w = net.W1[j][i];
-          else w = net.W2[j];
+          else w = net.W2[0][j];
           const absW = Math.min(Math.abs(w) / 2.0, 1);
 
           ctx.beginPath();
           ctx.moveTo(fromLayer.x, fromYStart + i * layerSpacing);
           ctx.lineTo(toLayer.x, toYStart + j * layerSpacing);
           ctx.strokeStyle = isActive ? pal.networkLineActive : pal.networkLine;
-          ctx.globalAlpha = isActive ? 0.15 + absW * 0.5 : 0.06 + absW * 0.08;
-          ctx.lineWidth = isActive ? 0.7 + absW * 1.2 : 0.4;
+          ctx.globalAlpha = isActive ? 0.12 + absW * 0.4 : 0.04 + absW * 0.06;
+          ctx.lineWidth = isActive ? 0.6 + absW * 1.0 : 0.3;
           ctx.stroke();
         }
       }
@@ -475,13 +572,16 @@ export function attachNeuralNetViz(canvas: HTMLCanvasElement): () => void {
         ctx.lineWidth = isActive ? 1.5 : 0.8;
         ctx.stroke();
 
-        ctx.save();
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.font = `500 9px ui-monospace, monospace`;
-        ctx.fillStyle = isActive ? pal.text : pal.textMuted;
-        ctx.fillText(layer.labels[i], layer.x, ny + nodeR + 12);
-        ctx.restore();
+        // Only label every other hidden neuron to avoid clutter
+        if (l !== 1 || i % 2 === 0) {
+          ctx.save();
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.font = `500 8px ui-monospace, monospace`;
+          ctx.fillStyle = isActive ? pal.text : pal.textMuted;
+          ctx.fillText(layer.labels[i], layer.x, ny + nodeR + 11);
+          ctx.restore();
+        }
       }
     }
 
@@ -577,17 +677,28 @@ export function attachNeuralNetViz(canvas: HTMLCanvasElement): () => void {
         epoch = 0;
         converged = false;
         pausedFrames = 0;
-        net.lr = 0.25;
-        const s3 = Math.sqrt(6 / 3);
-        const s8 = Math.sqrt(6 / 8);
-        net.W1 = Array.from({ length: 8 }, () => [
-          (Math.random() - 0.5) * s3,
-          (Math.random() - 0.5) * s3,
-          (Math.random() - 0.5) * s3,
-        ]);
-        net.b1 = Array(8).fill(0);
-        net.W2 = Array.from({ length: 8 }, () => (Math.random() - 0.5) * s8);
-        net.b2 = 0;
+        net.lr = 0.01;
+        net.t = 0;
+        // Re-init with He
+        const he = Math.sqrt(2 / net.nInput);
+        const he2 = Math.sqrt(2 / net.nHidden);
+        net.W1 = Array.from({ length: net.nHidden }, () =>
+          Array.from({ length: net.nInput }, () => (Math.random() - 0.5) * 2 * he)
+        );
+        net.b1 = Array(net.nHidden).fill(0);
+        net.W2 = Array.from({ length: net.nOutput }, () =>
+          Array.from({ length: net.nHidden }, () => (Math.random() - 0.5) * 2 * he2)
+        );
+        net.b2 = Array(net.nOutput).fill(0);
+        // Reset Adam
+        net.mW1 = Array.from({ length: net.nHidden }, () => Array(net.nInput).fill(0));
+        net.vW1 = Array.from({ length: net.nHidden }, () => Array(net.nInput).fill(0));
+        net.mb1 = Array(net.nHidden).fill(0);
+        net.vb1 = Array(net.nHidden).fill(0);
+        net.mW2 = Array.from({ length: net.nOutput }, () => Array(net.nHidden).fill(0));
+        net.vW2 = Array.from({ length: net.nOutput }, () => Array(net.nHidden).fill(0));
+        net.mb2 = Array(net.nOutput).fill(0);
+        net.vb2 = Array(net.nOutput).fill(0);
         currentPhase = 0;
         phaseFrame = 0;
       }
@@ -596,11 +707,8 @@ export function attachNeuralNetViz(canvas: HTMLCanvasElement): () => void {
       for (let i = 0; i < stepsPerFrame && epoch < maxEpochs; i++) {
         net.trainStep(data);
         epoch++;
-        if (epoch > 60) net.lr = 0.12;
-        if (epoch > 100) net.lr = 0.06;
-        if (epoch > 130) net.lr = 0.03;
       }
-      if (epoch >= maxEpochs || net.accuracy > 0.96) {
+      if (epoch >= maxEpochs || net.accuracy > 0.98) {
         converged = true;
         pausedFrames = 0;
       }
