@@ -7,11 +7,11 @@
   --panel: rgba(255,248,240,0.03);
   --ink: #F0EBE3;
   --muted: rgba(200,190,175,0.5);
-  --accent: #D4A574;
-  --accent-hot: #F5CBA7;
+  --accent: #5B8DB8;
+  --accent-hot: #8BB8E0;
   --line: rgba(212,165,116,0.15);
   --line-strong: rgba(212,165,116,0.25);
-  --link-hover: #F5CBA7;
+  --link-hover: #8BB8E0;
   --code-bg: rgba(212,165,116,0.06);
   --pre-bg: rgba(212,165,116,0.04);
   --frame-dash: rgba(212,165,116,0.18);
@@ -21,12 +21,12 @@
 
   --glow-orbit-top: radial-gradient(
     ellipse 120% 85% at 50% -15%,
-    rgba(212, 165, 116, 0.10),
+    rgba(91, 141, 184, 0.10),
     transparent 55%
   );
   --glow-orbit-side: radial-gradient(
     ellipse 95% 50% at 100% 15%,
-    rgba(232, 220, 196, 0.05),
+    rgba(139, 184, 224, 0.05),
     transparent 50%
   );
 
@@ -35,21 +35,21 @@
   --font-display: "Cabinet Grotesk", "Satoshi", "Outfit", sans-serif;
   --radius: 8px;
   --grid-cell: 92px;
-  --cuadricula: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='92' height='92'%3E%3Cline x1='0' y1='1.2' x2='92' y2='1.2' stroke='%23D4A574' stroke-opacity='0.12' stroke-width='1.2' stroke-dasharray='3 16' stroke-linecap='round'/%3E%3Cline x1='1.2' y1='0' x2='1.2' y2='92' stroke='%23D4A574' stroke-opacity='0.12' stroke-width='1.2' stroke-dasharray='3 16' stroke-linecap='round'/%3E%3C/svg%3E");
+  --cuadricula: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='92' height='92'%3E%3Cline x1='0' y1='1.2' x2='92' y2='1.2' stroke='%235B8DB8' stroke-opacity='0.12' stroke-width='1.2' stroke-dasharray='3 16' stroke-linecap='round'/%3E%3Cline x1='1.2' y1='0' x2='1.2' y2='92' stroke='%235B8DB8' stroke-opacity='0.12' stroke-width='1.2' stroke-dasharray='3 16' stroke-linecap='round'/%3E%3C/svg%3E");
 
   --stars-opacity: 0.18;
 
-  --orbit-legend-muted: rgba(212, 165, 116, 0.58);
-  --orbit-legend-border: rgba(212, 165, 116, 0.22);
+  --orbit-legend-muted: rgba(91, 141, 184, 0.58);
+  --orbit-legend-border: rgba(91, 141, 184, 0.22);
   --orbit-guide: rgba(255, 255, 255, 0.09);
-  --orbit-trail: rgba(212, 165, 116, 0.55);
+  --orbit-trail: rgba(91, 141, 184, 0.55);
   --orbit-trail-alpha: 0.42;
-  --orbit-planet-fill: rgba(212, 165, 116, 0.92);
-  --orbit-planet-stroke: rgba(212, 165, 116, 0.28);
-  --orbit-planet-cross: rgba(212, 165, 116, 0.12);
-  --orbit-sat-fill: rgba(232, 220, 196, 0.94);
-  --orbit-sat-stroke: rgba(212, 165, 116, 0.42);
-  --orbit-sat-cross: rgba(212, 165, 116, 0.5);
+  --orbit-planet-fill: rgba(91, 141, 184, 0.92);
+  --orbit-planet-stroke: rgba(91, 141, 184, 0.28);
+  --orbit-planet-cross: rgba(91, 141, 184, 0.12);
+  --orbit-sat-fill: rgba(139, 184, 224, 0.94);
+  --orbit-sat-stroke: rgba(91, 141, 184, 0.42);
+  --orbit-sat-cross: rgba(91, 141, 184, 0.5);
 }
 
 .resume-content { max-width: 800px; }
@@ -65,11 +65,11 @@ html[data-theme="light"] {
   --panel: rgba(255,255,255,0.88);
   --ink: #1C1E22;
   --muted: rgba(60,55,50,0.5);
-  --accent: #B87333;
-  --accent-hot: #8B4513;
+  --accent: #4A7FB5;
+  --accent-hot: #2E5E8C;
   --line: rgba(184,115,51,0.2);
   --line-strong: rgba(184,115,51,0.35);
-  --link-hover: #8B4513;
+  --link-hover: #2E5E8C;
   --code-bg: rgba(184,115,51,0.06);
   --pre-bg: rgba(184,115,51,0.04);
   --frame-dash: rgba(184,115,51,0.2);
@@ -79,30 +79,30 @@ html[data-theme="light"] {
 
   --glow-orbit-top: radial-gradient(
     ellipse 115% 80% at 50% -8%,
-    rgba(184, 115, 51, 0.09),
+    rgba(74, 127, 181, 0.09),
     transparent 52%
   );
   --glow-orbit-side: radial-gradient(
     ellipse 92% 48% at 100% 10%,
-    rgba(184, 115, 51, 0.065),
+    rgba(74, 127, 181, 0.065),
     transparent 46%
   );
 
-  --cuadricula: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='92' height='92'%3E%3Cline x1='0' y1='1.2' x2='92' y2='1.2' stroke='%23B87333' stroke-opacity='0.08' stroke-width='1.2' stroke-dasharray='3 16' stroke-linecap='round'/%3E%3Cline x1='1.2' y1='0' x2='1.2' y2='92' stroke='%23B87333' stroke-opacity='0.08' stroke-width='1.2' stroke-dasharray='3 16' stroke-linecap='round'/%3E%3C/svg%3E");
+  --cuadricula: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='92' height='92'%3E%3Cline x1='0' y1='1.2' x2='92' y2='1.2' stroke='%234A7FB5' stroke-opacity='0.08' stroke-width='1.2' stroke-dasharray='3 16' stroke-linecap='round'/%3E%3Cline x1='1.2' y1='0' x2='1.2' y2='92' stroke='%234A7FB5' stroke-opacity='0.08' stroke-width='1.2' stroke-dasharray='3 16' stroke-linecap='round'/%3E%3C/svg%3E");
 
   --stars-opacity: 0;
 
-  --orbit-legend-muted: rgba(184, 115, 51, 0.54);
-  --orbit-legend-border: rgba(184, 115, 51, 0.26);
-  --orbit-guide: rgba(184, 115, 51, 0.15);
-  --orbit-trail: rgba(184, 115, 51, 0.42);
+  --orbit-legend-muted: rgba(74, 127, 181, 0.54);
+  --orbit-legend-border: rgba(74, 127, 181, 0.26);
+  --orbit-guide: rgba(74, 127, 181, 0.15);
+  --orbit-trail: rgba(74, 127, 181, 0.42);
   --orbit-trail-alpha: 0.38;
-  --orbit-planet-fill: rgba(184, 115, 51, 0.92);
-  --orbit-planet-stroke: rgba(184, 115, 51, 0.38);
-  --orbit-planet-cross: rgba(184, 115, 51, 0.22);
+  --orbit-planet-fill: rgba(74, 127, 181, 0.92);
+  --orbit-planet-stroke: rgba(74, 127, 181, 0.38);
+  --orbit-planet-cross: rgba(74, 127, 181, 0.22);
   --orbit-sat-fill: rgba(255, 255, 255, 0.98);
-  --orbit-sat-stroke: rgba(184, 115, 51, 0.48);
-  --orbit-sat-cross: rgba(184, 115, 51, 0.52);
+  --orbit-sat-stroke: rgba(74, 127, 181, 0.48);
+  --orbit-sat-cross: rgba(74, 127, 181, 0.52);
 }
 
 *,
@@ -585,7 +585,7 @@ body.layout-home-orbit .stars {
 }
 
 html[data-theme="light"] .orbit-profile-photo-wrap {
-  background: rgba(184, 115, 51, 0.05);
+  background: rgba(74, 127, 181, 0.05);
 }
 
 .orbit-profile-photo {
@@ -658,12 +658,12 @@ html[data-theme="light"] .orbit-profile-photo-wrap {
 .orbit-social-icon-link:hover {
   color: var(--accent-hot);
   border-color: var(--line-strong);
-  background: rgba(212, 165, 116, 0.07);
+  background: rgba(91, 141, 184, 0.07);
   transform: translateY(-1px);
 }
 
 html[data-theme="light"] .orbit-social-icon-link:hover {
-  background: rgba(184, 115, 51, 0.06);
+  background: rgba(74, 127, 181, 0.06);
 }
 
 .orbit-social-svg {
@@ -836,11 +836,11 @@ html[data-theme="light"] .orbit-social-icon-link:hover {
 
 .orbit-feed-dock-row:hover {
   border-bottom-color: var(--line);
-  background: rgba(212, 165, 116, 0.04);
+  background: rgba(91, 141, 184, 0.04);
 }
 
 html[data-theme="light"] .orbit-feed-dock-row:hover {
-  background: rgba(184, 115, 51, 0.04);
+  background: rgba(74, 127, 181, 0.04);
 }
 
 .orbit-feed-dock-date {
@@ -920,11 +920,11 @@ html[data-theme="light"] .orbit-feed-dock-row:hover {
 .orbit-feed-dock-action:hover {
   color: var(--accent-hot);
   border-color: var(--line-strong);
-  background: rgba(212, 165, 116, 0.06);
+  background: rgba(91, 141, 184, 0.06);
 }
 
 html[data-theme="light"] .orbit-feed-dock-action:hover {
-  background: rgba(184, 115, 51, 0.06);
+  background: rgba(74, 127, 181, 0.06);
 }
 
 .orbit-feed-dock-telem {
@@ -1088,11 +1088,11 @@ html[data-theme="light"] .orbit-hub-coords {
 .theme-cycle-btn:hover {
   color: var(--accent-hot);
   border-color: var(--line-strong);
-  background: rgba(212, 165, 116, 0.06);
+  background: rgba(91, 141, 184, 0.06);
 }
 
 html[data-theme="light"] .theme-cycle-btn:hover {
-  background: rgba(184, 115, 51, 0.06);
+  background: rgba(74, 127, 181, 0.06);
 }
 
 .theme-cycle-svg {
