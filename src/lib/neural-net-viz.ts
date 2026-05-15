@@ -20,7 +20,7 @@ function rotateX(v: Vec3, angle: number): Vec3 {
 
 function project3D(v: Vec3, fov: number, distance: number): { x: number; y: number; z: number; scale: number } {
   const z = v.z + distance;
-  const scale = fov / z;
+  const scale = fov / Math.max(z, 0.1);
   return { x: v.x * scale, y: v.y * scale, z, scale };
 }
 
@@ -37,7 +37,7 @@ function generateInterlockingTori(n: number): Point3D[] {
     const u = (Math.PI * 2 * i) / half + (Math.random() - 0.5) * 0.3;
     const v = Math.random() * Math.PI * 2;
     const R = 2.0, r = 0.5;
-    const noise = 0.15;
+    const noise = 0.12;
     data.push({
       x: (R + r * Math.cos(v)) * Math.cos(u) + (Math.random() - 0.5) * noise,
       y: (R + r * Math.cos(v)) * Math.sin(u) + (Math.random() - 0.5) * noise,
@@ -46,19 +46,17 @@ function generateInterlockingTori(n: number): Point3D[] {
     });
   }
 
-  // Torus B: lying in XZ plane (rotated 90° around X), same R, shifted
-  // This creates interlocking/overlapping regions
+  // Torus B: lying in XZ plane (rotated 90° around X), same R
   for (let i = 0; i < half; i++) {
     const u = (Math.PI * 2 * i) / half + (Math.random() - 0.5) * 0.3;
     const v = Math.random() * Math.PI * 2;
     const R = 2.0, r = 0.5;
-    const noise = 0.15;
-    // Rotated: x stays, y becomes z, z becomes y (with sign flip)
+    const noise = 0.12;
     const tx = (R + r * Math.cos(v)) * Math.cos(u);
     const ty = r * Math.sin(v);
     const tz = (R + r * Math.cos(v)) * Math.sin(u);
     data.push({
-      x: tx + (Math.random() - 0.5) * noise + 0.3, // slight offset to increase overlap
+      x: tx + (Math.random() - 0.5) * noise,
       y: tz + (Math.random() - 0.5) * noise,
       z: ty + (Math.random() - 0.5) * noise,
       label: 1,
@@ -81,35 +79,37 @@ class NeuralNet3D {
   z2: number = 0;
   a2: number = 0;
 
-  lr = 0.2;
+  lr = 0.25;
   loss = 0;
   accuracy = 0;
 
   constructor() {
     // Xavier init
-    const sqrt6_3 = Math.sqrt(6 / 3);
-    const sqrt6_8 = Math.sqrt(6 / 8);
+    const s3 = Math.sqrt(6 / 3);
+    const s8 = Math.sqrt(6 / 8);
     this.W1 = Array.from({ length: 8 }, () => [
-      (Math.random() - 0.5) * sqrt6_3,
-      (Math.random() - 0.5) * sqrt6_3,
-      (Math.random() - 0.5) * sqrt6_3,
+      (Math.random() - 0.5) * s3,
+      (Math.random() - 0.5) * s3,
+      (Math.random() - 0.5) * s3,
     ]);
     this.b1 = Array(8).fill(0);
-    this.W2 = Array.from({ length: 8 }, () => (Math.random() - 0.5) * sqrt6_8);
+    this.W2 = Array.from({ length: 8 }, () => (Math.random() - 0.5) * s8);
     this.b2 = 0;
   }
 
   tanh(x: number): number { return Math.tanh(x); }
-  sigmoid(x: number): number { return 1 / (1 + Math.exp(-Math.max(-10, Math.min(10, x)))); }
+  sigmoid(x: number): number {
+    const z = Math.exp(-Math.max(-10, Math.min(10, x)));
+    return 1 / (1 + z);
+  }
 
   forward(x: number, y: number, z: number): number {
     for (let i = 0; i < 8; i++) {
       this.z1[i] = this.W1[i][0] * x + this.W1[i][1] * y + this.W1[i][2] * z + this.b1[i];
       this.a1[i] = this.tanh(this.z1[i]);
     }
-    this.z2 = 0;
+    this.z2 = this.b2;
     for (let i = 0; i < 8; i++) this.z2 += this.W2[i] * this.a1[i];
-    this.z2 += this.b2;
     this.a2 = this.sigmoid(this.z2);
     return this.a2;
   }
@@ -163,9 +163,6 @@ class NeuralNet3D {
 interface NNPalette {
   class0: string;
   class1: string;
-  class0Glow: string;
-  class1Glow: string;
-  boundary: string;
   grid: string;
   text: string;
   textMuted: string;
@@ -184,11 +181,8 @@ function getPalette(): NNPalette {
   const line = cs.getPropertyValue("--line").trim() || "rgba(0,0,0,0.10)";
 
   return {
-    class0: isDark ? "rgba(107, 142, 255, 0.85)" : "rgba(53, 83, 255, 0.80)",
-    class1: isDark ? "rgba(255, 170, 90, 0.85)" : "rgba(210, 110, 50, 0.80)",
-    class0Glow: isDark ? "rgba(107, 142, 255, 0.3)" : "rgba(53, 83, 255, 0.25)",
-    class1Glow: isDark ? "rgba(255, 170, 90, 0.3)" : "rgba(210, 110, 50, 0.25)",
-    boundary: line,
+    class0: isDark ? "rgba(107, 142, 255, 0.95)" : "rgba(53, 83, 255, 0.92)",
+    class1: isDark ? "rgba(255, 170, 90, 0.95)" : "rgba(220, 110, 50, 0.92)",
     grid: line,
     text: ink,
     textMuted: muted,
@@ -210,8 +204,9 @@ export function attachNeuralNetViz(canvas: HTMLCanvasElement): () => void {
   let cssW = 720;
   let cssH = 720;
 
-  const data = generateInterlockingTori(320);
+  const data = generateInterlockingTori(200);
   const net = new NeuralNet3D();
+  const predictions = new Float64Array(data.length);
   let epoch = 0;
   const maxEpochs = 150;
   let pausedFrames = 0;
@@ -219,18 +214,18 @@ export function attachNeuralNetViz(canvas: HTMLCanvasElement): () => void {
 
   // 3D view state
   let rotY = 0;
-  let rotX = 0.3; // slight tilt
-  const fov = 300;
-  const camDist = 8;
+  let rotX = 0.25;
+  const fov = 240;
+  const camDist = 7;
 
   // Phase cycling: 0=input, 1=hidden, 2=output
-  const phaseDuration = 180; // frames at 60fps ≈ 3s
+  const phaseDuration = 160;
   let phaseFrame = 0;
-  let currentPhase = 0; // 0, 1, 2
+  let currentPhase = 0;
   const phaseNames = ["INPUT", "HIDDEN", "OUTPUT"];
   const phaseLabels = ["INPUT SPACE · R³", "HIDDEN LAYER · φ(x)", "OUTPUT · σ(W₂h + b₂)"];
 
-  // Pre-compute coordinate ranges
+  // Data bounds
   let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity, minZ = Infinity, maxZ = -Infinity;
   for (const p of data) {
     if (p.x < minX) minX = p.x;
@@ -245,8 +240,12 @@ export function attachNeuralNetViz(canvas: HTMLCanvasElement): () => void {
   const centerZ = (minZ + maxZ) / 2;
   const maxRange = Math.max(maxX - minX, maxY - minY, maxZ - minZ);
 
-  // Store per-point positions for smooth morphing
-  const positions = data.map(() => ({ input: { x: 0, y: 0, z: 0 }, hidden: { x: 0, y: 0, z: 0 }, output: { x: 0, y: 0, z: 0 } }));
+  // Per-point positions
+  const positions = data.map(() => ({
+    input: { x: 0, y: 0, z: 0 },
+    hidden: { x: 0, y: 0, z: 0 },
+    output: { x: 0, y: 0, z: 0 },
+  }));
 
   let pal = getPalette();
 
@@ -264,70 +263,96 @@ export function attachNeuralNetViz(canvas: HTMLCanvasElement): () => void {
   function updatePositions() {
     for (let i = 0; i < data.length; i++) {
       const p = data[i];
-      // Input: normalized centered coordinates
+      // Input: normalized
       positions[i].input = {
-        x: (p.x - centerX) / maxRange * 3.5,
-        y: (p.y - centerY) / maxRange * 3.5,
-        z: (p.z - centerZ) / maxRange * 3.5,
+        x: (p.x - centerX) / maxRange * 3.2,
+        y: (p.y - centerY) / maxRange * 3.2,
+        z: (p.z - centerZ) / maxRange * 3.2,
       };
 
       // Hidden: first 3 activations
-      net.forward(p.x, p.y, p.z);
+      predictions[i] = net.forward(p.x, p.y, p.z);
       positions[i].hidden = {
-        x: net.a1[0] * 2.5,
-        y: net.a1[1] * 2.5,
-        z: net.a1[2] * 2.5,
+        x: net.a1[0] * 2.2,
+        y: net.a1[1] * 2.2,
+        z: net.a1[2] * 2.2,
       };
 
-      // Output: prediction confidence mapped to Z, x/y from input for continuity
-      const conf = net.a2;
+      // Output: separated by class confidence
+      const conf = predictions[i];
       const isClass1 = conf > 0.5 ? 1 : 0;
-      const separation = isClass1 ? 1.5 : -1.5;
+      const separation = isClass1 ? 1.2 : -1.2;
       positions[i].output = {
-        x: positions[i].input.x * 0.3,
-        y: positions[i].input.y * 0.3,
-        z: separation + (conf - 0.5) * 2,
+        x: positions[i].input.x * 0.2,
+        y: positions[i].input.y * 0.2,
+        z: separation + (conf - 0.5) * 1.5,
       };
     }
   }
 
   function getInterpolatedPos(idx: number, phase: number, t: number): Vec3 {
-    // t: 0..1 interpolation factor between phases
     const p = positions[idx];
+    const s = t;
     if (phase === 0) {
-      // input → hidden
       return {
-        x: p.input.x + (p.hidden.x - p.input.x) * t,
-        y: p.input.y + (p.hidden.y - p.input.y) * t,
-        z: p.input.z + (p.hidden.z - p.input.z) * t,
+        x: p.input.x + (p.hidden.x - p.input.x) * s,
+        y: p.input.y + (p.hidden.y - p.input.y) * s,
+        z: p.input.z + (p.hidden.z - p.input.z) * s,
       };
     } else if (phase === 1) {
-      // hidden → output
       return {
-        x: p.hidden.x + (p.output.x - p.hidden.x) * t,
-        y: p.hidden.y + (p.output.y - p.hidden.y) * t,
-        z: p.hidden.z + (p.output.z - p.hidden.z) * t,
+        x: p.hidden.x + (p.output.x - p.hidden.x) * s,
+        y: p.hidden.y + (p.output.y - p.hidden.y) * s,
+        z: p.hidden.z + (p.output.z - p.hidden.z) * s,
       };
     } else {
-      // output → input (wrap around)
       return {
-        x: p.output.x + (p.input.x - p.output.x) * t,
-        y: p.output.y + (p.input.y - p.output.y) * t,
-        z: p.output.z + (p.input.z - p.output.z) * t,
+        x: p.output.x + (p.input.x - p.output.x) * s,
+        y: p.output.y + (p.input.y - p.output.y) * s,
+        z: p.output.z + (p.input.z - p.output.z) * s,
       };
     }
   }
 
+  function drawGroundPlane(cx: number, cy: number) {
+    const gridSize = 3.0;
+    const steps = 6;
+    ctx.save();
+    ctx.strokeStyle = pal.grid;
+    ctx.lineWidth = 0.4;
+    ctx.globalAlpha = 0.5;
+
+    for (let i = 0; i <= steps; i++) {
+      const t = (i / steps) * 2 - 1;
+      // X lines
+      const p1 = project3D(rotateX(rotateY({ x: t * gridSize, y: -gridSize, z: 0 }, rotY), rotX), fov, camDist);
+      const p2 = project3D(rotateX(rotateY({ x: t * gridSize, y: gridSize, z: 0 }, rotY), rotX), fov, camDist);
+      ctx.beginPath();
+      ctx.moveTo(cx + p1.x, cy - p1.y);
+      ctx.lineTo(cx + p2.x, cy - p2.y);
+      ctx.stroke();
+
+      // Y lines
+      const p3 = project3D(rotateX(rotateY({ x: -gridSize, y: t * gridSize, z: 0 }, rotY), rotX), fov, camDist);
+      const p4 = project3D(rotateX(rotateY({ x: gridSize, y: t * gridSize, z: 0 }, rotY), rotX), fov, camDist);
+      ctx.beginPath();
+      ctx.moveTo(cx + p3.x, cy - p3.y);
+      ctx.lineTo(cx + p4.x, cy - p4.y);
+      ctx.stroke();
+    }
+
+    ctx.globalAlpha = 1;
+    ctx.restore();
+  }
+
   function draw3DScatter(phase: number, t: number) {
     const cx = cssW / 2;
-    const cy = cssH * 0.42;
+    const cy = cssH * 0.40;
     const projected: Array<{ x: number; y: number; z: number; scale: number; idx: number; label: number }> = [];
 
     for (let i = 0; i < data.length; i++) {
       const pos = getInterpolatedPos(i, phase, t);
-      // Apply rotation
-      let v = rotateY(pos, rotY);
-      v = rotateX(v, rotX);
+      const v = rotateX(rotateY(pos, rotY), rotX);
       const pr = project3D(v, fov, camDist);
       projected.push({
         x: cx + pr.x,
@@ -342,65 +367,49 @@ export function attachNeuralNetViz(canvas: HTMLCanvasElement): () => void {
     // Sort by depth (back to front)
     projected.sort((a, b) => b.z - a.z);
 
-    // Draw points
+    // Draw points — small crisp dots
     for (const p of projected) {
-      const pred = net.a2; // last computed prediction for this point
-      const size = Math.max(2, 4 * p.scale);
+      const size = Math.max(1.2, Math.min(2.8, p.scale * 0.12));
 
       let color: string;
-      let glow: string;
-
       if (currentPhase === 2) {
         // Output phase: color by confidence
-        const conf = data[p.idx].label === 0 ? 1 - pred : pred;
-        const baseColor = data[p.idx].label === 0 ? pal.class0 : pal.class1;
-        // Parse rgba and adjust alpha by confidence
-        const match = baseColor.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+        const conf = data[p.idx].label === 0 ? 1 - predictions[p.idx] : predictions[p.idx];
+        const base = data[p.idx].label === 0 ? pal.class0 : pal.class1;
+        const match = base.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
         if (match) {
-          const r = match[1], g = match[2], b = match[3];
-          const alpha = Math.min(0.85, 0.3 + conf * 0.7);
-          color = `rgba(${r}, ${g}, ${b}, ${alpha})`;
-          glow = `rgba(${r}, ${g}, ${b}, ${alpha * 0.3})`;
+          const alpha = Math.min(0.95, 0.5 + conf * 0.45);
+          color = `rgba(${match[1]}, ${match[2]}, ${match[3]}, ${alpha})`;
         } else {
-          color = baseColor;
-          glow = data[p.idx].label === 0 ? pal.class0Glow : pal.class1Glow;
+          color = base;
         }
       } else {
         color = data[p.idx].label === 0 ? pal.class0 : pal.class1;
-        glow = data[p.idx].label === 0 ? pal.class0Glow : pal.class1Glow;
       }
 
-      // Glow
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, size * 2.5, 0, Math.PI * 2);
-      ctx.fillStyle = glow;
-      ctx.fill();
-
-      // Core
       ctx.beginPath();
       ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
       ctx.fillStyle = color;
       ctx.fill();
     }
 
-    // Draw axes
-    const axisLen = 2.0;
+    // Axes
+    const axisLen = 1.8;
     const axes = [
-      { dir: { x: axisLen, y: 0, z: 0 }, color: "rgba(255,80,80,0.6)", label: "x" },
-      { dir: { x: 0, y: axisLen, z: 0 }, color: "rgba(80,255,80,0.6)", label: "y" },
-      { dir: { x: 0, y: 0, z: axisLen }, color: "rgba(80,80,255,0.6)", label: "z" },
+      { dir: { x: axisLen, y: 0, z: 0 }, color: "rgba(200,80,80,0.7)" },
+      { dir: { x: 0, y: axisLen, z: 0 }, color: "rgba(80,180,80,0.7)" },
+      { dir: { x: 0, y: 0, z: axisLen }, color: "rgba(80,80,200,0.7)" },
     ];
 
     ctx.save();
     for (const axis of axes) {
-      let end = rotateY(axis.dir, rotY);
-      end = rotateX(end, rotX);
+      const end = rotateX(rotateY(axis.dir, rotY), rotX);
       const pr = project3D(end, fov, camDist);
       ctx.beginPath();
       ctx.moveTo(cx, cy);
       ctx.lineTo(cx + pr.x, cy - pr.y);
       ctx.strokeStyle = axis.color;
-      ctx.lineWidth = 1;
+      ctx.lineWidth = 1.2;
       ctx.stroke();
     }
     ctx.restore();
@@ -418,11 +427,9 @@ export function attachNeuralNetViz(canvas: HTMLCanvasElement): () => void {
       { x: cx + availW * 0.32, nodes: 1, labels: ["ŷ"] },
     ];
 
-    const nodeR = Math.min(7, height * 0.08);
-    const layerSpacing = Math.min(14, height * 0.18);
-
-    // Highlight active layer
-    const activeLayerIdx = currentPhase === 0 ? 0 : currentPhase === 1 ? 1 : 2;
+    const nodeR = Math.min(6, height * 0.07);
+    const layerSpacing = Math.min(12, height * 0.16);
+    const activeLayerIdx = currentPhase;
 
     // Connections
     ctx.save();
@@ -438,16 +445,14 @@ export function attachNeuralNetViz(canvas: HTMLCanvasElement): () => void {
           let w = 0;
           if (l === 0) w = net.W1[j][i];
           else w = net.W2[j];
-          const absW = Math.abs(w);
-          const maxW = 2.0;
-          const alpha = Math.min(absW / maxW, 1);
+          const absW = Math.min(Math.abs(w) / 2.0, 1);
 
           ctx.beginPath();
           ctx.moveTo(fromLayer.x, fromYStart + i * layerSpacing);
           ctx.lineTo(toLayer.x, toYStart + j * layerSpacing);
           ctx.strokeStyle = isActive ? pal.networkLineActive : pal.networkLine;
-          ctx.globalAlpha = isActive ? 0.25 + alpha * 0.55 : 0.08 + alpha * 0.12;
-          ctx.lineWidth = isActive ? 0.8 + alpha * 1.5 : 0.5;
+          ctx.globalAlpha = isActive ? 0.15 + absW * 0.5 : 0.06 + absW * 0.08;
+          ctx.lineWidth = isActive ? 0.7 + absW * 1.2 : 0.4;
           ctx.stroke();
         }
       }
@@ -464,7 +469,7 @@ export function attachNeuralNetViz(canvas: HTMLCanvasElement): () => void {
         const ny = yStart + i * layerSpacing;
         ctx.beginPath();
         ctx.arc(layer.x, ny, nodeR, 0, Math.PI * 2);
-        ctx.fillStyle = isActive ? pal.nodeBg : pal.nodeBg;
+        ctx.fillStyle = pal.nodeBg;
         ctx.fill();
         ctx.strokeStyle = isActive ? pal.networkLineActive : pal.nodeBorder;
         ctx.lineWidth = isActive ? 1.5 : 0.8;
@@ -480,27 +485,26 @@ export function attachNeuralNetViz(canvas: HTMLCanvasElement): () => void {
       }
     }
 
-    // Phase indicator above diagram
+    // Phase indicator dots
     ctx.save();
     ctx.font = `600 9px ui-monospace, monospace`;
     ctx.fillStyle = pal.networkLineActive;
     ctx.textAlign = "center";
     const indicatorY = bottomY + 10;
-    // Draw connecting dots
-    const dotXStart = cx - 40;
-    const dotSpacing = 40;
+    const dotXStart = cx - 36;
+    const dotSpacing = 36;
     for (let i = 0; i < 3; i++) {
       ctx.beginPath();
       ctx.arc(dotXStart + i * dotSpacing, indicatorY, i === activeLayerIdx ? 3 : 2, 0, Math.PI * 2);
       ctx.fillStyle = i === activeLayerIdx ? pal.networkLineActive : pal.textMuted;
-      ctx.globalAlpha = i === activeLayerIdx ? 1 : 0.4;
+      ctx.globalAlpha = i === activeLayerIdx ? 1 : 0.35;
       ctx.fill();
     }
     ctx.globalAlpha = 1;
     ctx.fillText(phaseNames[activeLayerIdx], cx, indicatorY + 14);
     ctx.restore();
 
-    // Metrics on right
+    // Metrics
     ctx.save();
     ctx.textAlign = "right";
     ctx.textBaseline = "middle";
@@ -526,7 +530,7 @@ export function attachNeuralNetViz(canvas: HTMLCanvasElement): () => void {
     const topH = cssH * 0.68;
     const bottomH = cssH - topH;
 
-    // Label for current phase
+    // Phase label
     ctx.save();
     ctx.font = `600 9px ui-monospace, monospace`;
     ctx.fillStyle = pal.textMuted;
@@ -534,11 +538,18 @@ export function attachNeuralNetViz(canvas: HTMLCanvasElement): () => void {
     ctx.fillText(phaseLabels[currentPhase], 12, 18);
     ctx.restore();
 
-    // Compute interpolation factor within current phase
     const phaseT = phaseFrame / phaseDuration;
-    const smoothT = phaseT < 0.5 ? 2 * phaseT * phaseT : 1 - Math.pow(-2 * phaseT + 2, 2) / 2; // easeInOutQuad
+    const smoothT = phaseT < 0.5
+      ? 2 * phaseT * phaseT
+      : 1 - Math.pow(-2 * phaseT + 2, 2) / 2;
 
-    // Draw 3D scatter
+    const cx = cssW / 2;
+    const cy = cssH * 0.40;
+
+    // Ground plane first (behind points)
+    drawGroundPlane(cx, cy);
+
+    // 3D scatter
     draw3DScatter(currentPhase, smoothT);
 
     // Separator
@@ -566,28 +577,28 @@ export function attachNeuralNetViz(canvas: HTMLCanvasElement): () => void {
         epoch = 0;
         converged = false;
         pausedFrames = 0;
-        net.lr = 0.2;
-        // Re-init
-        const sqrt6_3 = Math.sqrt(6 / 3);
-        const sqrt6_8 = Math.sqrt(6 / 8);
+        net.lr = 0.25;
+        const s3 = Math.sqrt(6 / 3);
+        const s8 = Math.sqrt(6 / 8);
         net.W1 = Array.from({ length: 8 }, () => [
-          (Math.random() - 0.5) * sqrt6_3,
-          (Math.random() - 0.5) * sqrt6_3,
-          (Math.random() - 0.5) * sqrt6_3,
+          (Math.random() - 0.5) * s3,
+          (Math.random() - 0.5) * s3,
+          (Math.random() - 0.5) * s3,
         ]);
         net.b1 = Array(8).fill(0);
-        net.W2 = Array.from({ length: 8 }, () => (Math.random() - 0.5) * sqrt6_8);
+        net.W2 = Array.from({ length: 8 }, () => (Math.random() - 0.5) * s8);
         net.b2 = 0;
         currentPhase = 0;
         phaseFrame = 0;
       }
     } else {
-      const stepsPerFrame = 4;
+      const stepsPerFrame = 3;
       for (let i = 0; i < stepsPerFrame && epoch < maxEpochs; i++) {
         net.trainStep(data);
         epoch++;
-        if (epoch > 80) net.lr = 0.1;
-        if (epoch > 120) net.lr = 0.05;
+        if (epoch > 60) net.lr = 0.12;
+        if (epoch > 100) net.lr = 0.06;
+        if (epoch > 130) net.lr = 0.03;
       }
       if (epoch >= maxEpochs || net.accuracy > 0.96) {
         converged = true;
@@ -595,11 +606,9 @@ export function attachNeuralNetViz(canvas: HTMLCanvasElement): () => void {
       }
     }
 
-    // Update rotation
-    rotY += 0.008;
-    rotX = 0.3 + Math.sin(rotY * 0.5) * 0.15; // gentle wobble
+    rotY += 0.006;
+    rotX = 0.25 + Math.sin(rotY * 0.4) * 0.12;
 
-    // Update phase
     phaseFrame++;
     if (phaseFrame >= phaseDuration) {
       phaseFrame = 0;
