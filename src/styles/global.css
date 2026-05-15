@@ -9,15 +9,15 @@
   --muted: rgba(200,190,175,0.5);
   --accent: #5B8DB8;
   --accent-hot: #8BB8E0;
-  --line: rgba(212,165,116,0.15);
-  --line-strong: rgba(212,165,116,0.25);
+  --line: rgba(91,141,184,0.15);
+  --line-strong: rgba(91,141,184,0.25);
   --link-hover: #8BB8E0;
-  --code-bg: rgba(212,165,116,0.06);
-  --pre-bg: rgba(212,165,116,0.04);
-  --frame-dash: rgba(212,165,116,0.18);
-  --table-th-bg: rgba(212,165,116,0.08);
-  --project-banner-bg: rgba(212,165,116,0.05);
-  --link-underline: rgba(212,165,116,0.35);
+  --code-bg: rgba(91,141,184,0.06);
+  --pre-bg: rgba(91,141,184,0.04);
+  --frame-dash: rgba(91,141,184,0.18);
+  --table-th-bg: rgba(91,141,184,0.08);
+  --project-banner-bg: rgba(91,141,184,0.05);
+  --link-underline: rgba(91,141,184,0.35);
 
   --glow-orbit-top: radial-gradient(
     ellipse 120% 85% at 50% -15%,
@@ -67,15 +67,15 @@ html[data-theme="light"] {
   --muted: rgba(60,55,50,0.5);
   --accent: #4A7FB5;
   --accent-hot: #2E5E8C;
-  --line: rgba(184,115,51,0.2);
-  --line-strong: rgba(184,115,51,0.35);
+  --line: rgba(74,127,181,0.2);
+  --line-strong: rgba(74,127,181,0.35);
   --link-hover: #2E5E8C;
-  --code-bg: rgba(184,115,51,0.06);
-  --pre-bg: rgba(184,115,51,0.04);
-  --frame-dash: rgba(184,115,51,0.2);
-  --table-th-bg: rgba(184,115,51,0.08);
-  --project-banner-bg: rgba(184,115,51,0.07);
-  --link-underline: rgba(184,115,51,0.35);
+  --code-bg: rgba(74,127,181,0.06);
+  --pre-bg: rgba(74,127,181,0.04);
+  --frame-dash: rgba(74,127,181,0.2);
+  --table-th-bg: rgba(74,127,181,0.08);
+  --project-banner-bg: rgba(74,127,181,0.07);
+  --link-underline: rgba(74,127,181,0.35);
 
   --glow-orbit-top: radial-gradient(
     ellipse 115% 80% at 50% -8%,

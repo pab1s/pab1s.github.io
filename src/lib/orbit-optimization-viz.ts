@@ -82,15 +82,15 @@ export function attachOrbitOptimization(canvas: HTMLCanvasElement): () => void {
   };
 
   let pal: OrbitPal = {
-    guide: "rgba(212,165,116,0.12)",
-    trail: "rgba(212,165,116,0.55)",
+    guide: "rgba(91,141,184,0.12)",
+    trail: "rgba(91,141,184,0.55)",
     trailAlpha: 0.42,
-    planetFill: "rgba(212,165,116,0.92)",
-    planetStroke: "rgba(212,165,116,0.28)",
-    planetCross: "rgba(212,165,116,0.12)",
-    satFill: "rgba(232,220,196,0.94)",
-    satStroke: "rgba(212,165,116,0.42)",
-    satCross: "rgba(212,165,116,0.5)",
+    planetFill: "rgba(91,141,184,0.92)",
+    planetStroke: "rgba(91,141,184,0.28)",
+    planetCross: "rgba(91,141,184,0.12)",
+    satFill: "rgba(139,184,224,0.94)",
+    satStroke: "rgba(91,141,184,0.42)",
+    satCross: "rgba(91,141,184,0.5)",
   };
 
   function refreshPalette() {
@@ -203,7 +203,7 @@ export function attachOrbitOptimization(canvas: HTMLCanvasElement): () => void {
     if (cmaMeanPath.length >= 2) {
       ctx.setLineDash([5, 5]);
       ctx.lineWidth = 1.35;
-      ctx.strokeStyle = "rgba(212, 220, 196, 0.52)";
+      ctx.strokeStyle = "rgba(91, 141, 184, 0.52)";
       ctx.beginPath();
       const p0 = cmaMeanPath[0];
       ctx.moveTo(cx + p0.rx, cy + p0.ry);
@@ -244,7 +244,7 @@ export function attachOrbitOptimization(canvas: HTMLCanvasElement): () => void {
     const y0 = cssH - 46;
     const mono = '600 9px ui-monospace, SFMono-Regular, "Cascadia Code", monospace';
     ctx.font = mono;
-    ctx.fillStyle = "rgba(212, 200, 180, 0.88)";
+    ctx.fillStyle = "rgba(91, 141, 184, 0.88)";
     const bf =
       cmaEs.bestF < 1e5 && Number.isFinite(cmaEs.bestF)
         ? cmaEs.bestF.toPrecision(4)
