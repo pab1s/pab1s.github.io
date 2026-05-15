@@ -1,9 +1,8 @@
 export const siteConfig = {
   title: "Pablo Olivares",
-  tagline:
-    "ML engineer · data alchemist · build notes in the open",
+  tagline: "ML engineer · data alchemist · tinkerer",
   description:
-    "Pablo Olivares — ML engineer and data scientist. Writing about ML, statistical learning, and experiments.",
+    "Pablo Olivares — ML engineer and data scientist. Building things with PyTorch, curiosity, and a pinch of alchemy.",
   url: "https://pab1s.github.io",
   author: "Pablo Olivares",
   googleAnalyticsId: "G-Q6BZDBC20J",
@@ -21,6 +20,7 @@ export const siteConfig = {
     { name: "Projects", href: "/projects/" },
     { name: "Resume", href: "/resume/" },
     { name: "Search", href: "/search/" },
+    { name: "Kitchen", href: "/kitchen/" },
   ],
   /** Portada orbital: archivo en `/public/` */
   avatarSrc: "/avatar.svg",
@@ -35,9 +35,9 @@ export const siteConfig = {
 } as const;
 
 export const telemetryLines = [
-  "NEURAL_LINK: STANDBY",
-  "GRID_REF: SOL_00·LAB_NOTEBOOK",
-  "ORBIT_TELEMETRY: NOMINAL",
-  "LATENT_SPACE: CALIBRATED",
-  "TOOLS: PYTHON · PYTORCH · NOTE SCRAPS",
+  "Currently reading: The Book of Why",
+  "Kitchen status: Perfecting sourdough",
+  "Last experiment: LLM interpretability pipeline",
+  "Stargazing: Tracking Jupiter's moons",
+  "Tinkering with: Conformal prediction",
 ];

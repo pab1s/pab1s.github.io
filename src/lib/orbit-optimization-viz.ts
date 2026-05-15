@@ -82,15 +82,15 @@ export function attachOrbitOptimization(canvas: HTMLCanvasElement): () => void {
   };
 
   let pal: OrbitPal = {
-    guide: "rgba(255,255,255,0.09)",
-    trail: "rgba(110,195,255,0.55)",
+    guide: "rgba(212,165,116,0.12)",
+    trail: "rgba(212,165,116,0.55)",
     trailAlpha: 0.42,
-    planetFill: "rgba(20,46,102,0.92)",
-    planetStroke: "rgba(120,180,218,0.28)",
-    planetCross: "rgba(180,220,248,0.12)",
-    satFill: "rgba(246,250,255,0.94)",
-    satStroke: "rgba(118,196,255,0.42)",
-    satCross: "rgba(148,210,255,0.5)",
+    planetFill: "rgba(212,165,116,0.92)",
+    planetStroke: "rgba(212,165,116,0.28)",
+    planetCross: "rgba(212,165,116,0.12)",
+    satFill: "rgba(232,220,196,0.94)",
+    satStroke: "rgba(212,165,116,0.42)",
+    satCross: "rgba(212,165,116,0.5)",
   };
 
   function refreshPalette() {
@@ -203,7 +203,7 @@ export function attachOrbitOptimization(canvas: HTMLCanvasElement): () => void {
     if (cmaMeanPath.length >= 2) {
       ctx.setLineDash([5, 5]);
       ctx.lineWidth = 1.35;
-      ctx.strokeStyle = "rgba(110, 220, 255, 0.52)";
+      ctx.strokeStyle = "rgba(212, 220, 196, 0.52)";
       ctx.beginPath();
       const p0 = cmaMeanPath[0];
       ctx.moveTo(cx + p0.rx, cy + p0.ry);
@@ -244,14 +244,14 @@ export function attachOrbitOptimization(canvas: HTMLCanvasElement): () => void {
     const y0 = cssH - 46;
     const mono = '600 9px ui-monospace, SFMono-Regular, "Cascadia Code", monospace';
     ctx.font = mono;
-    ctx.fillStyle = "rgba(200,215,228,0.88)";
+    ctx.fillStyle = "rgba(212, 200, 180, 0.88)";
     const bf =
       cmaEs.bestF < 1e5 && Number.isFinite(cmaEs.bestF)
         ? cmaEs.bestF.toPrecision(4)
         : "pen.";
     ctx.fillText(`CMA‑ES · gen ${cmaEs.gen} · σ ${cmaEs.sigma.toPrecision(4)} · best f ${bf}`, x0, y0);
     ctx.font = '500 8px ui-monospace, SFMono-Regular, "Cascadia Code", monospace';
-    ctx.fillStyle = "rgba(148,172,188,0.78)";
+    ctx.fillStyle = "rgba(180, 165, 140, 0.78)";
     ctx.fillText(`Arcos: λ hipótesis (rank) colores peor→mejor · punteado: media m · trazo claro: órbita en vivo`, x0, y0 + 12);
     ctx.restore();
   }

@@ -2,32 +2,30 @@
 import { siteConfig, telemetryLines } from "../site-config";
 ---
 
-<footer class="frame site-footer-compact">
-  <div
-    class="meta-row"
-    style="display: flex; flex-wrap: wrap; gap: 0.45rem 0.95rem; justify-content: space-between; align-items: center;"
-  >
-    <span data-telemetry data-lines={JSON.stringify(telemetryLines)} id="telemetry-slot">
-      {telemetryLines[0]}
-    </span>
-    <div style="display: flex; flex-wrap: wrap; gap: 0.45rem 0.72rem;">
-      {
-        siteConfig.social.map((s) => (
-          <a href={s.href} rel="me noopener noreferrer" target="_blank">
-            ⟡ {s.name}
-          </a>
-        ))
-      }
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="site-footer-row">
+      <span class="site-footer-status" data-footer-status data-lines={JSON.stringify(telemetryLines)}>
+        {telemetryLines[0]}
+      </span>
+      <div class="site-footer-socials">
+        {
+          siteConfig.social.map((s) => (
+            <a href={s.href} rel="me noopener noreferrer" target={s.href.startsWith("mailto:") ? undefined : "_blank"}>
+              {s.name}
+            </a>
+          ))
+        }
+      </div>
     </div>
+    <p class="site-footer-copy">
+      Built with <a href="https://astro.build">Astro</a> · Blueprints strictly aspirational · The Curiosity Workshop
+    </p>
   </div>
-  <p class="meta-row" style="margin-top: 0.45rem; opacity: 0.85;">
-    Lab notebook / personal site · blueprints strictly aspirational · built with{" "}
-    <a href="https://astro.build">Astro</a>
-  </p>
 </footer>
 
 <script>
-  const el = document.getElementById("telemetry-slot");
+  const el = document.querySelector<HTMLElement>("[data-footer-status]");
   if (el?.dataset.lines) {
     const lines = JSON.parse(el.dataset.lines) as string[];
     let i = 0;
