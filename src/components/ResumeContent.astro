@@ -3,15 +3,13 @@ import cv from "../data/cv.json";
 ---
 
 <section class="resume-content prose">
-  <header style="text-align: center;">
+  <header>
     <h1>{cv.basics.name}</h1>
-    <p class="meta-row" style="margin: 0.35rem 0;">
-      {cv.basics.label}
-    </p>
-    <p style="margin: 0;">
+    <p class="meta-row">{cv.basics.label}</p>
+    <p>
       <a href={`mailto:${cv.basics.email}`}>{cv.basics.email}</a>
     </p>
-    <p class="meta-row" style="margin: 0.22rem 0;">
+    <p class="meta-row">
       {cv.basics.location.city}, {cv.basics.location.countryCode}
     </p>
   </header>
@@ -28,7 +26,7 @@ import cv from "../data/cv.json";
         <article>
           <h3>
             {job.position}{" "}
-            <span style="color: var(--muted); font-weight: 400;">@</span>{" "}
+            <span class="at-separator">@</span>{" "}
             <a href={job.url} target="_blank" rel="noopener noreferrer">
               {job.name}
             </a>
@@ -97,20 +95,28 @@ import cv from "../data/cv.json";
 
   <section>
     <h2>Skills</h2>
-    <ul style="padding-left: 1.05rem; margin-top: 0.25rem;">
-      {
-        cv.skills.map((s) => (
-          <li style="margin-bottom: 0.28rem;">
-            <strong>{s.name}:</strong> {s.keywords.join(", ")}
-          </li>
-        ))
-      }
-    </ul>
+    {
+      cv.skills.map((category) => (
+        <div class="skill-category">
+          <h3>{category.name}</h3>
+          <div class="skill-grid">
+            {category.keywords.map((skill) => (
+              <div class="skill-item">
+                <span class="skill-name">{skill}</span>
+                <div class="skill-bar-outer">
+                  <div class="skill-bar-inner" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))
+    }
   </section>
 
   <section>
     <h2>Languages</h2>
-    <ul style="padding-left: 1.05rem; margin-top: 0.25rem;">
+    <ul class="language-list">
       {
         cv.languages.map((l) => (
           <li>
@@ -141,3 +147,59 @@ import cv from "../data/cv.json";
     }
   </section>
 </section>
+
+<style>
+  .resume-content header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  .resume-content header h1 {
+    margin: 0.35rem 0 0;
+    border: none;
+    padding: 0;
+  }
+  .resume-content header .meta-row {
+    margin: 0.35rem 0;
+  }
+  .resume-content header p:last-of-type.meta-row {
+    margin: 0.22rem 0;
+  }
+
+  .at-separator {
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  .skill-category {
+    margin-bottom: 1.5rem;
+  }
+
+  .skill-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .skill-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 140px;
+  }
+
+  .skill-name {
+    font-size: 0.85rem;
+    color: var(--ink);
+  }
+
+  .language-list {
+    padding-left: 1.05rem;
+    margin-top: 0.25rem;
+  }
+
+  @media print {
+    .resume-content { max-width: 100%; }
+    .workshop-nav, .noise-overlay, .stars, .theme-cycle-btn { display: none !important; }
+  }
+</style>

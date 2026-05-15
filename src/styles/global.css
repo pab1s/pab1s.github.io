@@ -52,6 +52,12 @@
   --orbit-sat-cross: rgba(212, 165, 116, 0.5);
 }
 
+.resume-content { max-width: 800px; }
+.resume-content section { margin-bottom: 2.5rem; }
+.resume-content article { margin-bottom: 1.5rem; }
+.skill-bar-outer { height: 4px; background: var(--line); border-radius: 2px; width: 120px; margin-top: 0.25rem; }
+.skill-bar-inner { height: 100%; background: var(--accent); border-radius: 2px; width: 85%; }
+
 html[data-theme="light"] {
   color-scheme: light;
 
@@ -1106,3 +1112,10 @@ html[data-theme="light"] .theme-cycle-svg--sun {
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+
+.section-hero { margin-bottom: 3rem; }
+.section-hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); margin: 0; }
+.section-hero p { color: var(--muted); font-size: 1.05rem; margin: 0.5rem 0 0; }
+.project-featured-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+@media (max-width: 768px) { .project-featured-grid { grid-template-columns: 1fr; } }
