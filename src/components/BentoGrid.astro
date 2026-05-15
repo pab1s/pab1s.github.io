@@ -1,6 +1,5 @@
 ---
 import SpotlightCard from "./SpotlightCard.astro";
-import NeuralNetViz from "./NeuralNetViz.astro";
 
 interface BlogPost {
   slug: string;
@@ -43,21 +42,8 @@ const liveLink = featuredProject.liveLink?.trim() ?? "";
 
 <section class="bento-section">
   <div class="bento-grid">
-    <!-- Cell 1: Neural Network Viz (2×2) -->
-    <div class="bento-cell bento-cell--viz" style="--index: 0;">
-      <SpotlightCard class="bento-card">
-        <div class="bento-viz-inner">
-          <div class="bento-viz-header">
-            <span class="stamp">MANIFOLD UNFOLDING</span>
-            <span class="bento-viz-sub">3 → 16 → 1 · Adam · ReLU</span>
-          </div>
-          <NeuralNetViz />
-        </div>
-      </SpotlightCard>
-    </div>
-
-    <!-- Cell 2: Latest Blog Posts (2×2) -->
-    <div class="bento-cell bento-cell--blog" style="--index: 1;">
+    <!-- Cell 1: Latest Blog Posts (spans 2x2) -->
+    <div class="bento-cell bento-cell--blog" style="--index: 0;">
       <SpotlightCard class="bento-card">
         <div class="bento-card-inner">
           <h3 class="bento-title">Latest from the notebook</h3>
@@ -78,8 +64,8 @@ const liveLink = featuredProject.liveLink?.trim() ?? "";
       </SpotlightCard>
     </div>
 
-    <!-- Cell 3: Featured Project (2×1) -->
-    <div class="bento-cell bento-cell--project" style="--index: 2;">
+    <!-- Cell 2: Featured Project (spans 2x1) -->
+    <div class="bento-cell bento-cell--project" style="--index: 1;">
       <SpotlightCard class="bento-card">
         <div class="bento-card-inner">
           <h3 class="bento-title">Featured recipe</h3>
@@ -110,11 +96,11 @@ const liveLink = featuredProject.liveLink?.trim() ?? "";
       </SpotlightCard>
     </div>
 
-    <!-- Cell 4: Tinkering Widget (1×1) -->
-    <div class="bento-cell bento-cell--tinkering" style="--index: 3;">
+    <!-- Cell 3: Tinkering Widget -->
+    <div class="bento-cell bento-cell--tinkering" style="--index: 2;">
       <SpotlightCard class="bento-card">
         <div class="bento-card-inner">
-          <h3 class="bento-title">Tinkering</h3>
+          <h3 class="bento-title">What I'm tinkering with</h3>
           <ul class="bento-tinkering-list">
             {
               tinkeringItems.map((item) => (
@@ -129,11 +115,11 @@ const liveLink = featuredProject.liveLink?.trim() ?? "";
       </SpotlightCard>
     </div>
 
-    <!-- Cell 5: Stats Widget (1×1) -->
-    <div class="bento-cell bento-cell--stats" style="--index: 4;">
+    <!-- Cell 4: Stats Widget -->
+    <div class="bento-cell bento-cell--stats" style="--index: 3;">
       <SpotlightCard class="bento-card">
         <div class="bento-card-inner">
-          <h3 class="bento-title">Stats</h3>
+          <h3 class="bento-title">Workshop stats</h3>
           <ul class="bento-stats-list">
             {
               stats.map((stat) => (
@@ -159,76 +145,35 @@ const liveLink = featuredProject.liveLink?.trim() ?? "";
   .bento-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: 1fr 1fr auto;
     gap: 1rem;
-    align-items: stretch;
   }
 
   .bento-cell {
     animation: fade-in-up 500ms cubic-bezier(0.16, 1, 0.3, 1) both;
     animation-delay: calc(var(--index, 0) * 120ms);
-    min-height: 0;
-  }
-
-  .bento-cell--viz {
-    grid-column: 1 / 3;
-    grid-row: 1 / 3;
-    min-height: 380px;
   }
 
   .bento-cell--blog {
-    grid-column: 3 / 5;
-    grid-row: 1 / 3;
+    grid-column: span 2;
+    grid-row: span 2;
   }
 
   .bento-cell--project {
-    grid-column: 1 / 3;
-    grid-row: 3 / 4;
+    grid-column: span 2;
   }
 
   .bento-cell--tinkering {
-    grid-column: 3 / 4;
-    grid-row: 3 / 4;
+    grid-column: span 1;
   }
 
   .bento-cell--stats {
-    grid-column: 4 / 5;
-    grid-row: 3 / 4;
+    grid-column: span 1;
   }
 
   :global(.spotlight-card.bento-card) {
     height: 100%;
   }
 
-  /* Viz cell specific */
-  .bento-viz-inner {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-  }
-
-  .bento-viz-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    padding: 0.75rem 1rem 0.5rem;
-    flex-shrink: 0;
-  }
-
-  .bento-viz-sub {
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    color: var(--muted);
-    letter-spacing: 0.04em;
-  }
-
-  .bento-viz-inner > :global(.nn-viz-mount) {
-    flex: 1;
-    min-height: 0;
-  }
-
-  /* Standard card inner */
   .bento-card-inner {
     padding: 1.25rem;
     display: flex;
@@ -299,7 +244,7 @@ const liveLink = featuredProject.liveLink?.trim() ?? "";
   }
 
   .bento-project-banner {
-    height: 100px;
+    height: 120px;
     background-size: cover;
     background-position: center;
     border-radius: 6px;
@@ -416,47 +361,26 @@ const liveLink = featuredProject.liveLink?.trim() ?? "";
   @media (max-width: 1024px) {
     .bento-grid {
       grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(4, auto);
-    }
-    .bento-cell--viz {
-      grid-column: 1 / 3;
-      grid-row: 1 / 3;
-      min-height: 360px;
     }
     .bento-cell--blog {
-      grid-column: 1 / 3;
-      grid-row: 3 / 4;
+      grid-column: span 2;
+      grid-row: span 1;
     }
     .bento-cell--project {
-      grid-column: 1 / 3;
-      grid-row: 4 / 5;
-    }
-    .bento-cell--tinkering {
-      grid-column: 1 / 2;
-      grid-row: 5 / 6;
-    }
-    .bento-cell--stats {
-      grid-column: 2 / 3;
-      grid-row: 5 / 6;
+      grid-column: span 2;
     }
   }
 
   @media (max-width: 640px) {
     .bento-grid {
       grid-template-columns: 1fr;
-      grid-template-rows: auto;
-    }
-    .bento-cell--viz {
-      grid-column: 1 / 2;
-      grid-row: auto;
-      min-height: 320px;
     }
     .bento-cell--blog,
     .bento-cell--project,
     .bento-cell--tinkering,
     .bento-cell--stats {
-      grid-column: 1 / 2;
-      grid-row: auto;
+      grid-column: span 1;
+      grid-row: span 1;
     }
   }
 
