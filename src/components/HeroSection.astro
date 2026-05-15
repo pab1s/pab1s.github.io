@@ -1,5 +1,5 @@
 ---
-import OrbitOptimizationHub from "./OrbitOptimizationHub.astro";
+import NeuralNetViz from "./NeuralNetViz.astro";
 import SocialIconRow from "./SocialIconRow.astro";
 import { siteConfig } from "../site-config";
 
@@ -41,11 +41,11 @@ const { featuredProject } = Astro.props;
     </div>
 
     <div class="hero-right">
-      <div class="hero-orbit-wrap">
-        <OrbitOptimizationHub />
+      <div class="hero-nn-wrap">
+        <NeuralNetViz />
       </div>
-      <p class="hero-orbit-label">
-        Currently optimizing: {featuredProject.title}
+      <p class="hero-nn-label">
+        Training: {featuredProject.title}
       </p>
     </div>
   </div>
@@ -112,7 +112,7 @@ const { featuredProject } = Astro.props;
     align-items: center;
   }
 
-  .hero-orbit-wrap {
+  .hero-nn-wrap {
     aspect-ratio: 1;
     max-width: 500px;
     width: 100%;
@@ -120,7 +120,7 @@ const { featuredProject } = Astro.props;
     position: relative;
   }
 
-  .hero-orbit-label {
+  .hero-nn-label {
     font-family: var(--font-mono);
     font-size: 0.65rem;
     color: var(--muted);
@@ -138,7 +138,7 @@ const { featuredProject } = Astro.props;
       order: -1;
     }
 
-    .hero-orbit-wrap {
+    .hero-nn-wrap {
       margin-left: auto;
       margin-right: auto;
     }
