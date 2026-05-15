@@ -1,0 +1,153 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  ogImagePath?: string;
+  /** Una sola pantalla tipo laboratorio orbital (solo home). */
+  layout?: "default" | "home-orbit";
+}
+
+const {
+  title,
+  description,
+  ogImagePath = "/avatar.png",
+  layout = "default",
+} = Astro.props;
+
+const canonicalURL =
+  Astro.site != null ? new URL(Astro.url.pathname, Astro.site).href : Astro.url.href;
+const ogImageAbs =
+  Astro.site != null
+    ? new URL(ogImagePath.replace(/^\//, ""), Astro.site).href
+    : ogImagePath;
+
+const home = Astro.url.pathname.replace(/\/+$/, "") === "";
+const baseName =
+  Astro.site != null ? new URL(Astro.site).hostname.replace("www.", "") : "site";
+const fullTitle = home ? title : `${title} · ${baseName}`;
+const desc = description ?? "";
+
+import { siteConfig } from "../site-config";
+import "../styles/global.css";
+---
+
+<!doctype html>
+<html lang={layout === "home-orbit" ? "es" : "en"} data-theme="dark" class:list={[{ "layout-root-orbit": layout === "home-orbit" }]}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0C0E12" />
+    <script is:inline>
+      (function () {
+        var t;
+        try {
+          t = localStorage.getItem("theme") === "light" ? "light" : "dark";
+        } catch (_) {
+          t = "dark";
+        }
+        document.documentElement.dataset.theme = t;
+        var m = document.querySelector('meta[name="theme-color"]');
+        if (m) m.setAttribute("content", t === "light" ? "#F7F5F0" : "#0C0E12");
+      })();
+    </script>
+    <meta name="generator" content={Astro.generator} />
+    <title>{fullTitle}</title>
+    {desc ? <meta name="description" content={desc} /> : null}
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="alternate" type="application/rss+xml" title="Pablo Olivares — RSS" href="/rss.xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    {desc ? <meta property="og:description" content={desc} /> : null}
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImageAbs} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    {desc ? <meta name="twitter:description" content={desc} /> : null}
+    <meta name="twitter:image" content={ogImageAbs} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
+      crossorigin="anonymous"
+    />
+
+    {
+      import.meta.env.PROD && siteConfig.googleAnalyticsId ? (
+        <>
+          <script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${siteConfig.googleAnalyticsId}`}
+          />
+          <script is:inline define:vars={{ gaId: siteConfig.googleAnalyticsId }}>
+            {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', gaId);`}
+          </script>
+        </>
+      ) : null
+    }
+  </head>
+  <body class:list={[{ "layout-home-orbit": layout === "home-orbit" }]}>
+    <div class="stars" aria-hidden="true"></div>
+    <div class:list={["page-wrap", layout === "home-orbit" && "page-wrap-orbit"]}>
+      <slot />
+    </div>
+    <script is:inline>
+      (function () {
+        function meta(t) {
+          var m = document.querySelector('meta[name="theme-color"]');
+          if (!m) return;
+          m.setAttribute("content", t === "light" ? "#F7F5F0" : "#0C0E12");
+        }
+        function syncAria() {
+          var th = document.documentElement.dataset.theme === "light" ? "light" : "dark";
+          document.querySelectorAll("[data-theme-set]").forEach(function (btn) {
+            btn.setAttribute("aria-pressed", btn.getAttribute("data-theme-set") === th ? "true" : "false");
+          });
+        }
+        function apply(raw) {
+          var th = raw === "light" ? "light" : "dark";
+          document.documentElement.dataset.theme = th;
+          meta(th);
+          try {
+            localStorage.setItem("theme", th);
+          } catch {}
+          syncAria();
+          document.dispatchEvent(new CustomEvent("site-theme", { detail: { theme: th } }));
+        }
+        document.addEventListener("click", function (ev) {
+          var cy = ev.target && ev.target.closest && ev.target.closest("[data-theme-cycle]");
+          if (cy) {
+            ev.preventDefault();
+            apply(document.documentElement.dataset.theme === "light" ? "dark" : "light");
+            return;
+          }
+          var n = ev.target && ev.target.closest && ev.target.closest("[data-theme-set]");
+          if (!n) return;
+          ev.preventDefault();
+          apply(n.getAttribute("data-theme-set") || "dark");
+        });
+        window.addEventListener("keydown", function (ev) {
+          if (!ev.altKey || ev.repeat) return;
+          if (String(ev.key).toLowerCase() !== "t") return;
+          ev.preventDefault();
+          apply(document.documentElement.dataset.theme === "light" ? "dark" : "light");
+        });
+        meta(document.documentElement.dataset.theme || "dark");
+        syncAria();
+        document.dispatchEvent(
+          new CustomEvent("site-theme", { detail: { theme: document.documentElement.dataset.theme || "dark" } })
+        );
+      })();
+    </script>
+  </body>
+</html>
