@@ -19,27 +19,31 @@ const { recipe } = Astro.props;
 ---
 
 <SpotlightCard class="kitchen-recipe-card">
-  <img slot="image" src={recipe.photo} alt={recipe.title} class="recipe-image" loading="lazy" />
+  <div slot="image" class="recipe-image-wrap">
+    <img src={recipe.photo} alt={recipe.title} loading="lazy" />
+  </div>
   <Fragment slot="title">{recipe.title}</Fragment>
   <div slot="tags" class="recipe-meta">
-    <span class="cuisine-tag">{recipe.cuisine}</span>
-    <span class="difficulty-badge">{recipe.difficulty}</span>
-    <span class="prep-time">{recipe.prepTime}</span>
+    <span class="recipe-chip">{recipe.cuisine}</span>
+    <span class="recipe-chip">{recipe.difficulty}</span>
+    <span class="recipe-prep">{recipe.prepTime}</span>
   </div>
 
   <div class="recipe-body">
-    <div class="recipe-section">
-      <h4>Ingredients</h4>
-      <ul class="recipe-list">
-        {recipe.ingredients.map((ing) => <li>{ing}</li>)}
-      </ul>
-    </div>
+    <div class="recipe-columns">
+      <section class="recipe-section">
+        <h4>Ingredients</h4>
+        <ul class="recipe-list">
+          {recipe.ingredients.map((ing) => <li>{ing}</li>)}
+        </ul>
+      </section>
 
-    <div class="recipe-section">
-      <h4>Method</h4>
-      <ol class="recipe-list recipe-list--numbered">
-        {recipe.method.map((step) => <li>{step}</li>)}
-      </ol>
+      <section class="recipe-section">
+        <h4>Method</h4>
+        <ol class="recipe-list recipe-list--numbered">
+          {recipe.method.map((step) => <li>{step}</li>)}
+        </ol>
+      </section>
     </div>
 
     <blockquote class="recipe-note">
@@ -47,68 +51,95 @@ const { recipe } = Astro.props;
     </blockquote>
 
     <div class="recipe-alchemy">
-      {recipe.alchemyPrinciple}
+      <span class="recipe-alchemy-label">Alchemy principle</span>
+      <p>{recipe.alchemyPrinciple}</p>
     </div>
   </div>
 </SpotlightCard>
 
 <style>
   .kitchen-recipe-card {
-    /* SpotlightCard provides surface, border, and hover lift */
+    display: flex;
+    flex-direction: column;
   }
 
-  .recipe-image {
-    display: block;
-    width: 100%;
+  .recipe-image-wrap {
     aspect-ratio: 16 / 10;
+    width: 100%;
+    overflow: hidden;
+    background: var(--canvas-elevated);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .recipe-image-wrap img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+    transition: transform var(--duration-slow) var(--ease-out-expo);
+  }
+
+  .kitchen-recipe-card:hover .recipe-image-wrap img {
+    transform: scale(1.05);
   }
 
   .recipe-meta {
     display: contents;
   }
 
-  .cuisine-tag {
-    font-size: 0.75rem;
-    padding: 0.25rem 0.6rem;
+  .recipe-chip {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.55rem;
     border: 1px solid var(--line);
     border-radius: 999px;
     color: var(--accent);
-    font-weight: 500;
-  }
-
-  .difficulty-badge {
-    font-size: 0.75rem;
-    color: var(--ink-muted);
-    font-weight: 500;
-  }
-
-  .prep-time {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 500;
+  }
+
+  .recipe-prep {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
     color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
   }
 
   .recipe-body {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.25rem;
+  }
+
+  .recipe-columns {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 480px) {
+    .recipe-columns {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    }
   }
 
   .recipe-section h4 {
-    font-family: var(--font-display);
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--ink);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
     margin: 0 0 0.5rem 0;
   }
 
   .recipe-list {
     margin: 0;
-    padding-left: 1.25rem;
+    padding-left: 1.1rem;
     color: var(--ink-muted);
     font-size: 0.9rem;
-    line-height: 1.6;
+    line-height: 1.55;
   }
 
   .recipe-list--numbered {
@@ -116,27 +147,58 @@ const { recipe } = Astro.props;
   }
 
   .recipe-list li {
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.3rem;
+    padding-left: 0.25rem;
+  }
+
+  .recipe-list li::marker {
+    color: var(--accent-soft);
   }
 
   .recipe-note {
     margin: 0;
-    padding-left: 1rem;
-    border-left: 3px solid var(--line);
+    padding: 0.75rem 0 0.75rem 1rem;
+    border-left: 3px solid var(--accent-soft);
     font-style: italic;
     color: var(--ink-muted);
     font-size: 0.9rem;
     line-height: 1.55;
   }
 
+  .recipe-note::before {
+    content: "Note";
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 0.35rem;
+    font-style: normal;
+  }
+
   .recipe-alchemy {
     background: var(--canvas);
     border: 1px solid var(--line);
-    padding: 1rem;
     border-radius: var(--radius-md);
+    padding: 0.85rem 1rem;
+  }
+
+  .recipe-alchemy-label {
+    display: block;
     font-family: var(--font-mono);
-    font-size: 0.8rem;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     color: var(--accent);
+    margin-bottom: 0.35rem;
+  }
+
+  .recipe-alchemy p {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--ink-muted);
     line-height: 1.5;
   }
 </style>

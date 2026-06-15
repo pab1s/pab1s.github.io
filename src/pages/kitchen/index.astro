@@ -28,44 +28,16 @@ const recipes = recipesData.recipes;
 </BaseLayout>
 
 <style>
-  .section-hero {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 3rem 1.5rem 2rem;
-  }
-
-  .section-hero h1 {
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 5vw, 3.2rem);
-    color: var(--ink);
-    margin: 0 0 0.5rem 0;
-  }
-
-  .section-hero p {
-    color: var(--ink-muted);
-    font-size: 1rem;
-    max-width: 50ch;
-    margin: 0;
-    line-height: 1.6;
-  }
-
   .recipe-grid {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 1.5rem 3rem;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    padding-bottom: var(--space-12);
   }
 
   @media (max-width: 640px) {
     .recipe-grid {
       grid-template-columns: 1fr;
-      padding: 0 1rem 2rem;
-    }
-
-    .section-hero {
-      padding: 2rem 1rem 1.5rem;
     }
   }
 </style>
