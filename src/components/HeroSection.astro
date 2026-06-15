@@ -14,8 +14,8 @@ const buildDate = new Date().toISOString().slice(0, 10).replace(/-/g, ".");
         <img
           class="hero-avatar"
           src={siteConfig.avatarSrc}
-          width="96"
-          height="96"
+          width="140"
+          height="140"
           alt={`${siteConfig.author} portrait`}
           loading="eager"
           decoding="async"
@@ -107,9 +107,9 @@ const buildDate = new Date().toISOString().slice(0, 10).replace(/-/g, ".");
   }
 
   .hero-avatar {
-    width: 96px;
-    height: 96px;
-    border-radius: 12px;
+    width: 140px;
+    height: 140px;
+    border-radius: 16px;
     border: 2px solid var(--accent);
     object-fit: cover;
     background: var(--canvas-elevated);
@@ -209,6 +209,14 @@ const buildDate = new Date().toISOString().slice(0, 10).replace(/-/g, ".");
       margin-left: auto;
       margin-right: auto;
       max-width: 100%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 14px;
     }
   }
 </style>
