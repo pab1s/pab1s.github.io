@@ -5,16 +5,22 @@ import BlogPostRow from "../../components/BlogPostRow.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
 import { getCollection } from "astro:content";
 
+function getReadTime(body: string | undefined): number {
+  const words = body?.split(/\s+/).length || 0;
+  return Math.max(1, Math.ceil(words / 200));
+}
+
 const posts = (await getCollection("blog"))
   .filter((p) => !p.data.draft)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .map((post) => ({ ...post, readTime: getReadTime(post.body) }));
 ---
 
 <BaseLayout title="Blog" description="Notes on ML, math, and the art of data alchemy.">
   <WorkshopNav currentPath={Astro.url.pathname} />
 
   <header class="section-hero">
-    <span class="fig-label">LAB_001 · notebook</span>
+    <span class="fig-label">Lab notebook</span>
     <h1>Lab Notebook</h1>
     <p>Notes on ML, math, and the art of data alchemy.</p>
   </header>
@@ -29,6 +35,7 @@ const posts = (await getCollection("blog"))
             date={post.data.date}
             description={post.data.description}
             tags={post.data.tags}
+            readTime={post.readTime}
           />
         </li>
       ))

@@ -5,25 +5,26 @@ interface Props {
   date: Date;
   description?: string;
   tags: string[];
+  readTime?: number;
 }
 
-const { slug, title, date, description, tags } = Astro.props;
+const { slug, title, date, description, tags, readTime } = Astro.props;
 
 const dateStr = date.toISOString().slice(0, 10).replace(/-/g, ".");
-
-function tagColor(tag: string): string {
-  const t = tag.toLowerCase();
-  if (t.includes("ai") || t.includes("ml") || t.includes("learning")) return "#b87333";
-  if (t.includes("math") || t.includes("stat")) return "#6b9e6b";
-  return "#5a8a9e";
-}
 ---
 
 <div class="blog-post-row">
-  <time class="blog-post-date" datetime={date.toISOString()}>
-    {dateStr}
-  </time>
-  <div class="blog-post-content">
+  <div class="blog-post-meta">
+    <time class="blog-post-date" datetime={date.toISOString()}>
+      {dateStr}
+    </time>
+    {readTime ? (
+      <span class="blog-post-read-time" aria-label={`${readTime} minute read`}>
+        {readTime} min
+      </span>
+    ) : null}
+  </div>
+  <div class="blog-post-main">
     <h3 class="blog-post-title">
       <a href={`/blog/${slug}/`}>{title}</a>
     </h3>
@@ -33,13 +34,7 @@ function tagColor(tag: string): string {
     {tags.length ? (
       <div class="blog-post-tags">
         {tags.map((t) => (
-          <span class="blog-post-tag">
-            <span
-              class="blog-post-tag-dot"
-              style={`background-color: ${tagColor(t)}`}
-            />
-            <span class="blog-post-tag-text">{t}</span>
-          </span>
+          <span class="blog-post-tag">{t}</span>
         ))}
       </div>
     ) : null}
@@ -49,55 +44,71 @@ function tagColor(tag: string): string {
 <style>
   .blog-post-row {
     display: grid;
-    grid-template-columns: 100px 1fr;
-    gap: 1.5rem;
+    grid-template-columns: 6.5rem 1fr;
+    gap: var(--space-6);
     align-items: baseline;
-    padding: 1.5rem 0;
-    border-bottom: 1px solid transparent;
-    transition: transform 200ms ease, border-color 200ms ease;
+    padding: var(--space-6) 0;
+    border-bottom: 1px dotted var(--line);
+    transition: border-color var(--duration-fast) ease;
+  }
+
+  .blog-post-row:first-child {
+    padding-top: 0;
   }
 
   .blog-post-row:hover {
-    transform: translateX(4px);
-    border-bottom-color: var(--line);
+    border-bottom-color: var(--line-strong);
   }
 
-  .blog-post-date {
+  .blog-post-row:hover .blog-post-title a {
+    color: var(--accent);
+  }
+
+  .blog-post-meta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     color: var(--ink-muted);
+    letter-spacing: 0.04em;
     flex-shrink: 0;
   }
 
-  .blog-post-content {
+  .blog-post-date {
+    color: var(--ink);
+  }
+
+  .blog-post-read-time {
+    color: var(--ink-muted);
+  }
+
+  .blog-post-main {
     min-width: 0;
   }
 
   .blog-post-title {
-    font-size: 1.15rem;
-    font-weight: 600;
+    font-family: var(--font-display);
+    font-size: 1.18rem;
+    font-weight: 500;
     color: var(--ink);
     margin: 0;
-    font-family: var(--font-display);
-    line-height: 1.2;
+    line-height: 1.22;
+    letter-spacing: -0.01em;
   }
 
   .blog-post-title a {
     color: inherit;
     text-decoration: none;
-    transition: color 150ms ease;
-  }
-
-  .blog-post-title a:hover {
-    color: var(--accent);
+    transition: color var(--duration-fast) ease;
   }
 
   .blog-post-description {
-    font-size: 0.9rem;
+    font-size: 0.94rem;
     color: var(--ink-muted);
-    max-width: 50ch;
-    line-height: 1.5;
-    margin: 0.35rem 0 0;
+    max-width: 55ch;
+    line-height: 1.55;
+    margin: var(--space-2) 0 0;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -107,31 +118,37 @@ function tagColor(tag: string): string {
   .blog-post-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
   }
 
   .blog-post-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
     font-family: var(--font-mono);
-    font-size: 0.7rem;
+    font-size: 0.64rem;
     color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border: 1px solid var(--line);
+    padding: 0.12rem 0.38rem;
+    border-radius: 1px;
+    transition: border-color var(--duration-fast) ease, color var(--duration-fast) ease;
   }
 
-  .blog-post-tag-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    display: inline-block;
-    flex-shrink: 0;
+  .blog-post-row:hover .blog-post-tag {
+    border-color: var(--line-strong);
   }
 
   @media (max-width: 640px) {
     .blog-post-row {
       grid-template-columns: 1fr;
-      gap: 0.35rem;
+      gap: var(--space-3);
+      padding: var(--space-5) 0;
+    }
+
+    .blog-post-meta {
+      flex-direction: row;
+      align-items: baseline;
+      gap: var(--space-3);
     }
   }
 </style>
