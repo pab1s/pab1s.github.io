@@ -2,10 +2,14 @@
   <title id="title">Weak vs Strong Learners</title>
   <desc id="desc">A diagram contrasting many simple weak learners with one complex strong learner.</desc>
   <style>
-    text { font-family: 'IBM Plex Mono', monospace; font-size: 14px; fill: currentColor; }
+    text { font-family: 'IBM Plex Mono', monospace; font-size: 14px; fill: #121214; }
     .label { font-size: 12px; opacity: 0.7; }
-    .box { fill: none; stroke: currentColor; stroke-width: 1.5; }
+    .box { fill: none; stroke: #121214; stroke-width: 1.5; }
     .weak { stroke-dasharray: 4 4; }
+    @media (prefers-color-scheme: dark) {
+      text { fill: #e8e8ea; }
+      .box { stroke: #e8e8ea; }
+    }
   </style>
   <g transform="translate(40,40)">
     <text x="120" y="0" text-anchor="middle" class="label">WEAK LEARNERS</text>
