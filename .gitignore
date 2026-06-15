@@ -137,6 +137,9 @@ dist
 # Astro
 .astro/
 
+# Worktrees
+.worktrees/
+
 # OS specific
 .DS_Store
 Thumbs.db
