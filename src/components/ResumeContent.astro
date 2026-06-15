@@ -1,5 +1,6 @@
 ---
 import cv from "../data/cv.json";
+import { siteConfig } from "../site-config";
 
 // Map proficiency level to dots (all skills shown at 4/5 for this portfolio)
 const proficiencyDots = (level: number = 4) => {
@@ -8,10 +9,14 @@ const proficiencyDots = (level: number = 4) => {
   return filled + empty;
 };
 
-// Format dates nicely
+// Format dates nicely, handling year-only values
 const fmtDate = (d: string) => {
-  if (!d || d === "Current") return "Present";
-  const [year, month] = d.split("-");
+  if (!d || d === "Current" || d === "Present") return "Present";
+  const parts = d.split("-");
+  const year = parts[0];
+  const month = parts[1];
+  if (!year) return d;
+  if (!month) return year;
   const months = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   return `${months[parseInt(month)]} ${year}`;
 };
@@ -21,14 +26,16 @@ const fmtDate = (d: string) => {
   {/* Header */}
   <header class="dossier-header">
     <div class="dossier-meta-row">
-      <span class="fig-label">DOC_001 · résumé</span>
+      <span class="dossier-label fig-label">DOC_001 · résumé</span>
       <a href="/resume/resume.pdf" class="dossier-pdf-link" target="_blank" rel="noopener noreferrer">PDF ↓</a>
     </div>
     <h1 class="dossier-name">{cv.basics.name}</h1>
     <p class="dossier-role">{cv.basics.label}</p>
     <p class="dossier-currently">
-      Currently engineering ML at Santander · Madrid
-      <span class="dossier-interests">Reading · Cooking · Stargazing · Tinkering</span>
+      {siteConfig.currently}
+      <span class="dossier-currently-meta">
+        {cv.basics.location.city}, {cv.basics.location.countryCode} · Reading · Cooking · Stargazing · Tinkering
+      </span>
     </p>
     <div class="dossier-contact">
       <a href={`mailto:${cv.basics.email}`}>{cv.basics.email}</a>
@@ -42,7 +49,7 @@ const fmtDate = (d: string) => {
         </>
       ))}
     </div>
-    <div class="ascii-rule" style="margin-top: 2rem;"></div>
+    <div class="ascii-rule"></div>
   </header>
 
   {/* Summary */}
@@ -51,23 +58,22 @@ const fmtDate = (d: string) => {
     <p class="dossier-summary">{cv.basics.summary}</p>
   </section>
 
-  {/* Experience with Timeline */}
+  {/* Experience */}
   <section class="dossier-section">
     <h2 class="dossier-section-title">§ Experience</h2>
     <div class="dossier-timeline">
       {cv.work.map((job) => (
         <article class="dossier-timeline-item">
-          <div class="dossier-timeline-marker"></div>
-          <div class="dossier-timeline-content">
-            <div class="dossier-entry-header">
-              <span class="dossier-date">{fmtDate(job.startDate)} — {fmtDate((job as any).endDate ?? "")}</span>
-              <h3 class="dossier-entry-title">
-                {job.position}
-                <span class="dossier-at">@</span>
-                <a href={job.url} target="_blank" rel="noopener noreferrer">{job.name}</a>
-              </h3>
-              <span class="dossier-location">{job.location}</span>
-            </div>
+          <div class="dossier-timeline-meta">
+            <span class="dossier-label dossier-date">{fmtDate(job.startDate)} — {fmtDate((job as any).endDate ?? "")}</span>
+            <span class="dossier-label dossier-location">{job.location}</span>
+          </div>
+          <div class="dossier-timeline-body">
+            <h3 class="dossier-entry-title">
+              {job.position}
+              <span class="dossier-at">@</span>
+              <a href={job.url} target="_blank" rel="noopener noreferrer">{job.name}</a>
+            </h3>
             {(job as any).summary ? <p class="dossier-entry-summary">{(job as any).summary}</p> : null}
             <ul class="dossier-highlights">
               {job.highlights.map((line) => (
@@ -80,23 +86,22 @@ const fmtDate = (d: string) => {
     </div>
   </section>
 
-  {/* Education with Timeline */}
+  {/* Education */}
   <section class="dossier-section">
     <h2 class="dossier-section-title">§ Education</h2>
     <div class="dossier-timeline">
       {cv.education.map((edu) => (
         <article class="dossier-timeline-item">
-          <div class="dossier-timeline-marker"></div>
-          <div class="dossier-timeline-content">
-            <div class="dossier-entry-header">
-              <span class="dossier-date">{fmtDate(edu.startDate)} — {fmtDate(edu.endDate)}</span>
-              <h3 class="dossier-entry-title">
-                {edu.studyType} in {edu.area}
-                <span class="dossier-at">@</span>
-                <span>{edu.institution}</span>
-              </h3>
-              {edu.specialization ? <span class="dossier-specialization">Specialization: {edu.specialization}</span> : null}
-            </div>
+          <div class="dossier-timeline-meta">
+            <span class="dossier-label dossier-date">{fmtDate(edu.startDate)} — {fmtDate(edu.endDate)}</span>
+            {edu.specialization ? <span class="dossier-label dossier-specialization">{edu.specialization}</span> : null}
+          </div>
+          <div class="dossier-timeline-body">
+            <h3 class="dossier-entry-title">
+              {edu.studyType}{edu.area ? ` in ${edu.area}` : ""}
+              <span class="dossier-at">@</span>
+              <span>{edu.institution}</span>
+            </h3>
             {edu.courses?.length ? (
               <ul class="dossier-courses">
                 {edu.courses.map((c) => (
@@ -116,14 +121,13 @@ const fmtDate = (d: string) => {
     <div class="dossier-timeline">
       {cv.projects.map((proj) => (
         <article class="dossier-timeline-item">
-          <div class="dossier-timeline-marker"></div>
-          <div class="dossier-timeline-content">
-            <div class="dossier-entry-header">
-              <span class="dossier-date">{fmtDate(proj.startDate)} — {fmtDate(proj.endDate)}</span>
-              <h3 class="dossier-entry-title">
-                <a href={proj.url} target="_blank" rel="noopener noreferrer">{proj.name}</a>
-              </h3>
-            </div>
+          <div class="dossier-timeline-meta">
+            <span class="dossier-label dossier-date">{fmtDate(proj.startDate)} — {fmtDate(proj.endDate)}</span>
+          </div>
+          <div class="dossier-timeline-body">
+            <h3 class="dossier-entry-title">
+              <a href={proj.url} target="_blank" rel="noopener noreferrer">{proj.name}</a>
+            </h3>
             <p class="dossier-entry-summary">{proj.description}</p>
             <ul class="dossier-highlights">
               {proj.highlights.map((line) => (
@@ -142,11 +146,11 @@ const fmtDate = (d: string) => {
     <div class="dossier-skills">
       {cv.skills.map((category) => (
         <div class="dossier-skill-group">
-          <h3 class="dossier-skill-category">{category.name}</h3>
+          <h3 class="dossier-label dossier-skill-category">{category.name}</h3>
           <div class="dossier-skill-items">
             {category.keywords.map((skill) => (
               <span class="dossier-skill-tag">
-                <span class="dossier-skill-dots">{proficiencyDots()}</span>
+                <span class="dossier-skill-dots" aria-hidden="true">{proficiencyDots()}</span>
                 {skill}
               </span>
             ))}
@@ -163,7 +167,7 @@ const fmtDate = (d: string) => {
       {cv.languages.map((l) => (
         <div class="dossier-language">
           <span class="dossier-language-name">{l.language}</span>
-          <span class="dossier-language-level">{l.fluency}</span>
+          <span class="dossier-label dossier-language-level">{l.fluency}</span>
         </div>
       ))}
     </div>
@@ -175,16 +179,15 @@ const fmtDate = (d: string) => {
     <div class="dossier-timeline">
       {cv.volunteer.map((v) => (
         <article class="dossier-timeline-item">
-          <div class="dossier-timeline-marker"></div>
-          <div class="dossier-timeline-content">
-            <div class="dossier-entry-header">
-              <span class="dossier-date">{fmtDate(v.startDate)} — {fmtDate(v.endDate ?? "")}</span>
-              <h3 class="dossier-entry-title">
-                {v.position}
-                <span class="dossier-at">@</span>
-                <a href={v.url} target="_blank" rel="noopener noreferrer">{v.organization}</a>
-              </h3>
-            </div>
+          <div class="dossier-timeline-meta">
+            <span class="dossier-label dossier-date">{fmtDate(v.startDate)} — {fmtDate(v.endDate ?? "")}</span>
+          </div>
+          <div class="dossier-timeline-body">
+            <h3 class="dossier-entry-title">
+              {v.position}
+              <span class="dossier-at">@</span>
+              <a href={v.url} target="_blank" rel="noopener noreferrer">{v.organization}</a>
+            </h3>
             <p class="dossier-entry-summary">{v.summary}</p>
           </div>
         </article>
@@ -195,20 +198,29 @@ const fmtDate = (d: string) => {
 
 <style>
   .dossier {
-    max-width: 65ch;
+    max-width: 75ch;
     margin: 0 auto;
-    padding: 2rem 1.5rem 4rem;
+    padding: 0.5rem 0 2rem;
   }
 
   .dossier-header {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
   }
 
   .dossier-meta-row {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .dossier-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
   }
 
   .dossier-pdf-link {
@@ -219,7 +231,7 @@ const fmtDate = (d: string) => {
     color: var(--ink-muted);
     text-decoration: none;
     border: 1px solid var(--line);
-    padding: 0.25rem 0.6rem;
+    padding: 0.2rem 0.55rem;
     transition: color 150ms ease, border-color 150ms ease;
   }
 
@@ -230,43 +242,43 @@ const fmtDate = (d: string) => {
 
   .dossier-name {
     font-family: var(--font-display);
-    font-size: clamp(2.4rem, 6vw, 3.6rem);
-    font-weight: 400;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.02em;
     color: var(--ink);
-    margin: 0 0 0.5rem;
+    margin: 0 0 0.35rem;
     line-height: 1;
   }
 
   .dossier-role {
     font-family: var(--font-body);
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     color: var(--ink-muted);
-    margin: 0 0 1.5rem;
+    margin: 0 0 1rem;
   }
 
   .dossier-currently {
     font-family: var(--font-mono);
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     color: var(--ink-muted);
-    line-height: 1.6;
-    margin: 0 0 1rem;
+    line-height: 1.5;
+    margin: 0 0 0.75rem;
   }
 
-  .dossier-interests {
+  .dossier-currently-meta {
     display: block;
-    margin-top: 0.25rem;
-    opacity: 0.7;
+    margin-top: 0.15rem;
+    opacity: 0.8;
   }
 
   .dossier-contact {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     color: var(--ink-muted);
     display: flex;
     flex-wrap: wrap;
-    gap: 0.35rem 0.75rem;
+    gap: 0.25rem 0.6rem;
     align-items: center;
   }
 
@@ -284,26 +296,26 @@ const fmtDate = (d: string) => {
   }
 
   .dossier-section {
-    margin-bottom: 3.5rem;
+    margin-bottom: 2.25rem;
   }
 
   .dossier-section-title {
     font-family: var(--font-display);
-    font-size: clamp(1.4rem, 3vw, 1.8rem);
-    font-weight: 400;
+    font-size: clamp(1.1rem, 2.4vw, 1.4rem);
+    font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.02em;
     color: var(--accent);
-    margin: 0 0 1.5rem;
+    margin: 0 0 1rem;
     position: relative;
-    padding-left: 1.5rem;
+    padding-left: 1.25rem;
   }
 
   .dossier-section-title::before {
     content: "§";
     position: absolute;
     left: 0;
-    top: 0.1em;
+    top: 0.12em;
     font-family: var(--font-mono);
     font-size: 0.6em;
     color: var(--accent);
@@ -311,78 +323,55 @@ const fmtDate = (d: string) => {
   }
 
   .dossier-summary {
-    font-size: 1.05rem;
-    line-height: 1.65;
+    font-size: 1rem;
+    line-height: 1.6;
     color: var(--ink);
     margin: 0;
-    text-align: justify;
   }
 
   /* Timeline */
   .dossier-timeline {
-    position: relative;
-    padding-left: 1.5rem;
-  }
-
-  .dossier-timeline::before {
-    content: "";
-    position: absolute;
-    left: 0.35rem;
-    top: 0.5rem;
-    bottom: 0.5rem;
-    width: 1px;
-    border-left: 1px dotted var(--line-strong);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
   }
 
   .dossier-timeline-item {
-    position: relative;
-    margin-bottom: 2.5rem;
-    padding-bottom: 2rem;
+    display: grid;
+    grid-template-columns: minmax(0, 10rem) minmax(0, 1fr);
+    gap: 0.5rem 1.5rem;
+    align-items: start;
+    padding-bottom: 1.25rem;
     border-bottom: 1px dotted var(--line);
   }
 
   .dossier-timeline-item:last-child {
-    margin-bottom: 0;
     padding-bottom: 0;
     border-bottom: none;
   }
 
-  .dossier-timeline-marker {
-    position: absolute;
-    left: -1.5rem;
-    top: 0.35rem;
-    width: 8px;
-    height: 8px;
-    background: var(--accent);
-    border-radius: 50%;
-    transform: translateX(-3.5px);
-  }
-
-  .dossier-timeline-content {
-    padding-left: 0.5rem;
-  }
-
-  .dossier-entry-header {
-    margin-bottom: 0.75rem;
+  .dossier-timeline-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
   }
 
   .dossier-date {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink-muted);
-    margin-bottom: 0.35rem;
+    line-height: 1.35;
+  }
+
+  .dossier-location,
+  .dossier-specialization {
+    line-height: 1.35;
   }
 
   .dossier-entry-title {
     font-family: var(--font-body);
-    font-size: 1.05rem;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--ink);
-    margin: 0 0 0.25rem;
-    line-height: 1.3;
+    margin: 0 0 0.35rem;
+    line-height: 1.35;
   }
 
   .dossier-entry-title a {
@@ -400,106 +389,94 @@ const fmtDate = (d: string) => {
     margin: 0 0.15rem;
   }
 
-  .dossier-location,
-  .dossier-specialization {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--ink-muted);
-    display: block;
-    margin-top: 0.15rem;
-  }
-
   .dossier-entry-summary {
-    font-size: 0.95rem;
-    line-height: 1.55;
+    font-size: 0.92rem;
+    line-height: 1.5;
     color: var(--ink-muted);
-    margin: 0 0 0.75rem;
+    margin: 0 0 0.5rem;
   }
 
   .dossier-highlights {
     margin: 0;
-    padding-left: 1.25em;
-    font-size: 0.92rem;
-    line-height: 1.55;
+    padding-left: 1.1em;
+    font-size: 0.9rem;
+    line-height: 1.5;
     color: var(--ink);
   }
 
   .dossier-highlights li {
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.25rem;
   }
 
   .dossier-courses {
-    margin: 0.5rem 0 0;
-    padding-left: 1.25em;
+    margin: 0.35rem 0 0;
+    padding-left: 1.1em;
     font-family: var(--font-mono);
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     color: var(--ink-muted);
   }
 
   .dossier-courses li {
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.15rem;
   }
 
   /* Skills */
   .dossier-skills {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.25rem;
   }
 
   .dossier-skill-group {
     border-bottom: 1px dotted var(--line);
-    padding-bottom: 1.5rem;
+    padding-bottom: 1rem;
   }
 
   .dossier-skill-group:last-child {
     border-bottom: none;
+    padding-bottom: 0;
   }
 
   .dossier-skill-category {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--ink-muted);
-    margin: 0 0 0.75rem;
+    margin: 0 0 0.6rem;
   }
 
   .dossier-skill-items {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.6rem 1rem;
+    gap: 0.45rem 0.6rem;
   }
 
   .dossier-skill-tag {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.35rem;
     font-family: var(--font-mono);
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     color: var(--ink);
-    padding: 0.25rem 0.5rem;
+    padding: 0.15rem 0.4rem;
     border: 1px solid var(--line);
+    background: var(--canvas-elevated);
   }
 
   .dossier-skill-dots {
-    font-size: 0.65rem;
+    font-size: 0.62rem;
     color: var(--accent);
-    letter-spacing: 0.05em;
+    letter-spacing: 0.04em;
   }
 
   /* Languages */
   .dossier-languages {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 0.5rem;
   }
 
   .dossier-language {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    padding: 0.5rem 0;
+    padding: 0.35rem 0;
     border-bottom: 1px dotted var(--line);
   }
 
@@ -509,26 +486,36 @@ const fmtDate = (d: string) => {
   }
 
   .dossier-language-level {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--ink-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
   }
 
   @media print {
-    .dossier { padding: 0; max-width: 100%; }
-    .dossier-timeline::before { border-left-style: solid; }
-    .dossier-timeline-item { break-inside: avoid; }
-    .dossier-skill-tag { border: 1px solid #ccc; }
+    .dossier {
+      max-width: 100%;
+      padding: 0;
+    }
+    .dossier-pdf-link {
+      display: none;
+    }
+    .dossier-section {
+      break-inside: avoid;
+    }
+    .dossier-timeline-item {
+      break-inside: avoid;
+      border-bottom-style: solid;
+    }
+    .dossier-skill-tag {
+      border: 1px solid #ccc;
+      background: white;
+    }
   }
 
   @media (max-width: 640px) {
-    .dossier { padding: 1.5rem 1rem 3rem; }
+    .dossier { padding: 0.5rem 0 1.5rem; }
     .dossier-name { font-size: clamp(1.8rem, 8vw, 2.4rem); }
-    .dossier-contact { flex-direction: column; gap: 0.25rem; }
+    .dossier-contact { flex-direction: column; align-items: flex-start; gap: 0.15rem; }
+    .dossier-timeline-item { grid-template-columns: 1fr; gap: 0.35rem; }
+    .dossier-timeline-meta { flex-direction: row; flex-wrap: wrap; gap: 0.35rem 0.75rem; }
     .dossier-languages { grid-template-columns: 1fr; }
-    .dossier-timeline { padding-left: 1.25rem; }
-    .dossier-timeline-marker { left: -1.25rem; transform: translateX(-3px); }
   }
 </style>

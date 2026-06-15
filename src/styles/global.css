@@ -581,7 +581,7 @@ pre code {
 .blog-list li { border-bottom: none; }
 
 @media print {
-  .noise-overlay, .stars, .blueprint-grid, .workshop-nav, .theme-cycle-btn {
+  .noise-overlay, .stars, .blueprint-grid, .workshop-nav, .site-footer, .theme-cycle-btn {
     display: none !important;
   }
   body {

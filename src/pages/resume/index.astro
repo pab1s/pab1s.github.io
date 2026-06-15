@@ -10,6 +10,46 @@ import SiteFooter from "../../components/SiteFooter.astro";
   description="Work history, studies, skills — condensed for humans and hiring pipelines."
 >
   <WorkshopNav currentPath={Astro.url.pathname} />
-  <ResumeContent />
+
+  <header class="section-hero resume-hero">
+    <span class="fig-label">DOC_001 · résumé</span>
+    <h1>Technical Dossier</h1>
+    <p>Work history, studies, skills — condensed for humans and hiring pipelines.</p>
+  </header>
+
+  <article class="resume-sheet">
+    <ResumeContent />
+  </article>
+
   <SiteFooter />
 </BaseLayout>
+
+<style>
+  .resume-hero {
+    margin-bottom: 1rem;
+  }
+
+  .resume-sheet {
+    max-width: 820px;
+    margin: 0 auto;
+    padding-bottom: var(--space-12);
+  }
+
+  @media print {
+    .resume-hero,
+    .workshop-nav,
+    .site-footer,
+    .noise-overlay,
+    .stars,
+    .blueprint-grid,
+    .theme-cycle-btn {
+      display: none !important;
+    }
+
+    .resume-sheet {
+      max-width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  }
+</style>
