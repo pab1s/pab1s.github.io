@@ -6,11 +6,17 @@ interface Props {
 const { ariaLabel = "Cambiar tema claro / oscuro" } = Astro.props;
 ---
 
-<button type="button" class="theme-cycle-btn" data-theme-cycle aria-label={ariaLabel}>
+<button
+  type="button"
+  class="theme-cycle-btn"
+  data-theme-cycle
+  aria-label={ariaLabel}
+  aria-pressed="false"
+>
   <svg
     class="theme-cycle-svg theme-cycle-svg--sun"
-    width="18"
-    height="18"
+    width="16"
+    height="16"
     viewBox="0 0 24 24"
     aria-hidden="true"
   >
@@ -25,8 +31,8 @@ const { ariaLabel = "Cambiar tema claro / oscuro" } = Astro.props;
   </svg>
   <svg
     class="theme-cycle-svg theme-cycle-svg--moon"
-    width="18"
-    height="18"
+    width="16"
+    height="16"
     viewBox="0 0 24 24"
     aria-hidden="true"
   >
@@ -42,7 +48,42 @@ const { ariaLabel = "Cambiar tema claro / oscuro" } = Astro.props;
 </button>
 
 <style>
+  .theme-cycle-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    margin: 0;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink-muted);
+    cursor: pointer;
+    transition: color var(--duration-fast) var(--ease-out-expo), border-color var(--duration-fast) var(--ease-out-expo), background var(--duration-fast) var(--ease-out-expo), box-shadow var(--duration-fast) var(--ease-out-expo);
+  }
+
   .theme-cycle-btn:hover {
-    box-shadow: 0 0 12px rgba(53, 83, 255, 0.3);
+    color: var(--accent);
+    border-color: var(--line-strong);
+    background: var(--accent-soft);
+  }
+
+  .theme-cycle-btn:active,
+  .theme-cycle-btn[aria-pressed="true"] {
+    box-shadow: 0 0 0 2px var(--canvas), 0 0 0 4px var(--accent-soft);
+  }
+
+  .theme-cycle-svg {
+    display: block;
+  }
+
+  html[data-theme="dark"] .theme-cycle-svg--moon {
+    display: none;
+  }
+
+  html[data-theme="light"] .theme-cycle-svg--sun {
+    display: none;
   }
 </style>

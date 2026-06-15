@@ -509,15 +509,6 @@ pre code {
   border: 0;
 }
 
-.site-footer { border-top: 1px solid var(--line); padding: 2rem 0; margin-top: 3rem; }
-.site-footer-inner { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
-.site-footer-row { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
-.site-footer-status { font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-muted); }
-.site-footer-socials { display: flex; gap: 1rem; }
-.site-footer-socials a { font-size: 0.75rem; color: var(--ink-muted); text-decoration: none; }
-.site-footer-socials a:hover { color: var(--accent); }
-.site-footer-copy { font-size: 0.7rem; color: var(--ink-muted); text-align: center; margin-top: 1.5rem; opacity: 0.7; }
-
 .section-hero { margin-bottom: 3rem; }
 .section-hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); margin: 0; }
 .section-hero p { color: var(--ink-muted); font-size: 1.05rem; margin: 0.5rem 0 0; }
