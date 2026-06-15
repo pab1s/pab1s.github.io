@@ -4,13 +4,132 @@ import WorkshopNav from "../components/WorkshopNav.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 ---
 
-<BaseLayout title="404 — off the map" description="No fixture at this coordinate.">
+<BaseLayout title="404 — missing sheet" description="This sheet is not on file.">
   <WorkshopNav currentPath={Astro.url.pathname} />
-  <header class="section-hero" style="text-align: center; padding: 4rem 1rem;">
-    <span class="fig-label">ERR_404 · not found</span>
-    <h1 style="margin: 1rem 0; font-size: 3rem;">404</h1>
-    <p style="color: var(--ink-muted); margin-bottom: 2rem;">This experiment hasn't been conducted yet.</p>
-    <a href="/" style="color: var(--accent); text-decoration: none;">Return to the workshop →</a>
-  </header>
+
+  <section class="missing-sheet" aria-labelledby="missing-sheet-title">
+    <div class="missing-sheet-frame">
+      <header class="missing-sheet-header">
+        <span class="fig-label">ERR_404 · missing sheet</span>
+        <h1 id="missing-sheet-title" class="missing-sheet-code">404</h1>
+      </header>
+
+      <span class="ascii-rule" aria-hidden="true"></span>
+
+      <p class="missing-sheet-message">
+        The sheet you requested is not on file. It may have been archived,
+        renamed, or never drafted.
+      </p>
+
+      <nav class="missing-sheet-actions" aria-label="Wayfinding">
+        <a href="/" class="missing-sheet-link">Return to the workshop</a>
+        <a href="/projects/" class="missing-sheet-link">Open projects</a>
+        <a href="/kitchen/" class="missing-sheet-link">Visit the kitchen</a>
+      </nav>
+    </div>
+  </section>
+
   <SiteFooter />
+
+  <style>
+    .missing-sheet {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100dvh - 64px - 6rem);
+      padding: 2rem 0;
+    }
+
+    .missing-sheet-frame {
+      width: 100%;
+      max-width: 720px;
+      text-align: center;
+      padding: 3rem 2.5rem;
+      background: var(--canvas-elevated);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+    }
+
+    .missing-sheet-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .missing-sheet-header .fig-label {
+      color: var(--accent);
+    }
+
+    .missing-sheet-code {
+      font-family: var(--font-display);
+      font-size: clamp(5rem, 18vw, 10rem);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      margin: 0;
+    }
+
+    .missing-sheet-frame .ascii-rule {
+      margin: 1.5rem 0;
+    }
+
+    .missing-sheet-message {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: var(--ink-muted);
+      margin: 0 0 2rem;
+    }
+
+    .missing-sheet-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .missing-sheet-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 1.1rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--ink);
+      background: transparent;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-md);
+      transition: color var(--duration-fast) var(--ease-out-expo),
+        border-color var(--duration-fast) var(--ease-out-expo),
+        background-color var(--duration-fast) var(--ease-out-expo);
+    }
+
+    .missing-sheet-link:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      background-color: var(--accent-soft);
+    }
+
+    @media (max-width: 640px) {
+      .missing-sheet-frame {
+        padding: 2rem 1.25rem;
+      }
+
+      .missing-sheet-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .missing-sheet-link {
+        width: 100%;
+      }
+    }
+  </style>
 </BaseLayout>
