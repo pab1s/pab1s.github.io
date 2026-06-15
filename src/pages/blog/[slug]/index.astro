@@ -46,7 +46,7 @@ const nextPost = allPosts[index - 1] || null;
 const dateStr = formatDate(post.data.date);
 ---
 
-<BaseLayout title={post.data.title} description={desc}>
+<BaseLayout title={post.data.title} description={desc} usesKatex={true}>
   <ScrollProgress />
   <WorkshopNav currentPath={Astro.url.pathname} />
 

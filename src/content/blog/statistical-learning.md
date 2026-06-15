@@ -59,7 +59,7 @@ The **bias-variance tradeoff** is this constant battle: increasing model complex
 
 One of the most elegant ideas to come out of this era was **ensemble methods**. What if, instead of trying to find one perfect model in that sweet spot, we combine lots of simple, potentially biased models? A "weak learner" is defined as a model that's just slightly better than random guessing. Think of a decision tree with only one split (a "stump"). Pretty dumb on its own.
 
-![Weak vs Strong Learners](/images/weak_strong.png)
+![Weak vs Strong Learners](/images/weak_strong.svg)
 
 But methods like **AdaBoost** (Freund & Schapire, 1997) found clever ways to iteratively train these weak learners, where each new learner $h_t(x)$ focuses on correcting the mistakes made by the ensemble so far, giving more weight to misclassified examples. Later, **Gradient Boosting Machines (GBMs)**, formalized by Friedman (2001), took a more general approach, viewing it as gradient descent in function space. You end up with a weighted combination, a final strong learner $f(x)$:
 

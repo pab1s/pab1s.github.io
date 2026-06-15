@@ -32,14 +32,14 @@ const { recipe } = Astro.props;
   <div class="recipe-body">
     <div class="recipe-columns">
       <section class="recipe-section">
-        <h4>Ingredients</h4>
+        <h3>Ingredients</h3>
         <ul class="recipe-list">
           {recipe.ingredients.map((ing) => <li>{ing}</li>)}
         </ul>
       </section>
 
       <section class="recipe-section">
-        <h4>Method</h4>
+        <h3>Method</h3>
         <ol class="recipe-list recipe-list--numbered">
           {recipe.method.map((step) => <li>{step}</li>)}
         </ol>
