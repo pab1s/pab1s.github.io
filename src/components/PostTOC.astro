@@ -11,17 +11,89 @@ const items = headings.filter((h) => h.depth >= 2 && h.depth <= 4);
 
 {
   items.length > 0 && (
-    <aside class="frame" style="position: sticky; top: 0.62rem;">
-      <p class="stamp" style="margin-bottom: 0.42rem;">
-        Chart index
-      </p>
-      <ul class="toc-list">
+    <aside class="post-toc-aside">
+      <p class="post-toc-aside-title">Chart index</p>
+      <ul class="post-toc-aside-list">
         {items.map((h) => (
-          <li style={`padding-left:${(h.depth - 2) * 0.52}rem;margin-bottom:0.22rem`}>
-            <a href={`#${h.slug}`}>{h.text}</a>
+          <li class={`post-toc-aside-depth-${h.depth}`}>
+            <a href={`#${h.slug}`}>
+              <span class="post-toc-aside-text">{h.text}</span>
+            </a>
           </li>
         ))}
       </ul>
     </aside>
   )
 }
+
+<style>
+  .post-toc-aside {
+    position: sticky;
+    top: 0.75rem;
+    padding: var(--space-4) var(--space-5);
+    background: var(--canvas-elevated);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .post-toc-aside-title {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 var(--space-3);
+  }
+
+  .post-toc-aside-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    line-height: 1.45;
+  }
+
+  .post-toc-aside-list li {
+    margin: 0 0 var(--space-2);
+  }
+
+  .post-toc-aside-list li:last-child {
+    margin-bottom: 0;
+  }
+
+  .post-toc-aside-list a {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-2);
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: color var(--duration-fast) ease;
+  }
+
+  .post-toc-aside-list a::before {
+    content: "·";
+    color: var(--line-strong);
+    flex-shrink: 0;
+  }
+
+  .post-toc-aside-list a:hover {
+    color: var(--accent);
+  }
+
+  .post-toc-aside-list a:hover .post-toc-aside-text {
+    text-decoration: underline;
+    text-decoration-color: var(--accent-soft);
+  }
+
+  .post-toc-aside-depth-3 {
+    padding-left: var(--space-4);
+  }
+
+  .post-toc-aside-depth-4 {
+    padding-left: var(--space-6);
+    opacity: 0.75;
+  }
+</style>
