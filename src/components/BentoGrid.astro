@@ -8,129 +8,73 @@ interface BlogPost {
   tag?: string;
 }
 
-interface Project {
-  title: string;
-  description?: string;
-  gitHubLink?: string;
-  liveLink?: string;
-  image?: string;
-  tags?: string[];
-}
-
 interface Props {
   posts: BlogPost[];
-  featuredProject: Project;
+  postCount: number;
+  projectCount: number;
 }
 
-const { posts, featuredProject } = Astro.props;
-
-const tinkeringItems = [
-  "Reading about conformal prediction",
-  "Experimenting with LLM interpretability",
-  "Building this workshop",
-  "Tracking Jupiter's moons",
-];
-
-const stats = [
-  { label: "Experiments run", value: "47" },
-  { label: "Papers read this month", value: "12" },
-  { label: "Lines of code", value: "50k+" },
-];
-
-const liveLink = featuredProject.liveLink?.trim() ?? "";
+const { posts, postCount, projectCount } = Astro.props;
 ---
 
-<section class="bento-section">
+<section class="bento-section" aria-label="Dashboard">
   <div class="bento-grid">
-    <!-- Cell 1: Latest Blog Posts (2×2) -->
-    <div class="bento-cell bento-cell--blog" style="--index: 0;">
+    <!-- Projects -->
+    <div class="bento-cell bento-cell--projects" style="--index: 0;">
       <SpotlightCard class="bento-card">
-        <div class="bento-card-inner">
-          <h3 class="bento-title">Latest from the notebook</h3>
-          <ul class="bento-post-list">
-            {
-              posts.map((post) => (
-                <li>
-                  <a href={`/blog/${post.slug}/`} class="bento-post-link">
-                    <span class="bento-post-date">{post.date.replace(/-/g, ".")}</span>
-                    <span class="bento-post-title">{post.title}</span>
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
-          <a href="/blog/" class="bento-all-link">View all →</a>
-        </div>
+        <span slot="title">Projects</span>
+        <span slot="description">
+          {projectCount} experiments in the workshop — from topological data analysis to game-playing agents.
+        </span>
+        <a href="/projects/" slot="links" class="bento-link">Browse projects →</a>
       </SpotlightCard>
     </div>
 
-    <!-- Cell 2: Featured Project (2×1) -->
-    <div class="bento-cell bento-cell--project" style="--index: 1;">
+    <!-- Blog -->
+    <div class="bento-cell bento-cell--blog" style="--index: 1;">
       <SpotlightCard class="bento-card">
-        <div class="bento-card-inner">
-          <h3 class="bento-title">Featured recipe</h3>
+        <span slot="title">Notebook</span>
+        <span slot="description">{postCount} notes on machine learning, statistics, and curiosity.</span>
+        <ul class="bento-post-list">
           {
-            featuredProject.image ? (
-              <div
-                class="bento-project-banner"
-                style={`background-image: url("${featuredProject.image}")`}
-              />
-            ) : null
+            posts.map((post) => (
+              <li>
+                <a href={`/blog/${post.slug}/`} class="bento-post-link">
+                  <span class="bento-post-date">{post.date.replace(/-/g, ".")}</span>
+                  <span class="bento-post-title">{post.title}</span>
+                </a>
+              </li>
+            ))
           }
-          <p class="bento-project-name">{featuredProject.title}</p>
-          <p class="bento-project-desc">{featuredProject.description}</p>
-          {featuredProject.tags?.length ? (
-            <div class="bento-project-tags">
-              {featuredProject.tags.slice(0, 4).map((t) => (
-                <span class="bento-tag">{t}</span>
-              ))}
-            </div>
-          ) : null}
-          <div class="bento-project-actions">
-            <a href={featuredProject.gitHubLink} class="bento-action-link">View recipe →</a>
-            {liveLink ? (
-              <a href={liveLink} class="bento-action-link">Live demo →</a>
-            ) : null}
-          </div>
-        </div>
+        </ul>
+        <a href="/blog/" slot="links" class="bento-link">View all →</a>
       </SpotlightCard>
     </div>
 
-    <!-- Cell 3: Tinkering Widget (1×1) -->
-    <div class="bento-cell bento-cell--tinkering" style="--index: 2;">
+    <!-- Resume -->
+    <div class="bento-cell bento-cell--resume" style="--index: 2;">
       <SpotlightCard class="bento-card">
-        <div class="bento-card-inner">
-          <h3 class="bento-title">Tinkering</h3>
-          <ul class="bento-tinkering-list">
-            {
-              tinkeringItems.map((item) => (
-                <li class="bento-tinkering-item">
-                  <span class="bento-tinkering-bullet" />
-                  <span>{item}</span>
-                </li>
-              ))
-            }
-          </ul>
-        </div>
+        <span slot="title">Resume</span>
+        <span slot="description">Experience, skills, and the path from mathematics to ML engineering.</span>
+        <a href="/resume/" slot="links" class="bento-link">Open resume →</a>
       </SpotlightCard>
     </div>
 
-    <!-- Cell 4: Stats Widget (1×1) -->
-    <div class="bento-cell bento-cell--stats" style="--index: 3;">
+    <!-- Kitchen -->
+    <div class="bento-cell bento-cell--kitchen" style="--index: 3;">
       <SpotlightCard class="bento-card">
-        <div class="bento-card-inner">
-          <h3 class="bento-title">Stats</h3>
-          <ul class="bento-stats-list">
-            {
-              stats.map((stat) => (
-                <li class="bento-stat-item">
-                  <span class="bento-stat-label">{stat.label}</span>
-                  <span class="bento-stat-value">{stat.value}</span>
-                </li>
-              ))
-            }
-          </ul>
-        </div>
+        <span slot="title">Kitchen</span>
+        <span slot="description">Recipes, sourdough experiments, and other side quests.</span>
+        <a href="/kitchen/" slot="links" class="bento-link">Enter kitchen →</a>
+      </SpotlightCard>
+    </div>
+
+    <!-- Search -->
+    <div class="bento-cell bento-cell--search" style="--index: 4;">
+      <SpotlightCard class="bento-card">
+        <span slot="title">Search</span>
+        <span slot="description">Find notes, experiments, and recipes across the site.</span>
+        <a href="/search/" slot="links" class="bento-link">Search →</a>
       </SpotlightCard>
     </div>
   </div>
@@ -144,56 +88,45 @@ const liveLink = featuredProject.liveLink?.trim() ?? "";
 
   .bento-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: 1fr 1fr auto;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: minmax(160px, auto);
     gap: 1rem;
     align-items: stretch;
   }
 
   .bento-cell {
     animation: fade-in-up 500ms cubic-bezier(0.16, 1, 0.3, 1) both;
-    animation-delay: calc(var(--index, 0) * 120ms);
+    animation-delay: calc(var(--index, 0) * 100ms);
     min-height: 0;
   }
 
+  .bento-cell--projects {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
   .bento-cell--blog {
-    grid-column: 1 / 3;
+    grid-column: 2;
     grid-row: 1 / 3;
   }
 
-  .bento-cell--project {
-    grid-column: 3 / 5;
-    grid-row: 1 / 2;
+  .bento-cell--resume {
+    grid-column: 1;
+    grid-row: 2;
   }
 
-  .bento-cell--tinkering {
-    grid-column: 3 / 4;
-    grid-row: 2 / 3;
+  .bento-cell--kitchen {
+    grid-column: 1;
+    grid-row: 3;
   }
 
-  .bento-cell--stats {
-    grid-column: 4 / 5;
-    grid-row: 2 / 3;
+  .bento-cell--search {
+    grid-column: 2;
+    grid-row: 3;
   }
 
   :global(.spotlight-card.bento-card) {
     height: 100%;
-  }
-
-  .bento-card-inner {
-    padding: 1.25rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    height: 100%;
-  }
-
-  .bento-title {
-    font-family: var(--font-display);
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--ink);
-    margin: 0;
   }
 
   .bento-post-list {
@@ -236,164 +169,30 @@ const liveLink = featuredProject.liveLink?.trim() ?? "";
     transition: color 200ms ease;
   }
 
-  .bento-all-link {
+  .bento-link {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--ink-muted);
-    text-decoration: none;
-    margin-top: auto;
-    padding-top: 0.5rem;
-  }
-
-  .bento-all-link:hover {
-    color: var(--accent);
-  }
-
-  .bento-project-banner {
-    height: 100px;
-    background-size: cover;
-    background-position: center;
-    border-radius: 6px;
-    margin-top: 0.25rem;
-  }
-
-  .bento-project-name {
-    font-weight: 600;
-    font-size: 1rem;
-    color: var(--ink);
-    margin: 0;
-  }
-
-  .bento-project-desc {
-    font-size: 0.85rem;
-    color: var(--ink-muted);
-    line-height: 1.5;
-    margin: 0;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .bento-project-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem;
-  }
-
-  .bento-tag {
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    padding: 0.15rem 0.45rem;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    border-radius: 999px;
-    color: var(--accent);
-  }
-
-  html[data-theme="dark"] .bento-tag {
-    border-color: rgba(255, 255, 255, 0.15);
-  }
-
-  .bento-project-actions {
-    display: flex;
-    gap: 1rem;
-    margin-top: auto;
-    padding-top: 0.5rem;
-  }
-
-  .bento-action-link {
     font-size: 0.8rem;
     color: var(--accent);
     text-decoration: none;
   }
 
-  .bento-action-link:hover {
+  .bento-link:hover {
     color: var(--accent-hot);
     text-decoration: underline;
   }
 
-  .bento-tinkering-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-  }
-
-  .bento-tinkering-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.8rem;
-    color: var(--ink-muted);
-  }
-
-  .bento-tinkering-bullet {
-    width: 6px;
-    height: 6px;
-    background: var(--accent);
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  .bento-stats-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .bento-stat-item {
-    display: flex;
-    flex-direction: column;
-    gap: 0.15rem;
-  }
-
-  .bento-stat-label {
-    font-size: 0.75rem;
-    color: var(--ink-muted);
-  }
-
-  .bento-stat-value {
-    font-family: var(--font-mono);
-    font-size: 1.1rem;
-    color: var(--accent);
-    font-weight: 600;
-  }
-
-  @media (max-width: 1024px) {
-    .bento-grid {
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: auto;
-    }
-    .bento-cell--blog {
-      grid-column: 1 / 3;
-      grid-row: 1 / 2;
-    }
-    .bento-cell--project {
-      grid-column: 1 / 3;
-      grid-row: 2 / 3;
-    }
-    .bento-cell--tinkering,
-    .bento-cell--stats {
-      grid-column: span 1;
-      grid-row: auto;
-    }
-  }
-
-  @media (max-width: 640px) {
+  @media (max-width: 768px) {
     .bento-grid {
       grid-template-columns: 1fr;
-      grid-template-rows: auto;
+      grid-auto-rows: auto;
     }
+
+    .bento-cell--projects,
     .bento-cell--blog,
-    .bento-cell--project,
-    .bento-cell--tinkering,
-    .bento-cell--stats {
-      grid-column: 1 / 2;
+    .bento-cell--resume,
+    .bento-cell--kitchen,
+    .bento-cell--search {
+      grid-column: 1;
       grid-row: auto;
     }
   }

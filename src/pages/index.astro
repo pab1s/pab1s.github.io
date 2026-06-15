@@ -8,8 +8,9 @@ import { getCollection } from "astro:content";
 import { siteConfig } from "../site-config";
 import projectsData from "../data/projects.json";
 
-const dockPosts = (await getCollection("blog"))
-  .filter((post) => !post.data.draft)
+const allPosts = (await getCollection("blog")).filter((post) => !post.data.draft);
+
+const dockPosts = allPosts
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3)
   .map((post) => ({
@@ -19,35 +20,15 @@ const dockPosts = (await getCollection("blog"))
     tag: post.data.tags[0],
   }));
 
-const projList = projectsData.projects;
-const featuredTitleWant = siteConfig.homeFeed.featuredProjectTitle.trim();
-const featuredRaw =
-  (featuredTitleWant && projList.find((p) => p.title === featuredTitleWant)) ?? projList[0];
-
-const featuredProject = featuredRaw
-  ? {
-      title: featuredRaw.title,
-      description: featuredRaw.description,
-      gitHubLink: featuredRaw.gitHubLink,
-      liveLink: featuredRaw.liveLink,
-      image: featuredRaw.image,
-      tags: featuredRaw.tags,
-    }
-  : {
-      title: "—",
-      description: "No projects defined.",
-      gitHubLink: "/projects/",
-      liveLink: "",
-      image: "",
-      tags: [],
-    };
+const postCount = allPosts.length;
+const projectCount = projectsData.projects.length;
 ---
 
 <BaseLayout title={siteConfig.title} description={siteConfig.description}>
   <WorkshopNav currentPath={Astro.url.pathname} />
 
-  <HeroSection featuredProject={featuredProject} />
-  <BentoGrid posts={dockPosts} featuredProject={featuredProject} />
+  <HeroSection />
+  <BentoGrid posts={dockPosts} postCount={postCount} projectCount={projectCount} />
 
   <SiteFooter />
 </BaseLayout>
