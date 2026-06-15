@@ -292,6 +292,20 @@ import SiteFooter from "../../components/SiteFooter.astro";
       background-color: var(--accent-soft);
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      #search :global(.pagefind-ui__search-input),
+      #search :global(.pagefind-ui__search-clear),
+      #search :global(.pagefind-ui__result),
+      #search :global(.pagefind-ui__result-link),
+      #search :global(.pagefind-ui__button) {
+        transition: none;
+      }
+
+      #search :global(.pagefind-ui__result:hover) {
+        transform: none;
+      }
+    }
+
     @media (max-width: 640px) {
       #search :global(.pagefind-ui__result) {
         flex-direction: column;
