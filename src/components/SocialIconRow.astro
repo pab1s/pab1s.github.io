@@ -4,16 +4,17 @@ import { siteConfig } from "../site-config";
 
 <ul class="social-icon-row">
   {
-    siteConfig.social.map((s) => (
+    siteConfig.social.map((s) => {
+      const isMail = s.href.startsWith("mailto:");
+      return (
       <li>
         <a
           class="social-icon-link"
           href={s.href}
-          aria-label={s.name}
-          rel={s.href.startsWith("mailto:") ? undefined : "me noopener noreferrer"}
-          target={s.href.startsWith("mailto:") ? undefined : "_blank"}
+          rel={isMail ? undefined : "me noopener noreferrer"}
+          target={isMail ? undefined : "_blank"}
         >
-          <span class="sr-only">{s.name}{s.href.startsWith("mailto:") ? "" : " (opens in new tab)"}</span>
+          <span class="sr-only">{s.name}{isMail ? "" : " (opens in new tab)"}</span>
           {s.icon === "github" ? (
             <svg
               class="social-icon-svg"
@@ -55,7 +56,8 @@ import { siteConfig } from "../site-config";
           )}
         </a>
       </li>
-    ))
+      );
+    })
   }
 </ul>
 

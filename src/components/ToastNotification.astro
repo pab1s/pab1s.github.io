@@ -3,7 +3,6 @@
   (function () {
     const container = document.currentScript?.previousElementSibling;
     if (!container || !container.classList.contains('toast-container')) return;
-    container.id = 'toast-' + Math.random().toString(36).slice(2, 9);
     window.showToast = function(message, duration = 3000) {
       const toast = document.createElement('div');
       toast.className = 'toast';
