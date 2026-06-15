@@ -7,12 +7,8 @@
             "liveLink": "",
             "image": "/projects/tda-nn-analysis.webp",
             "tags": [
-                "convolutional-neural-networks",
                 "deep-learning",
-                "interpretability",
-                "topological-data-analysis",
-                "optimization",
-                "transfer-learning"
+                "machine-learning"
             ]
         },
         {
@@ -22,10 +18,7 @@
             "liveLink": "",
             "image": "/projects/feature-weight-metaheuristics.webp",
             "tags": [
-                "bioinspired-algorithms",
-                "feature-weighting",
-                "metaheuristics",
-                "optimization"
+                "machine-learning"
             ]
         },
         {
@@ -35,12 +28,8 @@
             "liveLink": "",
             "image": "/projects/granada-parking-segmentation.webp",
             "tags": [
-                "aerial-imagery",
-                "convolutional-neural-networks",
-                "deeplab-v3-plus",
-                "image-segmentation",
-                "pspnet",
-                "u-net"
+                "computer-vision",
+                "deep-learning"
             ]
         },
         {
@@ -50,9 +39,7 @@
             "liveLink": "",
             "image": "/projects/minimax-parcheesi.webp",
             "tags": [
-                "ai",
-                "alpha-beta-pruning",
-                "game"
+                "games"
             ]
         },
         {
@@ -62,12 +49,7 @@
             "liveLink": "",
             "image": "/projects/ETSIIT-info-NUI.webp",
             "tags": [
-                "css",
-                "express",
-                "html",
-                "javascript",
-                "leap-motion",
-                "natural-user-interface"
+                "web"
             ]
         },
         {
@@ -77,11 +59,8 @@
             "liveLink": "",
             "image": "/projects/TFG.webp",
             "tags": [
-                "latex",
-                "regularization",
-                "topological-data-analysis",
-                "convolutional-neural-networks",
-                "transfer-learning"
+                "deep-learning",
+                "machine-learning"
             ]
         },
         {
@@ -111,10 +90,7 @@
             "liveLink": "",
             "image": "/projects/deepspace-java.webp",
             "tags": [
-                "game",
-                "java",
-                "oop",
-                "gui"
+                "games"
             ]
         },
         {
@@ -124,9 +100,7 @@
             "liveLink": "",
             "image": "/projects/deepspace-ruby.webp",
             "tags": [
-                "game",
-                "oop",
-                "ruby"
+                "games"
             ]
         },
         {
@@ -136,9 +110,7 @@
             "liveLink": "",
             "image": "/projects/credit-fraud-detection.webp",
             "tags": [
-                "machine-learning",
-                "classification",
-                "imbalanced-data"
+                "machine-learning"
             ]
         },
         {
@@ -148,11 +120,7 @@
             "liveLink": "",
             "image": "/projects/ETSIIT-info-app.webp",
             "tags": [
-                "android",
-                "dialogflow",
-                "flutter",
-                "sensors",
-                "user-experience"
+                "mobile"
             ]
         },
         {
@@ -162,8 +130,7 @@
             "liveLink": "",
             "image": "/projects/ETSIIT-info-dialog.webp",
             "tags": [
-                "voice-assistant",
-                "voicexml"
+                "nlp"
             ]
         },
         {
@@ -173,10 +140,7 @@
             "liveLink": "",
             "image": "/projects/flutter-netflix-responsive-ui.webp",
             "tags": [
-                "application",
-                "flutter",
-                "netflix",
-                "responsive"
+                "mobile"
             ]
         },
         {
@@ -186,9 +150,7 @@
             "liveLink": "",
             "image": "/projects/DGIIM.webp",
             "tags": [
-                "notes",
-                "university",
-                "mathematics"
+                "education"
             ]
         },
         {
@@ -198,8 +160,7 @@
             "liveLink": "",
             "image": "/projects/30-Days-Of-Python.webp",
             "tags": [
-                "python",
-                "tutorial-exercises"
+                "education"
             ]
         }
     ]
