@@ -14,120 +14,71 @@ interface Props {
 const { title, description, image, tags, gitHubLink, liveLink, featured = false } = Astro.props;
 ---
 
-<SpotlightCard class="project-card">
+<SpotlightCard class={`project-card ${featured ? "project-card--featured" : ""}`}>
   {
     image ? (
-      <div class={`project-image-container ${featured ? "project-image-container--featured" : ""}`}>
+      <div slot="image" class="project-image-wrap">
         <img src={image} alt={title} loading="lazy" />
       </div>
     ) : null
   }
-  <div class="project-content">
-    <h3>{title}</h3>
-    <p>{description}</p>
-    {
-      tags?.length ? (
-        <div class="project-tags">
-          {tags.map((tag) => (
-            <span class="project-tag">{tag}</span>
-          ))}
-        </div>
-      ) : null
-    }
-    <div class="project-links">
-      <a href={gitHubLink} target="_blank" rel="noopener noreferrer">View recipe →</a>
-      {liveLink ? (
-        <a href={liveLink} target="_blank" rel="noopener noreferrer">Live demo →</a>
-      ) : null}
-    </div>
+  <Fragment slot="title">{title}</Fragment>
+  <Fragment slot="description">{description}</Fragment>
+  {
+    tags?.length ? (
+      <div slot="tags" class="project-tags">
+        {tags.map((tag) => (
+          <span class="project-tag">{tag}</span>
+        ))}
+      </div>
+    ) : null
+  }
+  <div slot="links" class="project-links">
+    <a href={gitHubLink} target="_blank" rel="noopener noreferrer">View recipe →</a>
+    {liveLink ? (
+      <a href={liveLink} target="_blank" rel="noopener noreferrer">Live demo →</a>
+    ) : null}
   </div>
 </SpotlightCard>
 
 <style>
   .project-card {
-    display: flex;
-    flex-direction: column;
-    background: var(--canvas-elevated);
-    border-radius: var(--radius-md);
-    box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.03);
+    /* SpotlightCard provides surface, border, and hover lift */
   }
 
-  html[data-theme="dark"] .project-card {
-    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.03);
-  }
-
-  .project-image-container {
-    height: 140px;
+  .project-image-wrap {
+    aspect-ratio: 16 / 10;
     width: 100%;
     overflow: hidden;
-    border-radius: 8px 8px 0 0;
   }
 
-  .project-image-container--featured {
-    height: 200px;
-  }
-
-  .project-image-container img {
+  .project-image-wrap img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 400ms ease;
+    transition: transform var(--duration-slow) var(--ease-out-expo);
   }
 
-  .project-card:hover .project-image-container img {
+  .project-card:hover .project-image-wrap img {
     transform: scale(1.05);
   }
 
-  .project-content {
-    padding: 1.25rem;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-  }
-
-  .project-content h3 {
-    font-family: var(--font-display);
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin: 0 0 0.5rem;
-    color: var(--ink);
-  }
-
-  .project-content p {
-    font-size: 0.9rem;
-    color: var(--ink-muted);
-    line-height: 1.5;
-    margin: 0 0 0.75rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
   .project-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem;
-    margin-bottom: 1rem;
+    display: contents;
   }
 
   .project-tag {
     font-family: var(--font-mono);
     font-size: 0.65rem;
     padding: 0.15rem 0.45rem;
-    border: 1px solid rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--line);
     border-radius: 999px;
     color: var(--accent);
+    transition: border-color var(--duration-fast) var(--ease-out-expo);
   }
 
-  html[data-theme="dark"] .project-tag {
-    border-color: rgba(255, 255, 255, 0.15);
-  }
-
-  .project-links {
-    display: flex;
-    gap: 1rem;
-    margin-top: auto;
+  .project-card:hover .project-tag {
+    border-color: var(--accent-soft);
   }
 
   .project-links a {
@@ -136,6 +87,7 @@ const { title, description, image, tags, gitHubLink, liveLink, featured = false 
     text-underline-offset: 3px;
     text-decoration-color: var(--accent-soft);
     font-size: 0.9rem;
+    transition: color var(--duration-fast) var(--ease-out-expo);
   }
 
   .project-links a:hover {
