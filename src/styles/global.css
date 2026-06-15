@@ -422,8 +422,21 @@ pre code {
 
 .project-grid {
   display: grid;
-  gap: 0.62rem;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+.project-card-wrapper {
+  display: flex;
+}
+
+.project-card-wrapper.is-hidden {
+  display: none;
+}
+
+.project-card-wrapper .spotlight-card {
+  width: 100%;
+  height: 100%;
 }
 
 /* Résumé: lighter vertical rhythm inside markdown-like blocks */
@@ -475,14 +488,13 @@ pre code {
 .section-hero { margin-bottom: 3rem; }
 .section-hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); margin: 0; }
 .section-hero p { color: var(--ink-muted); font-size: 1.05rem; margin: 0.5rem 0 0; }
-.project-featured-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 @media (max-width: 768px) {
-  .project-featured-grid { grid-template-columns: 1fr; }
   .bento-grid { grid-template-columns: 1fr; }
   .hero-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
   .blog-post-row { grid-template-columns: 1fr; }
+  .project-grid { grid-template-columns: 1fr; }
 }
 
 .blog-list { list-style: none; margin: 0; padding: 0; }

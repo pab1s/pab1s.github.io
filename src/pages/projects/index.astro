@@ -6,49 +6,136 @@ import SiteFooter from "../../components/SiteFooter.astro";
 import projectsData from "../../data/projects.json";
 
 const projects = projectsData.projects;
-const featuredProjects = projects.slice(0, 2);
-const remainingProjects = projects.slice(2);
+
+const tagCounts = projects.reduce((acc, project) => {
+  project.tags.forEach((tag) => {
+    acc.set(tag, (acc.get(tag) || 0) + 1);
+  });
+  return acc;
+}, new Map<string, number>());
+
+const allTags = Array.from(tagCounts.entries())
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([tag]) => tag);
 ---
 
-<BaseLayout title="Projects" description="Every project is a recipe. Here are some I've cooked up.">
+<BaseLayout title="Projects" description="A grid of experiments, tools, and things I've built.">
   <WorkshopNav currentPath={Astro.url.pathname} />
 
   <header class="section-hero">
     <span class="fig-label">REC_001 · prototype bay</span>
     <h1>The Lab Bench</h1>
-    <p>Every project is a recipe. Here are some I've cooked up.</p>
+    <p>Every project is a recipe. Filter by ingredient or browse the whole shelf.</p>
   </header>
 
-  <div class="project-featured-grid">
+  <div class="filter-bar" role="group" aria-label="Filter projects by tag">
+    <button class="filter-btn" type="button" data-filter="all" aria-pressed="true">All</button>
     {
-      featuredProjects.map((proj) => (
-        <ProjectCard
-          title={proj.title}
-          description={proj.description}
-          image={proj.image}
-          tags={proj.tags}
-          gitHubLink={proj.gitHubLink}
-          liveLink={proj.liveLink || undefined}
-          featured={true}
-        />
+      allTags.map((tag) => (
+        <button class="filter-btn" type="button" data-filter={tag} aria-pressed="false">
+          {tag}
+        </button>
       ))
     }
   </div>
 
-  <div class="project-grid">
+  <div class="project-grid" id="projects-grid">
     {
-      remainingProjects.map((proj) => (
-        <ProjectCard
-          title={proj.title}
-          description={proj.description}
-          image={proj.image}
-          tags={proj.tags}
-          gitHubLink={proj.gitHubLink}
-          liveLink={proj.liveLink || undefined}
-        />
+      projects.map((proj) => (
+        <div class="project-card-wrapper" data-tags={proj.tags.join(",")}>
+          <ProjectCard
+            title={proj.title}
+            description={proj.description}
+            image={proj.image}
+            tags={proj.tags}
+            gitHubLink={proj.gitHubLink}
+            liveLink={proj.liveLink || undefined}
+          />
+        </div>
       ))
     }
   </div>
+
+  <p class="projects-empty" id="projects-empty" hidden>No projects match the selected tag.</p>
 
   <SiteFooter />
 </BaseLayout>
+
+<style>
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    align-items: center;
+  }
+
+  .filter-btn {
+    appearance: none;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--canvas-elevated);
+    color: var(--ink-muted);
+    cursor: pointer;
+    transition:
+      background var(--duration-fast) var(--ease-out-expo),
+      color var(--duration-fast) var(--ease-out-expo),
+      border-color var(--duration-fast) var(--ease-out-expo);
+  }
+
+  .filter-btn:hover {
+    border-color: var(--line-strong);
+    color: var(--ink);
+  }
+
+  .filter-btn[aria-pressed="true"] {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--canvas-elevated);
+  }
+
+  .projects-empty {
+    text-align: center;
+    color: var(--ink-muted);
+    padding: 3rem 1rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+  }
+</style>
+
+<script>
+  (function () {
+    const filterBtns = document.querySelectorAll<HTMLButtonElement>("[data-filter]");
+    const cards = document.querySelectorAll<HTMLElement>("[data-tags]");
+    const empty = document.getElementById("projects-empty");
+
+    if (!filterBtns.length || !cards.length) return;
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const filter = btn.getAttribute("data-filter") || "all";
+
+        filterBtns.forEach((b) => {
+          b.setAttribute("aria-pressed", b === btn ? "true" : "false");
+        });
+
+        let visible = 0;
+        cards.forEach((card) => {
+          const tags = (card.getAttribute("data-tags") || "").split(",");
+          const show = filter === "all" || tags.includes(filter);
+          card.classList.toggle("is-hidden", !show);
+          if (show) visible++;
+        });
+
+        if (empty) {
+          empty.hidden = visible > 0;
+        }
+      });
+    });
+  })();
+</script>
