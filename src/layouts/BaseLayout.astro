@@ -38,7 +38,7 @@ import ToastNotification from "../components/ToastNotification.astro";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#fbfbfb" />
+    <meta name="theme-color" content="#f7f7f5" />
     <script is:inline>
       (function () {
         var t;
@@ -54,7 +54,7 @@ import ToastNotification from "../components/ToastNotification.astro";
         }
         document.documentElement.dataset.theme = t;
         var m = document.querySelector('meta[name="theme-color"]');
-        if (m) m.setAttribute("content", t === "dark" ? "#0a0a0a" : "#fbfbfb");
+        if (m) m.setAttribute("content", t === "dark" ? "#0c0c10" : "#f7f7f5");
       })();
     </script>
     <meta name="generator" content={Astro.generator} />
@@ -74,12 +74,9 @@ import ToastNotification from "../components/ToastNotification.astro";
     {desc ? <meta name="twitter:description" content={desc} /> : null}
     <meta name="twitter:image" content={ogImageAbs} />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
@@ -116,7 +113,7 @@ gtag('config', gaId);`}
         function meta(t) {
           var m = document.querySelector('meta[name="theme-color"]');
           if (!m) return;
-          m.setAttribute("content", t === "dark" ? "#0a0a0a" : "#fbfbfb");
+          m.setAttribute("content", t === "dark" ? "#0c0c10" : "#f7f7f5");
         }
         function syncAria() {
           var th = document.documentElement.dataset.theme === "light" ? "light" : "dark";
