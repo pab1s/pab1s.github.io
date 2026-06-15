@@ -31,12 +31,6 @@
   --duration-slow: 400ms;
 }
 
-.resume-content { max-width: 800px; }
-.resume-content section { margin-bottom: 2.5rem; }
-.resume-content article { margin-bottom: 1.5rem; }
-.skill-bar-outer { height: 4px; background: var(--line); border-radius: 2px; width: 120px; margin-top: 0.25rem; }
-.skill-bar-inner { height: 100%; background: var(--accent); border-radius: 2px; width: 85%; }
-
 html[data-theme="dark"] {
   color-scheme: dark;
 
@@ -520,41 +514,6 @@ pre code {
   height: 100%;
 }
 
-/* Résumé: lighter vertical rhythm inside markdown-like blocks */
-.compact-header {
-  margin-bottom: 0.85rem;
-}
-
-.site-footer-compact {
-  margin-top: 1.65rem;
-  font-size: 0.72rem;
-}
-
-/* Page section headers (stamp + h1) inside a frame */
-.section-lead {
-  margin-bottom: 0.85rem;
-}
-
-.resume-content header {
-  margin-bottom: 1rem;
-}
-
-.resume-content article {
-  margin-bottom: 1rem;
-}
-
-.resume-content > section:last-child article:last-child {
-  margin-bottom: 0;
-}
-
-.resume-content :where(section) ul {
-  margin: 0.35rem 0 0;
-}
-
-.resume-content > header + section > h2:first-child {
-  margin-top: 0.5rem;
-}
-
 .sr-only {
   position: absolute;
   width: 1px;
@@ -581,7 +540,7 @@ pre code {
 .blog-list li { border-bottom: none; }
 
 @media print {
-  .noise-overlay, .stars, .blueprint-grid, .workshop-nav, .site-footer, .theme-cycle-btn {
+  .noise-overlay, .stars, .blueprint-grid, .workshop-nav, .site-footer, .theme-cycle-btn, .resume-hero {
     display: none !important;
   }
   body {

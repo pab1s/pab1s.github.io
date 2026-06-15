@@ -2,10 +2,23 @@
 import cv from "../data/cv.json";
 import { siteConfig } from "../site-config";
 
-// Map proficiency level to dots (all skills shown at 4/5 for this portfolio)
-const proficiencyDots = (level: number = 4) => {
-  const filled = "●".repeat(level);
-  const empty = "○".repeat(5 - level);
+interface WorkItem {
+  name: string;
+  position: string;
+  location?: string;
+  url: string;
+  startDate: string;
+  endDate?: string;
+  summary?: string;
+  highlights: string[];
+}
+
+const work = cv.work as WorkItem[];
+
+// All skills shown at 4/5 for this portfolio
+const proficiencyDots = () => {
+  const filled = "●".repeat(4);
+  const empty = "○".repeat(1);
   return filled + empty;
 };
 
@@ -18,7 +31,7 @@ const fmtDate = (d: string) => {
   if (!year) return d;
   if (!month) return year;
   const months = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  return `${months[parseInt(month)]} ${year}`;
+  return `${months[parseInt(month, 10)]} ${year}`;
 };
 ---
 
@@ -61,10 +74,10 @@ const fmtDate = (d: string) => {
   <section class="dossier-section">
     <h2 class="dossier-section-title">§ Experience</h2>
     <div class="dossier-timeline">
-      {cv.work.map((job) => (
+      {work.map((job) => (
         <article class="dossier-timeline-item">
           <div class="dossier-timeline-meta">
-            <span class="dossier-label dossier-date">{fmtDate(job.startDate)} — {fmtDate((job as any).endDate ?? "")}</span>
+            <span class="dossier-label dossier-date">{fmtDate(job.startDate)} — {fmtDate(job.endDate ?? "")}</span>
             <span class="dossier-label dossier-location">{job.location}</span>
           </div>
           <div class="dossier-timeline-body">
@@ -73,7 +86,7 @@ const fmtDate = (d: string) => {
               <span class="dossier-at">@</span>
               <a href={job.url} target="_blank" rel="noopener noreferrer">{job.name}</a>
             </h3>
-            {(job as any).summary ? <p class="dossier-entry-summary">{(job as any).summary}</p> : null}
+            {job.summary ? <p class="dossier-entry-summary">{job.summary}</p> : null}
             <ul class="dossier-highlights">
               {job.highlights.map((line) => (
                 <li>{line}</li>
@@ -220,23 +233,6 @@ const fmtDate = (d: string) => {
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--ink-muted);
-  }
-
-  .dossier-pdf-link {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink-muted);
-    text-decoration: none;
-    border: 1px solid var(--line);
-    padding: 0.2rem 0.55rem;
-    transition: color 150ms ease, border-color 150ms ease;
-  }
-
-  .dossier-pdf-link:hover {
-    color: var(--accent);
-    border-color: var(--accent);
   }
 
   .dossier-name {
@@ -492,9 +488,6 @@ const fmtDate = (d: string) => {
     .dossier {
       max-width: 100%;
       padding: 0;
-    }
-    .dossier-pdf-link {
-      display: none;
     }
     .dossier-section {
       break-inside: avoid;
