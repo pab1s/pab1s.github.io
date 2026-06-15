@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-labelledby="sourdough-title sourdough-desc">
+  <title id="sourdough-title">Sourdough bread illustration</title>
+  <desc id="sourdough-desc">A line-art loaf of sourdough bread cooling on a board.</desc>
+  <style>
+    .blueprint-stroke { fill: none; stroke: #2a4fd7; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+    .blueprint-fill { fill: rgba(42, 79, 215, 0.08); stroke: #2a4fd7; stroke-width: 3; }
+    .blueprint-soft { fill: none; stroke: rgba(42, 79, 215, 0.28); stroke-width: 2; stroke-linecap: round; }
+    @media (prefers-color-scheme: dark) {
+      .blueprint-stroke { stroke: #5b82ff; }
+      .blueprint-fill { fill: rgba(91, 130, 255, 0.12); stroke: #5b82ff; }
+      .blueprint-soft { stroke: rgba(91, 130, 255, 0.35); }
+    }
+  </style>
+
+  <!-- Cutting board -->
+  <rect x="160" y="350" width="480" height="38" rx="4" class="blueprint-stroke" />
+  <path d="M190 368 H610" class="blueprint-soft" />
+  <path d="M220 379 H580" class="blueprint-soft" />
+
+  <!-- Loaf -->
+  <ellipse cx="400" cy="292" rx="170" ry="92" class="blueprint-fill" />
+
+  <!-- Scoring slashes -->
+  <path d="M335 272 Q365 242 395 277" class="blueprint-stroke" />
+  <path d="M375 302 Q405 272 435 307" class="blueprint-stroke" />
+  <path d="M415 277 Q445 247 475 282" class="blueprint-stroke" />
+
+  <!-- Steam -->
+  <path d="M345 185 Q365 145 345 115" class="blueprint-soft" />
+  <path d="M400 175 Q420 135 400 105" class="blueprint-soft" />
+  <path d="M455 185 Q475 145 455 115" class="blueprint-soft" />
+
+  <!-- Wheat stalk -->
+  <path d="M690 388 Q710 328 730 268" class="blueprint-soft" />
+  <ellipse cx="710" cy="258" rx="9" ry="20" class="blueprint-fill" />
+</svg>
