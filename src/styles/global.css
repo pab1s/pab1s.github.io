@@ -498,41 +498,6 @@ pre code {
   flex-shrink: 0;
 }
 
-.theme-cycle-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.05rem;
-  height: 2.05rem;
-  padding: 0;
-  margin: 0;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-md);
-  background: transparent;
-  color: var(--ink-muted);
-  cursor: pointer;
-  vertical-align: middle;
-  transition: color var(--duration-fast) var(--ease-out-expo), border-color var(--duration-fast) var(--ease-out-expo), background var(--duration-fast) var(--ease-out-expo);
-}
-
-.theme-cycle-btn:hover {
-  color: var(--accent-hot);
-  border-color: var(--line-strong);
-  background: var(--accent-soft);
-}
-
-.theme-cycle-svg {
-  display: block;
-}
-
-html[data-theme="dark"] .theme-cycle-svg--moon {
-  display: none !important;
-}
-
-html[data-theme="light"] .theme-cycle-svg--sun {
-  display: none !important;
-}
-
 .sr-only {
   position: absolute;
   width: 1px;

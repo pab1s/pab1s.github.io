@@ -4,10 +4,12 @@ import { siteConfig, telemetryLines } from "../site-config";
 
 <footer class="site-footer">
   <div class="site-footer-inner">
-    <div class="site-footer-row">
-      <span class="site-footer-status" data-footer-status data-lines={JSON.stringify(telemetryLines)}>
-        {telemetryLines[0]}
-      </span>
+    <div class="site-footer-brand">
+      <span class="site-footer-name">{siteConfig.title}</span>
+      <span class="site-footer-tagline">{siteConfig.tagline}</span>
+    </div>
+
+    <div class="site-footer-aside">
       <div class="site-footer-socials">
         {
           siteConfig.social.map((s) => (
@@ -17,10 +19,15 @@ import { siteConfig, telemetryLines } from "../site-config";
           ))
         }
       </div>
+      <span
+        class="site-footer-status"
+        data-footer-status
+        data-lines={JSON.stringify(telemetryLines)}
+        data-initial-index={siteConfig.homeFeed.telemetryLineIndex}
+      >
+        {telemetryLines[siteConfig.homeFeed.telemetryLineIndex]}
+      </span>
     </div>
-    <p class="site-footer-copy">
-      Built with <a href="https://astro.build">Astro</a> · Blueprints strictly aspirational · The Curiosity Workshop
-    </p>
   </div>
 </footer>
 
@@ -28,7 +35,8 @@ import { siteConfig, telemetryLines } from "../site-config";
   const el = document.querySelector<HTMLElement>("[data-footer-status]");
   if (el?.dataset.lines) {
     const lines = JSON.parse(el.dataset.lines) as string[];
-    let i = 0;
+    let i = parseInt(el.dataset.initialIndex || "0", 10) || 0;
+    el.textContent = lines[i];
     setInterval(() => {
       i = (i + 1) % lines.length;
       el.textContent = lines[i];
@@ -41,6 +49,81 @@ import { siteConfig, telemetryLines } from "../site-config";
     border-top: 1px solid var(--line);
     background: transparent;
     margin-top: 3rem;
-    padding: 2rem 0;
+    padding: 1.5rem 0;
+  }
+
+  .site-footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+
+  .site-footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .site-footer-name {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .site-footer-tagline {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--ink-muted);
+  }
+
+  .site-footer-aside {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.4rem;
+  }
+
+  .site-footer-socials {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .site-footer-socials a {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ink-muted);
+    text-decoration: none;
+  }
+
+  .site-footer-socials a:hover {
+    color: var(--accent);
+  }
+
+  .site-footer-status {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--ink-muted);
+    cursor: default;
+  }
+
+  @media (max-width: 640px) {
+    .site-footer-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .site-footer-aside {
+      align-items: flex-start;
+      width: 100%;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 1rem;
+    }
   }
 </style>
