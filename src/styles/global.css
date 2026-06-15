@@ -479,28 +479,6 @@ pre code {
   color: var(--ink);
 }
 
-.toc-list {
-  list-style: none;
-  padding-left: 0;
-  margin: 0;
-  font-size: 0.73rem;
-  line-height: 1.4;
-}
-
-.toc-list ul {
-  list-style: none;
-  padding-left: 0.75rem;
-  margin: 0.18rem 0 0;
-}
-
-.toc-list a {
-  color: var(--ink-muted);
-}
-
-.toc-list a:hover {
-  color: var(--accent-hot);
-}
-
 .grid-2 {
   display: grid;
   gap: 0.65rem;
@@ -596,7 +574,6 @@ pre code {
   .hero-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
-  .blog-post-row { grid-template-columns: 1fr; }
   .project-grid { grid-template-columns: 1fr; }
 }
 
