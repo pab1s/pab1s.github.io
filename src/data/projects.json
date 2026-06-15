@@ -2,7 +2,7 @@
     "projects": [
         {
             "title": "tda-nn-analysis",
-            "description": "This project aims to explore the optimization and transferability of knowledge using Topological Data Analysis (TDA) and Convolutional Neural Networks (CNN).",
+            "description": "A collection of experiments that use persistent homology and topological data analysis to study how knowledge transfers across CNN architectures and optimization landscapes.",
             "gitHubLink": "https://github.com/pab1s/tda-nn-analysis",
             "liveLink": "",
             "image": "/projects/tda-nn-analysis.webp",
@@ -17,7 +17,7 @@
         },
         {
             "title": "feature-weight-metaheuristics",
-            "description": "This project explores metaheuristic algorithms for feature weight learning in 1NN classification.",
+            "description": "Bioinspired optimization algorithms tuned to learn feature weights that improve 1-nearest-neighbour classification accuracy.",
             "gitHubLink": "https://github.com/pab1s/feature-weight-metaheuristics",
             "liveLink": "",
             "image": "/projects/feature-weight-metaheuristics.webp",
@@ -30,7 +30,7 @@
         },
         {
             "title": "granada-parking-segmentation",
-            "description": "This GitHub repository hosts a project focused on the detection of parked cars in the city of Granada through advanced image segmentation techniques.",
+            "description": "Deep segmentation models applied to aerial imagery for detecting parked vehicles across Granada, comparing U-Net, PSPNet and DeepLab v3+.",
             "gitHubLink": "https://github.com/pab1s/granada-parking-segmentation",
             "liveLink": "",
             "image": "/projects/granada-parking-segmentation.webp",
@@ -45,7 +45,7 @@
         },
         {
             "title": "minimax-parcheesi",
-            "description": "Modified Parcheesi game implementing rivals applying Alpha-Beta Prunning. Artificial Intelligence Project in UGR.",
+            "description": "A modified Parcheesi board game with AI opponents that plan moves using Minimax search with Alpha-Beta pruning.",
             "gitHubLink": "https://github.com/pab1s/minimax-parcheesi",
             "liveLink": "",
             "image": "/projects/minimax-parcheesi.webp",
@@ -57,7 +57,7 @@
         },
         {
             "title": "ETSIIT-info-NUI",
-            "description": "Interactive kiosk web application powered by Leap Motion.",
+            "description": "A gesture-driven information kiosk for the ETSIIT faculty, built with Leap Motion hand tracking, Express and vanilla web technologies.",
             "gitHubLink": "https://github.com/pab1s/ETSIIT-info-NUI",
             "liveLink": "",
             "image": "/projects/ETSIIT-info-NUI.webp",
@@ -72,7 +72,7 @@
         },
         {
             "title": "TFG",
-            "description": "Bachelor's Thesis of Mathematics and Computer Science in UGR.",
+            "description": "Bachelor's thesis research on regularizing and transferring CNN representations using topological priors and persistent homology.",
             "gitHubLink": "https://github.com/pab1s/TFG",
             "liveLink": "",
             "image": "/projects/TFG.webp",
@@ -86,7 +86,7 @@
         },
         {
             "title": "deliberative-belkan-worlds",
-            "description": "Deliberative Agent to achieve as many targets as posible in Belkan Worlds. Artificial Intelligence Project in UGR.",
+            "description": "A goal-directed agent for Belkan Worlds that plans routes to visit as many targets as possible within the time limit.",
             "gitHubLink": "https://github.com/pab1s/deliberative-belkan-worlds",
             "liveLink": "",
             "image": "/projects/deliberative-belkan-worlds.webp",
@@ -96,7 +96,7 @@
         },
         {
             "title": "reactive-belkan-worlds",
-            "description": "Reactive Agent to discover as much as posible in Belkan Worlds. Artificial Intelligence Project in UGR.",
+            "description": "A reactive exploration agent that maps out Belkan Worlds using local perception instead of centralized planning.",
             "gitHubLink": "https://github.com/pab1s/reactive-belkan-worlds",
             "liveLink": "",
             "image": "/projects/reactive-belkan-worlds.webp",
@@ -106,7 +106,7 @@
         },
         {
             "title": "deepspace-java",
-            "description": "Spacecraft card game written in Java for the Object Oriented Programming and Design Course in UGR.",
+            "description": "A space combat card game with a Swing GUI, built for the UGR object-oriented programming course in Java.",
             "gitHubLink": "https://github.com/pab1s/deepspace-java",
             "liveLink": "",
             "image": "/projects/deepspace-java.webp",
@@ -119,7 +119,7 @@
         },
         {
             "title": "deepspace-ruby",
-            "description": "Spacecraft card game written in Ruby for the Object Oriented Programming and Design Course in UGR.",
+            "description": "A Ruby implementation of the Deepspace card game, exploring object-oriented design patterns and clean class hierarchies.",
             "gitHubLink": "https://github.com/pab1s/deepspace-ruby",
             "liveLink": "",
             "image": "/projects/deepspace-ruby.webp",
@@ -131,15 +131,19 @@
         },
         {
             "title": "credit-fraud-detection",
-            "description": "No description provided.",
+            "description": "A comparative machine-learning study for detecting fraudulent credit card transactions in highly imbalanced datasets.",
             "gitHubLink": "https://github.com/pab1s/credit-fraud-detection",
             "liveLink": "",
             "image": "/projects/credit-fraud-detection.webp",
-            "tags": []
+            "tags": [
+                "machine-learning",
+                "classification",
+                "imbalanced-data"
+            ]
         },
         {
             "title": "ETSIIT-info-app",
-            "description": "App to give facilities to people who need information about UGR giving the best UX.",
+            "description": "A cross-platform Android app for navigating ETSIIT services, combining Flutter, a Dialogflow chat assistant and device sensors.",
             "gitHubLink": "https://github.com/pab1s/ETSIIT-info-app",
             "liveLink": "",
             "image": "/projects/ETSIIT-info-app.webp",
@@ -153,7 +157,7 @@
         },
         {
             "title": "ETSIIT-info-dialog",
-            "description": "VoiceXML Project to give information about University of Granada's ETSIIT orally.",
+            "description": "A VoiceXML spoken-information system that answers questions about the University of Granada's ETSIIT over the phone.",
             "gitHubLink": "https://github.com/pab1s/ETSIIT-info-dialog",
             "liveLink": "",
             "image": "/projects/ETSIIT-info-dialog.webp",
@@ -164,7 +168,7 @@
         },
         {
             "title": "flutter-netflix-responsive-ui",
-            "description": "Flutter Netflix Responsive UI Clone.",
+            "description": "A responsive Netflix UI clone built with Flutter to practice adaptive mobile layouts and component composition.",
             "gitHubLink": "https://github.com/pab1s/flutter-netflix-responsive-ui",
             "liveLink": "",
             "image": "/projects/flutter-netflix-responsive-ui.webp",
@@ -177,15 +181,19 @@
         },
         {
             "title": "DGIIM",
-            "description": "This repo will host all the code written during the Degree on Computer Science and Mathematics in UGR.",
+            "description": "A personal archive of notes, exercises and projects from the Computer Science and Mathematics degree at UGR.",
             "gitHubLink": "https://github.com/pab1s/DGIIM",
             "liveLink": "",
             "image": "/projects/DGIIM.webp",
-            "tags": []
+            "tags": [
+                "notes",
+                "university",
+                "mathematics"
+            ]
         },
         {
             "title": "30-Days-Of-Python",
-            "description": "This repository will store all the code written by me during the course '30 Days of Python' done by Asabeneh Yetayeh.",
+            "description": "Worked solutions and notes for Asabeneh Yetayeh's '30 Days of Python' course, covering fundamentals and small projects.",
             "gitHubLink": "https://github.com/pab1s/30-Days-Of-Python",
             "liveLink": "",
             "image": "/projects/30-Days-Of-Python.webp",
