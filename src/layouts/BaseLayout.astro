@@ -28,6 +28,7 @@ import { siteConfig } from "../site-config";
 import "../styles/global.css";
 import AchievementSystem from "../components/AchievementSystem.astro";
 import ToastNotification from "../components/ToastNotification.astro";
+import NoiseOverlay from "../components/NoiseOverlay.astro";
 ---
 
 <!doctype html>
@@ -100,6 +101,7 @@ gtag('config', gaId);`}
   <body>
     <a href="#main-content" class="skip-link">Skip to content</a>
     <div class="stars" aria-hidden="true"></div>
+    <div class="blueprint-grid" aria-hidden="true"></div>
     <div class="page-wrap">
       <main id="main-content">
         <slot />
@@ -153,6 +155,7 @@ gtag('config', gaId);`}
         );
       })();
     </script>
+    <NoiseOverlay />
     <AchievementSystem />
     <ToastNotification />
   </body>

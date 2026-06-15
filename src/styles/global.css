@@ -125,12 +125,29 @@ html[data-theme="dark"] .stars {
   opacity: 0.18;
 }
 
+.blueprint-grid {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(to right, var(--accent-soft) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--accent-soft) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.6;
+}
+
+main {
+  padding-top: calc(64px + var(--space-8));
+}
+
 .page-wrap {
   position: relative;
   z-index: 1;
   max-width: var(--container);
+  min-height: 100dvh;
   margin: 0 auto;
-  padding: var(--space-16) var(--gutter) var(--space-6);
+  padding: 0 var(--gutter) var(--space-6);
 }
 
 a {
@@ -554,7 +571,7 @@ html[data-theme="light"] .theme-cycle-svg--sun {
 .blog-list li { border-bottom: none; }
 
 @media print {
-  .noise-overlay, .stars, .workshop-nav, .theme-cycle-btn {
+  .noise-overlay, .stars, .blueprint-grid, .workshop-nav, .theme-cycle-btn {
     display: none !important;
   }
   body {

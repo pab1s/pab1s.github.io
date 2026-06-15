@@ -4,7 +4,6 @@ import WorkshopNav from "../components/WorkshopNav.astro";
 import HeroSection from "../components/HeroSection.astro";
 import BentoGrid from "../components/BentoGrid.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-import NoiseOverlay from "../components/NoiseOverlay.astro";
 import { getCollection } from "astro:content";
 import { siteConfig } from "../site-config";
 import projectsData from "../data/projects.json";
@@ -47,11 +46,8 @@ const featuredProject = featuredRaw
 <BaseLayout title={siteConfig.title} description={siteConfig.description}>
   <WorkshopNav currentPath={Astro.url.pathname} />
 
-  <main id="main-content">
-    <HeroSection featuredProject={featuredProject} />
-    <BentoGrid posts={dockPosts} featuredProject={featuredProject} />
-  </main>
+  <HeroSection featuredProject={featuredProject} />
+  <BentoGrid posts={dockPosts} featuredProject={featuredProject} />
 
   <SiteFooter />
-  <NoiseOverlay />
 </BaseLayout>
