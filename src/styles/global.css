@@ -444,7 +444,7 @@ pre code {
   margin-top: 0.5rem;
 }
 
-.orbit-social-row {
+.social-icon-row {
   list-style: none;
   margin: 0 !important;
   padding: 0 !important;
@@ -456,7 +456,7 @@ pre code {
   gap: 0.28rem;
 }
 
-.orbit-social-icon-link {
+.social-icon-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -469,14 +469,14 @@ pre code {
   transition: color var(--duration-fast) var(--ease-out-expo), border-color var(--duration-fast) var(--ease-out-expo), background var(--duration-fast) var(--ease-out-expo), transform var(--duration-fast) var(--ease-out-expo);
 }
 
-.orbit-social-icon-link:hover {
+.social-icon-link:hover {
   color: var(--accent-hot);
   border-color: var(--line-strong);
   background: var(--accent-soft);
   transform: translateY(-1px);
 }
 
-.orbit-social-svg {
+.social-icon-svg {
   display: block;
   flex-shrink: 0;
 }
@@ -540,7 +540,6 @@ html[data-theme="light"] .theme-cycle-svg--sun {
 .section-hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); margin: 0; }
 .section-hero p { color: var(--ink-muted); font-size: 1.05rem; margin: 0.5rem 0 0; }
 .project-featured-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-.project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
 @media (max-width: 768px) {
   .project-featured-grid { grid-template-columns: 1fr; }
   .bento-grid { grid-template-columns: 1fr; }

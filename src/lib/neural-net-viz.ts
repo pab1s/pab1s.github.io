@@ -226,7 +226,7 @@ function getPalette(): NNPalette {
   const isDark = document.documentElement.getAttribute("data-theme") === "dark";
   const accent = cs.getPropertyValue("--accent").trim() || "#3553ff";
   const ink = cs.getPropertyValue("--ink").trim() || "#1a1a1a";
-  const muted = cs.getPropertyValue("--muted").trim() || "rgba(0,0,0,0.45)";
+  const muted = cs.getPropertyValue("--ink-muted").trim() || "rgba(0,0,0,0.45)";
   const line = cs.getPropertyValue("--line").trim() || "rgba(0,0,0,0.10)";
 
   return {

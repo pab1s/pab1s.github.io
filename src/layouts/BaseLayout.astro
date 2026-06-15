@@ -3,15 +3,12 @@ interface Props {
   title: string;
   description?: string;
   ogImagePath?: string;
-  /** Una sola pantalla tipo laboratorio orbital (solo home). */
-  layout?: "default" | "home-orbit";
 }
 
 const {
   title,
   description,
   ogImagePath = "/avatar.png",
-  layout = "default",
 } = Astro.props;
 
 const canonicalURL =
@@ -34,7 +31,7 @@ import ToastNotification from "../components/ToastNotification.astro";
 ---
 
 <!doctype html>
-<html lang="en" class:list={[{ "layout-root-orbit": layout === "home-orbit" }]}>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -100,10 +97,10 @@ gtag('config', gaId);`}
       ) : null
     }
   </head>
-  <body class:list={[{ "layout-home-orbit": layout === "home-orbit" }]}>
+  <body>
     <a href="#main-content" class="skip-link">Skip to content</a>
     <div class="stars" aria-hidden="true"></div>
-    <div class:list={["page-wrap", layout === "home-orbit" && "page-wrap-orbit"]}>
+    <div class="page-wrap">
       <main id="main-content">
         <slot />
       </main>
