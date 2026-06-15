@@ -496,6 +496,69 @@ pre code {
   font-size: 0.95em;
 }
 
+/* Footnotes / citations (remark-gfm) */
+.prose .footnotes {
+  margin-top: var(--space-12);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--line-strong);
+}
+
+.prose .footnotes::before {
+  content: "References";
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-4);
+  color: var(--ink);
+}
+
+.prose .footnotes ol {
+  margin: 0;
+  padding-left: 1.5rem;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--ink-muted);
+}
+
+.prose .footnotes li {
+  margin-bottom: var(--space-3);
+}
+
+.prose .footnotes li p {
+  margin: 0;
+}
+
+.prose .footnotes li > p {
+  display: inline;
+}
+
+.prose .footnotes a[data-footnote-backref] {
+  font-family: var(--font-mono);
+  font-size: 0.75em;
+  margin-left: 0.35em;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.prose a[data-footnote-ref] {
+  font-family: var(--font-mono);
+  font-size: 0.75em;
+  color: var(--accent);
+  text-decoration: none;
+  vertical-align: super;
+  line-height: 0;
+}
+
+.prose a[data-footnote-ref]::before {
+  content: "[";
+}
+
+.prose a[data-footnote-ref]::after {
+  content: "]";
+}
+
 .grid-2 {
   display: grid;
   gap: 0.65rem;
