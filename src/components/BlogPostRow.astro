@@ -1,4 +1,6 @@
 ---
+import { formatDate } from "../lib/date";
+
 interface Props {
   slug: string;
   title: string;
@@ -10,7 +12,7 @@ interface Props {
 
 const { slug, title, date, description, tags, readTime } = Astro.props;
 
-const dateStr = date.toISOString().slice(0, 10).replace(/-/g, ".");
+const dateStr = formatDate(date);
 ---
 
 <div class="blog-post-row">

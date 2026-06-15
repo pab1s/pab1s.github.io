@@ -6,6 +6,8 @@ import SiteFooter from "../../../components/SiteFooter.astro";
 import ScrollProgress from "../../../components/ScrollProgress.astro";
 import { getCollection, render } from "astro:content";
 import { siteConfig } from "../../../site-config";
+import { formatDate } from "../../../lib/date";
+import { calculateReadTime } from "../../../lib/reading-time";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -29,8 +31,7 @@ const desc = post.data.description?.trim() || siteConfig.description;
 const tocItems = headings.filter((h) => h.depth >= 2 && h.depth <= 4);
 
 // Calculate read time (rough estimate: 200 words per minute)
-const wordCount = post.body?.split(/\s+/).length || 0;
-const readTime = Math.max(1, Math.ceil(wordCount / 200));
+const readTime = calculateReadTime(post.body);
 
 // Post number: reverse index (oldest = LAB_001)
 const postNumber = String(total - index).padStart(3, "0");
@@ -42,7 +43,7 @@ const allPosts = (await getCollection("blog"))
 const prevPost = allPosts[index + 1] || null;
 const nextPost = allPosts[index - 1] || null;
 
-const dateStr = post.data.date.toISOString().slice(0, 10);
+const dateStr = formatDate(post.data.date);
 ---
 
 <BaseLayout title={post.data.title} description={desc}>
@@ -95,7 +96,7 @@ const dateStr = post.data.date.toISOString().slice(0, 10);
       ) : null
     }
 
-    <div class="post-content prose">
+    <div class="prose">
       <Content />
     </div>
 
@@ -108,9 +109,7 @@ const dateStr = post.data.date.toISOString().slice(0, 10);
               <span class="post-nav-label">← Previous entry</span>
               <span class="post-nav-title">{prevPost.data.title}</span>
             </a>
-          ) : (
-            <span />
-          )
+          ) : null
         }
         <a href="/blog/" class="post-nav-back">Back to notebook</a>
         {
@@ -119,9 +118,7 @@ const dateStr = post.data.date.toISOString().slice(0, 10);
               <span class="post-nav-label">Next entry →</span>
               <span class="post-nav-title">{nextPost.data.title}</span>
             </a>
-          ) : (
-            <span />
-          )
+          ) : null
         }
       </div>
     </footer>
@@ -252,20 +249,27 @@ const dateStr = post.data.date.toISOString().slice(0, 10);
     align-items: center;
   }
 
+  .post-nav-prev {
+    grid-column: 1;
+    text-align: left;
+  }
+
+  .post-nav-back {
+    grid-column: 2;
+    justify-self: center;
+  }
+
+  .post-nav-next {
+    grid-column: 3;
+    text-align: right;
+  }
+
   .post-nav-link {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
     text-decoration: none;
     padding: 0.75rem 0;
-  }
-
-  .post-nav-prev {
-    text-align: left;
-  }
-
-  .post-nav-next {
-    text-align: right;
   }
 
   .post-nav-label {
@@ -309,6 +313,11 @@ const dateStr = post.data.date.toISOString().slice(0, 10);
     .post-nav-row {
       grid-template-columns: 1fr;
       gap: 0.5rem;
+    }
+    .post-nav-prev,
+    .post-nav-back,
+    .post-nav-next {
+      grid-column: auto;
     }
     .post-nav-prev,
     .post-nav-next {

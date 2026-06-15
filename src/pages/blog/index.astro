@@ -4,16 +4,12 @@ import WorkshopNav from "../../components/WorkshopNav.astro";
 import BlogPostRow from "../../components/BlogPostRow.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
 import { getCollection } from "astro:content";
-
-function getReadTime(body: string | undefined): number {
-  const words = body?.split(/\s+/).length || 0;
-  return Math.max(1, Math.ceil(words / 200));
-}
+import { calculateReadTime } from "../../lib/reading-time";
 
 const posts = (await getCollection("blog"))
   .filter((p) => !p.data.draft)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .map((post) => ({ ...post, readTime: getReadTime(post.body) }));
+  .map((post) => ({ ...post, readTime: calculateReadTime(post.body) }));
 ---
 
 <BaseLayout title="Blog" description="Notes on ML, math, and the art of data alchemy.">
