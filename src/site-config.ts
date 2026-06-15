@@ -23,8 +23,8 @@ export const siteConfig = {
     { name: "Search", href: "/search/" },
     { name: "Kitchen", href: "/kitchen/" },
   ],
-  /** Portada orbital: archivo en `/public/` */
-  avatarSrc: "/avatar.svg",
+  /** Avatar shown in nav and hero. File in `/public/`. */
+  avatarSrc: "/avatar.png",
   /** Panel LOG / proyecto en portada. */
   homeFeed: {
     /** Índice en `telemetryLines` para la línea del pie del dock. */
