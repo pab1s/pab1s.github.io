@@ -26,9 +26,8 @@ export const siteConfig = {
   avatarSrc: "/avatar.svg",
   /** Subtítulo debajo del nombre en la tarjeta (texto anterior de la portada). */
   orbitHomeSubtitle: "Laboratorio · órbita sintética en optimización permanente",
-  /** Panel LOG / proyecto en portada: match `title` en `projects.json`; vacío = primer proyecto. */
+  /** Panel LOG / proyecto en portada. */
   homeFeed: {
-    featuredProjectTitle: "",
     /** Índice en `telemetryLines` para la línea del pie del dock. */
     telemetryLineIndex: 0,
   },

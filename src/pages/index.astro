@@ -4,6 +4,7 @@ import WorkshopNav from "../components/WorkshopNav.astro";
 import HeroSection from "../components/HeroSection.astro";
 import BentoGrid from "../components/BentoGrid.astro";
 import SiteFooter from "../components/SiteFooter.astro";
+import HomeStatusLine from "../components/HomeStatusLine.astro";
 import { getCollection } from "astro:content";
 import { siteConfig } from "../site-config";
 import projectsData from "../data/projects.json";
@@ -28,6 +29,7 @@ const projectCount = projectsData.projects.length;
   <WorkshopNav currentPath={Astro.url.pathname} />
 
   <HeroSection />
+  <HomeStatusLine />
   <BentoGrid posts={dockPosts} postCount={postCount} projectCount={projectCount} />
 
   <SiteFooter />
