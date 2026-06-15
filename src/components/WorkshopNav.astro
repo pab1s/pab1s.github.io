@@ -93,9 +93,27 @@ const navItems = siteConfig.nav;
     const panel = document.querySelector<HTMLElement>("[data-nav-panel]");
     if (!toggle || !panel) return;
 
+    function getFocusables() {
+      return Array.from(
+        panel.querySelectorAll<HTMLElement>("a[href], button:not([disabled])")
+      ).filter((el) => el.offsetParent !== null);
+    }
+
     function setOpen(open: boolean) {
+      const wasOpen = toggle.getAttribute("aria-expanded") === "true";
       toggle.setAttribute("aria-expanded", String(open));
       panel.classList.toggle("is-open", open);
+
+      if (open) {
+        const focusables = getFocusables();
+        if (focusables.length > 0) {
+          focusables[0].focus();
+        } else {
+          panel.focus();
+        }
+      } else if (wasOpen) {
+        toggle.focus();
+      }
     }
 
     toggle.addEventListener("click", () => {
@@ -104,6 +122,29 @@ const navItems = siteConfig.nav;
 
     panel.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", () => setOpen(false));
+    });
+
+    document.addEventListener("click", (e) => {
+      if (toggle.getAttribute("aria-expanded") !== "true") return;
+      const target = e.target as Node;
+      if (!panel.contains(target) && !toggle.contains(target)) {
+        setOpen(false);
+      }
+    });
+
+    panel.addEventListener("keydown", (e) => {
+      if (e.key !== "Tab") return;
+      const focusables = getFocusables();
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     });
 
     document.addEventListener("keydown", (e) => {

@@ -119,6 +119,9 @@ gtag('config', gaId);`}
           document.querySelectorAll("[data-theme-set]").forEach(function (btn) {
             btn.setAttribute("aria-pressed", btn.getAttribute("data-theme-set") === th ? "true" : "false");
           });
+          document.querySelectorAll("[data-theme-cycle]").forEach(function (btn) {
+            btn.setAttribute("aria-pressed", th === "dark" ? "true" : "false");
+          });
         }
         function apply(raw) {
           var th = raw === "light" ? "light" : "dark";

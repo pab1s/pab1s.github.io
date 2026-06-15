@@ -15,6 +15,7 @@ import { siteConfig, telemetryLines } from "../site-config";
           siteConfig.social.map((s) => (
             <a href={s.href} rel="me noopener noreferrer" target={s.href.startsWith("mailto:") ? undefined : "_blank"}>
               {s.name}
+              {!s.href.startsWith("mailto:") && <span class="sr-only"> (opens in new tab)</span>}
             </a>
           ))
         }
@@ -22,6 +23,7 @@ import { siteConfig, telemetryLines } from "../site-config";
       <span
         class="site-footer-status"
         data-footer-status
+        tabindex="0"
         data-lines={JSON.stringify(telemetryLines)}
         data-initial-index={siteConfig.homeFeed.telemetryLineIndex}
       >
@@ -36,11 +38,37 @@ import { siteConfig, telemetryLines } from "../site-config";
   if (el?.dataset.lines) {
     const lines = JSON.parse(el.dataset.lines) as string[];
     let i = parseInt(el.dataset.initialIndex || "0", 10) || 0;
-    el.textContent = lines[i];
-    setInterval(() => {
+    let timer: number | null = null;
+
+    function prefersReducedMotion() {
+      return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    }
+
+    function tick() {
       i = (i + 1) % lines.length;
       el.textContent = lines[i];
-    }, 5200);
+    }
+
+    function start() {
+      if (prefersReducedMotion()) return;
+      if (timer !== null) clearInterval(timer);
+      timer = window.setInterval(tick, 5200);
+    }
+
+    function stop() {
+      if (timer !== null) {
+        clearInterval(timer);
+        timer = null;
+      }
+    }
+
+    el.textContent = lines[i];
+    start();
+
+    el.addEventListener("mouseenter", stop);
+    el.addEventListener("mouseleave", start);
+    el.addEventListener("focusin", stop);
+    el.addEventListener("focusout", start);
   }
 </script>
 
