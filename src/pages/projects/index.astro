@@ -42,7 +42,7 @@ const allTags = Array.from(tagCounts.entries())
   <div class="project-grid" id="projects-grid">
     {
       projects.map((proj) => (
-        <div class="project-card-wrapper" data-tags={proj.tags.join(",")}>
+        <div class="project-card-wrapper" data-tags={JSON.stringify(proj.tags)}>
           <ProjectCard
             title={proj.title}
             description={proj.description}
@@ -116,26 +116,50 @@ const allTags = Array.from(tagCounts.entries())
 
     if (!filterBtns.length || !cards.length) return;
 
+    function applyFilter(filter: string, pushState = true) {
+      filterBtns.forEach((b) => {
+        const isMatch = b.getAttribute("data-filter") === filter;
+        b.setAttribute("aria-pressed", isMatch ? "true" : "false");
+      });
+
+      let visible = 0;
+      cards.forEach((card) => {
+        let tags: string[] = [];
+        try {
+          const raw = card.getAttribute("data-tags") || "[]";
+          tags = JSON.parse(raw);
+        } catch {
+          tags = [];
+        }
+        const show = filter === "all" || tags.includes(filter);
+        card.classList.toggle("is-hidden", !show);
+        if (show) visible++;
+      });
+
+      if (empty) {
+        empty.hidden = visible > 0;
+      }
+
+      if (pushState) {
+        const url = new URL(window.location.href);
+        if (filter === "all") {
+          url.searchParams.delete("tag");
+        } else {
+          url.searchParams.set("tag", filter);
+        }
+        window.history.replaceState({}, "", url);
+      }
+    }
+
     filterBtns.forEach((btn) => {
       btn.addEventListener("click", () => {
         const filter = btn.getAttribute("data-filter") || "all";
-
-        filterBtns.forEach((b) => {
-          b.setAttribute("aria-pressed", b === btn ? "true" : "false");
-        });
-
-        let visible = 0;
-        cards.forEach((card) => {
-          const tags = (card.getAttribute("data-tags") || "").split(",");
-          const show = filter === "all" || tags.includes(filter);
-          card.classList.toggle("is-hidden", !show);
-          if (show) visible++;
-        });
-
-        if (empty) {
-          empty.hidden = visible > 0;
-        }
+        applyFilter(filter);
       });
     });
+
+    const initialFilter = new URL(window.location.href).searchParams.get("tag") || "all";
+    const validFilters = Array.from(filterBtns).map((b) => b.getAttribute("data-filter"));
+    applyFilter(validFilters.includes(initialFilter) ? initialFilter : "all", false);
   })();
 </script>

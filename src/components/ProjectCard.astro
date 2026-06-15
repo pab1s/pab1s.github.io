@@ -8,13 +8,12 @@ interface Props {
   tags?: string[];
   gitHubLink: string;
   liveLink?: string;
-  featured?: boolean;
 }
 
-const { title, description, image, tags, gitHubLink, liveLink, featured = false } = Astro.props;
+const { title, description, image, tags, gitHubLink, liveLink } = Astro.props;
 ---
 
-<SpotlightCard class={`project-card ${featured ? "project-card--featured" : ""}`}>
+<SpotlightCard class="project-card">
   {
     image ? (
       <div slot="image" class="project-image-wrap">
