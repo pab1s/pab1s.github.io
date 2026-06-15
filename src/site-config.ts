@@ -1,6 +1,7 @@
 export const siteConfig = {
   title: "Pablo Olivares",
   tagline: "ML engineer · data alchemist · tinkerer",
+  currently: "Currently engineering ML at Santander.",
   description:
     "Pablo Olivares — ML engineer and data scientist. Building things with PyTorch, curiosity, and a pinch of alchemy.",
   url: "https://pab1s.github.io",
@@ -24,8 +25,6 @@ export const siteConfig = {
   ],
   /** Portada orbital: archivo en `/public/` */
   avatarSrc: "/avatar.svg",
-  /** Subtítulo debajo del nombre en la tarjeta (texto anterior de la portada). */
-  orbitHomeSubtitle: "Laboratorio · órbita sintética en optimización permanente",
   /** Panel LOG / proyecto en portada. */
   homeFeed: {
     /** Índice en `telemetryLines` para la línea del pie del dock. */

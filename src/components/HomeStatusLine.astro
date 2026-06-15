@@ -4,7 +4,7 @@ import { telemetryLines, siteConfig } from "../site-config";
 const status = telemetryLines[siteConfig.homeFeed.telemetryLineIndex] ?? telemetryLines[0];
 ---
 
-<div class="home-status-line" aria-live="polite">
+<div class="home-status-line">
   <span class="status-pulse" aria-hidden="true"></span>
   <span class="status-label">System status</span>
   <span class="status-value">{status}</span>
