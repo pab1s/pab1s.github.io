@@ -461,43 +461,6 @@ pre code {
   margin-top: 0.5rem;
 }
 
-.social-icon-row {
-  list-style: none;
-  margin: 0 !important;
-  padding: 0 !important;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 0.28rem;
-}
-
-.social-icon-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.82rem;
-  height: 1.82rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-md);
-  color: var(--ink-muted);
-  text-decoration: none !important;
-  transition: color var(--duration-fast) var(--ease-out-expo), border-color var(--duration-fast) var(--ease-out-expo), background var(--duration-fast) var(--ease-out-expo), transform var(--duration-fast) var(--ease-out-expo);
-}
-
-.social-icon-link:hover {
-  color: var(--accent-hot);
-  border-color: var(--line-strong);
-  background: var(--accent-soft);
-  transform: translateY(-1px);
-}
-
-.social-icon-svg {
-  display: block;
-  flex-shrink: 0;
-}
-
 .sr-only {
   position: absolute;
   width: 1px;

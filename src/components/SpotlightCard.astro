@@ -38,6 +38,7 @@ const structured =
 
 <script>
   (function () {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const cards = document.querySelectorAll("[data-spotlight]");
     cards.forEach((card) => {
       const el = card as HTMLElement;
@@ -60,7 +61,6 @@ const structured =
     border: 1px solid var(--line);
     overflow: hidden;
     transition: transform var(--duration-base) var(--ease-out-expo),
-      box-shadow var(--duration-base) var(--ease-out-expo),
       border-color var(--duration-base) var(--ease-out-expo);
     isolation: isolate;
   }

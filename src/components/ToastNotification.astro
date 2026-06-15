@@ -1,18 +1,21 @@
-<div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+<div class="toast-container" aria-live="polite" aria-atomic="true"></div>
 <script is:inline>
-  window.showToast = function(message, duration = 3000) {
-    const container = document.getElementById('toast-container');
-    if (!container) return;
-    const toast = document.createElement('div');
-    toast.className = 'toast';
-    toast.textContent = message;
-    container.appendChild(toast);
-    requestAnimationFrame(() => toast.classList.add('toast--visible'));
-    setTimeout(() => {
-      toast.classList.remove('toast--visible');
-      setTimeout(() => toast.remove(), 300);
-    }, duration);
-  };
+  (function () {
+    const container = document.currentScript?.previousElementSibling;
+    if (!container || !container.classList.contains('toast-container')) return;
+    container.id = 'toast-' + Math.random().toString(36).slice(2, 9);
+    window.showToast = function(message, duration = 3000) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = message;
+      container.appendChild(toast);
+      requestAnimationFrame(() => toast.classList.add('toast--visible'));
+      setTimeout(() => {
+        toast.classList.remove('toast--visible');
+        setTimeout(() => toast.remove(), 300);
+      }, duration);
+    };
+  })();
 </script>
 <style>
   .toast-container {

@@ -34,9 +34,9 @@ const { title, description, image, tags, gitHubLink, liveLink, featured = false 
     ) : null
   }
   <div slot="links" class="project-links">
-    <a href={gitHubLink} target="_blank" rel="noopener noreferrer">View code →</a>
+    <a href={gitHubLink} target="_blank" rel="noopener noreferrer">View code<span class="sr-only"> (opens in new tab)</span> →</a>
     {liveLink ? (
-      <a href={liveLink} target="_blank" rel="noopener noreferrer">Live demo →</a>
+      <a href={liveLink} target="_blank" rel="noopener noreferrer">Live demo<span class="sr-only"> (opens in new tab)</span> →</a>
     ) : null}
   </div>
 </SpotlightCard>
