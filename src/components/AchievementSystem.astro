@@ -39,15 +39,10 @@
     }
   }
 
-  // Chef
-  if (location.pathname === '/kitchen/' && awardBadge('chef')) {
-    window.showToast?.(`Badge unlocked: ${BADGES['chef'].name}`);
-  }
-
   // Easter eggs
   initKonamiCode(() => {
-    window.showToast?.('Secret recipe cabinet unlocking...');
-    setTimeout(() => location.href = '/kitchen/', 1500);
+    window.showToast?.('Secret project vault unlocking...');
+    setTimeout(() => location.href = '/projects/', 1500);
   });
 
   initConstellation(() => {
@@ -61,6 +56,6 @@
   });
 
   initFooterClicks('[data-footer-status]', () => {
-    window.showToast?.('System Diagnostics: Coffee levels critical. Curiosity at 97.3%. Sourdough: alive.');
+    window.showToast?.('System Diagnostics: Coffee levels critical. Curiosity at 97.3%. All systems nominal.');
   });
 </script>

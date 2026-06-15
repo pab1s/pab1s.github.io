@@ -1,5 +1,5 @@
 const STORAGE_KEY = 'workshop-badges';
-export type BadgeId = 'code-archaeologist' | 'stargazer' | 'chef' | 'tinkerer' | 'alchemist';
+export type BadgeId = 'code-archaeologist' | 'stargazer' | 'tinkerer' | 'alchemist';
 export interface Badge {
   id: BadgeId;
   name: string;
@@ -8,8 +8,7 @@ export interface Badge {
 export const BADGES: Record<BadgeId, Badge> = {
   'code-archaeologist': { id: 'code-archaeologist', name: 'Code Archaeologist', description: 'Read 3 blog posts' },
   'stargazer': { id: 'stargazer', name: 'Stargazer', description: 'Spend 2+ minutes on the home page' },
-  'chef': { id: 'chef', name: "Chef's Kiss", description: 'Find the Kitchen page' },
-  'tinkerer': { id: 'tinkerer', name: 'Master Tinkerer', description: 'Visit all 4 main pages' },
+  'tinkerer': { id: 'tinkerer', name: 'Master Tinkerer', description: 'Visit all main pages' },
   'alchemist': { id: 'alchemist', name: 'Data Alchemist', description: 'Read a post, view a project, and view resume' },
 };
 export function getBadges(): BadgeId[] {

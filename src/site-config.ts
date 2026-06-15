@@ -21,7 +21,6 @@ export const siteConfig = {
     { name: "Projects", href: "/projects/" },
     { name: "Resume", href: "/resume/" },
     { name: "Search", href: "/search/" },
-    { name: "Kitchen", href: "/kitchen/" },
   ],
   /** Avatar shown in nav and hero. File in `/public/`. */
   avatarSrc: "/avatar.png",
@@ -34,7 +33,6 @@ export const siteConfig = {
 
 export const telemetryLines = [
   "Currently reading: The Book of Why",
-  "Kitchen status: Perfecting sourdough",
   "Last experiment: LLM interpretability pipeline",
   "Stargazing: Tracking Jupiter's moons",
   "Tinkering with: Conformal prediction",
