@@ -1,0 +1,166 @@
+{
+    "projects": [
+        {
+            "title": "tda-nn-analysis",
+            "description": "A collection of experiments that use persistent homology and topological data analysis to study how knowledge transfers across CNN architectures and optimization landscapes.",
+            "gitHubLink": "https://github.com/pab1s/tda-nn-analysis",
+            "liveLink": "",
+            "image": "/projects/tda-nn-analysis.webp",
+            "tags": [
+                "deep-learning",
+                "machine-learning"
+            ]
+        },
+        {
+            "title": "feature-weight-metaheuristics",
+            "description": "Bioinspired optimization algorithms tuned to learn feature weights that improve 1-nearest-neighbour classification accuracy.",
+            "gitHubLink": "https://github.com/pab1s/feature-weight-metaheuristics",
+            "liveLink": "",
+            "image": "/projects/feature-weight-metaheuristics.webp",
+            "tags": [
+                "machine-learning"
+            ]
+        },
+        {
+            "title": "granada-parking-segmentation",
+            "description": "Deep segmentation models applied to aerial imagery for detecting parked vehicles across Granada, comparing U-Net, PSPNet and DeepLab v3+.",
+            "gitHubLink": "https://github.com/pab1s/granada-parking-segmentation",
+            "liveLink": "",
+            "image": "/projects/granada-parking-segmentation.webp",
+            "tags": [
+                "computer-vision",
+                "deep-learning"
+            ]
+        },
+        {
+            "title": "minimax-parcheesi",
+            "description": "A modified Parcheesi board game with AI opponents that plan moves using Minimax search with Alpha-Beta pruning.",
+            "gitHubLink": "https://github.com/pab1s/minimax-parcheesi",
+            "liveLink": "",
+            "image": "/projects/minimax-parcheesi.webp",
+            "tags": [
+                "games"
+            ]
+        },
+        {
+            "title": "ETSIIT-info-NUI",
+            "description": "A gesture-driven information kiosk for the ETSIIT faculty, built with Leap Motion hand tracking, Express and vanilla web technologies.",
+            "gitHubLink": "https://github.com/pab1s/ETSIIT-info-NUI",
+            "liveLink": "",
+            "image": "/projects/ETSIIT-info-NUI.webp",
+            "tags": [
+                "web"
+            ]
+        },
+        {
+            "title": "TFG",
+            "description": "Bachelor's thesis research on regularizing and transferring CNN representations using topological priors and persistent homology.",
+            "gitHubLink": "https://github.com/pab1s/TFG",
+            "liveLink": "",
+            "image": "/projects/TFG.webp",
+            "tags": [
+                "education"
+            ]
+        },
+        {
+            "title": "deliberative-belkan-worlds",
+            "description": "A goal-directed agent for Belkan Worlds that plans routes to visit as many targets as possible within the time limit.",
+            "gitHubLink": "https://github.com/pab1s/deliberative-belkan-worlds",
+            "liveLink": "",
+            "image": "/projects/deliberative-belkan-worlds.webp",
+            "tags": [
+                "agents"
+            ]
+        },
+        {
+            "title": "reactive-belkan-worlds",
+            "description": "A reactive exploration agent that maps out Belkan Worlds using local perception instead of centralized planning.",
+            "gitHubLink": "https://github.com/pab1s/reactive-belkan-worlds",
+            "liveLink": "",
+            "image": "/projects/reactive-belkan-worlds.webp",
+            "tags": [
+                "agents"
+            ]
+        },
+        {
+            "title": "deepspace-java",
+            "description": "A space combat card game with a Swing GUI, built for the UGR object-oriented programming course in Java.",
+            "gitHubLink": "https://github.com/pab1s/deepspace-java",
+            "liveLink": "",
+            "image": "/projects/deepspace-java.webp",
+            "tags": [
+                "games"
+            ]
+        },
+        {
+            "title": "deepspace-ruby",
+            "description": "A Ruby implementation of the Deepspace card game, exploring object-oriented design patterns and clean class hierarchies.",
+            "gitHubLink": "https://github.com/pab1s/deepspace-ruby",
+            "liveLink": "",
+            "image": "/projects/deepspace-ruby.webp",
+            "tags": [
+                "games"
+            ]
+        },
+        {
+            "title": "credit-fraud-detection",
+            "description": "A comparative machine-learning study for detecting fraudulent credit card transactions in highly imbalanced datasets.",
+            "gitHubLink": "https://github.com/pab1s/credit-fraud-detection",
+            "liveLink": "",
+            "image": "/projects/credit-fraud-detection.webp",
+            "tags": [
+                "machine-learning"
+            ]
+        },
+        {
+            "title": "ETSIIT-info-app",
+            "description": "A cross-platform Android app for navigating ETSIIT services, combining Flutter, a Dialogflow chat assistant and device sensors.",
+            "gitHubLink": "https://github.com/pab1s/ETSIIT-info-app",
+            "liveLink": "",
+            "image": "/projects/ETSIIT-info-app.webp",
+            "tags": [
+                "mobile"
+            ]
+        },
+        {
+            "title": "ETSIIT-info-dialog",
+            "description": "A VoiceXML spoken-information system that answers questions about the University of Granada's ETSIIT over the phone.",
+            "gitHubLink": "https://github.com/pab1s/ETSIIT-info-dialog",
+            "liveLink": "",
+            "image": "/projects/ETSIIT-info-dialog.webp",
+            "tags": [
+                "nlp"
+            ]
+        },
+        {
+            "title": "flutter-netflix-responsive-ui",
+            "description": "A responsive Netflix UI clone built with Flutter to practice adaptive mobile layouts and component composition.",
+            "gitHubLink": "https://github.com/pab1s/flutter-netflix-responsive-ui",
+            "liveLink": "",
+            "image": "/projects/flutter-netflix-responsive-ui.webp",
+            "tags": [
+                "mobile"
+            ]
+        },
+        {
+            "title": "DGIIM",
+            "description": "A personal archive of notes, exercises and projects from the Computer Science and Mathematics degree at UGR.",
+            "gitHubLink": "https://github.com/pab1s/DGIIM",
+            "liveLink": "",
+            "image": "/projects/DGIIM.webp",
+            "tags": [
+                "education"
+            ]
+        },
+        {
+            "title": "30-Days-Of-Python",
+            "description": "Worked solutions and notes for Asabeneh Yetayeh's '30 Days of Python' course, covering fundamentals and small projects.",
+            "gitHubLink": "https://github.com/pab1s/30-Days-Of-Python",
+            "liveLink": "",
+            "image": "/projects/30-Days-Of-Python.webp",
+            "tags": [
+                "education"
+            ]
+        }
+    ]
+}

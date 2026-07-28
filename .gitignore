@@ -129,11 +129,16 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-# Hugo specific
-/public/
+# Hugo build artifacts (migration; remove once Hugo dropped)
 /resources/_gen/
 /assets/jsconfig.json
 .hugo_build.lock
+
+# Astro
+.astro/
+
+# Worktrees
+.worktrees/
 
 # OS specific
 .DS_Store

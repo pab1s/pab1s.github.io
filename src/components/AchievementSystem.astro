@@ -1,0 +1,61 @@
+<script>
+  import { awardBadge, hasBadge, BADGES, type BadgeId } from '../lib/achievements';
+  import { initKonamiCode, initConstellation, initMouseShake, initFooterClicks } from '../lib/easter-eggs';
+
+  // Page visit tracking
+  const visited = new Set(JSON.parse(sessionStorage.getItem('visited-pages') || '[]'));
+  visited.add(location.pathname);
+  sessionStorage.setItem('visited-pages', JSON.stringify([...visited]));
+
+  // Tinkerer badge
+  if (visited.size >= 4 && awardBadge('tinkerer')) {
+    window.showToast?.(`Badge unlocked: ${BADGES['tinkerer'].name}`);
+  }
+
+  // Stargazer badge
+  if (location.pathname === '/' && !hasBadge('stargazer')) {
+    setTimeout(() => {
+      if (awardBadge('stargazer')) {
+        window.showToast?.(`Badge unlocked: ${BADGES['stargazer'].name}`);
+      }
+    }, 120000);
+  }
+
+  // Alchemist badge
+  const paths = [...visited];
+  const hasBlog = paths.some(p => p.startsWith('/blog/'));
+  const hasProject = paths.some(p => p.startsWith('/projects/'));
+  const hasResume = paths.some(p => p === '/resume/');
+  if (hasBlog && hasProject && hasResume && awardBadge('alchemist')) {
+    window.showToast?.(`Badge unlocked: ${BADGES['alchemist'].name}`);
+  }
+
+  // Code Archaeologist
+  if (location.pathname.startsWith('/blog/')) {
+    const reads = parseInt(localStorage.getItem('blog-reads') || '0', 10) + 1;
+    localStorage.setItem('blog-reads', String(reads));
+    if (reads >= 3 && awardBadge('code-archaeologist')) {
+      window.showToast?.(`Badge unlocked: ${BADGES['code-archaeologist'].name}`);
+    }
+  }
+
+  // Easter eggs
+  initKonamiCode(() => {
+    window.showToast?.('Secret project vault unlocking...');
+    setTimeout(() => location.href = '/projects/', 1500);
+  });
+
+  initConstellation(() => {
+    const facts = [
+      "Fun fact: I can solve a Rubik's cube in under 2 minutes",
+      "Fun fact: My first program was a calculator in Java",
+      "Fun fact: I spent a year in Poland on Erasmus+",
+      "Fun fact: I volunteer with LibreIM writing LaTeX notes",
+    ];
+    window.showToast?.(facts[Math.floor(Math.random() * facts.length)]);
+  });
+
+  initFooterClicks('[data-footer-status]', () => {
+    window.showToast?.('System Diagnostics: Coffee levels critical. Curiosity at 97.3%. All systems nominal.');
+  });
+</script>

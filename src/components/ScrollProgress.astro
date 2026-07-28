@@ -1,0 +1,44 @@
+<div class="scroll-progress" aria-hidden="true">
+  <div class="scroll-progress-bar" id="scroll-progress-bar"></div>
+</div>
+
+<script is:inline>
+  (function () {
+    var bar = document.getElementById("scroll-progress-bar");
+    if (!bar) return;
+
+    function update() {
+      var scrollTop = window.scrollY || document.documentElement.scrollTop;
+      var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      bar.style.width = pct + "%";
+    }
+
+    window.addEventListener("scroll", update, { passive: true });
+    update();
+  })();
+</script>
+
+<style>
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    z-index: 9999;
+    background: transparent;
+    pointer-events: none;
+  }
+
+  .scroll-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: var(--accent);
+    transition: width 0.1s linear;
+  }
+
+  html[data-theme="dark"] .scroll-progress-bar {
+    box-shadow: var(--glow);
+  }
+</style>

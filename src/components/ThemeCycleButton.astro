@@ -1,0 +1,93 @@
+---
+interface Props {
+  ariaLabel?: string;
+}
+
+const { ariaLabel = "Toggle light or dark theme" } = Astro.props;
+---
+
+<button
+  type="button"
+  class="theme-cycle-btn"
+  data-theme-cycle
+  aria-label={ariaLabel}
+  aria-pressed="false"
+>
+  <svg
+    class="theme-cycle-svg theme-cycle-svg--sun"
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"></circle>
+    <path
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+    ></path>
+  </svg>
+  <svg
+    class="theme-cycle-svg theme-cycle-svg--moon"
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+  >
+    <path
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M21 14.75A8.002 8.002 0 0110.75 4 7 7 0 0012 21a8 8 0 009-6.25z"
+    ></path>
+  </svg>
+</button>
+
+<style>
+  .theme-cycle-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    margin: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--ink-muted);
+    cursor: pointer;
+    transition: color var(--duration-fast) var(--ease-out-expo), border-color var(--duration-fast) var(--ease-out-expo), background var(--duration-fast) var(--ease-out-expo), box-shadow var(--duration-fast) var(--ease-out-expo);
+  }
+
+  .theme-cycle-btn:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  html[data-theme="dark"] .theme-cycle-btn:hover {
+    box-shadow: var(--glow);
+  }
+
+  .theme-cycle-btn:active,
+  .theme-cycle-btn[aria-pressed="true"] {
+    box-shadow: 0 0 0 2px var(--canvas), 0 0 0 4px var(--accent-soft);
+  }
+
+  .theme-cycle-svg {
+    display: block;
+  }
+
+  html[data-theme="dark"] .theme-cycle-svg--moon {
+    display: none;
+  }
+
+  html[data-theme="light"] .theme-cycle-svg--sun {
+    display: none;
+  }
+</style>

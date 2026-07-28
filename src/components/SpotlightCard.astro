@@ -1,0 +1,195 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+
+const hasImage = Astro.slots.has("image");
+const hasTitle = Astro.slots.has("title");
+const hasDescription = Astro.slots.has("description");
+const hasDefault = Astro.slots.has("default");
+const hasTags = Astro.slots.has("tags");
+const hasLinks = Astro.slots.has("links");
+
+const structured =
+  hasImage ||
+  hasTitle ||
+  hasDescription ||
+  hasDefault ||
+  hasTags ||
+  hasLinks;
+---
+
+<article class={`spotlight-card ${className}`} data-spotlight>
+  {
+    structured ? (
+      <>
+        {hasImage ? (
+          <figure class="card-image">
+            <slot name="image" />
+          </figure>
+        ) : null}
+        {hasTitle || hasDescription || hasDefault ? (
+          <div class="card-body">
+            {hasTitle ? (
+              <h2 class="card-title"><slot name="title" /></h2>
+            ) : null}
+            {hasDescription ? (
+              <p class="card-description"><slot name="description" /></p>
+            ) : null}
+            {hasDefault ? (
+              <div class="card-extra"><slot /></div>
+            ) : null}
+          </div>
+        ) : null}
+        {hasTags || hasLinks ? (
+          <footer class="card-footer">
+            {hasTags ? (
+              <div class="card-tags"><slot name="tags" /></div>
+            ) : null}
+            {hasLinks ? (
+              <div class="card-links"><slot name="links" /></div>
+            ) : null}
+          </footer>
+        ) : null}
+      </>
+    ) : (
+      <slot />
+    )
+  }
+</article>
+
+<script>
+  (function () {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const cards = document.querySelectorAll("[data-spotlight]");
+    cards.forEach((card) => {
+      const el = card as HTMLElement;
+      el.addEventListener("mousemove", (e: MouseEvent) => {
+        const rect = el.getBoundingClientRect();
+        el.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+        el.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+      });
+    });
+  })();
+</script>
+
+<style>
+  .spotlight-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--canvas-elevated);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--line);
+    overflow: hidden;
+    transition: transform var(--duration-base) var(--ease-out-expo),
+      border-color var(--duration-base) var(--ease-out-expo),
+      box-shadow var(--duration-base) var(--ease-out-expo);
+    isolation: isolate;
+  }
+
+  .spotlight-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-md);
+    background: radial-gradient(
+      500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(18, 18, 20, 0.05),
+      transparent 50%
+    );
+    opacity: 0;
+    transition: opacity var(--duration-base) var(--ease-out-expo);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  html[data-theme="dark"] .spotlight-card::before {
+    background: radial-gradient(
+      500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(232, 232, 234, 0.05),
+      transparent 50%
+    );
+  }
+
+  .spotlight-card:hover::before {
+    opacity: 1;
+  }
+
+  .spotlight-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-hard);
+    border-color: var(--accent);
+  }
+
+  html[data-theme="dark"] .spotlight-card:hover {
+    box-shadow: var(--shadow-hard), var(--glow);
+  }
+
+  .spotlight-card > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-image {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 1.25rem;
+    gap: 0.5rem;
+  }
+
+  .card-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .card-description {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--ink-muted);
+    margin: 0;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+  }
+
+  .card-extra {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0 1.25rem 1.25rem;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .card-links {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+</style>

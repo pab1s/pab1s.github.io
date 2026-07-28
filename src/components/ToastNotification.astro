@@ -1,0 +1,53 @@
+<div class="toast-container" aria-live="polite" aria-atomic="true"></div>
+<script is:inline>
+  (function () {
+    const container = document.currentScript?.previousElementSibling;
+    if (!container || !container.classList.contains('toast-container')) return;
+    window.showToast = function(message, duration = 3000) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = message;
+      container.appendChild(toast);
+      requestAnimationFrame(() => toast.classList.add('toast--visible'));
+      setTimeout(() => {
+        toast.classList.remove('toast--visible');
+        setTimeout(() => toast.remove(), 300);
+      }, duration);
+    };
+  })();
+</script>
+<style>
+  .toast-container {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    pointer-events: none;
+  }
+
+  .toast {
+    background: var(--canvas-elevated);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius-md);
+    padding: 0.75rem 1.25rem;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    box-shadow: var(--shadow-md);
+    opacity: 0;
+    transform: translateY(100%);
+    transition: opacity var(--duration-base) var(--ease-out-expo),
+      transform var(--duration-base) var(--ease-out-expo);
+    pointer-events: auto;
+  }
+
+  .toast--visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>

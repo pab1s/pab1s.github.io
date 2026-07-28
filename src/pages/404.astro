@@ -1,0 +1,159 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import WorkshopNav from "../components/WorkshopNav.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+---
+
+<BaseLayout title="404 — missing sheet" description="This sheet is not on file.">
+  <div class="error-page">
+    <WorkshopNav currentPath={Astro.url.pathname} />
+
+    <section class="missing-sheet" aria-labelledby="missing-sheet-title">
+      <div class="missing-sheet-frame">
+        <header class="missing-sheet-header">
+          <span class="fig-label">ERR_404 · missing sheet</span>
+          <h1 id="missing-sheet-title" class="missing-sheet-code">
+            404
+            <span class="sr-only"> — Page not found</span>
+          </h1>
+        </header>
+
+        <span class="ascii-rule" aria-hidden="true"></span>
+
+        <p class="missing-sheet-message">
+          The sheet you requested is not on file. It may have been archived,
+          renamed, or never drafted.
+        </p>
+
+        <nav class="missing-sheet-actions" aria-label="Wayfinding">
+          <a href="/" class="missing-sheet-link">Back to the lab</a>
+          <a href="/projects/" class="missing-sheet-link">Open experiments</a>
+          <a href="/blog/" class="missing-sheet-link">Read lab notes</a>
+        </nav>
+      </div>
+    </section>
+
+    <SiteFooter />
+  </div>
+
+  <style>
+    .error-page {
+      display: flex;
+      flex-direction: column;
+      min-height: 100dvh;
+      margin: calc(-1 * (64px + var(--space-8))) calc(-1 * var(--gutter))
+        calc(-1 * var(--space-6));
+      padding: calc(64px + var(--space-8)) var(--gutter) var(--space-6);
+    }
+
+    .missing-sheet {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1 1 auto;
+      padding: 2rem 0;
+    }
+
+    .missing-sheet-frame {
+      width: 100%;
+      max-width: 720px;
+      text-align: center;
+      padding: 3rem 2.5rem;
+      background: var(--canvas-elevated);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+    }
+
+    .missing-sheet-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .missing-sheet-header .fig-label {
+      color: var(--accent);
+    }
+
+    .missing-sheet-code {
+      font-family: var(--font-pixel);
+      font-size: clamp(6rem, 20vw, 11rem);
+      font-weight: 400;
+      line-height: 0.9;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      margin: 0;
+    }
+
+    html[data-theme="dark"] .missing-sheet-code {
+      text-shadow: var(--glow-text);
+    }
+
+    .missing-sheet-frame .ascii-rule {
+      margin: 1.5rem 0;
+    }
+
+    .missing-sheet-message {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: var(--ink-muted);
+      margin: 0 0 2rem;
+    }
+
+    .missing-sheet-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .missing-sheet-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 1.1rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--ink);
+      background: transparent;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-md);
+      transition: color var(--duration-fast) var(--ease-out-expo),
+        border-color var(--duration-fast) var(--ease-out-expo),
+        background-color var(--duration-fast) var(--ease-out-expo);
+    }
+
+    .missing-sheet-link:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      background-color: var(--accent-soft);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .missing-sheet-link {
+        transition: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .missing-sheet-frame {
+        padding: 2rem 1.25rem;
+      }
+
+      .missing-sheet-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .missing-sheet-link {
+        width: 100%;
+      }
+    }
+  </style>
+</BaseLayout>

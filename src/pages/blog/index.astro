@@ -1,0 +1,42 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import WorkshopNav from "../../components/WorkshopNav.astro";
+import BlogPostRow from "../../components/BlogPostRow.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import { getCollection } from "astro:content";
+import { calculateReadTime } from "../../lib/reading-time";
+
+const posts = (await getCollection("blog"))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .map((post) => ({ ...post, readTime: calculateReadTime(post.body) }));
+---
+
+<BaseLayout title="Lab Notes" description="Notes on ML, math, and the art of data alchemy." usesKatex={true}>
+  <WorkshopNav currentPath={Astro.url.pathname} />
+
+  <header class="section-hero">
+    <span class="fig-label">LOG_001 · lab notes</span>
+    <h1>Lab Notes</h1>
+    <p>Notes on ML, math, and the art of data alchemy.</p>
+  </header>
+
+  <ul class="blog-list stagger-in">
+    {
+      posts.map((post, i) => (
+        <li style={`--index: ${i}`}>
+          <BlogPostRow
+            slug={post.slug}
+            title={post.data.title}
+            date={post.data.date}
+            description={post.data.description}
+            tags={post.data.tags}
+            readTime={post.readTime}
+          />
+        </li>
+      ))
+    }
+  </ul>
+
+  <SiteFooter />
+</BaseLayout>

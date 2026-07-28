@@ -1,0 +1,374 @@
+---
+import ThemeCycleButton from "./ThemeCycleButton.astro";
+import { siteConfig } from "../site-config";
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+
+function navActive(href: string, path: string): boolean {
+  const p = path.replace(/\/+$/, "") || "/";
+  const h = href.replace(/\/+$/, "");
+  if (h === "" || href === "/") return p === "/";
+  return p === h || p.startsWith(h + "/");
+}
+
+const navItems = siteConfig.nav;
+---
+
+<header class="workshop-nav">
+  <div class="workshop-nav-inner">
+    <a href="/" class="workshop-nav-brand">
+      <span class="workshop-nav-mark" aria-hidden="true"></span>
+      <span class="workshop-nav-name">{siteConfig.labName}</span>
+    </a>
+
+    <nav class="workshop-nav-links" aria-label="Primary">
+      <ul class="workshop-nav-list">
+        {
+          navItems.map((item) => (
+            <li class="workshop-nav-item">
+              <a
+                href={item.href}
+                class="workshop-nav-link"
+                aria-current={navActive(item.href, currentPath) ? "page" : undefined}
+              >
+                {item.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <ThemeCycleButton ariaLabel="Toggle light or dark theme" />
+    </nav>
+
+    <button
+      type="button"
+      class="workshop-nav-menu-btn"
+      aria-label="Toggle navigation"
+      aria-expanded="false"
+      aria-controls="workshop-nav-panel"
+      data-nav-toggle
+    >
+      <span class="workshop-nav-menu-bar" aria-hidden="true"></span>
+      <span class="workshop-nav-menu-bar" aria-hidden="true"></span>
+      <span class="workshop-nav-menu-bar" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <div class="workshop-nav-panel" id="workshop-nav-panel" data-nav-panel>
+    <ul class="workshop-nav-panel-list">
+      {
+        navItems.map((item) => (
+          <li class="workshop-nav-panel-item">
+            <a
+              href={item.href}
+              class="workshop-nav-panel-link"
+              aria-current={navActive(item.href, currentPath) ? "page" : undefined}
+            >
+              {item.name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <div class="workshop-nav-panel-footer">
+      <ThemeCycleButton ariaLabel="Toggle light or dark theme" />
+    </div>
+  </div>
+</header>
+
+<script>
+  (function () {
+    const toggle = document.querySelector<HTMLButtonElement>("[data-nav-toggle]");
+    const panel = document.querySelector<HTMLElement>("[data-nav-panel]");
+    if (!toggle || !panel) return;
+
+    function getFocusables() {
+      return Array.from(
+        panel.querySelectorAll<HTMLElement>("a[href], button:not([disabled])")
+      ).filter((el) => el.offsetParent !== null);
+    }
+
+    function setOpen(open: boolean) {
+      const wasOpen = toggle.getAttribute("aria-expanded") === "true";
+      toggle.setAttribute("aria-expanded", String(open));
+      panel.classList.toggle("is-open", open);
+
+      if (open) {
+        const focusables = getFocusables();
+        if (focusables.length > 0) {
+          focusables[0].focus();
+        } else {
+          panel.focus();
+        }
+      } else if (wasOpen) {
+        toggle.focus();
+      }
+    }
+
+    toggle.addEventListener("click", () => {
+      setOpen(toggle.getAttribute("aria-expanded") !== "true");
+    });
+
+    panel.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => setOpen(false));
+    });
+
+    document.addEventListener("click", (e) => {
+      if (toggle.getAttribute("aria-expanded") !== "true") return;
+      const target = e.target as Node;
+      if (!panel.contains(target) && !toggle.contains(target)) {
+        setOpen(false);
+      }
+    });
+
+    panel.addEventListener("keydown", (e) => {
+      if (e.key !== "Tab") return;
+      const focusables = getFocusables();
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") {
+        setOpen(false);
+      }
+    });
+  })();
+</script>
+
+<style>
+  .workshop-nav {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 50;
+    height: 64px;
+    background: var(--canvas);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .workshop-nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+    gap: 1rem;
+  }
+
+  .workshop-nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    color: inherit;
+    flex-shrink: 0;
+  }
+
+  .workshop-nav-mark {
+    width: 12px;
+    height: 12px;
+    background: var(--accent);
+    transition: box-shadow var(--duration-fast) var(--ease-out-expo);
+  }
+
+  html[data-theme="dark"] .workshop-nav-mark {
+    box-shadow: var(--glow);
+  }
+
+  .workshop-nav-brand:hover .workshop-nav-mark {
+    box-shadow: var(--glow);
+  }
+
+  .workshop-nav-name {
+    font-family: var(--font-pixel);
+    font-size: 1.45rem;
+    line-height: 1;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    transform: translateY(1px);
+  }
+
+  .workshop-nav-brand:hover .workshop-nav-name {
+    color: var(--accent);
+  }
+
+  html[data-theme="dark"] .workshop-nav-name {
+    text-shadow: var(--glow-text);
+  }
+
+  .workshop-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-left: auto;
+  }
+
+  .workshop-nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .workshop-nav-link {
+    display: block;
+    padding: 0.35rem 0.6rem;
+    text-decoration: none;
+    color: var(--ink-muted);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: color var(--duration-fast) var(--ease-out-expo);
+  }
+
+  .workshop-nav-link:hover {
+    color: var(--accent);
+  }
+
+  .workshop-nav-link[aria-current="page"] {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-color: var(--accent-soft);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 6px;
+  }
+
+  html[data-theme="dark"] .workshop-nav-link[aria-current="page"] {
+    text-shadow: var(--glow-text);
+  }
+
+  .workshop-nav-menu-btn {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    gap: 5px;
+    padding: 0;
+    margin: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: var(--ink-muted);
+    cursor: pointer;
+    transition: color var(--duration-fast) var(--ease-out-expo), border-color var(--duration-fast) var(--ease-out-expo);
+  }
+
+  .workshop-nav-menu-btn:hover {
+    color: var(--accent);
+    border-color: var(--line-strong);
+  }
+
+  .workshop-nav-menu-btn[aria-expanded="true"] {
+    color: var(--accent);
+  }
+
+  .workshop-nav-menu-bar {
+    display: block;
+    width: 16px;
+    height: 1.5px;
+    background: currentColor;
+    border-radius: 1px;
+    transition: transform var(--duration-fast) var(--ease-out-expo), opacity var(--duration-fast) var(--ease-out-expo);
+  }
+
+  .workshop-nav-menu-btn[aria-expanded="true"] .workshop-nav-menu-bar:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg);
+  }
+
+  .workshop-nav-menu-btn[aria-expanded="true"] .workshop-nav-menu-bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .workshop-nav-menu-btn[aria-expanded="true"] .workshop-nav-menu-bar:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg);
+  }
+
+  .workshop-nav-panel {
+    display: none;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: var(--canvas);
+    border-bottom: 1px solid var(--line);
+    box-shadow: var(--shadow-md);
+  }
+
+  .workshop-nav-panel.is-open {
+    display: block;
+  }
+
+  .workshop-nav-panel-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .workshop-nav-panel-item {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .workshop-nav-panel-link {
+    display: block;
+    padding: 1rem var(--gutter);
+    text-decoration: none;
+    color: var(--ink-muted);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: color var(--duration-fast) var(--ease-out-expo);
+  }
+
+  .workshop-nav-panel-link:hover {
+    color: var(--accent);
+  }
+
+  .workshop-nav-panel-link[aria-current="page"] {
+    color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .workshop-nav-panel-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0.75rem var(--gutter);
+  }
+
+  @media (max-width: 640px) {
+    .workshop-nav-links .workshop-nav-list,
+    .workshop-nav-links > .theme-cycle-btn {
+      display: none;
+    }
+
+    .workshop-nav-menu-btn {
+      display: flex;
+    }
+  }
+
+  @media (min-width: 641px) {
+    .workshop-nav-panel {
+      display: none !important;
+    }
+  }
+</style>

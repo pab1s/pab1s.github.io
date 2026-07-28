@@ -1,0 +1,170 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import WorkshopNav from "../../components/WorkshopNav.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import projectsData from "../../data/projects.json";
+
+const projects = projectsData.projects;
+
+const tagCounts = projects.reduce((acc, project) => {
+  project.tags.forEach((tag) => {
+    acc.set(tag, (acc.get(tag) || 0) + 1);
+  });
+  return acc;
+}, new Map<string, number>());
+
+const allTags = Array.from(tagCounts.entries())
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([tag]) => tag);
+---
+
+<BaseLayout title="Experiments" description="A grid of experiments, tools, and things I've built.">
+  <WorkshopNav currentPath={Astro.url.pathname} />
+
+  <header class="section-hero">
+    <span class="fig-label">EXP_001 · prototype bay</span>
+    <h1>Experiments</h1>
+    <p>Tools, models, and odd machines from the lab bench. Filter by tag to inspect.</p>
+  </header>
+
+  <div class="filter-bar" role="group" aria-label="Filter projects by tag">
+    <button class="filter-btn" type="button" data-filter="all" aria-pressed="true">All</button>
+    {
+      allTags.map((tag) => (
+        <button class="filter-btn" type="button" data-filter={tag} aria-pressed="false">
+          {tag}
+        </button>
+      ))
+    }
+  </div>
+
+  <div class="project-grid" id="projects-grid">
+    {
+      projects.map((proj) => (
+        <div class="project-card-wrapper" data-tags={JSON.stringify(proj.tags)}>
+          <ProjectCard
+            title={proj.title}
+            description={proj.description}
+            image={proj.image}
+            tags={proj.tags}
+            gitHubLink={proj.gitHubLink}
+            liveLink={proj.liveLink || undefined}
+          />
+        </div>
+      ))
+    }
+  </div>
+
+  <p class="projects-empty" id="projects-empty" hidden>No projects match the selected tag.</p>
+
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    align-items: center;
+  }
+
+  .filter-btn {
+    appearance: none;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--canvas-elevated);
+    color: var(--ink-muted);
+    cursor: pointer;
+    transition:
+      background var(--duration-fast) var(--ease-out-expo),
+      color var(--duration-fast) var(--ease-out-expo),
+      border-color var(--duration-fast) var(--ease-out-expo),
+      box-shadow var(--duration-fast) var(--ease-out-expo);
+  }
+
+  .filter-btn:hover {
+    border-color: var(--accent);
+    color: var(--ink);
+  }
+
+  .filter-btn[aria-pressed="true"] {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--canvas);
+  }
+
+  html[data-theme="dark"] .filter-btn[aria-pressed="true"] {
+    box-shadow: var(--glow);
+  }
+
+  .projects-empty {
+    text-align: center;
+    color: var(--ink-muted);
+    padding: 3rem 1rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+  }
+</style>
+
+<script>
+  (function () {
+    const filterBtns = document.querySelectorAll<HTMLButtonElement>("[data-filter]");
+    const cards = document.querySelectorAll<HTMLElement>("[data-tags]");
+    const empty = document.getElementById("projects-empty");
+
+    if (!filterBtns.length || !cards.length) return;
+
+    function applyFilter(filter: string, pushState = true) {
+      filterBtns.forEach((b) => {
+        const isMatch = b.getAttribute("data-filter") === filter;
+        b.setAttribute("aria-pressed", isMatch ? "true" : "false");
+      });
+
+      let visible = 0;
+      cards.forEach((card) => {
+        let tags: string[] = [];
+        try {
+          const raw = card.getAttribute("data-tags") || "[]";
+          tags = JSON.parse(raw);
+        } catch {
+          tags = [];
+        }
+        const show = filter === "all" || tags.includes(filter);
+        card.classList.toggle("is-hidden", !show);
+        if (show) visible++;
+      });
+
+      if (empty) {
+        empty.hidden = visible > 0;
+      }
+
+      if (pushState) {
+        const url = new URL(window.location.href);
+        if (filter === "all") {
+          url.searchParams.delete("tag");
+        } else {
+          url.searchParams.set("tag", filter);
+        }
+        window.history.replaceState({}, "", url);
+      }
+    }
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const filter = btn.getAttribute("data-filter") || "all";
+        applyFilter(filter);
+      });
+    });
+
+    const initialFilter = new URL(window.location.href).searchParams.get("tag") || "all";
+    const validFilters = Array.from(filterBtns).map((b) => b.getAttribute("data-filter"));
+    applyFilter(validFilters.includes(initialFilter) ? initialFilter : "all", false);
+  })();
+</script>

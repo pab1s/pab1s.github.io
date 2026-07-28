@@ -1,0 +1,45 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import WorkshopNav from "../../components/WorkshopNav.astro";
+import ResumeContent from "../../components/ResumeContent.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+---
+
+<BaseLayout
+  title="Resume"
+  description="Work history, studies, skills — condensed for humans and hiring pipelines."
+>
+  <WorkshopNav currentPath={Astro.url.pathname} />
+
+  <header class="section-hero resume-hero">
+    <span class="fig-label">DOC_001 · résumé</span>
+    <h1>Technical Dossier</h1>
+    <p>Work history, studies, skills — condensed for humans and hiring pipelines.</p>
+  </header>
+
+  <article class="resume-sheet">
+    <ResumeContent />
+  </article>
+
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .resume-hero {
+    margin-bottom: 1rem;
+  }
+
+  .resume-sheet {
+    max-width: 820px;
+    margin: 0 auto;
+    padding-bottom: var(--space-12);
+  }
+
+  @media print {
+    .resume-sheet {
+      max-width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  }
+</style>

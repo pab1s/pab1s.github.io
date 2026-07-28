@@ -1,0 +1,173 @@
+---
+import { siteConfig, telemetryLines } from "../site-config";
+---
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="site-footer-brand">
+      <span class="site-footer-name">
+        <span class="site-footer-mark" aria-hidden="true"></span>{siteConfig.labName}
+      </span>
+      <span class="site-footer-tagline">{siteConfig.tagline}</span>
+    </div>
+
+    <div class="site-footer-aside">
+      <div class="site-footer-socials">
+        {
+          siteConfig.social.map((s) => (
+            <a href={s.href} rel="me noopener noreferrer" target={s.href.startsWith("mailto:") ? undefined : "_blank"}>
+              {s.name}
+              {!s.href.startsWith("mailto:") && <span class="sr-only"> (opens in new tab)</span>}
+            </a>
+          ))
+        }
+      </div>
+      <span
+        class="site-footer-status"
+        data-footer-status
+        tabindex="0"
+        data-lines={JSON.stringify(telemetryLines)}
+        data-initial-index={siteConfig.homeFeed.telemetryLineIndex}
+      >
+        {telemetryLines[siteConfig.homeFeed.telemetryLineIndex]}
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const el = document.querySelector<HTMLElement>("[data-footer-status]");
+  if (el?.dataset.lines) {
+    const lines = JSON.parse(el.dataset.lines) as string[];
+    let i = parseInt(el.dataset.initialIndex || "0", 10) || 0;
+    let timer: number | null = null;
+
+    function prefersReducedMotion() {
+      return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    }
+
+    function tick() {
+      i = (i + 1) % lines.length;
+      el.textContent = lines[i];
+    }
+
+    function start() {
+      if (prefersReducedMotion()) return;
+      if (timer !== null) clearInterval(timer);
+      timer = window.setInterval(tick, 5200);
+    }
+
+    function stop() {
+      if (timer !== null) {
+        clearInterval(timer);
+        timer = null;
+      }
+    }
+
+    el.textContent = lines[i];
+    start();
+
+    el.addEventListener("mouseenter", stop);
+    el.addEventListener("mouseleave", start);
+    el.addEventListener("focusin", stop);
+    el.addEventListener("focusout", start);
+  }
+</script>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--line);
+    background: transparent;
+    margin-top: 3rem;
+    padding: 1.5rem 0;
+  }
+
+  .site-footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+
+  .site-footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .site-footer-name {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-pixel);
+    font-size: 1.15rem;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+  }
+
+  .site-footer-mark {
+    width: 9px;
+    height: 9px;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  html[data-theme="dark"] .site-footer-mark {
+    box-shadow: var(--glow);
+  }
+
+  .site-footer-tagline {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--ink-muted);
+  }
+
+  .site-footer-aside {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.4rem;
+  }
+
+  .site-footer-socials {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .site-footer-socials a {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ink-muted);
+    text-decoration: none;
+  }
+
+  .site-footer-socials a:hover {
+    color: var(--accent);
+  }
+
+  .site-footer-status {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--ink-muted);
+    cursor: default;
+  }
+
+  @media (max-width: 640px) {
+    .site-footer-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .site-footer-aside {
+      align-items: flex-start;
+      width: 100%;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+  }
+</style>

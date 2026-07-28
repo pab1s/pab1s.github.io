@@ -1,0 +1,195 @@
+{
+  "basics": {
+    "name": "Pablo Olivares Martínez",
+    "label": "ML Engineer | Data Scientist",
+    "email": "pablolivares1502@gmail.com",
+    "location": {
+      "city": "Madrid",
+      "countryCode": "ES"
+    },
+    "profiles": [
+      {
+        "network": "LinkedIn",
+        "username": "pablolivares",
+        "url": "https://www.linkedin.com/in/pablolivares"
+      },
+      {
+        "network": "GitHub",
+        "username": "pab1s",
+        "url": "https://github.com/pab1s"
+      }
+    ],
+    "summary": "ML Engineer and Data Scientist selected for the Santander Data Science Talent Program. Proven ability to apply deep learning and achieve impactful results in data projects, along with a strong foundation in Mathematics and Computer Science."
+  },
+  "work": [
+    {
+      "name": "Santander Bank",
+      "position": "ML Engineer | Data Scientist",
+      "location": "Madrid, Spain",
+      "url": "https://www.santanderbank.com/",
+      "startDate": "2024-06",
+      "summary": "Selected for the Santander Data Science Talent Program, now contributing to advanced analytics and scalable data solutions within the Data & AI Models team.",
+      "highlights": [
+        "Developed an LLM explainability solution for predictive models by identifying key features from underlying data to justify commercial opportunities.",
+        "Designed and implemented scalable data pipelines using PySpark for efficient data ingestion for model training.",
+        "Developed a health insurance subscription prediction model achieving 92% AUC, leading to a 23% increase in customer acquisition.",
+        "Designed and implemented a data quality control system for a Customer 360 project, improving data integrity and process execution time by up to 97%."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Escuela de Organización Industrial (EOI), Spain",
+      "area": "Big Data & Business Analytics",
+      "studyType": "Master of Science",
+      "startDate": "2024-06",
+      "endDate": "2026-06",
+      "courses": [
+        "Big Data Architecture",
+        "Data Visualization",
+        "Natural Language Processing"
+      ]
+    },
+    {
+      "institution": "University of Granada, Spain",
+      "area": "Mathematics",
+      "studyType": "Bachelor of Science",
+      "startDate": "2019-09",
+      "endDate": "2024-07",
+      "courses": [
+        "Functional Analysis",
+        "Numerical Methods",
+        "Differential Equations"
+      ]
+    },
+    {
+      "institution": "University of Granada, Spain",
+      "area": "Computer Science",
+      "studyType": "Bachelor of Science",
+      "specialization": "Intelligent Systems",
+      "startDate": "2019-09",
+      "endDate": "2024-07",
+      "courses": [
+        "Computer Vision",
+        "Metaheuristics",
+        "Artificial Intelligence"
+      ]
+    },
+    {
+      "institution": "University of Łódź, Poland",
+      "studyType": "Erasmus+ Programme",
+      "startDate": "2022-09",
+      "endDate": "2023-07",
+      "courses": [
+        "Machine Learning",
+        "Operations Research",
+        "Statistical Inference",
+        "Stochastic Processes"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Topological Data Analysis in CNNs",
+      "description": "Explored the integration of Topological Data Analysis (TDA) with convolutional neural networks (CNNs) to enhance understanding of CNN data manipulation, resulting in improved classification accuracy and generalization.",
+      "highlights": [
+        "Applied persistent homology techniques to analyze data structure during CNN processing.",
+        "Proposed topological regularization in models like EfficientNet-B0 and DenseNet-121.",
+        "Awarded 'Best Bachelor Thesis 2024 Promotion' for outstanding work."
+      ],
+      "url": "https://github.com/pab1s/TFG",
+      "startDate": "2023-09",
+      "endDate": "2024-07"
+    },
+    {
+      "name": "Semantic Segmentation for Urban Mobility",
+      "description": "Developed a deep learning solution for parking space detection in the city of Granada using semantic segmentation techniques, contributing to urban planning and mobility improvement.",
+      "highlights": [
+        "Created an image segmentation dataset with a novel data augmentation technique tailored for parking detection.",
+        "Implemented architectures like PSPNet and DeepLabV3+, achieving an 80% F1-score in validation."
+      ],
+      "url": "https://github.com/pab1s/granada-parking-segmentation",
+      "startDate": "2022-11",
+      "endDate": "2023-01"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Programming",
+      "keywords": [
+        "Python",
+        "SQL",
+        "C/C++",
+        "Java",
+        "LaTeX",
+        "R"
+      ]
+    },
+    {
+      "name": "Machine Learning & Data Science",
+      "keywords": [
+        "Large Language Models (LLMs)",
+        "Natural Language Processing (NLP)",
+        "Convolutional Neural Networks (CNNs)",
+        "Computer Vision",
+        "Deep Learning",
+        "Imbalanced Data",
+        "MLOps"
+      ]
+    },
+    {
+      "name": "Technologies & Tools",
+      "keywords": [
+        "Azure Databricks",
+        "Spark",
+        "PyTorch",
+        "MLflow",
+        "OpenCV",
+        "Scikit-learn",
+        "Git",
+        "Jira",
+        "Confluence"
+      ]
+    }
+  ],
+  "languages": [
+    {
+      "language": "Spanish",
+      "fluency": "Native"
+    },
+    {
+      "language": "English",
+      "fluency": "Proficient (C1 Cambridge)"
+    },
+    {
+      "language": "French",
+      "fluency": "Independent"
+    }
+  ],
+  "volunteer": [
+    {
+      "organization": "LibreIM",
+      "position": "Member and Collaborator",
+      "url": "https://libreim.github.io/",
+      "startDate": "2021-02",
+      "endDate": "Present",
+      "summary": "Developed and maintained extensive LaTeX notes for LibreIM, a non-profit organization, focusing on Formal Logic and Topology."
+    },
+    {
+      "organization": "Busca Tu Profesor",
+      "position": "Private Tutor",
+      "url": "https://buscatuprofesor.es/",
+      "startDate": "2021-09",
+      "endDate": "2022-06",
+      "summary": "Conducted mathematics and basic programming lessons for high school students while managing college studies."
+    },
+    {
+      "organization": "Imhlala Panzi Scouts",
+      "position": "Member",
+      "url": "https://www.imhlala-panzi.com/",
+      "startDate": "2012",
+      "endDate": "2019",
+      "summary": "Organized charity and environmental tasks including natural environment cleanups, charity collections to aid minorities, awareness campaigns, and social inclusion activities."
+    }
+  ]
+}

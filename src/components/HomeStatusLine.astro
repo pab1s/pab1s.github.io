@@ -1,0 +1,62 @@
+---
+import { telemetryLines, siteConfig } from "../site-config";
+
+const status = telemetryLines[siteConfig.homeFeed.telemetryLineIndex] ?? telemetryLines[0];
+---
+
+<div class="home-status-line">
+  <span class="status-pulse" aria-hidden="true"></span>
+  <span class="status-label">System status</span>
+  <span class="status-value">{status}</span>
+</div>
+
+<style>
+  .home-status-line {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ink-muted);
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .status-pulse {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 0 var(--accent-soft);
+    animation: pulse-dot 2s infinite;
+  }
+
+  .status-label {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+  }
+
+  .status-value {
+    margin-left: auto;
+    text-align: right;
+  }
+
+  @keyframes pulse-dot {
+    0% {
+      box-shadow: 0 0 0 0 var(--accent-soft);
+    }
+    70% {
+      box-shadow: 0 0 0 6px transparent;
+    }
+    100% {
+      box-shadow: 0 0 0 0 transparent;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .status-pulse {
+      animation: none;
+    }
+  }
+</style>
