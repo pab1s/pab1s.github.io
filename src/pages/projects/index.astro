@@ -19,13 +19,13 @@ const allTags = Array.from(tagCounts.entries())
   .map(([tag]) => tag);
 ---
 
-<BaseLayout title="Projects" description="A grid of experiments, tools, and things I've built.">
+<BaseLayout title="Experiments" description="A grid of experiments, tools, and things I've built.">
   <WorkshopNav currentPath={Astro.url.pathname} />
 
   <header class="section-hero">
-    <span class="fig-label">REC_001 · prototype bay</span>
-    <h1>The Lab Bench</h1>
-    <p>Every project is a recipe. Filter by ingredient or browse the whole shelf.</p>
+    <span class="fig-label">EXP_001 · prototype bay</span>
+    <h1>Experiments</h1>
+    <p>Every project is an experiment. Filter by ingredient or browse the whole bench.</p>
   </header>
 
   <div class="filter-bar" role="group" aria-label="Filter projects by tag">
@@ -78,25 +78,30 @@ const allTags = Array.from(tagCounts.entries())
     letter-spacing: 0.06em;
     padding: 0.35rem 0.75rem;
     border: 1px solid var(--line);
-    border-radius: 999px;
+    border-radius: var(--radius-sm);
     background: var(--canvas-elevated);
     color: var(--ink-muted);
     cursor: pointer;
     transition:
       background var(--duration-fast) var(--ease-out-expo),
       color var(--duration-fast) var(--ease-out-expo),
-      border-color var(--duration-fast) var(--ease-out-expo);
+      border-color var(--duration-fast) var(--ease-out-expo),
+      box-shadow var(--duration-fast) var(--ease-out-expo);
   }
 
   .filter-btn:hover {
-    border-color: var(--line-strong);
+    border-color: var(--accent);
     color: var(--ink);
   }
 
   .filter-btn[aria-pressed="true"] {
     background: var(--accent);
     border-color: var(--accent);
-    color: var(--canvas-elevated);
+    color: var(--canvas);
+  }
+
+  html[data-theme="dark"] .filter-btn[aria-pressed="true"] {
+    box-shadow: var(--glow);
   }
 
   .projects-empty {

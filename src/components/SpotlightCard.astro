@@ -85,7 +85,8 @@ const structured =
     border: 1px solid var(--line);
     overflow: hidden;
     transition: transform var(--duration-base) var(--ease-out-expo),
-      border-color var(--duration-base) var(--ease-out-expo);
+      border-color var(--duration-base) var(--ease-out-expo),
+      box-shadow var(--duration-base) var(--ease-out-expo);
     isolation: isolate;
   }
 
@@ -118,9 +119,13 @@ const structured =
   }
 
   .spotlight-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
-    border-color: var(--accent-soft);
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-hard);
+    border-color: var(--accent);
+  }
+
+  html[data-theme="dark"] .spotlight-card:hover {
+    box-shadow: var(--shadow-hard), var(--glow);
   }
 
   .spotlight-card > * {

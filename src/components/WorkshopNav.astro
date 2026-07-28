@@ -21,15 +21,8 @@ const navItems = siteConfig.nav;
 <header class="workshop-nav">
   <div class="workshop-nav-inner">
     <a href="/" class="workshop-nav-brand">
-      <img
-        src={siteConfig.avatarSrc}
-        alt=""
-        width="32"
-        height="32"
-        class="workshop-nav-avatar"
-        loading="eager"
-      />
-      <span class="workshop-nav-name">{siteConfig.title}</span>
+      <span class="workshop-nav-mark" aria-hidden="true"></span>
+      <span class="workshop-nav-name">{siteConfig.labName}</span>
     </a>
 
     <nav class="workshop-nav-links" aria-label="Primary">
@@ -179,25 +172,42 @@ const navItems = siteConfig.nav;
   .workshop-nav-brand {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.6rem;
     text-decoration: none;
     color: inherit;
     flex-shrink: 0;
   }
 
-  .workshop-nav-avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 999px;
-    border: 1px solid var(--line);
-    object-fit: cover;
+  .workshop-nav-mark {
+    width: 12px;
+    height: 12px;
+    background: var(--accent);
+    transition: box-shadow var(--duration-fast) var(--ease-out-expo);
+  }
+
+  html[data-theme="dark"] .workshop-nav-mark {
+    box-shadow: var(--glow);
+  }
+
+  .workshop-nav-brand:hover .workshop-nav-mark {
+    box-shadow: var(--glow);
   }
 
   .workshop-nav-name {
-    font-family: var(--font-display);
-    font-size: 0.95rem;
-    font-weight: 600;
+    font-family: var(--font-pixel);
+    font-size: 1.45rem;
+    line-height: 1;
+    letter-spacing: 0.06em;
     color: var(--ink);
+    transform: translateY(1px);
+  }
+
+  .workshop-nav-brand:hover .workshop-nav-name {
+    color: var(--accent);
+  }
+
+  html[data-theme="dark"] .workshop-nav-name {
+    text-shadow: var(--glow-text);
   }
 
   .workshop-nav-links {
@@ -238,6 +248,10 @@ const navItems = siteConfig.nav;
     text-decoration-color: var(--accent-soft);
     text-decoration-thickness: 2px;
     text-underline-offset: 6px;
+  }
+
+  html[data-theme="dark"] .workshop-nav-link[aria-current="page"] {
+    text-shadow: var(--glow-text);
   }
 
   .workshop-nav-menu-btn {

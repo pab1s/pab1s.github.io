@@ -5,7 +5,9 @@ import { siteConfig, telemetryLines } from "../site-config";
 <footer class="site-footer">
   <div class="site-footer-inner">
     <div class="site-footer-brand">
-      <span class="site-footer-name">{siteConfig.title}</span>
+      <span class="site-footer-name">
+        <span class="site-footer-mark" aria-hidden="true"></span>{siteConfig.labName}
+      </span>
       <span class="site-footer-tagline">{siteConfig.tagline}</span>
     </div>
 
@@ -97,10 +99,24 @@ import { siteConfig, telemetryLines } from "../site-config";
   }
 
   .site-footer-name {
-    font-family: var(--font-display);
-    font-size: 0.9rem;
-    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-pixel);
+    font-size: 1.15rem;
+    letter-spacing: 0.08em;
     color: var(--ink);
+  }
+
+  .site-footer-mark {
+    width: 9px;
+    height: 9px;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  html[data-theme="dark"] .site-footer-mark {
+    box-shadow: var(--glow);
   }
 
   .site-footer-tagline {

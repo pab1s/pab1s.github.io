@@ -22,18 +22,18 @@ const { posts, postCount, projectCount } = Astro.props;
     <!-- Projects -->
     <div class="bento-cell bento-cell--projects" style="--index: 0;">
       <SpotlightCard class="bento-card">
-        <span slot="title">Projects</span>
+        <span slot="title">Experiments</span>
         <span slot="description">
-          {projectCount} experiments in the workshop — from topological data analysis to game-playing agents.
+          {projectCount} experiments on the bench — from topological data analysis to game-playing agents.
         </span>
-        <a href="/projects/" slot="links" class="bento-link">Browse projects →</a>
+        <a href="/projects/" slot="links" class="bento-link">Browse experiments →</a>
       </SpotlightCard>
     </div>
 
     <!-- Blog -->
     <div class="bento-cell bento-cell--blog" style="--index: 1;">
       <SpotlightCard class="bento-card">
-        <span slot="title">Notebook</span>
+        <span slot="title">Lab Notes</span>
         <span slot="description">{postCount} notes on machine learning, statistics, and curiosity.</span>
         <ul class="bento-post-list">
           {

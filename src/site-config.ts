@@ -1,9 +1,10 @@
 export const siteConfig = {
   title: "Pablo Olivares",
+  labName: "NEOLAB",
   tagline: "ML engineer · data alchemist · tinkerer",
   currently: "Currently engineering ML at Santander.",
   description:
-    "Pablo Olivares — ML engineer and data scientist. Building things with PyTorch, curiosity, and a pinch of alchemy.",
+    "Pablo Olivares — ML engineer and data scientist. Welcome to the NEOLAB: projects, notes, and experiments built with PyTorch, curiosity, and a pinch of alchemy.",
   url: "https://pab1s.github.io",
   author: "Pablo Olivares",
   googleAnalyticsId: "G-Q6BZDBC20J",
@@ -17,8 +18,8 @@ export const siteConfig = {
     { name: "Email", href: "mailto:pablolivares1502@gmail.com", icon: "email" },
   ],
   nav: [
-    { name: "Blog", href: "/blog/" },
-    { name: "Projects", href: "/projects/" },
+    { name: "Lab Notes", href: "/blog/" },
+    { name: "Experiments", href: "/projects/" },
     { name: "Resume", href: "/resume/" },
     { name: "Search", href: "/search/" },
   ],

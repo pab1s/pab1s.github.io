@@ -26,9 +26,9 @@ import SiteFooter from "../components/SiteFooter.astro";
         </p>
 
         <nav class="missing-sheet-actions" aria-label="Wayfinding">
-          <a href="/" class="missing-sheet-link">Return to the workshop</a>
-          <a href="/projects/" class="missing-sheet-link">Open projects</a>
-          <a href="/blog/" class="missing-sheet-link">Read the notebook</a>
+          <a href="/" class="missing-sheet-link">Back to the lab</a>
+          <a href="/projects/" class="missing-sheet-link">Open experiments</a>
+          <a href="/blog/" class="missing-sheet-link">Read lab notes</a>
         </nav>
       </div>
     </section>
@@ -77,13 +77,17 @@ import SiteFooter from "../components/SiteFooter.astro";
     }
 
     .missing-sheet-code {
-      font-family: var(--font-display);
-      font-size: clamp(5rem, 18vw, 10rem);
-      font-weight: 700;
-      line-height: 1;
+      font-family: var(--font-pixel);
+      font-size: clamp(6rem, 20vw, 11rem);
+      font-weight: 400;
+      line-height: 0.9;
       letter-spacing: 0.04em;
-      color: var(--ink);
+      color: var(--accent);
       margin: 0;
+    }
+
+    html[data-theme="dark"] .missing-sheet-code {
+      text-shadow: var(--glow-text);
     }
 
     .missing-sheet-frame .ascii-rule {
