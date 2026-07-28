@@ -23,17 +23,13 @@ const buildDate = new Date().toISOString().slice(0, 10).replace(/-/g, ".");
       </div>
 
       <div class="hero-headline">
-        <p class="hero-kicker">
-          <span class="hero-kicker-mark" aria-hidden="true"></span>
-          {siteConfig.labName} — Personal engineering lab
-        </p>
         <h1 id="hero-title" class="hero-title">{siteConfig.author}</h1>
         <p class="hero-subtitle">{siteConfig.tagline}</p>
       </div>
 
       <p class="hero-desc">
         I turn raw data into insight, build things with PyTorch and curiosity,
-        and cook up experiments in my neolab. {siteConfig.currently}
+        and cook up experiments in the lab. {siteConfig.currently}
       </p>
 
       <div class="hero-callouts">
@@ -111,33 +107,6 @@ const buildDate = new Date().toISOString().slice(0, 10).replace(/-/g, ".");
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
-  }
-
-  .hero-kicker {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: var(--font-pixel);
-    font-size: 1.15rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin: 0 0 0.25rem;
-  }
-
-  .hero-kicker-mark {
-    width: 10px;
-    height: 10px;
-    background: var(--accent);
-    flex-shrink: 0;
-  }
-
-  html[data-theme="dark"] .hero-kicker {
-    text-shadow: var(--glow-text);
-  }
-
-  html[data-theme="dark"] .hero-kicker-mark {
-    box-shadow: var(--glow);
   }
 
   .hero-title {

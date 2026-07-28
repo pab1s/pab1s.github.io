@@ -15,7 +15,7 @@
   --line: rgba(26, 26, 26, 0.10);
   --line-strong: rgba(26, 26, 26, 0.18);
   --paper-dot: rgba(26, 26, 26, 0.07);
-  --font-display: 'Geist', system-ui, sans-serif;
+  --font-display: 'Chakra Petch', system-ui, sans-serif;
   --font-body: 'Source Serif 4', Georgia, serif;
   --font-mono: 'IBM Plex Mono', Menlo, monospace;
   --font-pixel: 'VT323', 'IBM Plex Mono', Menlo, monospace;
@@ -640,7 +640,6 @@ html[data-theme="dark"] .fig-label {
 .section-hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); margin: 0; }
 .section-hero p { color: var(--ink-muted); font-size: 1.05rem; margin: 0.5rem 0 0; }
 @media (max-width: 768px) {
-  .bento-grid { grid-template-columns: 1fr; }
   .hero-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {

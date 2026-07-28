@@ -1,10 +1,10 @@
 export const siteConfig = {
   title: "Pablo Olivares",
-  labName: "NEOLAB",
+  labName: "pab1s",
   tagline: "ML engineer · data alchemist · tinkerer",
   currently: "Currently engineering ML at Santander.",
   description:
-    "Pablo Olivares — ML engineer and data scientist. Welcome to the NEOLAB: projects, notes, and experiments built with PyTorch, curiosity, and a pinch of alchemy.",
+    "Pablo Olivares — ML engineer and data scientist. Projects, notes, and experiments built with PyTorch, curiosity, and a pinch of alchemy.",
   url: "https://pab1s.github.io",
   author: "Pablo Olivares",
   googleAnalyticsId: "G-Q6BZDBC20J",

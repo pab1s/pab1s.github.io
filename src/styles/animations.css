@@ -20,7 +20,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .stagger-in > *,
-  .bento-cell,
   .hero-section,
   .spotlight-card {
     animation: none !important;
