@@ -155,16 +155,16 @@ const dateStr = formatDate(post.data.date);
   .post-title {
     margin: 1rem 0 0.75rem;
     font-family: var(--font-display);
-    font-size: 64px;
+    font-size: clamp(1.5rem, 3vw, 2rem);
     font-weight: 600;
-    letter-spacing: -1.92px;
+    letter-spacing: -0.02em;
     line-height: 1;
     color: var(--ink);
   }
 
   .post-subtitle {
     font-family: var(--font-display);
-    font-size: 24px;
+    font-size: 1.15rem;
     line-height: 1.333;
     color: var(--ink);
     margin: 0;
@@ -302,7 +302,7 @@ const dateStr = formatDate(post.data.date);
 
   .post-nav-title {
     font-family: var(--font-display);
-    font-size: 24px;
+    font-size: 1.15rem;
     font-weight: 400;
     color: var(--ink);
     line-height: 1.333;

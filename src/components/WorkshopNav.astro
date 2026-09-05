@@ -19,7 +19,6 @@ const navItems = siteConfig.nav;
 ---
 
 <header class="workshop-nav">
-  <div class="announcement-bar">Currently engineering ML at Santander — <a href="/projects/">see experiments</a></div>
   <div class="workshop-nav-inner">
     <a href="/" class="workshop-nav-brand">
       <span class="workshop-nav-mark" aria-hidden="true"></span>
@@ -150,28 +149,6 @@ const navItems = siteConfig.nav;
 </script>
 
 <style>
-  .announcement-bar {
-    background: var(--brand-green);
-    color: var(--ink);
-    font-family: var(--font-sans);
-    font-size: 16px;
-    padding: 16px;
-    text-align: center;
-    border-radius: var(--r-none);
-  }
-
-  .announcement-bar a {
-    color: var(--ink);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-
-  .announcement-bar a:hover {
-    background: var(--ink);
-    color: var(--brand-green);
-    text-decoration: none;
-  }
-
   .workshop-nav {
     position: fixed;
     inset: 0 0 auto 0;
@@ -237,16 +214,25 @@ const navItems = siteConfig.nav;
     display: block;
     padding: 0.35rem 0.6rem;
     text-decoration: none;
-    color: var(--ink);
+    color: var(--ink-muted);
     font-family: var(--font-sans);
-    font-size: 16px;
+    font-size: 0.9rem;
   }
 
-  .workshop-nav-link:hover,
+  .workshop-nav-link:hover {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--brand-green);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+  }
+
   .workshop-nav-link[aria-current="page"] {
     color: var(--ink);
-    background: var(--brand-green);
-    text-decoration: none;
+    text-decoration: underline;
+    text-decoration-color: var(--brand-green);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
   }
 
   .workshop-nav-menu-btn {
