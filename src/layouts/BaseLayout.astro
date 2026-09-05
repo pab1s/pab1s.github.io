@@ -28,9 +28,6 @@ const desc = description ?? "";
 
 import { siteConfig } from "../site-config";
 import "../styles/global.css";
-import AchievementSystem from "../components/AchievementSystem.astro";
-import ToastNotification from "../components/ToastNotification.astro";
-import NoiseOverlay from "../components/NoiseOverlay.astro";
 ---
 
 <!doctype html>
@@ -167,8 +164,5 @@ gtag('config', gaId);`}
         );
       })();
     </script>
-    <NoiseOverlay />
-    <AchievementSystem />
-    <ToastNotification />
   </body>
 </html>

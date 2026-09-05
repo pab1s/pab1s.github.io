@@ -237,19 +237,20 @@ const fmtDate = (d: string) => {
 
   .dossier-name {
     font-family: var(--font-display);
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
+    font-size: 64px;
+    font-weight: 600;
+    letter-spacing: -1.92px;
+    text-transform: none;
     color: var(--ink);
     margin: 0 0 0.35rem;
     line-height: 1;
   }
 
   .dossier-role {
-    font-family: var(--font-body);
-    font-size: 1.05rem;
-    color: var(--ink-muted);
+    font-family: var(--font-display);
+    font-size: 24px;
+    line-height: 1.333;
+    color: var(--ink);
     margin: 0 0 1rem;
   }
 
@@ -278,12 +279,15 @@ const fmtDate = (d: string) => {
   }
 
   .dossier-contact a {
-    color: var(--accent);
-    text-decoration: none;
+    color: var(--ink);
+    text-decoration-color: var(--brand-green);
+    text-decoration-thickness: 3px;
+    text-underline-offset: 3px;
   }
 
   .dossier-contact a:hover {
-    text-decoration: underline;
+    background: var(--brand-green);
+    color: var(--ink);
   }
 
   .dossier-sep {
@@ -296,30 +300,18 @@ const fmtDate = (d: string) => {
 
   .dossier-section-title {
     font-family: var(--font-display);
-    font-size: clamp(1.1rem, 2.4vw, 1.4rem);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-    color: var(--accent);
+    font-size: 64px;
+    font-weight: 600;
+    letter-spacing: -1.92px;
+    text-transform: none;
+    color: var(--ink);
     margin: 0 0 1rem;
-    position: relative;
-    padding-left: 1.25rem;
-  }
-
-  .dossier-section-title::before {
-    content: "§";
-    position: absolute;
-    left: 0;
-    top: 0.12em;
-    font-family: var(--font-mono);
-    font-size: 0.6em;
-    color: var(--accent);
-    opacity: 0.8;
   }
 
   .dossier-summary {
-    font-size: 1rem;
-    line-height: 1.6;
+    font-family: var(--font-display);
+    font-size: 24px;
+    line-height: 1.333;
     color: var(--ink);
     margin: 0;
   }
@@ -337,7 +329,7 @@ const fmtDate = (d: string) => {
     gap: 0.5rem 1.5rem;
     align-items: start;
     padding-bottom: 1.25rem;
-    border-bottom: 1px dotted var(--line);
+    border-bottom: 1px solid var(--hairline);
   }
 
   .dossier-timeline-item:last-child {
@@ -361,21 +353,24 @@ const fmtDate = (d: string) => {
   }
 
   .dossier-entry-title {
-    font-family: var(--font-body);
-    font-size: 1rem;
+    font-family: var(--font-display);
+    font-size: 24px;
     font-weight: 600;
+    line-height: 1.333;
     color: var(--ink);
     margin: 0 0 0.35rem;
-    line-height: 1.35;
   }
 
   .dossier-entry-title a {
-    color: var(--accent);
-    text-decoration: none;
+    color: var(--ink);
+    text-decoration-color: var(--brand-green);
+    text-decoration-thickness: 3px;
+    text-underline-offset: 3px;
   }
 
   .dossier-entry-title a:hover {
-    text-decoration: underline;
+    background: var(--brand-green);
+    color: var(--ink);
   }
 
   .dossier-at {
@@ -385,17 +380,19 @@ const fmtDate = (d: string) => {
   }
 
   .dossier-entry-summary {
-    font-size: 0.92rem;
-    line-height: 1.5;
-    color: var(--ink-muted);
+    font-family: var(--font-display);
+    font-size: 24px;
+    line-height: 1.333;
+    color: var(--ink);
     margin: 0 0 0.5rem;
   }
 
   .dossier-highlights {
     margin: 0;
     padding-left: 1.1em;
-    font-size: 0.9rem;
-    line-height: 1.5;
+    font-family: var(--font-display);
+    font-size: 24px;
+    line-height: 1.333;
     color: var(--ink);
   }
 
@@ -423,7 +420,7 @@ const fmtDate = (d: string) => {
   }
 
   .dossier-skill-group {
-    border-bottom: 1px dotted var(--line);
+    border-bottom: 1px solid var(--hairline);
     padding-bottom: 1rem;
   }
 
@@ -446,17 +443,18 @@ const fmtDate = (d: string) => {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
+    font-family: var(--font-sans);
+    font-size: 16px;
     color: var(--ink);
-    padding: 0.15rem 0.4rem;
-    border: 1px solid var(--line);
-    background: var(--canvas-elevated);
+    padding: 7px 12px;
+    border: none;
+    border-radius: var(--r-pill);
+    background: var(--surface-soft);
   }
 
   .dossier-skill-dots {
     font-size: 0.62rem;
-    color: var(--accent);
+    color: var(--brand-green);
     letter-spacing: 0.04em;
   }
 
@@ -472,7 +470,7 @@ const fmtDate = (d: string) => {
     justify-content: space-between;
     align-items: baseline;
     padding: 0.35rem 0;
-    border-bottom: 1px dotted var(--line);
+    border-bottom: 1px solid var(--hairline);
   }
 
   .dossier-language-name {
@@ -497,8 +495,8 @@ const fmtDate = (d: string) => {
       border-bottom-style: solid;
     }
     .dossier-skill-tag {
-      border: 1px solid #ccc;
-      background: white;
+      border: 1px solid var(--hairline);
+      background: var(--canvas);
     }
   }
 

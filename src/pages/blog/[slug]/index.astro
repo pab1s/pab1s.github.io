@@ -3,7 +3,6 @@ import type { CollectionEntry } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import WorkshopNav from "../../../components/WorkshopNav.astro";
 import SiteFooter from "../../../components/SiteFooter.astro";
-import ScrollProgress from "../../../components/ScrollProgress.astro";
 import { getCollection, render } from "astro:content";
 import { siteConfig } from "../../../site-config";
 import { formatDate } from "../../../lib/date";
@@ -47,7 +46,6 @@ const dateStr = formatDate(post.data.date);
 ---
 
 <BaseLayout title={post.data.title} description={desc} usesKatex={true}>
-  <ScrollProgress />
   <WorkshopNav currentPath={Astro.url.pathname} />
 
   <article class="post-article">
@@ -156,15 +154,19 @@ const dateStr = formatDate(post.data.date);
 
   .post-title {
     margin: 1rem 0 0.75rem;
-    line-height: 0.92;
-    letter-spacing: 0.02em;
+    font-family: var(--font-display);
+    font-size: 64px;
+    font-weight: 600;
+    letter-spacing: -1.92px;
+    line-height: 1;
+    color: var(--ink);
   }
 
   .post-subtitle {
-    font-family: var(--font-body);
-    font-size: 1.05rem;
-    line-height: 1.55;
-    color: var(--ink-muted);
+    font-family: var(--font-display);
+    font-size: 24px;
+    line-height: 1.333;
+    color: var(--ink);
     margin: 0;
     max-width: 55ch;
   }
@@ -172,19 +174,19 @@ const dateStr = formatDate(post.data.date);
   .post-toc {
     margin: var(--space-12) 0;
     padding: var(--space-5) var(--space-6);
-    background: var(--canvas-elevated);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
+    background: var(--canvas);
+    border: 1px solid var(--hairline);
+    border-radius: var(--r-none);
+    box-shadow: none;
   }
 
   .post-toc-title {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
+    font-family: var(--font-sans);
+    font-size: 16px;
     font-weight: 500;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--ink);
     margin: 0 0 var(--space-4);
   }
 
@@ -192,8 +194,8 @@ const dateStr = formatDate(post.data.date);
     list-style: none;
     margin: 0;
     padding: 0;
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
+    font-family: var(--font-sans);
+    font-size: 16px;
     line-height: 1.45;
   }
 
@@ -209,24 +211,24 @@ const dateStr = formatDate(post.data.date);
     display: flex;
     align-items: baseline;
     gap: var(--space-2);
-    color: var(--ink-muted);
+    color: var(--ink);
     text-decoration: none;
     transition: color var(--duration-fast) ease;
   }
 
   .post-toc-list a::before {
     content: "·";
-    color: var(--line-strong);
+    color: var(--ink);
     flex-shrink: 0;
   }
 
   .post-toc-list a:hover {
-    color: var(--accent);
+    color: var(--ink);
+    background: var(--brand-green);
   }
 
   .post-toc-list a:hover .post-toc-text {
-    text-decoration: underline;
-    text-decoration-color: var(--accent-soft);
+    text-decoration: none;
   }
 
   .post-toc-depth-3 {
@@ -257,21 +259,24 @@ const dateStr = formatDate(post.data.date);
   .post-nav-back {
     grid-column: 2;
     justify-self: center;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
+    font-family: var(--font-sans);
+    font-size: 16px;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--ink-muted);
+    color: var(--ink);
+    background: var(--canvas);
     text-decoration: none;
     text-align: center;
-    padding: 0.5rem 1rem;
-    border: 1px solid var(--line);
+    padding: 7px 12px;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--r-none);
     transition: color 150ms ease, border-color 150ms ease;
   }
 
   .post-nav-back:hover {
-    color: var(--accent);
-    border-color: var(--accent);
+    color: var(--ink);
+    border-color: var(--ink);
+    background: var(--brand-green);
   }
 
   .post-nav-next {
@@ -296,14 +301,16 @@ const dateStr = formatDate(post.data.date);
   }
 
   .post-nav-title {
-    font-family: var(--font-body);
-    font-size: 0.95rem;
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 400;
     color: var(--ink);
-    line-height: 1.3;
+    line-height: 1.333;
   }
 
   .post-nav-link:hover .post-nav-title {
-    color: var(--accent);
+    background: var(--brand-green);
+    color: var(--ink);
   }
 
   @media (max-width: 640px) {
