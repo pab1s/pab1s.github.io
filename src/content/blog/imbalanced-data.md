@@ -1,7 +1,7 @@
 ---
 title: "When Data Doesn't Play Fair"
 date: 2025-07-23
-description: "When 99.9% accuracy means nothing — fraud, rare diseases, and learning from lopsided data."
+description: "When 99.9% accuracy means nothing: fraud, rare diseases, and learning from lopsided data."
 author: "Pablo Olivares"
 tags: ["imbalanced-learning", "statistical-learning-theory", "generalization"]
 
@@ -99,7 +99,7 @@ In applied machine learning, we live in a world of pragmatism. Resampling techni
 
 And here we arrive at a fascinating and slightly uncomfortable paradox: by deliberately **breaking** the clean i.i.d. assumption that underpins so much of learning theory, we often build models that are **more useful** in the real world.
 
-This should make us pause and think. Are we merely applying a 'hack' to fix a broken learning process? Or is the textbook formulation of minimizing empirical risk on the original distribution $\mathcal{D}$ not the whole story for achieving practical success? Perhaps the goal shouldn't be to create a perfect statistical mirror of the imbalanced reality, but to create a learning environment—even an artificial one like $\mathcal{S}'$—that most efficiently **teaches the model the concepts** needed to distinguish between classes. We aren't just showing it data; we are guiding its focus.
+This should make us pause and think. Are we merely applying a 'hack' to fix a broken learning process? Or is the textbook formulation of minimizing empirical risk on the original distribution $\mathcal{D}$ not the whole story for achieving practical success? Perhaps the goal shouldn't be to create a perfect statistical mirror of the imbalanced reality, but to create a learning environment, even an artificial one like $\mathcal{S}'$, that most efficiently **teaches the model the concepts** needed to distinguish between classes. We aren't just showing it data; we are guiding its focus.
 
 This perspective, however, raises a critical new question. If we've trained our model in this artificial, 'balanced' classroom, how much can we trust what it says when it graduates to the real world? It might be great at sorting 'fraud' from 'not fraud' (high F1-score), but what does its prediction of "70% probability of fraud" actually **mean**? Its sense of probability was honed on a 50/50 dataset, not the real 99.9/0.1 world. The model is a good classifier, but is it a reliable prognosticator?
 

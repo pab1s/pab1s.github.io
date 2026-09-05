@@ -4,7 +4,7 @@ export const siteConfig = {
   tagline: "ML engineer · data alchemist · tinkerer",
   currently: "Currently engineering ML at Santander.",
   description:
-    "Pablo Olivares — ML engineer and data scientist. Projects, posts, and experiments built with PyTorch, curiosity, and a pinch of alchemy.",
+    "Pablo Olivares – ML engineer and data scientist. Projects, posts, and experiments built with PyTorch, curiosity, and a pinch of alchemy.",
   url: "https://pab1s.github.io",
   author: "Pablo Olivares",
   googleAnalyticsId: "G-Q6BZDBC20J",
@@ -21,7 +21,6 @@ export const siteConfig = {
     { name: "Blog", href: "/blog/" },
     { name: "Experiments", href: "/projects/" },
     { name: "Resume", href: "/resume/" },
-    { name: "Search", href: "/search/" },
   ],
   /** Avatar shown in nav and hero. File in `/public/`. */
   avatarSrc: "/avatar.png",

@@ -74,7 +74,7 @@ const fmtDate = (d: string) => {
       {work.map((job) => (
         <article class="dossier-timeline-item">
           <div class="dossier-timeline-meta">
-            <span class="dossier-label dossier-date">{fmtDate(job.startDate)} — {fmtDate(job.endDate ?? "")}</span>
+            <span class="dossier-label dossier-date">{fmtDate(job.startDate)} – {fmtDate(job.endDate ?? "")}</span>
             <span class="dossier-label dossier-location">{job.location}</span>
           </div>
           <div class="dossier-timeline-body">
@@ -102,7 +102,7 @@ const fmtDate = (d: string) => {
       {cv.education.map((edu) => (
         <article class="dossier-timeline-item">
           <div class="dossier-timeline-meta">
-            <span class="dossier-label dossier-date">{fmtDate(edu.startDate)} — {fmtDate(edu.endDate)}</span>
+            <span class="dossier-label dossier-date">{fmtDate(edu.startDate)} – {fmtDate(edu.endDate)}</span>
             {edu.specialization ? <span class="dossier-label dossier-specialization">{edu.specialization}</span> : null}
           </div>
           <div class="dossier-timeline-body">
@@ -131,7 +131,7 @@ const fmtDate = (d: string) => {
       {cv.projects.map((proj) => (
         <article class="dossier-timeline-item">
           <div class="dossier-timeline-meta">
-            <span class="dossier-label dossier-date">{fmtDate(proj.startDate)} — {fmtDate(proj.endDate)}</span>
+            <span class="dossier-label dossier-date">{fmtDate(proj.startDate)} – {fmtDate(proj.endDate)}</span>
           </div>
           <div class="dossier-timeline-body">
             <h3 class="dossier-entry-title">
@@ -189,7 +189,7 @@ const fmtDate = (d: string) => {
       {cv.volunteer.map((v) => (
         <article class="dossier-timeline-item">
           <div class="dossier-timeline-meta">
-            <span class="dossier-label dossier-date">{fmtDate(v.startDate)} — {fmtDate(v.endDate ?? "")}</span>
+            <span class="dossier-label dossier-date">{fmtDate(v.startDate)} – {fmtDate(v.endDate ?? "")}</span>
           </div>
           <div class="dossier-timeline-body">
             <h3 class="dossier-entry-title">
