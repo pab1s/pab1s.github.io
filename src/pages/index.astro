@@ -15,7 +15,6 @@ const latestPosts = (await getCollection("blog"))
     slug: post.slug,
     title: post.data.title,
     date: post.data.date.toISOString().slice(0, 10).replace(/-/g, "."),
-    tag: post.data.tags[0],
   }));
 
 const featured = projectsData.projects.slice(0, 3);
@@ -63,8 +62,6 @@ const featured = projectsData.projects.slice(0, 3);
             <a class="index-note-row" href={`/blog/${post.slug}/`}>
               <span class="index-note-date">{post.date}</span>
               <span class="index-note-title">{post.title}</span>
-              <span class="dotted-leader" aria-hidden="true" />
-              <span class="index-note-tag">{post.tag}</span>
             </a>
           </li>
         ))

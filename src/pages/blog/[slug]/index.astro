@@ -58,16 +58,6 @@ const dateStr = formatDate(post.data.date);
       <div class="post-meta-row" style="margin-top: 1.5rem;">
         <time class="meta-row" datetime={post.data.date.toISOString()}>{dateStr}</time>
         {post.data.author ? <span class="meta-row">· {post.data.author}</span> : null}
-        {post.data.tags?.length ? (
-          <span class="meta-row">
-            ·{" "}
-            {post.data.tags.map((t, i) => (
-              <>
-                {i > 0 ? ", " : ""}<span class="chip">{t}</span>
-              </>
-            ))}
-          </span>
-        ) : null}
       </div>
 
       <div class="ascii-rule" style="margin-top: 2rem;"></div>

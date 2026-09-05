@@ -33,13 +33,6 @@ const dateStr = formatDate(date);
     {description?.trim() ? (
       <p class="blog-post-description">{description}</p>
     ) : null}
-    {tags.length ? (
-      <div class="blog-post-tags">
-        {tags.map((t) => (
-          <span class="blog-post-tag">{t}</span>
-        ))}
-      </div>
-    ) : null}
   </div>
 </div>
 
@@ -118,29 +111,6 @@ const dateStr = formatDate(date);
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-  }
-
-  .blog-post-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-    margin-top: var(--space-3);
-  }
-
-  .blog-post-tag {
-    font-family: var(--font-mono);
-    font-size: 16px;
-    color: var(--ink);
-    letter-spacing: normal;
-    text-transform: none;
-    background: var(--surface-soft);
-    border: none;
-    padding: 7px 12px;
-    border-radius: var(--r-pill);
-  }
-
-  .blog-post-row:hover .blog-post-tag {
-    border-color: transparent;
   }
 
   @media (max-width: 640px) {
