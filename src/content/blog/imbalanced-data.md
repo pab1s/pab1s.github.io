@@ -1,7 +1,7 @@
 ---
 title: "When Data Doesn't Play Fair"
 date: 2025-07-23
-description: ""
+description: "When 99.9% accuracy means nothing — fraud, rare diseases, and learning from lopsided data."
 author: "Pablo Olivares"
 tags: ["imbalanced-learning", "statistical-learning-theory", "generalization"]
 

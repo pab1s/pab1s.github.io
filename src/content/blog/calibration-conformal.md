@@ -1,7 +1,7 @@
 ---
 title: "The Crisis of Confidence in Statistical Purity"
 date: 2025-11-19
-description: ""
+description: "Why state-of-the-art models are confidently wrong, and what calibration and conformal prediction do about it."
 author: "Pablo Olivares"
 tags: ["uncertainty-quantification", "calibration", "conformal-prediction"]
 
