@@ -154,3 +154,6 @@ Thumbs.db
 .netlify
 github-json.py
 generate-favicons.html
+
+# Brainstorm visual companion scratch
+.superpowers/
