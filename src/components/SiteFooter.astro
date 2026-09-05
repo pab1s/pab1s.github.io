@@ -76,7 +76,7 @@ import { siteConfig, telemetryLines } from "../site-config";
 
 <style>
   .site-footer {
-    border-top: 1px solid var(--line);
+    border-top: 1px solid var(--hairline);
     background: transparent;
     margin-top: 3rem;
     padding: 1.5rem 0;
@@ -102,21 +102,19 @@ import { siteConfig, telemetryLines } from "../site-config";
     display: flex;
     align-items: center;
     gap: 0.45rem;
-    font-family: var(--font-pixel);
+    font-family: var(--font-display);
     font-size: 1.15rem;
-    letter-spacing: 0.08em;
+    letter-spacing: -0.02em;
+    font-weight: 600;
     color: var(--ink);
   }
 
   .site-footer-mark {
     width: 9px;
     height: 9px;
-    background: var(--accent);
+    background: var(--brand-green);
+    box-shadow: none;
     flex-shrink: 0;
-  }
-
-  html[data-theme="dark"] .site-footer-mark {
-    box-shadow: var(--glow);
   }
 
   .site-footer-tagline {
@@ -138,14 +136,15 @@ import { siteConfig, telemetryLines } from "../site-config";
   }
 
   .site-footer-socials a {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--ink-muted);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    color: var(--ink);
     text-decoration: none;
   }
 
   .site-footer-socials a:hover {
-    color: var(--accent);
+    background: var(--brand-green);
+    color: var(--ink);
   }
 
   .site-footer-status {
