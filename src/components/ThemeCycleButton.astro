@@ -56,17 +56,12 @@ const { ariaLabel = "Toggle light or dark theme" } = Astro.props;
     height: 2rem;
     padding: 0;
     margin: 0;
-    
+    border: 1px solid var(--border-soft);
     border-radius: var(--r-none);
-    background-color: var(--canvas);
+    background: var(--canvas);
     color: var(--ink);
     cursor: pointer;
-    border: 1px solid transparent;
-    background-image: repeating-linear-gradient(to right, var(--border-soft) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to right, var(--border-soft) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to bottom, var(--border-soft) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to bottom, var(--border-soft) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap)));
-    background-size: 100% 1px, 100% 1px, 1px 100%, 1px 100%;
-    background-position: top, bottom, left, right;
-    background-repeat: no-repeat;
-}
+  }
 
   .theme-cycle-btn:hover {
     color: var(--ink);

@@ -153,13 +153,9 @@ const navItems = siteConfig.nav;
     position: fixed;
     inset: 0 0 auto 0;
     z-index: 50;
-    background-color: var(--canvas);
-    border-bottom: 1px solid transparent;
-    background-image: repeating-linear-gradient(to right, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap)));
-    background-size: 100% 1px;
-    background-position: bottom;
-    background-repeat: no-repeat;
-}
+    background: var(--canvas);
+    border-bottom: 1px solid var(--hairline);
+  }
 
   .workshop-nav-inner {
     display: flex;
@@ -249,17 +245,12 @@ const navItems = siteConfig.nav;
     gap: 5px;
     padding: 0;
     margin: 0;
-    
+    border: 1px solid var(--border-soft);
     border-radius: var(--r-none);
-    background-color: var(--canvas);
+    background: var(--canvas);
     color: var(--ink);
     cursor: pointer;
-    border: 1px solid transparent;
-    background-image: repeating-linear-gradient(to right, var(--border-soft) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to right, var(--border-soft) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to bottom, var(--border-soft) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to bottom, var(--border-soft) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap)));
-    background-size: 100% 1px, 100% 1px, 1px 100%, 1px 100%;
-    background-position: top, bottom, left, right;
-    background-repeat: no-repeat;
-}
+  }
 
   .workshop-nav-menu-btn:hover {
     color: var(--ink);
@@ -299,15 +290,10 @@ const navItems = siteConfig.nav;
     top: 100%;
     left: 0;
     right: 0;
-    background-color: var(--canvas);
-    
+    background: var(--canvas);
+    border-bottom: 1px solid var(--hairline);
     box-shadow: none;
-    border-bottom: 1px solid transparent;
-    background-image: repeating-linear-gradient(to right, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap)));
-    background-size: 100% 1px;
-    background-position: bottom;
-    background-repeat: no-repeat;
-}
+  }
 
   .workshop-nav-panel.is-open {
     display: block;
@@ -320,12 +306,8 @@ const navItems = siteConfig.nav;
   }
 
   .workshop-nav-panel-item {
-    border-bottom: 1px solid transparent;
-    background-image: repeating-linear-gradient(to right, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap)));
-    background-size: 100% 1px;
-    background-position: bottom;
-    background-repeat: no-repeat;
-}
+    border-bottom: 1px solid var(--hairline);
+  }
 
   .workshop-nav-panel-link {
     display: block;

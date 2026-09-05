@@ -33,16 +33,11 @@ import { siteConfig } from "../site-config";
   .hero-avatar {
     width: 64px;
     height: 64px;
-    
+    border: 1px solid var(--hairline);
     border-radius: var(--r-none);
     object-fit: cover;
-    background-color: var(--canvas);
-    border: 1px solid transparent;
-    background-image: repeating-linear-gradient(to right, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to right, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to bottom, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to bottom, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap)));
-    background-size: 100% 1px, 100% 1px, 1px 100%, 1px 100%;
-    background-position: top, bottom, left, right;
-    background-repeat: no-repeat;
-}
+    background: var(--canvas);
+  }
 
   .hero-title {
     font-family: var(--font-display);

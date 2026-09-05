@@ -65,18 +65,13 @@ const structured =
     position: relative;
     display: flex;
     flex-direction: column;
-    background-color: var(--canvas);
+    background: var(--canvas);
     border-radius: var(--r-none);
-    
+    border: 1px solid var(--hairline);
     overflow: hidden;
     box-shadow: none;
     transition: border-color var(--duration-base) var(--ease-out-expo);
-    border: 1px solid transparent;
-    background-image: repeating-linear-gradient(to right, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to right, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to bottom, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to bottom, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap)));
-    background-size: 100% 1px, 100% 1px, 1px 100%, 1px 100%;
-    background-position: top, bottom, left, right;
-    background-repeat: no-repeat;
-}
+  }
 
   .spotlight-card:hover {
     border-color: var(--ink);
@@ -88,12 +83,8 @@ const structured =
     margin: 0;
     padding: 0;
     overflow: hidden;
-    border-bottom: 1px solid transparent;
-    background-image: repeating-linear-gradient(to right, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap)));
-    background-size: 100% 1px;
-    background-position: bottom;
-    background-repeat: no-repeat;
-}
+    border-bottom: 1px solid var(--hairline);
+  }
 
   .card-body {
     display: flex;

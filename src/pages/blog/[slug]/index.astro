@@ -170,16 +170,11 @@ const dateStr = formatDate(post.data.date);
   .post-toc {
     margin: var(--space-12) 0;
     padding: var(--space-5) var(--space-6);
-    background-color: var(--canvas);
-    
+    background: var(--canvas);
+    border: 1px solid var(--hairline);
     border-radius: var(--r-none);
     box-shadow: none;
-    border: 1px solid transparent;
-    background-image: repeating-linear-gradient(to right, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to right, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to bottom, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to bottom, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap)));
-    background-size: 100% 1px, 100% 1px, 1px 100%, 1px 100%;
-    background-position: top, bottom, left, right;
-    background-repeat: no-repeat;
-}
+  }
 
   .post-toc-title {
     font-family: var(--font-sans);
@@ -265,19 +260,14 @@ const dateStr = formatDate(post.data.date);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--ink);
-    background-color: var(--canvas);
+    background: var(--canvas);
     text-decoration: none;
     text-align: center;
     padding: 7px 12px;
-    
+    border: 1px solid var(--border-soft);
     border-radius: var(--r-none);
     transition: color 150ms ease, border-color 150ms ease;
-    border: 1px solid transparent;
-    background-image: repeating-linear-gradient(to right, var(--border-soft) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to right, var(--border-soft) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to bottom, var(--border-soft) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to bottom, var(--border-soft) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap)));
-    background-size: 100% 1px, 100% 1px, 1px 100%, 1px 100%;
-    background-position: top, bottom, left, right;
-    background-repeat: no-repeat;
-}
+  }
 
   .post-nav-back:hover {
     color: var(--ink);

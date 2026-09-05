@@ -92,8 +92,8 @@ import SiteFooter from "../../components/SiteFooter.astro";
     #search :global(.pagefind-ui__search-input) {
       min-height: 64px;
       padding: 0 70px 0 54px;
-      background-color: var(--canvas);
-      
+      background: var(--canvas);
+      border: 1px solid var(--border-soft);
       border-radius: var(--r-none);
       font-family: var(--font-body);
       font-size: 1.1rem;
@@ -101,12 +101,7 @@ import SiteFooter from "../../components/SiteFooter.astro";
       color: var(--ink);
       box-shadow: none;
       transition: border-color var(--duration-base) var(--ease-out-expo);
-    border: 1px solid transparent;
-    background-image: repeating-linear-gradient(to right, var(--border-soft) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to right, var(--border-soft) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to bottom, var(--border-soft) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to bottom, var(--border-soft) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap)));
-    background-size: 100% 1px, 100% 1px, 1px 100%, 1px 100%;
-    background-position: top, bottom, left, right;
-    background-repeat: no-repeat;
-}
+    }
 
     #search :global(.pagefind-ui__search-input::placeholder) {
       color: var(--ink-subtle);
@@ -123,20 +118,15 @@ import SiteFooter from "../../components/SiteFooter.astro";
       right: 6px;
       height: calc(100% - 12px);
       padding: 0 1rem;
-      background-color: var(--canvas);
-      
+      background: var(--canvas);
+      border: 1px solid var(--border-soft);
       border-radius: var(--r-none);
       font-family: var(--font-sans);
       font-size: 16px;
       color: var(--ink);
       transition: color var(--duration-fast) var(--ease-out-expo),
         background-color var(--duration-fast) var(--ease-out-expo);
-    border: 1px solid transparent;
-    background-image: repeating-linear-gradient(to right, var(--border-soft) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to right, var(--border-soft) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to bottom, var(--border-soft) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to bottom, var(--border-soft) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap)));
-    background-size: 100% 1px, 100% 1px, 1px 100%, 1px 100%;
-    background-position: top, bottom, left, right;
-    background-repeat: no-repeat;
-}
+    }
 
     #search :global(.pagefind-ui__search-clear:hover) {
       color: var(--ink);
@@ -156,25 +146,16 @@ import SiteFooter from "../../components/SiteFooter.astro";
       align-items: flex-start;
       gap: 1rem;
       padding: 1.25rem;
-      background-color: var(--canvas);
-      
+      background: var(--canvas);
+      border: 1px solid var(--hairline);
       border-radius: var(--r-none);
       box-shadow: none;
       transition: border-color var(--duration-base) var(--ease-out-expo);
-    border: 1px solid transparent;
-    background-image: repeating-linear-gradient(to right, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to right, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to bottom, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to bottom, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap)));
-    background-size: 100% 1px, 100% 1px, 1px 100%, 1px 100%;
-    background-position: top, bottom, left, right;
-    background-repeat: no-repeat;
-}
+    }
 
     #search :global(.pagefind-ui__result:last-of-type) {
-    border-bottom: 1px solid transparent;
-    background-image: repeating-linear-gradient(to right, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap)));
-    background-size: 100% 1px;
-    background-position: bottom;
-    background-repeat: no-repeat;
-}
+      border-bottom: 1px solid var(--hairline);
+    }
 
     #search :global(.pagefind-ui__result:hover) {
       transform: none;
@@ -189,13 +170,9 @@ import SiteFooter from "../../components/SiteFooter.astro";
       aspect-ratio: var(--pagefind-ui-image-box-ratio);
       border-radius: var(--r-none);
       overflow: hidden;
-      background-color: var(--canvas);
-    border: 1px solid transparent;
-    background-image: repeating-linear-gradient(to right, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to right, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to bottom, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to bottom, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap)));
-    background-size: 100% 1px, 100% 1px, 1px 100%, 1px 100%;
-    background-position: top, bottom, left, right;
-    background-repeat: no-repeat;
-}
+      background: var(--canvas);
+      border: 1px solid var(--hairline);
+    }
 
     #search :global(.pagefind-ui__result-image) {
       width: 100%;
