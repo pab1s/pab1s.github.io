@@ -149,7 +149,7 @@ html[data-theme="dark"] {
 - [ ] **Step 4: Run test to verify it passes**
 
 Run: `test -f src/styles/tokens.css && grep -c "brand-green" src/styles/tokens.css`
-Expected: file exists, count `3` or more.
+Expected: file exists, count `2` (lines `--brand-green` + `--brand-green-deep`).
 
 - [ ] **Step 5: Commit**
 
