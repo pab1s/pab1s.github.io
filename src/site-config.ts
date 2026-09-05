@@ -2,7 +2,7 @@ export const siteConfig = {
   title: "Pablo Olivares",
   labName: "pab1s",
   tagline: "ML engineer · Madrid",
-  currently: "I work at Santander, where I help build and look after the platforms teams use to ship machine learning, from experimentation to AI agents and reusable RAG pipelines.",
+  currently: "At Santander I look after the platform that takes teams from running experiments to shipping AI and agents into production.",
   description:
     "Pablo Olivares: ML engineer at Santander working on AI/ML and experimentation platforms. Into hiking, cooking, traveling, and building stuff.",
   url: "https://pab1s.github.io",
