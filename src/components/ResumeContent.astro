@@ -326,8 +326,12 @@ const fmtDate = (d: string) => {
     gap: 0.5rem 1.5rem;
     align-items: start;
     padding-bottom: 1.25rem;
-    border-bottom: 1px dashed var(--hairline);
-  }
+    border-bottom: 1px solid transparent;
+    background-image: repeating-linear-gradient(to right, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap)));
+    background-size: 100% 1px;
+    background-position: bottom;
+    background-repeat: no-repeat;
+}
 
   .dossier-timeline-item:last-child {
     padding-bottom: 0;
@@ -417,9 +421,14 @@ const fmtDate = (d: string) => {
   }
 
   .dossier-skill-group {
-    border-bottom: 1px dashed var(--hairline);
+    
     padding-bottom: 1rem;
-  }
+    border-bottom: 1px solid transparent;
+    background-image: repeating-linear-gradient(to right, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap)));
+    background-size: 100% 1px;
+    background-position: bottom;
+    background-repeat: no-repeat;
+}
 
   .dossier-skill-group:last-child {
     border-bottom: none;
@@ -467,8 +476,12 @@ const fmtDate = (d: string) => {
     justify-content: space-between;
     align-items: baseline;
     padding: 0.35rem 0;
-    border-bottom: 1px dashed var(--hairline);
-  }
+    border-bottom: 1px solid transparent;
+    background-image: repeating-linear-gradient(to right, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap)));
+    background-size: 100% 1px;
+    background-position: bottom;
+    background-repeat: no-repeat;
+}
 
   .dossier-language-name {
     font-weight: 600;

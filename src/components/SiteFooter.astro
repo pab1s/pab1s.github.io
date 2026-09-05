@@ -76,11 +76,16 @@ import { siteConfig, telemetryLines } from "../site-config";
 
 <style>
   .site-footer {
-    border-top: 1px dashed var(--hairline);
-    background: transparent;
+    
+    background-color: transparent;
     margin-top: 3rem;
     padding: 1.5rem 0;
-  }
+    border-top: 1px solid transparent;
+    background-image: repeating-linear-gradient(to right, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap)));
+    background-size: 100% 1px;
+    background-position: top;
+    background-repeat: no-repeat;
+}
 
   .site-footer-inner {
     display: flex;

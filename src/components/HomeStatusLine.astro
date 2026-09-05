@@ -19,8 +19,12 @@ const status = telemetryLines[siteConfig.homeFeed.telemetryLineIndex] ?? telemet
     font-size: 0.75rem;
     color: var(--ink);
     padding: 0.75rem 0;
-    border-bottom: 1px dashed var(--hairline);
-  }
+    border-bottom: 1px solid transparent;
+    background-image: repeating-linear-gradient(to right, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap)));
+    background-size: 100% 1px;
+    background-position: bottom;
+    background-repeat: no-repeat;
+}
 
   .status-pulse {
     width: 7px;

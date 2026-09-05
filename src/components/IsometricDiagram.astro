@@ -19,7 +19,13 @@
   </g>
 </svg>
 <style>
-  .iso-diagram { width: 100%; height: auto; background: var(--canvas); border: 1px dashed var(--hairline); }
+  .iso-diagram { width: 100%; height: auto; background-color: var(--canvas);
+    border: 1px solid transparent;
+    background-image: repeating-linear-gradient(to right, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to right, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to bottom, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to bottom, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap)));
+    background-size: 100% 1px, 100% 1px, 1px 100%, 1px 100%;
+    background-position: top, bottom, left, right;
+    background-repeat: no-repeat;
+}
   .iso-ink { stroke: var(--ink); }
   .iso-green { stroke: var(--brand-green); }
   .iso-label { fill: var(--slate); font-family: var(--font-mono); }

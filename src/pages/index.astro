@@ -100,8 +100,12 @@ const featured = projectsData.projects.slice(0, 3);
   .index-section {
     margin-top: 1.5rem;
     padding: 2.5rem 0 1rem;
-    border-top: 1px dashed var(--hairline);
-  }
+    border-top: 1px solid transparent;
+    background-image: repeating-linear-gradient(to right, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap)));
+    background-size: 100% 1px;
+    background-position: top;
+    background-repeat: no-repeat;
+}
 
   .index-section-head {
     display: flex;
@@ -138,12 +142,20 @@ const featured = projectsData.projects.slice(0, 3);
   }
 
   .index-notes li {
-    border-bottom: 1px dashed var(--hairline);
-  }
+    border-bottom: 1px solid transparent;
+    background-image: repeating-linear-gradient(to right, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap)));
+    background-size: 100% 1px;
+    background-position: bottom;
+    background-repeat: no-repeat;
+}
 
   .index-notes li:first-child {
-    border-top: 1px dashed var(--hairline);
-  }
+    border-top: 1px solid transparent;
+    background-image: repeating-linear-gradient(to right, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap)));
+    background-size: 100% 1px;
+    background-position: top;
+    background-repeat: no-repeat;
+}
 
   .index-note-row {
     display: flex;

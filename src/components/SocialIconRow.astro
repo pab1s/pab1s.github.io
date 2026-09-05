@@ -79,12 +79,17 @@ import { siteConfig } from "../site-config";
     justify-content: center;
     width: 2rem;
     height: 2rem;
-    border: 1px dashed var(--hairline);
+    
     border-radius: var(--r-none);
-    background: var(--canvas);
+    background-color: var(--canvas);
     color: var(--ink);
     text-decoration: none;
-  }
+    border: 1px solid transparent;
+    background-image: repeating-linear-gradient(to right, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to right, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to bottom, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap))), repeating-linear-gradient(to bottom, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap)));
+    background-size: 100% 1px, 100% 1px, 1px 100%, 1px 100%;
+    background-position: top, bottom, left, right;
+    background-repeat: no-repeat;
+}
 
   .social-icon-link:hover {
     color: var(--ink);

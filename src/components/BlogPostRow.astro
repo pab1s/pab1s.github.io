@@ -50,11 +50,16 @@ const dateStr = formatDate(date);
     gap: var(--space-6);
     align-items: baseline;
     padding: var(--space-6) 0;
-    background: var(--canvas);
-    border-bottom: 1px dashed var(--hairline);
+    background-color: var(--canvas);
+    
     border-radius: var(--r-none);
     box-shadow: none;
-  }
+    border-bottom: 1px solid transparent;
+    background-image: repeating-linear-gradient(to right, var(--hairline) 0 var(--dash-len), transparent var(--dash-len) calc(var(--dash-len) + var(--dash-gap)));
+    background-size: 100% 1px;
+    background-position: bottom;
+    background-repeat: no-repeat;
+}
 
   .blog-post-row:first-child {
     padding-top: 0;
