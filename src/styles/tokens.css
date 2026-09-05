@@ -25,10 +25,9 @@
   --brand-green-deep: #00b86b;
   --line: var(--hairline);
   --line-strong: var(--hairline-strong);
-  --font-display: 'Space Grotesk', Inter, system-ui, sans-serif;
+  --font-display: 'Newsreader', Georgia, serif;
   --font-body: 'Newsreader', Georgia, serif;
   --font-mono: 'IBM Plex Mono', Menlo, monospace;
-  --font-sans: ui-sans-serif, system-ui, sans-serif;
   --display-xl: 88px;
   --display-lg: 64px;
   --r-none: 0px;

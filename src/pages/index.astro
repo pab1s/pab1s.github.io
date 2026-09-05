@@ -2,7 +2,6 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import WorkshopNav from "../components/WorkshopNav.astro";
 import HeroSection from "../components/HeroSection.astro";
-import HomeStatusLine from "../components/HomeStatusLine.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import { getCollection } from "astro:content";
 import { siteConfig } from "../site-config";
@@ -26,7 +25,6 @@ const featured = projectsData.projects.slice(0, 3);
   <WorkshopNav currentPath={Astro.url.pathname} />
 
   <HeroSection />
-  <HomeStatusLine />
 
   <section class="index-section" aria-labelledby="sec-experiments">
     <div class="index-section-head">
@@ -118,7 +116,7 @@ const featured = projectsData.projects.slice(0, 3);
   }
 
   .index-section-link {
-    font-family: var(--font-sans);
+    font-family: var(--font-mono);
     font-size: 16px;
     color: var(--ink);
     text-decoration: none;
@@ -126,9 +124,10 @@ const featured = projectsData.projects.slice(0, 3);
   }
 
   .index-section-link:hover {
-    background: var(--brand-green);
-    color: var(--ink);
-    text-decoration: none;
+    text-decoration: underline;
+    text-decoration-color: var(--brand-green);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
   }
 
   .index-notes {
@@ -166,7 +165,7 @@ const featured = projectsData.projects.slice(0, 3);
   }
 
   .index-note-date {
-    font-family: var(--font-sans);
+    font-family: var(--font-mono);
     font-size: 16px;
     color: var(--ink);
     flex-shrink: 0;

@@ -4,22 +4,12 @@ import { siteConfig } from "../site-config";
 ---
 
 <section class="hero-section" aria-labelledby="hero-title">
-  <img
-    class="hero-avatar"
-    src={siteConfig.avatarSrc}
-    width="64"
-    height="64"
-    alt={`${siteConfig.author} portrait`}
-    loading="eager"
-    decoding="async"
-  />
-
   <h1 id="hero-title" class="hero-title">{siteConfig.author}</h1>
-  <p class="hero-subtitle">{siteConfig.tagline}</p>
+  <p class="hero-tagline">{siteConfig.tagline}</p>
 
   <p class="hero-desc">
-    I turn raw data into <mark class="highlight-marker">insight</mark>, build things with PyTorch and curiosity,
-    and cook up experiments in the lab. {siteConfig.currently}
+    I turn raw data into <mark class="highlight-marker">insight</mark>, build things with PyTorch and curiosity.
+    {siteConfig.currently}
   </p>
 
   <SocialIconRow />
@@ -27,16 +17,7 @@ import { siteConfig } from "../site-config";
 
 <style>
   .hero-section {
-    padding: 1.5rem 0 2rem;
-  }
-
-  .hero-avatar {
-    width: 64px;
-    height: 64px;
-    border: 1px solid var(--hairline);
-    border-radius: var(--r-none);
-    object-fit: cover;
-    background: var(--canvas);
+    padding: 2rem 0 1.5rem;
   }
 
   .hero-title {
@@ -46,15 +27,14 @@ import { siteConfig } from "../site-config";
     line-height: 1.1;
     letter-spacing: -0.02em;
     color: var(--ink);
-    margin: 1rem 0 0;
-    text-transform: none;
+    margin: 0;
   }
 
-  .hero-subtitle {
-    font-family: var(--font-sans);
-    font-size: 0.9rem;
+  .hero-tagline {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
     color: var(--ink-muted);
-    margin: 0.25rem 0 0;
+    margin: 0.5rem 0 0;
   }
 
   .hero-desc {
@@ -64,19 +44,12 @@ import { siteConfig } from "../site-config";
     line-height: 1.6;
     color: var(--ink);
     max-width: 60ch;
-    margin: 1rem 0 0;
+    margin: 1rem 0 1.25rem;
   }
 
   .highlight-marker {
     background: var(--brand-green);
     color: var(--near-black);
     padding: 0 4px;
-  }
-
-  @media (max-width: 480px) {
-    .hero-avatar {
-      width: 56px;
-      height: 56px;
-    }
   }
 </style>
