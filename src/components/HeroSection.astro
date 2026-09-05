@@ -8,8 +8,11 @@ import { siteConfig } from "../site-config";
   <p class="hero-tagline">{siteConfig.tagline}</p>
 
   <p class="hero-desc">
-    I turn raw data into <mark class="highlight-marker">insight</mark>, build things with PyTorch and curiosity.
-    {siteConfig.currently}
+    I'm Pablo. {siteConfig.currently}
+  </p>
+
+  <p class="hero-desc hero-desc-secondary">
+    Outside of work I like hiking, cooking, traveling, and building stuff.
   </p>
 
   <SocialIconRow />
@@ -51,5 +54,10 @@ import { siteConfig } from "../site-config";
     background: var(--brand-green);
     color: var(--near-black);
     padding: 0 4px;
+  }
+
+  .hero-desc-secondary {
+    margin-top: 0.75rem;
+    color: var(--ink-muted);
   }
 </style>

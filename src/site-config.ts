@@ -1,10 +1,10 @@
 export const siteConfig = {
   title: "Pablo Olivares",
   labName: "pab1s",
-  tagline: "ML engineer · data alchemist · tinkerer",
-  currently: "Currently engineering ML at Santander.",
+  tagline: "ML engineer · Madrid",
+  currently: "I design, develop, and maintain the AI/ML and experimentation platform at Santander.",
   description:
-    "Pablo Olivares – ML engineer and data scientist. Projects, posts, and experiments built with PyTorch, curiosity, and a pinch of alchemy.",
+    "Pablo Olivares: ML engineer at Santander working on AI/ML and experimentation platforms. Into hiking, cooking, traveling, and building stuff.",
   url: "https://pab1s.github.io",
   author: "Pablo Olivares",
   googleAnalyticsId: "G-Q6BZDBC20J",
