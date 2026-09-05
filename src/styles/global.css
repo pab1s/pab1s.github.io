@@ -16,8 +16,8 @@
   --space-4: var(--sp-md);
   --space-6: var(--sp-lg);
   --space-8: var(--sp-xl);
-  --space-12: var(--sp-xl);
-  --space-16: var(--sp-xxl);
+  --space-12: var(--sp-xxxl);
+  --space-16: var(--sp-section);
   --space-24: var(--sp-section-lg);
   --space-32: var(--sp-section-lg);
   --container: 1280px;
