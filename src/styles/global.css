@@ -1,61 +1,43 @@
+@import url('./tokens.css');
 @import url('./animations.css');
-
 :root {
-  color-scheme: light;
-
-  --canvas: #fafaf5;
-  --canvas-elevated: #f3f1e8;
-  --ink: #1a1a1a;
-  --ink-muted: rgba(26, 26, 26, 0.56);
-  --ink-subtle: rgba(26, 26, 26, 0.20);
-  --accent: #3553ff;
-  --accent-hot: #2840d6;
-  --accent-soft: rgba(53, 83, 255, 0.08);
-  --accent-tint-strong: rgba(53, 83, 255, 0.18);
-  --line: rgba(26, 26, 26, 0.10);
-  --line-strong: rgba(26, 26, 26, 0.18);
-  --paper-dot: rgba(26, 26, 26, 0.07);
-  --font-display: 'Chakra Petch', system-ui, sans-serif;
-  --font-body: 'Source Serif 4', Georgia, serif;
-  --font-mono: 'IBM Plex Mono', Menlo, monospace;
-  --font-pixel: 'VT323', 'IBM Plex Mono', Menlo, monospace;
-  --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem;
-  --space-4: 1rem; --space-6: 1.5rem; --space-8: 2rem;
-  --space-12: 3rem; --space-16: 4rem; --space-24: 6rem; --space-32: 8rem;
+  --canvas-elevated: var(--surface-soft);
+  --ink-muted: var(--muted);
+  --ink-subtle: var(--hairline);
+  --accent: var(--brand-green);
+  --accent-hot: var(--brand-green-deep);
+  --accent-soft: var(--surface-mint);
+  --accent-tint-strong: var(--brand-green);
+  --paper-dot: transparent;
+  --space-1: var(--sp-xxs);
+  --space-2: var(--sp-xs);
+  --space-3: var(--sp-sm);
+  --space-4: var(--sp-md);
+  --space-6: var(--sp-lg);
+  --space-8: var(--sp-xl);
+  --space-12: var(--sp-xxxl);
+  --space-16: var(--sp-xxl);
+  --space-24: var(--sp-section-lg);
+  --space-32: var(--sp-section-lg);
   --container: 1280px;
   --gutter: 24px;
-  --radius-sm: 1px; --radius-md: 2px;
-  --shadow-color: var(--ink);
-  --shadow-sm: 2px 2px 0 var(--shadow-color);
-  --shadow-md: 3px 3px 0 var(--shadow-color);
-  --shadow-lg: 6px 6px 0 var(--shadow-color);
-  --shadow-hard: 3px 3px 0 var(--shadow-color);
-  --glow: 0 0 8px rgba(53, 83, 255, 0.30);
-  --glow-text: 0 0 6px rgba(53, 83, 255, 0.40);
+  --radius-sm: var(--r-none);
+  --radius-md: var(--r-none);
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+  --shadow-hard: none;
+  --shadow-color: transparent;
+  --glow: none;
+  --glow-text: none;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --duration-fast: 150ms;
   --duration-base: 250ms;
   --duration-slow: 400ms;
 }
-
 html[data-theme="dark"] {
-  color-scheme: dark;
-
-  --canvas: #0a0d1a;
-  --canvas-elevated: #131830;
-  --ink: #e8e6dc;
-  --ink-muted: rgba(232, 230, 220, 0.56);
-  --ink-subtle: rgba(232, 230, 220, 0.20);
-  --accent: #6b8eff;
-  --accent-hot: #8aa5ff;
-  --accent-soft: rgba(107, 142, 255, 0.12);
-  --accent-tint-strong: rgba(107, 142, 255, 0.22);
-  --line: rgba(232, 230, 220, 0.12);
-  --line-strong: rgba(232, 230, 220, 0.20);
-  --paper-dot: rgba(232, 230, 220, 0.06);
-  --shadow-color: #04060e;
-  --glow: 0 0 10px rgba(107, 142, 255, 0.55);
-  --glow-text: 0 0 8px rgba(107, 142, 255, 0.70);
+  --canvas-elevated: var(--surface-soft);
+  --ink-muted: var(--muted);
 }
 
 *,
@@ -86,7 +68,7 @@ body {
   line-height: 1.62;
   color: var(--ink);
   background-color: var(--canvas);
-  background-image: radial-gradient(var(--paper-dot) 1px, transparent 1px);
+  background-image: none;
   background-size: 16px 16px;
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
@@ -112,20 +94,7 @@ body {
   top: 0;
 }
 
-.stars {
-  pointer-events: auto;
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  background-image:
-    radial-gradient(1px 1px at 10% 20%, rgba(255, 255, 255, 0.4), transparent),
-    radial-gradient(1px 1px at 30% 70%, rgba(255, 255, 255, 0.25), transparent),
-    radial-gradient(1px 1px at 72% 40%, rgba(255, 255, 255, 0.35), transparent),
-    radial-gradient(1px 1px at 88% 15%, rgba(255, 255, 255, 0.2), transparent),
-    radial-gradient(1px 1px at 55% 88%, rgba(255, 255, 255, 0.3), transparent);
-  background-size: 100% 100%;
-  opacity: 0;
-}
+.stars { display: none; }
 
 html[data-theme="dark"] .stars {
   opacity: 0.18;
@@ -136,11 +105,9 @@ html[data-theme="dark"] .stars {
   position: fixed;
   inset: 0;
   z-index: 0;
-  background-image:
-    linear-gradient(to right, var(--accent-soft) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--accent-soft) 1px, transparent 1px);
+  background-image: linear-gradient(to right, var(--hairline) 1px, transparent 1px), linear-gradient(to bottom, var(--hairline) 1px, transparent 1px);
   background-size: 48px 48px;
-  opacity: 0.4;
+  opacity: 1;
 }
 
 html[data-theme="dark"] .blueprint-grid {
@@ -175,10 +142,10 @@ h2,
 h3,
 h4 {
   font-family: var(--font-display);
-  font-weight: 500;
-  letter-spacing: 0.02em;
+  font-weight: 600;
+  letter-spacing: -0.02em;
   line-height: 1;
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--ink);
 }
 
