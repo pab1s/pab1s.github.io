@@ -31,9 +31,18 @@ Why is this a problem? Let's think about minimizing that standard empirical risk
 
 This immediately tells us that **accuracy is a terrible metric** for highly imbalanced problems. That 99.9% accurate 'never fraud' detector is worthless. We need metrics that focus on the minority class performance:
 
-- **Precision:** Of the times the model predicted 'fraud', how often was it actually fraud? $P = \frac{TP}{TP+FP}$ (TP=True Positives, FP=False Positives)
-- **Recall (Sensitivity):** Of all the actual fraud cases, how many did the model find? $R = \frac{TP}{TP+FN}$ (FN=False Negatives)
-- **F1-Score:** The harmonic mean of Precision and Recall, giving a balanced measure: $F1 = 2 \cdot \frac{P \cdot R}{P + R}$
+- **Precision:** Of the times the model predicted 'fraud', how often was it actually fraud (TP=True Positives, FP=False Positives)?
+  $$
+  P = \frac{TP}{TP+FP}
+  $$
+- **Recall (Sensitivity):** Of all the actual fraud cases, how many did the model find (FN=False Negatives)?
+  $$
+  R = \frac{TP}{TP+FN}
+  $$
+- **F1-Score:** The harmonic mean of Precision and Recall, giving a balanced measure:
+  $$
+  F1 = 2 \cdot \frac{P \cdot R}{P + R}
+  $$
 - **AUC-ROC:** Area Under the Receiver Operating Characteristic Curve. Plots True Positive Rate (Recall) vs. False Positive Rate across different prediction thresholds. Good for overall ranking ability.
 - **AUC-PR:** Area Under the Precision-Recall Curve. Often more informative than ROC for highly imbalanced data, as it focuses directly on the tradeoff between finding minority samples (Recall) and the precision of those findings.
 
@@ -52,7 +61,13 @@ The idea: let's increase the representation of the minority class.
     1. For each minority instance $x_i$.
     2. Find its $k$ nearest neighbors that are _also_ in the minority class.
     3. Randomly choose one of these neighbors, let's call it $x_{nn}$.
-    4. Create a new synthetic instance $x_{new}$ by interpolating along the line segment between $x_i$ and $x_{nn}$: $$ x_{new} = x_i + \lambda \cdot (x_{nn} - x_i) $$ where $\lambda$ is a random number chosen uniformly from $[0, 1]$.
+    4. Create a new synthetic instance $x_{new}$ by interpolating along the line segment between $x_i$ and $x_{nn}$:
+
+    $$
+    x_{new} = x_i + \lambda \cdot (x_{nn} - x_i)
+    $$
+
+    where $\lambda$ is a random number chosen uniformly from $[0, 1]$.
     5. Repeat this process until the desired level of balance is achieved. The intuition is to "fill in" the feature space region occupied by the minority class, creating denser clusters and forcing the decision boundary to be more specific.
 - **ADASYN (Adaptive Synthetic Sampling):** A refinement of SMOTE (He et al., 2008). ADASYN focuses on generating _more_ synthetic samples for minority instances that are _harder to learn_. It looks at the neighborhood of each minority point $x_i$ and checks the ratio of majority vs. minority neighbors. If $x_i$ has many majority neighbors, it's considered harder to learn (e.g., near the decision boundary), and ADASYN generates more synthetic samples around it.
 
@@ -74,7 +89,9 @@ Okay, these resampling techniques often _improve_ our desired metrics (like mino
 
 We started with a training set $\mathcal{S}$ hopefully sampled i.i.d. from the true, imbalanced distribution $\mathcal{D}$. We then applied some transformation (SMOTE, ENN, etc.) to get a _new_ training set $\mathcal{S}'$ which effectively represents a different, more balanced distribution $\mathcal{D}'$. We then trained our model $f$ by minimizing the empirical risk on this _modified_ set:
 
-$$ \mathcal{R}'_{emp}(f) = \mathbb{E}_{(x,y) \sim \mathcal{S}'}[L(f(x), y)] \quad (\text{where } \mathcal{S}' \text{ reflects } \mathcal{D}') $$
+$$
+\mathcal{R}'_{emp}(f) = \mathbb{E}_{(x,y) \sim \mathcal{S}'}[L(f(x), y)] \quad (\text{where } \mathcal{S}' \text{ reflects } \mathcal{D}')
+$$
 
 But our ultimate goal was to minimize the true risk $\mathcal{R}(f)$ defined on the _original_ distribution $\mathcal{D}$! The theoretical guarantees connecting $\mathcal{R}_{emp}$ and $\mathcal{R}$ from statistical learning theory heavily rely on that i.i.d. assumption – that $\mathcal{S}$ is a direct, representative sample of $\mathcal{D}$. By resampling, we've deliberately broken this assumption. We've trained our model on $\mathcal{D}'$. How well will it perform on $\mathcal{D}$? The theoretical link is severed, or at least significantly weakened, leading to a **distribution shift**. We have a mismatch between the training distribution $P_{train}(x, y)$ (which reflects $\mathcal{D}'$) and the test/deployment distribution $P_{test}(x, y)$ (which reflects the real-world $\mathcal{D}$). Specifically, resampling techniques typically introduce:
 
@@ -89,7 +106,13 @@ Furthermore (and this is a sneak peek for next time), training with artificially
 
 Instead of manipulating the data $\mathcal{S}$, what if we manipulate the loss function $L$ instead? This is the idea behind **cost-sensitive learning**. We acknowledge that misclassifying a minority instance (e.g., missing a fraud case) is much more costly than misclassifying a majority instance (e.g., flagging a legit transaction).
 
-We can incorporate these costs directly into the loss. For example, using weighted cross-entropy: $$ L'(f(x), y) = w_y \cdot L_{CE}(f(x), y) $$ Here, $w_y$ is a weight assigned based on the true class $y$. We would set $w_{minority} > w_{majority}$ (often inversely proportional to class frequencies). This tells the optimizer: "Pay more attention to getting the minority class right!"
+We can incorporate these costs directly into the loss. For example, using weighted cross-entropy:
+
+$$
+L'(f(x), y) = w_y \cdot L_{CE}(f(x), y)
+$$
+
+Here, $w_y$ is a weight assigned based on the true class $y$. We would set $w_{minority} > w_{majority}$ (often inversely proportional to class frequencies). This tells the optimizer: "Pay more attention to getting the minority class right!"
 
 _Pros:_ Doesn't alter the data distribution $\mathcal{S}$. Keeps the connection to $\mathcal{D}$ more direct. _Cons:_ Still changes the objective function – we're no longer minimizing the standard $\mathcal{R}_{emp}$ on $\mathcal{D}$. Choosing the optimal weights $w_y$ can be non-trivial. It can also affect the calibration of the output probabilities.
 
