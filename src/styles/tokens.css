@@ -48,6 +48,7 @@
   --sp-xxxl: 48px;
   --sp-section: 56px;
   --sp-section-lg: 64px;
+  --paper-dot: rgba(0, 0, 0, 0.12);
 }
 html[data-theme="dark"] {
   color-scheme: dark;
@@ -64,6 +65,7 @@ html[data-theme="dark"] {
   --border-soft: rgba(255, 255, 255, 0.22);
   --surface-mint: #131a15;
   --surface-soft: #161616;
+  --paper-dot: rgba(255, 255, 255, 0.12);
   --line: var(--hairline);
   --line-strong: var(--hairline-strong);
 }

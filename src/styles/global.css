@@ -9,7 +9,6 @@
   --accent-hot: var(--brand-green-deep);
   --accent-soft: var(--surface-mint);
   --accent-tint-strong: var(--brand-green);
-  --paper-dot: transparent;
   --font-pixel: var(--font-mono);
   --space-1: var(--sp-xxs);
   --space-2: var(--sp-xs);
@@ -68,7 +67,7 @@ body {
   line-height: 1.62;
   color: var(--ink);
   background-color: var(--canvas);
-  background-image: none;
+  background-image: radial-gradient(var(--paper-dot) 1px, transparent 1px);
   background-size: 16px 16px;
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
@@ -171,13 +170,13 @@ code {
   font-family: var(--font-mono);
   font-size: 0.9em;
   background: var(--canvas-elevated);
-  border: 1px solid var(--line);
+  border: 1px dashed var(--line);
   padding: 0.1em 0.35em;
   border-radius: var(--radius-sm);
 }
 
 pre {
-  border: 1px solid var(--line);
+  border: 1px dashed var(--line);
   border-radius: var(--radius-md);
   padding: 0.65rem 0.72rem;
   overflow-x: auto;
@@ -194,7 +193,7 @@ pre code {
 .frame {
   position: relative;
   background: var(--canvas-elevated);
-  border: 1px solid var(--line);
+  border: 1px dashed var(--line);
   border-radius: var(--radius-md);
   padding: var(--space-4) var(--space-6);
   box-shadow: var(--shadow-sm);
@@ -251,7 +250,7 @@ pre code {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ink-muted);
-  border: 1px solid var(--line);
+  border: 1px dashed var(--line);
   padding: 0.15rem 0.45rem 0.1rem;
   border-radius: 1px;
   font-family: var(--font-pixel);
@@ -268,7 +267,7 @@ pre code {
   font-size: 0.6rem;
   padding: 0.1rem 0.34rem;
   margin: 0.1rem 0.22rem 0 0;
-  border: 1px solid var(--line);
+  border: 1px dashed var(--line);
   color: var(--ink-muted);
   border-radius: 1px;
   text-transform: uppercase;
@@ -348,7 +347,7 @@ pre code {
 
 .prose hr {
   border: 0;
-  border-top: 1px solid var(--hairline);
+  border-top: 1px dashed var(--hairline);
   margin: var(--space-12) 0;
   height: 0;
 }
@@ -372,7 +371,7 @@ pre code {
 
 .prose pre {
   background: var(--canvas);
-  border: 1px solid var(--hairline);
+  border: 1px dashed var(--hairline);
   border-radius: var(--r-none);
   padding: var(--space-4) var(--space-6);
   overflow-x: auto;
@@ -393,7 +392,7 @@ pre code {
   font-family: var(--font-mono);
   font-size: 0.88em;
   background: var(--surface-mint);
-  border: 1px solid var(--hairline);
+  border: 1px dashed var(--hairline);
   padding: 0.12em 0.32em;
   border-radius: var(--r-none);
   color: var(--ink);
@@ -415,7 +414,7 @@ pre code {
 .prose img {
   max-width: 100%;
   height: auto;
-  border: 1px solid var(--hairline);
+  border: 1px dashed var(--hairline);
   border-radius: var(--r-none);
   margin: var(--space-8) 0;
 }
@@ -429,7 +428,7 @@ pre code {
 
 .prose th,
 .prose td {
-  border: 1px solid var(--hairline);
+  border: 1px dashed var(--hairline);
   padding: var(--space-2) var(--space-3);
 }
 
@@ -474,7 +473,7 @@ pre code {
 .prose .footnotes {
   margin-top: var(--space-12);
   padding-top: var(--space-6);
-  border-top: 1px solid var(--line-strong);
+  border-top: 1px dashed var(--line-strong);
 }
 
 .prose .footnotes::before {
@@ -549,7 +548,7 @@ pre code {
   height: 86px;
   background-size: cover;
   background-position: center;
-  border: 1px solid var(--line);
+  border: 1px dashed var(--line);
   border-radius: var(--radius-md);
   margin-bottom: 0.5rem;
   background-color: var(--canvas-elevated);
@@ -611,7 +610,7 @@ pre code {
     color: black !important;
   }
   .frame, .spotlight-card {
-    border: 1px solid var(--hairline) !important;
+    border: 1px dashed var(--hairline) !important;
     background: var(--canvas) !important;
   }
 }
