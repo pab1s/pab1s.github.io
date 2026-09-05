@@ -72,44 +72,37 @@ const allTags = Array.from(tagCounts.entries())
 
   .filter-btn {
     appearance: none;
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    padding: 0.35rem 0.75rem;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-sm);
-    background: var(--canvas-elevated);
-    color: var(--ink-muted);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    letter-spacing: normal;
+    text-transform: none;
+    padding: 7px 12px;
+    border: none;
+    border-radius: var(--r-pill);
+    background: var(--surface-soft);
+    color: var(--ink);
     cursor: pointer;
-    transition:
-      background var(--duration-fast) var(--ease-out-expo),
-      color var(--duration-fast) var(--ease-out-expo),
-      border-color var(--duration-fast) var(--ease-out-expo),
-      box-shadow var(--duration-fast) var(--ease-out-expo);
   }
 
   .filter-btn:hover {
-    border-color: var(--accent);
+    background: var(--brand-green);
+    border-color: transparent;
     color: var(--ink);
   }
 
   .filter-btn[aria-pressed="true"] {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: var(--canvas);
-  }
-
-  html[data-theme="dark"] .filter-btn[aria-pressed="true"] {
-    box-shadow: var(--glow);
+    background: var(--brand-green);
+    border-color: transparent;
+    color: var(--ink);
+    box-shadow: none;
   }
 
   .projects-empty {
     text-align: center;
-    color: var(--ink-muted);
+    color: var(--ink);
     padding: 3rem 1rem;
-    font-family: var(--font-body);
-    font-size: 1rem;
+    font-family: var(--font-sans);
+    font-size: 16px;
   }
 </style>
 

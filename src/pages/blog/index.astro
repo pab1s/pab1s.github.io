@@ -40,3 +40,25 @@ const posts = (await getCollection("blog"))
 
   <SiteFooter />
 </BaseLayout>
+
+<style>
+  .blog-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--hairline);
+  }
+
+  .blog-list li {
+    background: var(--canvas);
+    border-bottom: 1px solid var(--hairline);
+    border-radius: var(--r-none);
+    box-shadow: none;
+  }
+
+  @media (max-width: 640px) {
+    .blog-list li {
+      border-bottom-color: var(--hairline);
+    }
+  }
+</style>

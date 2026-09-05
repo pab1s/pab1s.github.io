@@ -101,7 +101,7 @@ const featured = projectsData.projects.slice(0, 3);
   .index-section {
     margin-top: 1.5rem;
     padding: 2.5rem 0 1rem;
-    border-top: 1px solid var(--line);
+    border-top: 1px solid var(--hairline);
   }
 
   .index-section-head {
@@ -117,16 +117,17 @@ const featured = projectsData.projects.slice(0, 3);
   }
 
   .index-section-link {
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    color: var(--accent);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    color: var(--ink);
     text-decoration: none;
     white-space: nowrap;
   }
 
   .index-section-link:hover {
-    color: var(--accent-hot);
-    text-decoration: underline;
+    background: var(--brand-green);
+    color: var(--ink);
+    text-decoration: none;
   }
 
   .index-projects {
@@ -152,11 +153,11 @@ const featured = projectsData.projects.slice(0, 3);
   }
 
   .index-notes li {
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1px solid var(--hairline);
   }
 
   .index-notes li:first-child {
-    border-top: 1px solid var(--line);
+    border-top: 1px solid var(--hairline);
   }
 
   .index-note-row {
@@ -166,37 +167,42 @@ const featured = projectsData.projects.slice(0, 3);
     padding: 0.85rem 0.25rem;
     text-decoration: none;
     color: inherit;
-    transition: transform var(--duration-fast) var(--ease-out-expo);
   }
 
   .index-note-row:hover {
-    transform: translateX(4px);
+    transform: none;
   }
 
   .index-note-row:hover .index-note-title {
-    color: var(--accent);
+    background: var(--brand-green);
+    color: var(--ink);
   }
 
   .index-note-date {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--ink-muted);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    color: var(--ink);
     flex-shrink: 0;
   }
 
   .index-note-title {
-    font-size: 1.05rem;
-    font-weight: 500;
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.333;
+    letter-spacing: -0.48px;
     color: var(--ink);
-    transition: color var(--duration-fast) var(--ease-out-expo);
   }
 
   .index-note-tag {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--accent);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    letter-spacing: normal;
+    text-transform: none;
+    background: var(--surface-soft);
+    border-radius: var(--r-pill);
+    padding: 7px 12px;
+    color: var(--ink);
     flex-shrink: 0;
   }
 
@@ -205,7 +211,7 @@ const featured = projectsData.projects.slice(0, 3);
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
     padding-bottom: 0;
-    border-top: 1px solid var(--line);
+    border-top: 1px solid var(--hairline);
   }
 
   .index-tile {
@@ -213,46 +219,48 @@ const featured = projectsData.projects.slice(0, 3);
     flex-direction: column;
     gap: 0.4rem;
     padding: 1.25rem;
-    background: var(--canvas-elevated);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
+    background: var(--canvas);
+    border: 1px solid var(--hairline);
+    border-radius: var(--r-none);
+    box-shadow: none;
     text-decoration: none;
     color: inherit;
-    transition: transform var(--duration-base) var(--ease-out-expo),
-      border-color var(--duration-base) var(--ease-out-expo),
-      box-shadow var(--duration-base) var(--ease-out-expo);
   }
 
   .index-tile:hover {
-    transform: translate(-2px, -2px);
-    border-color: var(--accent);
-    box-shadow: var(--shadow-hard);
-  }
-
-  html[data-theme="dark"] .index-tile:hover {
-    box-shadow: var(--shadow-hard), var(--glow);
+    transform: none;
+    border-color: var(--ink);
+    box-shadow: none;
   }
 
   .index-tile-title {
     font-family: var(--font-display);
-    font-size: 1.25rem;
-    font-weight: 500;
-    letter-spacing: 0.02em;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.333;
+    letter-spacing: -0.48px;
     text-transform: uppercase;
     color: var(--ink);
   }
 
   .index-tile-desc {
-    font-size: 0.92rem;
+    font-family: var(--font-sans);
+    font-size: 16px;
     line-height: 1.5;
-    color: var(--ink-muted);
+    color: var(--ink);
   }
 
   .index-tile-cta {
     margin-top: 0.5rem;
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    color: var(--accent);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    color: var(--ink);
+  }
+
+  .index-tile-cta:hover,
+  .index-tile:hover .index-tile-cta {
+    background: var(--brand-green);
+    color: var(--ink);
   }
 
   @media (max-width: 900px) {

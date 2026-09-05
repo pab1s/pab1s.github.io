@@ -45,17 +45,17 @@ const { title, description, image, tags, gitHubLink, liveLink } = Astro.props;
     aspect-ratio: 16 / 10;
     width: 100%;
     overflow: hidden;
+    border-bottom: 1px solid var(--hairline);
   }
 
   .project-image-wrap img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform var(--duration-slow) var(--ease-out-expo);
   }
 
   .project-card:hover .project-image-wrap img {
-    transform: scale(1.05);
+    transform: none;
   }
 
   .project-tags {
@@ -63,29 +63,34 @@ const { title, description, image, tags, gitHubLink, liveLink } = Astro.props;
   }
 
   .project-tag {
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    padding: 0.15rem 0.45rem;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-sm);
-    color: var(--accent);
-    transition: border-color var(--duration-fast) var(--ease-out-expo);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    padding: 7px 12px;
+    border: none;
+    border-radius: var(--r-pill);
+    background: var(--surface-soft);
+    color: var(--ink);
   }
 
   .project-card:hover .project-tag {
-    border-color: var(--accent);
+    border-color: transparent;
+  }
+
+  .project-links {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
   }
 
   .project-links a {
-    color: var(--accent);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    text-decoration-color: var(--accent-soft);
-    font-size: 0.9rem;
-    transition: color var(--duration-fast) var(--ease-out-expo);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    color: var(--ink);
+    text-decoration: none;
   }
 
   .project-links a:hover {
-    color: var(--accent-hot);
+    background: var(--brand-green);
+    color: var(--ink);
   }
 </style>

@@ -79,21 +79,18 @@ import { siteConfig } from "../site-config";
     justify-content: center;
     width: 2rem;
     height: 2rem;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
-    color: var(--ink-muted);
+    border: 1px solid var(--hairline);
+    border-radius: var(--r-none);
+    background: var(--canvas);
+    color: var(--ink);
     text-decoration: none;
-    transition: color var(--duration-fast) var(--ease-out-expo),
-      border-color var(--duration-fast) var(--ease-out-expo),
-      background var(--duration-fast) var(--ease-out-expo),
-      transform var(--duration-fast) var(--ease-out-expo);
   }
 
   .social-icon-link:hover {
-    color: var(--accent-hot);
-    border-color: var(--accent-soft);
-    background: var(--accent-soft);
-    transform: translateY(-2px);
+    color: var(--ink);
+    border-color: var(--ink);
+    background: var(--brand-green);
+    transform: none;
   }
 
   .social-icon-svg {

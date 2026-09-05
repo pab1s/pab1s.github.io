@@ -21,7 +21,7 @@ const structured =
   hasLinks;
 ---
 
-<article class={`spotlight-card ${className}`} data-spotlight>
+<article class={`spotlight-card ${className}`}>
   {
     structured ? (
       <>
@@ -60,106 +60,57 @@ const structured =
   }
 </article>
 
-<script>
-  (function () {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const cards = document.querySelectorAll("[data-spotlight]");
-    cards.forEach((card) => {
-      const el = card as HTMLElement;
-      el.addEventListener("mousemove", (e: MouseEvent) => {
-        const rect = el.getBoundingClientRect();
-        el.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
-        el.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
-      });
-    });
-  })();
-</script>
-
 <style>
   .spotlight-card {
     position: relative;
     display: flex;
     flex-direction: column;
-    background: var(--canvas-elevated);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--line);
+    background: var(--canvas);
+    border-radius: var(--r-none);
+    border: 1px solid var(--hairline);
     overflow: hidden;
-    transition: transform var(--duration-base) var(--ease-out-expo),
-      border-color var(--duration-base) var(--ease-out-expo),
-      box-shadow var(--duration-base) var(--ease-out-expo);
-    isolation: isolate;
-  }
-
-  .spotlight-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: var(--radius-md);
-    background: radial-gradient(
-      500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-      rgba(18, 18, 20, 0.05),
-      transparent 50%
-    );
-    opacity: 0;
-    transition: opacity var(--duration-base) var(--ease-out-expo);
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  html[data-theme="dark"] .spotlight-card::before {
-    background: radial-gradient(
-      500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-      rgba(232, 232, 234, 0.05),
-      transparent 50%
-    );
-  }
-
-  .spotlight-card:hover::before {
-    opacity: 1;
+    box-shadow: none;
+    transition: border-color var(--duration-base) var(--ease-out-expo);
   }
 
   .spotlight-card:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: var(--shadow-hard);
-    border-color: var(--accent);
-  }
-
-  html[data-theme="dark"] .spotlight-card:hover {
-    box-shadow: var(--shadow-hard), var(--glow);
-  }
-
-  .spotlight-card > * {
-    position: relative;
-    z-index: 1;
+    border-color: var(--ink);
+    box-shadow: none;
+    transform: none;
   }
 
   .card-image {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    border-bottom: 1px solid var(--hairline);
   }
 
   .card-body {
     display: flex;
     flex-direction: column;
     flex: 1;
-    padding: 1.25rem;
+    padding: 24px;
     gap: 0.5rem;
   }
 
   .card-title {
     font-family: var(--font-display);
-    font-size: 1.1rem;
+    font-size: 24px;
     font-weight: 600;
-    line-height: 1.2;
+    line-height: 1.333;
+    letter-spacing: -0.48px;
     color: var(--ink);
     margin: 0;
   }
 
   .card-description {
-    font-size: 0.9rem;
-    line-height: 1.5;
-    color: var(--ink-muted);
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.333;
+    letter-spacing: -0.48px;
+    color: var(--ink);
     margin: 0;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -177,8 +128,8 @@ const structured =
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 0.75rem;
-    padding: 0 1.25rem 1.25rem;
+    gap: 12px;
+    padding: 0 24px 24px;
   }
 
   .card-tags {
@@ -191,5 +142,10 @@ const structured =
     display: flex;
     align-items: center;
     gap: 1rem;
+  }
+
+  .card-links a:hover {
+    background: var(--brand-green);
+    color: var(--ink);
   }
 </style>
