@@ -9,13 +9,14 @@
   --accent-soft: var(--surface-mint);
   --accent-tint-strong: var(--brand-green);
   --paper-dot: transparent;
+  --font-pixel: var(--font-mono);
   --space-1: var(--sp-xxs);
   --space-2: var(--sp-xs);
   --space-3: var(--sp-sm);
   --space-4: var(--sp-md);
   --space-6: var(--sp-lg);
   --space-8: var(--sp-xl);
-  --space-12: var(--sp-xxxl);
+  --space-12: var(--sp-xl);
   --space-16: var(--sp-xxl);
   --space-24: var(--sp-section-lg);
   --space-32: var(--sp-section-lg);
