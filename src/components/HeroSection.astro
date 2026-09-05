@@ -19,7 +19,6 @@ const buildDate = new Date().toISOString().slice(0, 10).replace(/-/g, ".");
           loading="eager"
           decoding="async"
         />
-        <span class="hero-avatar-caption" aria-hidden="true">fig. a</span>
       </div>
 
       <div class="hero-headline">
@@ -84,21 +83,6 @@ const buildDate = new Date().toISOString().slice(0, 10).replace(/-/g, ".");
     box-shadow: none;
     object-fit: cover;
     background: var(--canvas);
-  }
-
-  .hero-avatar-caption {
-    position: absolute;
-    bottom: -0.4rem;
-    right: -0.4rem;
-    font-family: var(--font-mono);
-    font-size: 0.55rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink);
-    background: var(--canvas);
-    border: 1px solid var(--hairline);
-    padding: 0.1rem 0.35rem;
-    border-radius: var(--r-none);
   }
 
   .hero-headline {

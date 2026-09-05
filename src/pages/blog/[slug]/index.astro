@@ -13,17 +13,16 @@ export async function getStaticPaths() {
   const published = posts.filter((p) => !p.data.draft).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
   return published.map((post, index) => ({
     params: { slug: post.slug },
-    props: { post, index, total: published.length },
+    props: { post, index },
   }));
 }
 
 interface Props {
   post: CollectionEntry<"blog">;
   index: number;
-  total: number;
 }
 
-const { post, index, total } = Astro.props;
+const { post, index } = Astro.props;
 const { Content, headings } = await render(post);
 
 const desc = post.data.description?.trim() || siteConfig.description;
@@ -31,9 +30,6 @@ const tocItems = headings.filter((h) => h.depth >= 2 && h.depth <= 4);
 
 // Calculate read time (rough estimate: 200 words per minute)
 const readTime = calculateReadTime(post.body);
-
-// Post number: reverse index (oldest = LAB_001)
-const postNumber = String(total - index).padStart(3, "0");
 
 // Adjacent posts
 const allPosts = (await getCollection("blog"))
@@ -51,7 +47,7 @@ const dateStr = formatDate(post.data.date);
   <article class="post-article">
     <header class="post-masthead">
       <div class="post-meta-row">
-        <span class="fig-label">LAB_{postNumber} · {dateStr}</span>
+        <span class="meta-row">{dateStr}</span>
         <span class="post-read-time">{readTime} min read</span>
       </div>
 
