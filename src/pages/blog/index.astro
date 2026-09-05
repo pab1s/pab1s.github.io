@@ -12,12 +12,12 @@ const posts = (await getCollection("blog"))
   .map((post) => ({ ...post, readTime: calculateReadTime(post.body) }));
 ---
 
-<BaseLayout title="Lab Notes" description="Notes on ML, math, and the art of data alchemy." usesKatex={true}>
+<BaseLayout title="Blog" description="Posts on ML, math, and the art of data alchemy." usesKatex={true}>
   <WorkshopNav currentPath={Astro.url.pathname} />
 
   <header class="section-hero">
-    <h1>Lab Notes</h1>
-    <p>Notes on ML, math, and the art of data alchemy.</p>
+    <h1>Blog</h1>
+    <p>Posts on ML, math, and the art of data alchemy.</p>
   </header>
 
   <ul class="blog-list stagger-in">
