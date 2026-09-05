@@ -1,111 +1,60 @@
 ---
-import IsometricDiagram from "./IsometricDiagram.astro";
 import SocialIconRow from "./SocialIconRow.astro";
 import { siteConfig } from "../site-config";
-
-const buildDate = new Date().toISOString().slice(0, 10).replace(/-/g, ".");
 ---
 
 <section class="hero-section" aria-labelledby="hero-title">
-  <div class="hero-grid">
-    <div class="hero-title-block">
-      <div class="hero-avatar-wrap">
-        <img
-          class="hero-avatar"
-          src={siteConfig.avatarSrc}
-          width="140"
-          height="140"
-          alt={`${siteConfig.author} portrait`}
-          loading="eager"
-          decoding="async"
-        />
-      </div>
+  <img
+    class="hero-avatar"
+    src={siteConfig.avatarSrc}
+    width="64"
+    height="64"
+    alt={`${siteConfig.author} portrait`}
+    loading="eager"
+    decoding="async"
+  />
 
-      <div class="hero-headline">
-        <h1 id="hero-title" class="hero-title">{siteConfig.author}</h1>
-        <p class="hero-subtitle">{siteConfig.tagline}</p>
-      </div>
+  <h1 id="hero-title" class="hero-title">{siteConfig.author}</h1>
+  <p class="hero-subtitle">{siteConfig.tagline}</p>
 
-      <p class="hero-desc">
-        I turn raw data into <mark class="highlight-marker">insight</mark>, build things with PyTorch and curiosity,
-        and cook up experiments in the lab. {siteConfig.currently}
-      </p>
+  <p class="hero-desc">
+    I turn raw data into <mark class="highlight-marker">insight</mark>, build things with PyTorch and curiosity,
+    and cook up experiments in the lab. {siteConfig.currently}
+  </p>
 
-      <div class="hero-callouts">
-        <span class="hero-callout">Loc. Madrid, ES</span>
-        <span class="hero-callout" aria-hidden="true">·</span>
-        <span class="hero-callout">Ver. 2.0</span>
-        <span class="hero-callout" aria-hidden="true">·</span>
-        <span class="hero-callout">Date {buildDate}</span>
-        <span class="hero-callout" aria-hidden="true">·</span>
-        <span class="hero-callout">Scale 1:1</span>
-      </div>
-
-      <SocialIconRow />
-    </div>
-
-    <div class="hero-drawing" aria-hidden="true">
-      <IsometricDiagram />
-    </div>
-  </div>
+  <SocialIconRow />
 </section>
 
 <style>
   .hero-section {
-    background: var(--canvas);
-    padding: 24px;
-  }
-
-  .hero-grid {
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 1.5rem;
-    align-items: center;
-  }
-
-  .hero-title-block {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .hero-avatar-wrap {
-    position: relative;
-    align-self: flex-start;
+    padding: 1.5rem 0 2rem;
   }
 
   .hero-avatar {
-    width: 80px;
-    height: 80px;
+    width: 64px;
+    height: 64px;
     border: 1px solid var(--hairline);
     border-radius: var(--r-none);
-    box-shadow: none;
     object-fit: cover;
     background: var(--canvas);
   }
 
-  .hero-headline {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-  }
-
   .hero-title {
     font-family: var(--font-display);
-    font-size: clamp(2rem, 4vw, 3rem);
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
     font-weight: 600;
-    line-height: 1.05;
+    line-height: 1.1;
     letter-spacing: -0.02em;
     color: var(--ink);
-    margin: 0;
+    margin: 1rem 0 0;
     text-transform: none;
   }
 
   .hero-subtitle {
     font-family: var(--font-sans);
-    font-size: 16px;
-    color: var(--ink);
-    margin: 0;
+    font-size: 0.9rem;
+    color: var(--ink-muted);
+    margin: 0.25rem 0 0;
   }
 
   .hero-desc {
@@ -114,8 +63,8 @@ const buildDate = new Date().toISOString().slice(0, 10).replace(/-/g, ".");
     font-weight: 400;
     line-height: 1.6;
     color: var(--ink);
-    max-width: 46ch;
-    margin: 0.25rem 0 0;
+    max-width: 60ch;
+    margin: 1rem 0 0;
   }
 
   .highlight-marker {
@@ -124,58 +73,10 @@ const buildDate = new Date().toISOString().slice(0, 10).replace(/-/g, ".");
     padding: 0 4px;
   }
 
-  .hero-callouts {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.35rem 0.5rem;
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--ink-muted);
-    letter-spacing: 0.04em;
-  }
-
-  .hero-callout {
-    white-space: nowrap;
-  }
-
-  .hero-drawing {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    max-width: 280px;
-    width: 100%;
-    margin-left: 0;
-  }
-
-  @media (max-width: 860px) {
-    .hero-section {
-      padding: 20px;
-    }
-
-    .hero-grid {
-      grid-template-columns: 1fr;
-      gap: 1.25rem;
-    }
-
-    .hero-drawing {
-      margin: 0;
-      max-width: 220px;
-    }
-  }
-
   @media (max-width: 480px) {
-    .hero-section {
-      padding: 16px;
-    }
-
-    .hero-title {
-      font-size: 2rem;
-    }
-
     .hero-avatar {
-      width: 72px;
-      height: 72px;
+      width: 56px;
+      height: 56px;
     }
   }
 </style>

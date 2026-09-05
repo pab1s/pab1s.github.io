@@ -21,7 +21,7 @@
   --space-16: var(--sp-section);
   --space-24: var(--sp-section-lg);
   --space-32: var(--sp-section-lg);
-  --container: 1280px;
+  --container: 760px;
   --gutter: 24px;
   --radius-sm: var(--r-none);
   --radius-md: var(--r-none);
