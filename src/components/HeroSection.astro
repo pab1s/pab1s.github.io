@@ -109,7 +109,7 @@ const buildDate = new Date().toISOString().slice(0, 10).replace(/-/g, ".");
 
   .hero-title {
     font-family: var(--font-display);
-    font-size: 88px;
+    font-size: clamp(48px, 8vw, 88px);
     font-weight: 600;
     line-height: 0.909;
     letter-spacing: -1.76px;
@@ -137,7 +137,8 @@ const buildDate = new Date().toISOString().slice(0, 10).replace(/-/g, ".");
 
   .highlight-marker {
     background: var(--brand-green);
-    color: var(--ink);
+    color: #000000;
+    padding: 0 4px;
   }
 
   .hero-callouts {
@@ -165,6 +166,10 @@ const buildDate = new Date().toISOString().slice(0, 10).replace(/-/g, ".");
   }
 
   @media (max-width: 860px) {
+    .hero-section {
+      padding: 32px;
+    }
+
     .hero-grid {
       grid-template-columns: 1fr;
       gap: 2rem;
@@ -178,6 +183,14 @@ const buildDate = new Date().toISOString().slice(0, 10).replace(/-/g, ".");
   }
 
   @media (max-width: 480px) {
+    .hero-section {
+      padding: 24px;
+    }
+
+    .hero-title {
+      font-size: 48px;
+    }
+
     .hero-avatar {
       width: 120px;
       height: 120px;
