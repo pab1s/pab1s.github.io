@@ -1,183 +1,63 @@
 ---
-import TopologicalViz from "./TopologicalViz.astro";
 import SocialIconRow from "./SocialIconRow.astro";
 import { siteConfig } from "../site-config";
-
-const buildDate = new Date().toISOString().slice(0, 10).replace(/-/g, ".");
 ---
 
 <section class="hero-section" aria-labelledby="hero-title">
-  <div class="hero-grid">
-    <div class="hero-title-block">
-      <div class="hero-avatar-wrap">
-        <img
-          class="hero-avatar"
-          src={siteConfig.avatarSrc}
-          width="140"
-          height="140"
-          alt={`${siteConfig.author} portrait`}
-          loading="eager"
-          decoding="async"
-        />
-        <span class="hero-avatar-caption" aria-hidden="true">fig. a</span>
-      </div>
+  <h1 id="hero-title" class="hero-title">{siteConfig.author}</h1>
+  <p class="hero-tagline">{siteConfig.tagline}</p>
 
-      <div class="hero-headline">
-        <h1 id="hero-title" class="hero-title">{siteConfig.author}</h1>
-        <p class="hero-subtitle">{siteConfig.tagline}</p>
-      </div>
+  <p class="hero-desc">
+    I'm Pablo. {siteConfig.currently}
+  </p>
 
-      <p class="hero-desc">
-        I turn raw data into insight, build things with PyTorch and curiosity,
-        and cook up experiments in the lab. {siteConfig.currently}
-      </p>
+  <p class="hero-desc hero-desc-secondary">
+    When I'm not at work you'll usually find me out hiking, in the kitchen, planning the next trip, or tinkering on something.
+  </p>
 
-      <div class="hero-callouts">
-        <span class="hero-callout">Loc. Madrid, ES</span>
-        <span class="hero-callout" aria-hidden="true">·</span>
-        <span class="hero-callout">Ver. 2.0</span>
-        <span class="hero-callout" aria-hidden="true">·</span>
-        <span class="hero-callout">Date {buildDate}</span>
-        <span class="hero-callout" aria-hidden="true">·</span>
-        <span class="hero-callout">Scale 1:1</span>
-      </div>
-
-      <SocialIconRow />
-    </div>
-
-    <div class="hero-drawing" aria-hidden="true">
-      <TopologicalViz />
-    </div>
-  </div>
+  <SocialIconRow />
 </section>
 
 <style>
   .hero-section {
-    padding: clamp(2rem, 5vw, 4rem) 0;
-  }
-
-  .hero-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2.5rem;
-    align-items: center;
-  }
-
-  .hero-title-block {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .hero-avatar-wrap {
-    position: relative;
-    align-self: flex-start;
-  }
-
-  .hero-avatar {
-    width: 140px;
-    height: 140px;
-    border-radius: var(--radius-md);
-    border: 2px solid var(--accent);
-    object-fit: cover;
-    background: var(--canvas-elevated);
-    box-shadow: var(--shadow-hard);
-  }
-
-  html[data-theme="dark"] .hero-avatar {
-    box-shadow: var(--shadow-hard), var(--glow);
-  }
-
-  .hero-avatar-caption {
-    position: absolute;
-    bottom: -0.4rem;
-    right: -0.4rem;
-    font-family: var(--font-mono);
-    font-size: 0.55rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--accent);
-    background: var(--canvas);
-    border: 1px solid var(--line);
-    padding: 0.1rem 0.35rem;
-    border-radius: 2px;
-  }
-
-  .hero-headline {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
+    padding: 2rem 0 1.5rem;
   }
 
   .hero-title {
     font-family: var(--font-display);
-    font-size: clamp(2.75rem, 7vw, 4.5rem);
-    color: var(--ink);
-    font-weight: 700;
-    line-height: 1.05;
-    margin: 0;
-    text-transform: none;
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-weight: 600;
+    line-height: 1.1;
     letter-spacing: -0.02em;
+    color: var(--ink);
+    margin: 0;
   }
 
-  .hero-subtitle {
+  .hero-tagline {
     font-family: var(--font-mono);
-    font-size: 0.875rem;
-    color: var(--accent);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin: 0;
+    font-size: 0.8rem;
+    color: var(--ink-muted);
+    margin: 0.5rem 0 0;
   }
 
   .hero-desc {
+    font-family: var(--font-body);
     font-size: 1.05rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--ink);
+    max-width: 60ch;
+    margin: 1rem 0 1.25rem;
+  }
+
+  .highlight-marker {
+    background: var(--brand-green);
+    color: var(--near-black);
+    padding: 0 4px;
+  }
+
+  .hero-desc-secondary {
+    margin-top: 0.75rem;
     color: var(--ink-muted);
-    max-width: 46ch;
-    line-height: 1.65;
-    margin: 0.25rem 0 0;
-  }
-
-  .hero-callouts {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.35rem 0.5rem;
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--ink-muted);
-    letter-spacing: 0.04em;
-  }
-
-  .hero-callout {
-    white-space: nowrap;
-  }
-
-  .hero-drawing {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    max-width: 380px;
-    width: 100%;
-    margin-left: 0;
-  }
-
-  @media (max-width: 860px) {
-    .hero-grid {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-
-    .hero-drawing {
-    margin-left: 1.5rem;
-      margin-right: 0;
-      max-width: 280px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .hero-avatar {
-      width: 120px;
-      height: 120px;
-    }
   }
 </style>

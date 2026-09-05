@@ -28,9 +28,6 @@ const desc = description ?? "";
 
 import { siteConfig } from "../site-config";
 import "../styles/global.css";
-import AchievementSystem from "../components/AchievementSystem.astro";
-import ToastNotification from "../components/ToastNotification.astro";
-import NoiseOverlay from "../components/NoiseOverlay.astro";
 ---
 
 <!doctype html>
@@ -38,7 +35,7 @@ import NoiseOverlay from "../components/NoiseOverlay.astro";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#fafaf5" />
+    <meta name="theme-color" content="#ffffff" />
     <script is:inline>
       (function () {
         var t;
@@ -54,14 +51,14 @@ import NoiseOverlay from "../components/NoiseOverlay.astro";
         }
         document.documentElement.dataset.theme = t;
         var m = document.querySelector('meta[name="theme-color"]');
-        if (m) m.setAttribute("content", t === "dark" ? "#0a0d1a" : "#fafaf5");
+        if (m) m.setAttribute("content", t === "dark" ? "#0e0e0e" : "#ffffff");
       })();
     </script>
     <meta name="generator" content={Astro.generator} />
     <title>{fullTitle}</title>
     {desc ? <meta name="description" content={desc} /> : null}
     <link rel="canonical" href={canonicalURL} />
-    <link rel="alternate" type="application/rss+xml" title="Pablo Olivares — RSS" href="/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Pablo Olivares · RSS" href="/rss.xml" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -79,9 +76,9 @@ import NoiseOverlay from "../components/NoiseOverlay.astro";
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Chakra+Petch:wght@500;600;700&family=VT323&display=optional">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Chakra+Petch:wght@500;600;700&family=VT323&display=optional" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Chakra+Petch:wght@500;600;700&family=VT323&display=optional"></noscript>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=optional">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=optional" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=optional"></noscript>
     {
       usesKatex && (
         <>
@@ -111,8 +108,6 @@ gtag('config', gaId);`}
   </head>
   <body>
     <a href="#main-content" class="skip-link">Skip to content</a>
-    <div class="stars" aria-hidden="true"></div>
-    <div class="blueprint-grid" aria-hidden="true"></div>
     <div class="page-wrap">
       <main id="main-content">
         <slot />
@@ -123,7 +118,7 @@ gtag('config', gaId);`}
         function meta(t) {
           var m = document.querySelector('meta[name="theme-color"]');
           if (!m) return;
-          m.setAttribute("content", t === "dark" ? "#0a0d1a" : "#fafaf5");
+          m.setAttribute("content", t === "dark" ? "#0e0e0e" : "#ffffff");
         }
         function syncAria() {
           var th = document.documentElement.dataset.theme === "light" ? "light" : "dark";
@@ -169,8 +164,5 @@ gtag('config', gaId);`}
         );
       })();
     </script>
-    <NoiseOverlay />
-    <AchievementSystem />
-    <ToastNotification />
   </body>
 </html>

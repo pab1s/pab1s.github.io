@@ -1,7 +1,7 @@
 {
   "basics": {
     "name": "Pablo Olivares Martínez",
-    "label": "ML Engineer | Data Scientist",
+    "label": "ML Engineer",
     "email": "pablolivares1502@gmail.com",
     "location": {
       "city": "Madrid",
@@ -19,12 +19,12 @@
         "url": "https://github.com/pab1s"
       }
     ],
-    "summary": "ML Engineer and Data Scientist selected for the Santander Data Science Talent Program. Proven ability to apply deep learning and achieve impactful results in data projects, along with a strong foundation in Mathematics and Computer Science."
+    "summary": "ML Engineer selected for the Santander Data Science Talent Program. Proven ability to apply deep learning and achieve impactful results in data projects, along with a strong foundation in Mathematics and Computer Science."
   },
   "work": [
     {
       "name": "Santander Bank",
-      "position": "ML Engineer | Data Scientist",
+      "position": "ML Engineer",
       "location": "Madrid, Spain",
       "url": "https://www.santanderbank.com/",
       "startDate": "2024-06",

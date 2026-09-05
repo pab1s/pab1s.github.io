@@ -12,13 +12,12 @@ const posts = (await getCollection("blog"))
   .map((post) => ({ ...post, readTime: calculateReadTime(post.body) }));
 ---
 
-<BaseLayout title="Lab Notes" description="Notes on ML, math, and the art of data alchemy." usesKatex={true}>
+<BaseLayout title="Blog" description="Posts on ML, math, and the art of data alchemy." usesKatex={true}>
   <WorkshopNav currentPath={Astro.url.pathname} />
 
   <header class="section-hero">
-    <span class="fig-label">LOG_001 · lab notes</span>
-    <h1>Lab Notes</h1>
-    <p>Notes on ML, math, and the art of data alchemy.</p>
+    <h1>Blog</h1>
+    <p>Posts on ML, math, and the art of data alchemy.</p>
   </header>
 
   <ul class="blog-list stagger-in">
@@ -40,3 +39,23 @@ const posts = (await getCollection("blog"))
 
   <SiteFooter />
 </BaseLayout>
+
+<style>
+  .blog-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .blog-list li {
+    background: var(--canvas);
+    border-radius: var(--r-none);
+    box-shadow: none;
+  }
+
+  @media (max-width: 640px) {
+    .blog-list li {
+      background: var(--canvas);
+    }
+  }
+</style>

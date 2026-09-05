@@ -4,17 +4,16 @@ import WorkshopNav from "../components/WorkshopNav.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 ---
 
-<BaseLayout title="404 — missing sheet" description="This sheet is not on file.">
+<BaseLayout title="404 – missing sheet" description="This sheet is not on file.">
   <div class="error-page">
     <WorkshopNav currentPath={Astro.url.pathname} />
 
     <section class="missing-sheet" aria-labelledby="missing-sheet-title">
       <div class="missing-sheet-frame">
         <header class="missing-sheet-header">
-          <span class="fig-label">ERR_404 · missing sheet</span>
           <h1 id="missing-sheet-title" class="missing-sheet-code">
             404
-            <span class="sr-only"> — Page not found</span>
+            <span class="sr-only"> – Page not found</span>
           </h1>
         </header>
 
@@ -28,7 +27,7 @@ import SiteFooter from "../components/SiteFooter.astro";
         <nav class="missing-sheet-actions" aria-label="Wayfinding">
           <a href="/" class="missing-sheet-link">Back to the lab</a>
           <a href="/projects/" class="missing-sheet-link">Open experiments</a>
-          <a href="/blog/" class="missing-sheet-link">Read lab notes</a>
+          <a href="/blog/" class="missing-sheet-link">Read the blog</a>
         </nav>
       </div>
     </section>
@@ -59,10 +58,10 @@ import SiteFooter from "../components/SiteFooter.astro";
       max-width: 720px;
       text-align: center;
       padding: 3rem 2.5rem;
-      background: var(--canvas-elevated);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-md);
+      background: var(--canvas);
+      border: 1px solid var(--hairline);
+      border-radius: var(--r-none);
+      box-shadow: none;
     }
 
     .missing-sheet-header {
@@ -72,22 +71,14 @@ import SiteFooter from "../components/SiteFooter.astro";
       gap: 1rem;
     }
 
-    .missing-sheet-header .fig-label {
-      color: var(--accent);
-    }
-
     .missing-sheet-code {
-      font-family: var(--font-pixel);
+      font-family: var(--font-display);
       font-size: clamp(6rem, 20vw, 11rem);
-      font-weight: 400;
+      font-weight: 600;
       line-height: 0.9;
-      letter-spacing: 0.04em;
-      color: var(--accent);
+      letter-spacing: -0.02em;
+      color: var(--ink);
       margin: 0;
-    }
-
-    html[data-theme="dark"] .missing-sheet-code {
-      text-shadow: var(--glow-text);
     }
 
     .missing-sheet-frame .ascii-rule {
@@ -95,9 +86,10 @@ import SiteFooter from "../components/SiteFooter.astro";
     }
 
     .missing-sheet-message {
-      font-size: 1.1rem;
-      line-height: 1.6;
-      color: var(--ink-muted);
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      line-height: 1.333;
+      color: var(--ink);
       margin: 0 0 2rem;
     }
 
@@ -113,26 +105,32 @@ import SiteFooter from "../components/SiteFooter.astro";
       align-items: center;
       justify-content: center;
       min-height: 44px;
-      padding: 0 1.1rem;
+      padding: 7px 12px;
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: 16px;
       font-weight: 500;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       text-decoration: none;
       color: var(--ink);
-      background: transparent;
-      border: 1px solid var(--line-strong);
-      border-radius: var(--radius-md);
+      background: var(--canvas);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--r-none);
       transition: color var(--duration-fast) var(--ease-out-expo),
         border-color var(--duration-fast) var(--ease-out-expo),
         background-color var(--duration-fast) var(--ease-out-expo);
     }
 
+    .missing-sheet-link:first-child {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+
     .missing-sheet-link:hover {
-      color: var(--accent);
-      border-color: var(--accent);
-      background-color: var(--accent-soft);
+      color: var(--ink);
+      border-color: var(--ink);
+      background-color: var(--brand-green);
     }
 
     @media (prefers-reduced-motion: reduce) {

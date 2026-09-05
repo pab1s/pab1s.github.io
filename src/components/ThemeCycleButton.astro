@@ -56,27 +56,23 @@ const { ariaLabel = "Toggle light or dark theme" } = Astro.props;
     height: 2rem;
     padding: 0;
     margin: 0;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-sm);
-    background: transparent;
-    color: var(--ink-muted);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--r-none);
+    background: var(--canvas);
+    color: var(--ink);
     cursor: pointer;
-    transition: color var(--duration-fast) var(--ease-out-expo), border-color var(--duration-fast) var(--ease-out-expo), background var(--duration-fast) var(--ease-out-expo), box-shadow var(--duration-fast) var(--ease-out-expo);
   }
 
   .theme-cycle-btn:hover {
-    color: var(--accent);
-    border-color: var(--accent);
-    background: var(--accent-soft);
-  }
-
-  html[data-theme="dark"] .theme-cycle-btn:hover {
-    box-shadow: var(--glow);
+    color: var(--ink);
+    border-color: var(--ink);
+    background: var(--brand-green);
   }
 
   .theme-cycle-btn:active,
   .theme-cycle-btn[aria-pressed="true"] {
-    box-shadow: 0 0 0 2px var(--canvas), 0 0 0 4px var(--accent-soft);
+    background: var(--ink);
+    color: var(--canvas);
   }
 
   .theme-cycle-svg {

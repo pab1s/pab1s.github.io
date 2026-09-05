@@ -33,13 +33,6 @@ const dateStr = formatDate(date);
     {description?.trim() ? (
       <p class="blog-post-description">{description}</p>
     ) : null}
-    {tags.length ? (
-      <div class="blog-post-tags">
-        {tags.map((t) => (
-          <span class="blog-post-tag">{t}</span>
-        ))}
-      </div>
-    ) : null}
   </div>
 </div>
 
@@ -49,36 +42,36 @@ const dateStr = formatDate(date);
     grid-template-columns: 6.5rem 1fr;
     gap: var(--space-6);
     align-items: baseline;
-    padding: var(--space-6) 0;
-    border-bottom: 1px dotted var(--line);
-    transition: border-color var(--duration-fast) ease;
+    padding: 0.9rem 0;
+    background: var(--canvas);
+    border-radius: var(--r-none);
+    box-shadow: none;
   }
 
   .blog-post-row:first-child {
-    padding-top: 0;
-  }
-
-  .blog-post-row:hover {
-    border-bottom-color: var(--line-strong);
+    padding-top: 0.5rem;
   }
 
   .blog-post-row:hover .blog-post-title a {
-    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-color: var(--brand-green);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
   }
 
   .blog-post-meta {
     display: flex;
     flex-direction: column;
-    gap: var(--space-1);
+    gap: 0.15rem;
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     color: var(--ink-muted);
-    letter-spacing: 0.04em;
+    letter-spacing: normal;
     flex-shrink: 0;
   }
 
   .blog-post-date {
-    color: var(--ink);
+    color: var(--ink-muted);
   }
 
   .blog-post-read-time {
@@ -91,53 +84,30 @@ const dateStr = formatDate(date);
 
   .blog-post-title {
     font-family: var(--font-display);
-    font-size: 1.18rem;
-    font-weight: 500;
+    font-size: 1.15rem;
+    font-weight: 400;
     color: var(--ink);
     margin: 0;
-    line-height: 1.22;
-    letter-spacing: -0.01em;
+    line-height: 1.4;
+    letter-spacing: -0.02em;
   }
 
   .blog-post-title a {
     color: inherit;
     text-decoration: none;
-    transition: color var(--duration-fast) ease;
   }
 
   .blog-post-description {
-    font-size: 0.94rem;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
     color: var(--ink-muted);
-    max-width: 55ch;
-    line-height: 1.55;
+    max-width: 60ch;
+    line-height: 1.6;
     margin: var(--space-2) 0 0;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-  }
-
-  .blog-post-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-    margin-top: var(--space-3);
-  }
-
-  .blog-post-tag {
-    font-family: var(--font-mono);
-    font-size: 0.64rem;
-    color: var(--ink-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    border: 1px solid var(--line);
-    padding: 0.12rem 0.38rem;
-    border-radius: 1px;
-    transition: border-color var(--duration-fast) ease, color var(--duration-fast) ease;
-  }
-
-  .blog-post-row:hover .blog-post-tag {
-    border-color: var(--line-strong);
   }
 
   @media (max-width: 640px) {

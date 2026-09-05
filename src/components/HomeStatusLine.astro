@@ -17,46 +17,28 @@ const status = telemetryLines[siteConfig.homeFeed.telemetryLineIndex] ?? telemet
     gap: 0.6rem;
     font-family: var(--font-mono);
     font-size: 0.75rem;
-    color: var(--ink-muted);
+    color: var(--ink);
     padding: 0.75rem 0;
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1px solid var(--hairline);
   }
 
   .status-pulse {
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 0 0 var(--accent-soft);
-    animation: pulse-dot 2s infinite;
+    background: var(--brand-green);
+    box-shadow: none;
+    animation: none;
   }
 
   .status-label {
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--accent);
+    color: var(--ink);
   }
 
   .status-value {
     margin-left: auto;
     text-align: right;
-  }
-
-  @keyframes pulse-dot {
-    0% {
-      box-shadow: 0 0 0 0 var(--accent-soft);
-    }
-    70% {
-      box-shadow: 0 0 0 6px transparent;
-    }
-    100% {
-      box-shadow: 0 0 0 0 transparent;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .status-pulse {
-      animation: none;
-    }
   }
 </style>

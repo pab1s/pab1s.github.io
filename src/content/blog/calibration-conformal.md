@@ -1,7 +1,7 @@
 ---
 title: "The Crisis of Confidence in Statistical Purity"
 date: 2025-11-19
-description: ""
+description: "Why state-of-the-art models are confidently wrong, and what calibration and conformal prediction do about it."
 author: "Pablo Olivares"
 tags: ["uncertainty-quantification", "calibration", "conformal-prediction"]
 
@@ -15,9 +15,13 @@ Well, hold on. When our fraud detection model, trained on SMOTE'd data, now conf
 
 ### The Ideal Perfect Calibration
 
-Let's quickly recap the textbook ideal. We want our model's predicted probabilities $\hat{p}$ to be **calibrated**. This means that if you look at all the times the model predicted an event with probability $p$, that event should actually occur with frequency $p$ in the real world. Formally, for a binary outcome $Y \in \{0, 1\}$: $$ P(Y=1 | \hat{p} = p) = p \quad \forall p \in [0, 1] $$ This feels right, doesn't it? It's statistically pure. Probabilities should mean what they say on the tin. Reliable probabilities seem essential for rational decision-making in medicine, finance, autonomous systems – anywhere uncertainty matters.
+Let's quickly recap the textbook ideal. We want our model's predicted probabilities $\hat{p}$ to be **calibrated**. This means that if you look at all the times the model predicted an event with probability $p$, that event should actually occur with frequency $p$ in the real world. Formally, for a binary outcome $Y \in \{0, 1\}$:
 
-Now, here comes the elephant in the room. Many of the models achieving **State-of-the-Art (SOTA)** results on complex benchmarks – massive ResNets, Transformers, powerful Gradient Boosted Trees – are often **terribly miscalibrated** straight out of the box. They tend to be wildly **overconfident**, assigning probabilities near 0 or 1 far too readily (as highlighted in Guo et al., 2017).
+$$ P(Y=1 | \hat{p} = p) = p \quad \forall p \in [0, 1] $$
+
+This feels right, doesn't it? It's statistically pure. Probabilities should mean what they say on the tin. Reliable probabilities seem essential for rational decision-making in medicine, finance, autonomous systems – anywhere uncertainty matters.
+
+Now, here comes the elephant in the room. Many of the models achieving **State-of-the-Art (SOTA)** results on complex benchmarks – massive ResNets, Transformers, powerful Gradient Boosted Trees – are often **terribly miscalibrated** straight out of the box. They tend to be wildly **overconfident**, assigning probabilities near 0 or 1 far too readily (as highlighted in Guo et al., 2017[^guo2017]).
 
 Think about that. These models are winning competitions, recognizing images better than humans in some cases, generating coherent text... all while being demonstrably bad at estimating the true likelihood of their own correctness according to the classical definition.
 
@@ -29,17 +33,25 @@ Why does this happen? As we touched on before, the optimization process (like mi
 
 Naturally, the mismatch between the model's raw output and the desired statistical property led to **post-hoc calibration** methods. We take the model's outputs (logits $z$ or initial probabilities $\hat{p}$) and try to "fix" them using a separate calibration dataset.
 
-We can visualize the miscalibration using **reliability diagrams** (plotting actual accuracy within bins vs. average predicted confidence per bin) and quantify it with metrics like **Expected Calibration Error (ECE)**: $$ ECE = \sum_{m=1}^{M} \frac{|B_m|}{N} |\text{acc}(B_m) - \text{conf}(B_m)| $$
+We can visualize the miscalibration using **reliability diagrams** (plotting actual accuracy within bins vs. average predicted confidence per bin) and quantify it with metrics like **Expected Calibration Error (ECE)**:
 
-Here's what this formula is doing: you divide your predictions into $M$ bins based on confidence levels (e.g., bin 1 is all predictions with confidence 0–10%, bin 2 is 10–20%, etc.). For each bin $B_m$, you compute $\text{acc}(B_m)$, the actual fraction of correct predictions in that bin, and $\text{conf}(B_m)$, the average predicted confidence of examples in that bin. The term $\frac{|B_m|}{N}$ is the proportion of total samples that fell into bin $m$. Then you sum the weighted absolute gap between accuracy and confidence across all bins. In a perfectly calibrated model, these gaps are zero everywhere, so $ECE = 0$. High ECE means your model is systematically over- or under-confident in some bins—the miscalibration is real and measurable.
+$$ ECE = \sum_{m=1}^{M} \frac{|B_m|}{N} |\text{acc}(B_m) - \text{conf}(B_m)| $$
+
+Here's what this formula is doing: you divide your predictions into $M$ bins based on confidence levels (e.g., bin 1 is all predictions with confidence 0–10%, bin 2 is 10–20%, etc.). For each bin $B_m$, you compute $\text{acc}(B_m)$, the actual fraction of correct predictions in that bin, and $\text{conf}(B_m)$, the average predicted confidence of examples in that bin. The term $\frac{|B_m|}{N}$ is the proportion of total samples that fell into bin $m$. Then you sum the weighted absolute gap between accuracy and confidence across all bins. In a perfectly calibrated model, these gaps are zero everywhere, so $ECE = 0$. High ECE means your model is systematically over- or under-confident in some bins. The miscalibration is real and measurable.
 
 Then we apply fixes:
 
-- **Platt Scaling:** Take the model's raw logits $z$ and fit a simple sigmoid $\sigma(Az+B)$ on top, learned via logistic regression on the calibration set. Two parameters, that's it. The idea is: maybe the model's scores are just on the wrong scale—stretch and shift them a bit and they'll line up with reality. It works okay for simpler models (SVMs, shallow networks), but for modern deep nets? Often feels like putting a band-aid on a much deeper wound. The sigmoid is too rigid; it can't capture the fact that the model might be confidently wrong about certain types of examples (say, all the edge cases) while being reasonable about others. Once you deploy it, you're stuck with that one sigmoid forever.
+- **Platt Scaling:**[^platt1999] Take the model's raw logits $z$ and fit a simple sigmoid $\sigma(Az+B)$ on top, learned via logistic regression on the calibration set. Two parameters, that's it. The idea is: maybe the model's scores are just on the wrong scale: stretch and shift them a bit and they'll line up with reality. It works okay for simpler models (SVMs, shallow networks), but for modern deep nets? Often feels like putting a band-aid on a much deeper wound. The sigmoid is too rigid; it can't capture the fact that the model might be confidently wrong about certain types of examples (say, all the edge cases) while being reasonable about others. Once you deploy it, you're stuck with that one sigmoid forever.
 
-- **Temperature Scaling:** Here's an idea that feels almost too simple to work: divide all your logits by a single scalar $T$ before the softmax, like $\hat{q}_i = \frac{\exp(z_i / T)}{\sum_{j} \exp(z_j / T)}$. Learn $T$ on the calibration set by minimizing cross-entropy. What's happening? If $T>1$, you're softening the logits—pulling extreme values back toward the middle, expressing more uncertainty. If $T<1$, you're sharpening—amplifying the model's convictions. The beauty is that this _doesn't change which class wins_; `argmax` is invariant to this temperature shift. You get the same predictions but with different confidence levels. For modern deep neural networks, this one-parameter fix is surprisingly effective—often more so than Platt Scaling. Why? Because neural nets tend to be _uniformly_ overconfident across the board, and temperature scaling corrects that global bias elegantly. The catch: it can't fix localized miscalibration. If the model is overconfident on one class and underconfident on another, a single $T$ will only trade one problem for another.
+- **Temperature Scaling:** Here's an idea that feels almost too simple to work: divide all your logits by a single scalar $T$ before the softmax, like:
 
-- **Isotonic Regression:** This is where we get more aggressive. Instead of fitting a global transformation (like a sigmoid or a single temperature), isotonic regression learns a _piecewise constant_ monotonic mapping from your model's scores to calibrated probabilities. Conceptually: divide the range of scores into bins, sort them, and fit monotonically increasing step functions. The beauty is flexibility—it can handle non-uniform miscalibration, catching situations where the model is wildly overconfident at high scores but reasonable at medium ones. The tradeoff? More parameters to learn, which means you need a larger calibration set or risk overfitting the calibration itself. Also, it's less interpretable; you can't write down a simple formula like "divide by $T$". And there's an implicit assumption built in: monotonicity. If your model somehow violates that (which shouldn't happen in well-behaved classifiers, but can in weird edge cases), isotonic regression will force it anyway. It's a tool that gives you power, but demands respect—use it when you have enough calibration data and you suspect the miscalibration is genuinely non-uniform.
+  $$
+  \hat{q}_i = \frac{\exp(z_i / T)}{\sum_{j} \exp(z_j / T)}
+  $$
+
+  Learn $T$ on the calibration set by minimizing cross-entropy. What's happening? If $T>1$, you're softening the logits, pulling extreme values back toward the middle, expressing more uncertainty. If $T<1$, you're sharpening, amplifying the model's convictions. The beauty is that this _doesn't change which class wins_; `argmax` is invariant to this temperature shift. You get the same predictions but with different confidence levels. For modern deep neural networks, this one-parameter fix is surprisingly effective, often more so than Platt Scaling. Why? Because neural nets tend to be _uniformly_ overconfident across the board, and temperature scaling corrects that global bias elegantly. The catch: it can't fix localized miscalibration. If the model is overconfident on one class and underconfident on another, a single $T$ will only trade one problem for another.
+
+- **Isotonic Regression:**[^zadrozny2002] This is where we get more aggressive. Instead of fitting a global transformation (like a sigmoid or a single temperature), isotonic regression learns a _piecewise constant_ monotonic mapping from your model's scores to calibrated probabilities. Conceptually: divide the range of scores into bins, sort them, and fit monotonically increasing step functions. The beauty is flexibility: it can handle non-uniform miscalibration, catching situations where the model is wildly overconfident at high scores but reasonable at medium ones. The tradeoff? More parameters to learn, which means you need a larger calibration set or risk overfitting the calibration itself. Also, it's less interpretable; you can't write down a simple formula like "divide by $T$". And there's an implicit assumption built in: monotonicity. If your model somehow violates that (which shouldn't happen in well-behaved classifiers, but can in weird edge cases), isotonic regression will force it anyway. It's a tool that gives you power, but demands respect: use it when you have enough calibration data and you suspect the miscalibration is genuinely non-uniform.
 
 These methods _work_ in the sense that they reduce ECE and make the reliability diagram look prettier (closer to the diagonal). Temperature scaling, in particular, is a common step in deploying neural nets now.
 
@@ -49,9 +61,11 @@ But let's be critical. What are we really doing here? We have a model that achie
 
 Maybe the relentless focus on getting that single probability number $p$ to perfectly match the true frequency is missing the point, especially when the models seem to work well without it. What if we changed the goal? Instead of asking "What's the exact probability?", what if we asked "Can you give me a _set_ of predictions that is guaranteed to contain the true answer most of the time?"
 
-This is the core idea behind **Conformal Prediction (CP)**. CP doesn't try to "fix" the model's internal probabilities. Instead, it uses a calibration dataset to determine a threshold for how "weird" a prediction looks, and then outputs a **prediction set** $\mathcal{C}(x)$ for a new input $x$. The magic is that CP provides a formal guarantee:
+This is the core idea behind **Conformal Prediction (CP)**[^vovk2005][^angelopoulos2021]. CP doesn't try to "fix" the model's internal probabilities. Instead, it uses a calibration dataset to determine a threshold for how "weird" a prediction looks, and then outputs a **prediction set** $\mathcal{C}(x)$ for a new input $x$. The magic is that CP provides a formal guarantee:
 
-$$ P(y_{true} \in \mathcal{C}(x)) \ge 1 - \alpha $$
+$$
+P(y_{true} \in \mathcal{C}(x)) \ge 1 - \alpha
+$$
 
 Here, $y_{true}$ is the actual true label, and $1-\alpha$ is our desired confidence level (e.g., 95% if $\alpha=0.05$). This guarantee holds under minimal assumptions (exchangeability of data), _regardless_ of how good or bad the underlying model is, or how miscalibrated its raw scores are!
 
@@ -83,3 +97,8 @@ This points towards the urgent need for new theoretical perspectives, drawing po
 - **Explicitly Embracing Phenomena like Double Descent:** Building theories that inherently predict and explain why _more_ parameters can sometimes lead to _better_ generalization beyond the interpolation point.
 
 The journey of modern machine learning seems to indicate that while statistical principles are vital, the path to understanding might require broadening our theoretical toolkit considerably. The models work – now we need theories that can truly explain _why_, embracing the complexity and the surprising empirical realities, rather than just trying to patch them to fit old assumptions. The most exciting discoveries might lie at the intersection of statistics, optimization, geometry, and topology. The game is afoot!
+[^guo2017]: Guo, C., Pleiss, G., Sun, Y., & Weinberger, K. Q. (2017). On calibration of modern neural networks. *Proc. Int. Conf. on Machine Learning (ICML)*, PMLR 70.
+[^platt1999]: Platt, J. C. (1999). Probabilistic outputs for support vector machines and comparisons to regularized likelihood methods. In *Advances in Large Margin Classifiers*, MIT Press.
+[^zadrozny2002]: Zadrozny, B., & Elkan, C. (2002). Transforming classifier scores into accurate multiclass probability estimates. *Proc. ACM SIGKDD (KDD)*.
+[^vovk2005]: Vovk, V., Gammerman, A., & Shafer, G. (2005). *Algorithmic Learning in a Random World*. Springer.
+[^angelopoulos2021]: Angelopoulos, A. N., & Bates, S. (2021). A gentle introduction to conformal prediction and distribution-free uncertainty quantification. *arXiv:2107.07511*.
