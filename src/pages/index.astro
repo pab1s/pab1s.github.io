@@ -150,6 +150,10 @@ const featured = projectsData.projects.slice(0, 3);
     color: inherit;
   }
 
+  .index-notes li:hover {
+    border-bottom-color: var(--ink);
+  }
+
   .index-note-row:hover {
     transform: none;
   }
@@ -163,8 +167,8 @@ const featured = projectsData.projects.slice(0, 3);
 
   .index-note-date {
     font-family: var(--font-mono);
-    font-size: 16px;
-    color: var(--ink);
+    font-size: 0.75rem;
+    color: var(--ink-muted);
     flex-shrink: 0;
   }
 
@@ -186,11 +190,6 @@ const featured = projectsData.projects.slice(0, 3);
   }
 
   @media (max-width: 640px) {
-    .index-projects,
-    .index-split {
-      grid-template-columns: 1fr;
-    }
-
     .index-note-tag {
       display: none;
     }

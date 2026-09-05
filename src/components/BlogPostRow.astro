@@ -42,7 +42,7 @@ const dateStr = formatDate(date);
     grid-template-columns: 6.5rem 1fr;
     gap: var(--space-6);
     align-items: baseline;
-    padding: var(--space-6) 0;
+    padding: 1.5rem 0;
     background: var(--canvas);
     border-bottom: 1px solid var(--hairline);
     border-radius: var(--r-none);
@@ -50,7 +50,7 @@ const dateStr = formatDate(date);
   }
 
   .blog-post-row:first-child {
-    padding-top: 0;
+    padding-top: 0.5rem;
   }
 
   .blog-post-row:hover {
@@ -58,27 +58,29 @@ const dateStr = formatDate(date);
   }
 
   .blog-post-row:hover .blog-post-title a {
-    background: var(--brand-green);
-    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--brand-green);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
   }
 
   .blog-post-meta {
     display: flex;
     flex-direction: column;
-    gap: var(--space-1);
+    gap: 0.15rem;
     font-family: var(--font-mono);
-    font-size: 16px;
-    color: var(--ink);
+    font-size: 0.75rem;
+    color: var(--ink-muted);
     letter-spacing: normal;
     flex-shrink: 0;
   }
 
   .blog-post-date {
-    color: var(--ink);
+    color: var(--ink-muted);
   }
 
   .blog-post-read-time {
-    color: var(--ink);
+    color: var(--ink-muted);
   }
 
   .blog-post-main {
@@ -87,12 +89,12 @@ const dateStr = formatDate(date);
 
   .blog-post-title {
     font-family: var(--font-display);
-    font-size: 1.15rem;
+    font-size: 1.35rem;
     font-weight: 600;
     color: var(--ink);
     margin: 0;
-    line-height: 1.333;
-    letter-spacing: -0.48px;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
   }
 
   .blog-post-title a {
@@ -101,11 +103,11 @@ const dateStr = formatDate(date);
   }
 
   .blog-post-description {
-    font-family: var(--font-mono);
-    font-size: 16px;
-    color: var(--ink);
-    max-width: 55ch;
-    line-height: 1.5;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--ink-muted);
+    max-width: 60ch;
+    line-height: 1.6;
     margin: var(--space-2) 0 0;
     display: -webkit-box;
     -webkit-line-clamp: 2;
