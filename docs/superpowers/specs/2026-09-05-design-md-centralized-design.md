@@ -36,7 +36,7 @@ Isolation: `tokens.css` has one purpose (values), `global.css` has base/elements
 - `highlight-marker` green behind 1–3 words in h1/section heads.
 - `badge-pill` pill 7×12 `surface-soft` → tags/chips. Only `9999px` allowed.
 - Prose: h2 64px + optional highlight, body 24px/1.333, links green underline, `hr` hairline, `blockquote` 3px green bar, `code` mint + hairline.
-- Deleted: shadows, glow, stars, blueprint, noise, achievements, toasts. `ScrollProgress` becomes 2px `brand-green` top bar (no glow).
+- Deleted: shadows, glow, stars, blueprint, noise, achievements, toasts. `ScrollProgress` deleted entirely (no replacement bar, per plan Task 8 omit option).
 
 ## 3. Data flow
 
