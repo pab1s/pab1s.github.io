@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import WorkshopNav from "../components/WorkshopNav.astro";
 import HeroSection from "../components/HeroSection.astro";
+import ProjectCard from "../components/ProjectCard.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import { getCollection } from "astro:content";
 import { siteConfig } from "../site-config";
@@ -28,26 +29,22 @@ const featured = projectsData.projects.slice(0, 3);
   <section class="index-section" aria-labelledby="sec-experiments">
     <div class="index-section-head">
       <h2 id="sec-experiments">Featured experiments</h2>
-      <a class="index-section-link" href="/projects/">All experiments →</a>
     </div>
-    <ul class="index-notes">
+    <div class="featured-grid">
       {
         featured.map((proj) => (
-          <li>
-            <a
-              class="index-note-row"
-              href={proj.liveLink || proj.gitHubLink}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span class="index-note-title">{proj.title}</span>
-              <span class="dotted-leader" aria-hidden="true" />
-              <span class="index-note-tag">{proj.tags[0]}</span>
-            </a>
-          </li>
+          <ProjectCard
+            title={proj.title}
+            description={proj.description}
+            image={proj.image}
+            tags={proj.tags}
+            gitHubLink={proj.gitHubLink}
+            liveLink={proj.liveLink}
+          />
         ))
       }
-    </ul>
+    </div>
+    <a class="featured-more" href="/projects/">See all experiments →</a>
   </section>
 
   <section class="index-section" aria-labelledby="sec-notes">
@@ -123,6 +120,30 @@ const featured = projectsData.projects.slice(0, 3);
     padding: 0;
   }
 
+  .featured-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .featured-more {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--ink);
+    text-decoration: none;
+    border: 1px solid var(--hairline);
+    border-radius: var(--r-none);
+    padding: 0.6rem 1.2rem;
+  }
+
+  .featured-more:hover {
+    background: var(--brand-green);
+    border-color: var(--ink);
+  }
+
   .index-note-row {
     display: flex;
     align-items: baseline;
@@ -168,6 +189,9 @@ const featured = projectsData.projects.slice(0, 3);
   }
 
   @media (max-width: 640px) {
+    .featured-grid {
+      grid-template-columns: 1fr;
+    }
     .index-note-tag {
       display: none;
     }
