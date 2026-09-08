@@ -21,6 +21,11 @@
       display: none;
     }
   }
+  /* Touch devices: the canvas paints the dot grid itself, so canvas dots
+     and paper dots can never drift apart under zoom/scroll. */
+  html.life-owns-grid body {
+    background-image: none;
+  }
   @media print {
     .life-background,
     .life-easter-egg {
@@ -46,9 +51,19 @@
     // Same hue as --brand-green #19e76e (25, 231, 110), much lighter via low alpha.
     var LIVE_LIGHT = "rgba(25,231,110,0.65)";
     var LIVE_DARK = "rgba(25,231,110,0.38)";
+    // Same values as --paper-dot (light/dark): the canvas base layer.
+    var PAPER_LIGHT = "rgba(0,0,0,0.12)";
+    var PAPER_DARK = "rgba(255,255,255,0.12)";
 
     var canvas = document.querySelector("canvas.life-background");
     if (!canvas) return;
+
+    // Touch screens: own the whole dot grid (base + live cells in one
+    // canvas pass). Mobile zoom/scroll can scale the CSS background and
+    // the canvas differently, and some browsers ignore
+    // background-attachment: fixed — one layer cannot misalign with itself.
+    var OWN_GRID = window.matchMedia("(pointer: coarse)").matches;
+    if (OWN_GRID) document.documentElement.classList.add("life-owns-grid");
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       seedAndDrawOnce();
@@ -67,6 +82,20 @@
 
     function liveColor() {
       return document.documentElement.dataset.theme === "dark" ? LIVE_DARK : LIVE_LIGHT;
+    }
+    function paperColor() {
+      return document.documentElement.dataset.theme === "dark" ? PAPER_DARK : PAPER_LIGHT;
+    }
+    function paintPaper(c, nc, nr) {
+      c.fillStyle = paperColor();
+      for (var py = 0; py < nr; py++) {
+        var pcy = py * PITCH + PITCH / 2;
+        for (var px = 0; px < nc; px++) {
+          c.beginPath();
+          c.arc(px * PITCH + PITCH / 2, pcy, RADIUS, 0, 6.283185307179586);
+          c.fill();
+        }
+      }
     }
 
     function resize() {
@@ -118,6 +147,7 @@
       var w = window.innerWidth;
       var h = window.innerHeight;
       ctx.clearRect(0, 0, w, h);
+      if (OWN_GRID) paintPaper(ctx, cols, rows);
       ctx.fillStyle = liveColor();
       for (var y = 0; y < rows; y++) {
         var cy = y * PITCH + PITCH / 2;
@@ -150,6 +180,7 @@
       var g = new Uint8Array(lc * lr);
       for (var i = 0; i < g.length; i++) g[i] = Math.random() < DENSITY ? 1 : 0;
       c.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      if (OWN_GRID) paintPaper(c, lc, lr);
       c.fillStyle =
         document.documentElement.dataset.theme === "dark" ? LIVE_DARK : LIVE_LIGHT;
       for (var yy = 0; yy < lr; yy++) {
