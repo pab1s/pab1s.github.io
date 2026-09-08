@@ -24,7 +24,7 @@
   "work": [
     {
       "name": "Santander Bank",
-      "logo": "/logos/santander.png",
+      "logo": "/logos/santander.webp",
       "position": "ML Engineer",
       "location": "Madrid, Spain",
       "url": "https://www.santanderbank.com/",
@@ -41,7 +41,7 @@
   "education": [
     {
       "institution": "Escuela de Organización Industrial (EOI), Spain",
-      "logo": "/logos/eoi.png",
+      "logo": "/logos/eoi.webp",
       "area": "Big Data & Business Analytics",
       "studyType": "Master of Science",
       "startDate": "2024-06",
@@ -49,7 +49,7 @@
     },
     {
       "institution": "University of Granada, Spain",
-      "logo": "/logos/ugr.png",
+      "logo": "/logos/ugr.webp",
       "area": "Mathematics",
       "studyType": "Bachelor of Science",
       "startDate": "2019-09",
@@ -57,7 +57,7 @@
     },
     {
       "institution": "University of Granada, Spain",
-      "logo": "/logos/ugr.png",
+      "logo": "/logos/ugr.webp",
       "area": "Computer Science",
       "studyType": "Bachelor of Science",
       "specialization": "Intelligent Systems",
@@ -66,7 +66,7 @@
     },
     {
       "institution": "University of Łódź, Poland",
-      "logo": "/logos/university-lodz.png",
+      "logo": "/logos/university-lodz.webp",
       "studyType": "Erasmus+ Programme",
       "startDate": "2022-09",
       "endDate": "2023-07"
