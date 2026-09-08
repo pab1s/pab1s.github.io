@@ -1,5 +1,6 @@
 ---
 import { siteConfig, telemetryLines } from "../site-config";
+import SocialIconRow from "./SocialIconRow.astro";
 ---
 
 <footer class="site-footer">
@@ -12,16 +13,7 @@ import { siteConfig, telemetryLines } from "../site-config";
     </div>
 
     <div class="site-footer-aside">
-      <div class="site-footer-socials">
-        {
-          siteConfig.social.map((s) => (
-            <a href={s.href} rel="me noopener noreferrer" target={s.href.startsWith("mailto:") ? undefined : "_blank"}>
-              {s.name}
-              {!s.href.startsWith("mailto:") && <span class="sr-only"> (opens in new tab)</span>}
-            </a>
-          ))
-        }
-      </div>
+      <SocialIconRow />
       <span
         class="site-footer-status"
         data-footer-status
@@ -128,23 +120,6 @@ import { siteConfig, telemetryLines } from "../site-config";
     flex-direction: column;
     align-items: flex-end;
     gap: 0.4rem;
-  }
-
-  .site-footer-socials {
-    display: flex;
-    gap: 1rem;
-  }
-
-  .site-footer-socials a {
-    font-family: var(--font-mono);
-    font-size: 16px;
-    color: var(--ink);
-    text-decoration: none;
-  }
-
-  .site-footer-socials a:hover {
-    background: var(--brand-green);
-    color: var(--ink);
   }
 
   .site-footer-status {
