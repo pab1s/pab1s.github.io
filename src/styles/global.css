@@ -626,6 +626,9 @@ pre code {
   html {
     font-size: 106.25%;
   }
+  :root {
+    --gutter: 16px;
+  }
   .project-grid {
     grid-template-columns: 1fr;
   }
