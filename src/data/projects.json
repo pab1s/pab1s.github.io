@@ -1,6 +1,17 @@
 {
     "projects": [
         {
+            "title": "pmmlruntime",
+            "description": "A fast, modern PMML inference runtime written in Rust.",
+            "gitHubLink": "https://github.com/pab1s/pmmlruntime",
+            "liveLink": "",
+            "image": "/projects/pmmlruntime.webp",
+            "tags": [
+                "machine-learning",
+                "inference-optimization"
+            ]
+        },
+        {
             "title": "tda-nn-analysis",
             "description": "A collection of experiments that use persistent homology and topological data analysis to study how knowledge transfers across CNN architectures and optimization landscapes.",
             "gitHubLink": "https://github.com/pab1s/tda-nn-analysis",
@@ -8,16 +19,6 @@
             "image": "/projects/tda-nn-analysis.webp",
             "tags": [
                 "deep-learning",
-                "machine-learning"
-            ]
-        },
-        {
-            "title": "feature-weight-metaheuristics",
-            "description": "Bioinspired optimization algorithms tuned to learn feature weights that improve 1-nearest-neighbour classification accuracy.",
-            "gitHubLink": "https://github.com/pab1s/feature-weight-metaheuristics",
-            "liveLink": "",
-            "image": "/projects/feature-weight-metaheuristics.webp",
-            "tags": [
                 "machine-learning"
             ]
         },
@@ -30,6 +31,16 @@
             "tags": [
                 "computer-vision",
                 "deep-learning"
+            ]
+        },
+        {
+            "title": "feature-weight-metaheuristics",
+            "description": "Bioinspired optimization algorithms tuned to learn feature weights that improve 1-nearest-neighbour classification accuracy.",
+            "gitHubLink": "https://github.com/pab1s/feature-weight-metaheuristics",
+            "liveLink": "",
+            "image": "/projects/feature-weight-metaheuristics.webp",
+            "tags": [
+                "machine-learning"
             ]
         },
         {
