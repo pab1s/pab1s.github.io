@@ -119,17 +119,12 @@
         "OpenCV",
         "MLflow",
         "ChromaDB",
-        "FAISS",
         "Apache Spark",
         "Azure Databricks",
         "PostgreSQL",
         "Git",
         "Java",
-        "C/C++",
-        "R",
-        "LaTeX",
-        "Jira",
-        "Confluence"
+        "C/C++"
       ]
     }
   ],
