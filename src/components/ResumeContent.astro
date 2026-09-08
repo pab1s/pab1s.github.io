@@ -59,7 +59,6 @@ const fmtDate = (d: string) => {
         </>
       ))}
     </div>
-    <div class="ascii-rule"></div>
   </header>
 
   {/* Summary */}
@@ -179,34 +178,13 @@ const fmtDate = (d: string) => {
     <div class="dossier-languages">
       {cv.languages.map((l) => (
         <div class="dossier-language">
-          <span class="dossier-language-name">{l.language}</span>
+          <span class="dossier-language-name">{l.flag} {l.language}</span>
           <span class="dossier-label dossier-language-level">{l.fluency}</span>
         </div>
       ))}
     </div>
   </section>
 
-  {/* Volunteering */}
-  <section class="dossier-section">
-    <h2 class="dossier-section-title">Volunteering</h2>
-    <div class="dossier-timeline">
-      {cv.volunteer.map((v) => (
-        <article class="dossier-timeline-item">
-          <div class="dossier-timeline-meta">
-            <span class="dossier-label dossier-date">{fmtDate(v.startDate)} – {fmtDate(v.endDate ?? "")}</span>
-          </div>
-          <div class="dossier-timeline-body">
-            <h3 class="dossier-entry-title">
-              {v.position}
-              <span class="dossier-at">@</span>
-              <a href={v.url} target="_blank" rel="noopener noreferrer">{v.organization}</a>
-            </h3>
-            <p class="dossier-entry-summary">{v.summary}</p>
-          </div>
-        </article>
-      ))}
-    </div>
-  </section>
 </section>
 
 <style>
@@ -329,13 +307,6 @@ const fmtDate = (d: string) => {
     grid-template-columns: minmax(0, 10rem) minmax(0, 1fr);
     gap: 0.5rem 1.5rem;
     align-items: start;
-    padding-bottom: 1.25rem;
-    border-bottom: 1px solid var(--hairline);
-  }
-
-  .dossier-timeline-item:last-child {
-    padding-bottom: 0;
-    border-bottom: none;
   }
 
   .dossier-timeline-meta {
@@ -431,16 +402,6 @@ const fmtDate = (d: string) => {
     gap: 1.25rem;
   }
 
-  .dossier-skill-group {
-    border-bottom: 1px solid var(--hairline);
-    padding-bottom: 1rem;
-  }
-
-  .dossier-skill-group:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-  }
-
   .dossier-skill-category {
     margin: 0 0 0.6rem;
   }
@@ -481,8 +442,6 @@ const fmtDate = (d: string) => {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    padding: 0.35rem 0;
-    border-bottom: 1px solid var(--hairline);
   }
 
   .dossier-language-name {
@@ -504,7 +463,6 @@ const fmtDate = (d: string) => {
     }
     .dossier-timeline-item {
       break-inside: avoid;
-      border-bottom-style: solid;
     }
     .dossier-skill-tag {
       border: 1px solid var(--hairline);

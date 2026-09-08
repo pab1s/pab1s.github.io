@@ -139,41 +139,18 @@
   "languages": [
     {
       "language": "Spanish",
-      "fluency": "Native"
+      "fluency": "Native",
+      "flag": "🇪🇸"
     },
     {
       "language": "English",
-      "fluency": "Proficient (C1 Cambridge)"
+      "fluency": "Proficient (C1 Cambridge)",
+      "flag": "🇬🇧"
     },
     {
       "language": "French",
-      "fluency": "Independent"
-    }
-  ],
-  "volunteer": [
-    {
-      "organization": "LibreIM",
-      "position": "Member and Collaborator",
-      "url": "https://libreim.github.io/",
-      "startDate": "2021-02",
-      "endDate": "Present",
-      "summary": "Developed and maintained extensive LaTeX notes for LibreIM, a non-profit organization, focusing on Formal Logic and Topology."
-    },
-    {
-      "organization": "Busca Tu Profesor",
-      "position": "Private Tutor",
-      "url": "https://buscatuprofesor.es/",
-      "startDate": "2021-09",
-      "endDate": "2022-06",
-      "summary": "Conducted mathematics and basic programming lessons for high school students while managing college studies."
-    },
-    {
-      "organization": "Imhlala Panzi Scouts",
-      "position": "Member",
-      "url": "https://www.imhlala-panzi.com/",
-      "startDate": "2012",
-      "endDate": "2019",
-      "summary": "Organized charity and environmental tasks including natural environment cleanups, charity collections to aid minorities, awareness campaigns, and social inclusion activities."
+      "fluency": "Independent",
+      "flag": "🇫🇷"
     }
   ]
 }
