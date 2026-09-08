@@ -41,6 +41,7 @@
   "education": [
     {
       "institution": "Escuela de Organización Industrial (EOI), Spain",
+      "logo": "/logos/eoi.png",
       "area": "Big Data & Business Analytics",
       "studyType": "Master of Science",
       "startDate": "2024-06",
