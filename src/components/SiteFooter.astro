@@ -119,7 +119,25 @@ import SocialIconRow from "./SocialIconRow.astro";
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 0.4rem;
+    gap: 0.55rem;
+  }
+
+  .site-footer-aside :global(.social-icon-row) {
+    gap: 0.25rem;
+  }
+
+  .site-footer-aside :global(.social-icon-link) {
+    width: 1.75rem;
+    height: 1.75rem;
+    border-color: transparent;
+    background: transparent;
+    color: var(--ink-muted);
+  }
+
+  .site-footer-aside :global(.social-icon-link:hover) {
+    color: var(--ink);
+    border-color: transparent;
+    background: var(--brand-green);
   }
 
   .site-footer-status {
@@ -127,6 +145,34 @@ import SocialIconRow from "./SocialIconRow.astro";
     font-size: 0.7rem;
     color: var(--ink-muted);
     cursor: default;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .site-footer-status::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    flex: none;
+    background: var(--brand-green);
+    margin-right: 0.5rem;
+    animation: footer-pulse 5.2s ease-in-out infinite;
+  }
+
+  @keyframes footer-pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.2;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-footer-status::before {
+      animation: none;
+    }
   }
 
   @media (max-width: 640px) {
