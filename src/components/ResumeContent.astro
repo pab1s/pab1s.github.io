@@ -74,8 +74,14 @@ const fmtDate = (d: string) => {
     <div class="dossier-timeline">
       {work.map((job) => (
         <article class="dossier-timeline-item dossier-timeline-item--org">
-          <div class="org-logo-wrap">
-            {job.logo ? <img src={job.logo} alt={`${job.name} logo`} class="org-logo" loading="lazy" /> : null}
+          <div class="dossier-timeline-side">
+            <div class="org-logo-wrap">
+              {job.logo ? <img src={job.logo} alt={`${job.name} logo`} class="org-logo" loading="lazy" /> : null}
+            </div>
+            <div class="dossier-timeline-meta">
+              <span class="dossier-label dossier-date">{fmtDate(job.startDate)} – {fmtDate(job.endDate ?? "")}</span>
+              <span class="dossier-label dossier-location">{job.location}</span>
+            </div>
           </div>
           <div class="dossier-timeline-body">
             <h3 class="dossier-entry-title">
@@ -90,10 +96,6 @@ const fmtDate = (d: string) => {
               ))}
             </ul>
           </div>
-          <div class="dossier-timeline-meta dossier-timeline-meta--right">
-            <span class="dossier-label dossier-date">{fmtDate(job.startDate)} – {fmtDate(job.endDate ?? "")}</span>
-            <span class="dossier-label dossier-location">{job.location}</span>
-          </div>
         </article>
       ))}
     </div>
@@ -105,8 +107,14 @@ const fmtDate = (d: string) => {
     <div class="dossier-timeline">
       {cv.education.map((edu) => (
         <article class="dossier-timeline-item dossier-timeline-item--org">
-          <div class="org-logo-wrap">
-            {"logo" in edu && edu.logo ? <img src={edu.logo as string} alt={`${edu.institution} logo`} class="org-logo" loading="lazy" /> : null}
+          <div class="dossier-timeline-side">
+            <div class="org-logo-wrap">
+              {"logo" in edu && edu.logo ? <img src={edu.logo as string} alt={`${edu.institution} logo`} class="org-logo" loading="lazy" /> : null}
+            </div>
+            <div class="dossier-timeline-meta">
+              <span class="dossier-label dossier-date">{fmtDate(edu.startDate)} – {fmtDate(edu.endDate)}</span>
+              {edu.specialization ? <span class="dossier-label dossier-specialization">{edu.specialization}</span> : null}
+            </div>
           </div>
           <div class="dossier-timeline-body">
             <h3 class="dossier-entry-title">
@@ -114,10 +122,6 @@ const fmtDate = (d: string) => {
               <span class="dossier-at">@</span>
               <span>{edu.institution}</span>
             </h3>
-          </div>
-          <div class="dossier-timeline-meta dossier-timeline-meta--right">
-            <span class="dossier-label dossier-date">{fmtDate(edu.startDate)} – {fmtDate(edu.endDate)}</span>
-            {edu.specialization ? <span class="dossier-label dossier-specialization">{edu.specialization}</span> : null}
           </div>
         </article>
       ))}
@@ -377,7 +381,14 @@ const fmtDate = (d: string) => {
   }
 
   .dossier-timeline-item--org {
-    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .dossier-timeline-side {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    max-width: 10rem;
   }
 
   .org-logo-wrap {
@@ -390,11 +401,6 @@ const fmtDate = (d: string) => {
     height: 4rem;
     object-fit: contain;
     display: block;
-  }
-
-  .dossier-timeline-meta--right {
-    text-align: right;
-    align-items: flex-end;
   }
 
   .dossier-entry-summary {
@@ -511,9 +517,8 @@ const fmtDate = (d: string) => {
     .dossier-name { font-size: clamp(1.8rem, 8vw, 2.4rem); }
     .dossier-contact { flex-direction: column; align-items: flex-start; gap: 0.15rem; }
     .dossier-timeline-item { grid-template-columns: 1fr; gap: 0.35rem; }
-    .dossier-timeline-item--org { grid-template-columns: auto minmax(0, 1fr); }
+    .dossier-timeline-item--org { grid-template-columns: 1fr; }
     .dossier-timeline-meta { flex-direction: row; flex-wrap: wrap; gap: 0.35rem 0.75rem; }
-    .dossier-timeline-item--org .dossier-timeline-meta--right { grid-column: 1 / -1; text-align: left; align-items: flex-start; }
     .dossier-languages { grid-template-columns: 1fr; }
   }
 </style>
