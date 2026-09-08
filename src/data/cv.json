@@ -118,6 +118,8 @@
         "Scikit-learn",
         "OpenCV",
         "MLflow",
+        "ChromaDB",
+        "FAISS",
         "Apache Spark",
         "Azure Databricks",
         "PostgreSQL",
