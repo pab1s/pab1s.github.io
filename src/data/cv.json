@@ -140,17 +140,17 @@
     {
       "language": "Spanish",
       "fluency": "Native",
-      "flag": "🇪🇸"
+      "code": "ES"
     },
     {
       "language": "English",
       "fluency": "Proficient (C1 Cambridge)",
-      "flag": "🇬🇧"
+      "code": "EN"
     },
     {
       "language": "French",
       "fluency": "Independent",
-      "flag": "🇫🇷"
+      "code": "FR"
     }
   ]
 }

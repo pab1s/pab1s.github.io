@@ -177,10 +177,11 @@ const fmtDate = (d: string) => {
     <h2 class="dossier-section-title">Languages</h2>
     <div class="dossier-languages">
       {cv.languages.map((l) => (
-        <div class="dossier-language">
-          <span class="dossier-language-name">{l.flag} {l.language}</span>
-          <span class="dossier-label dossier-language-level">{l.fluency}</span>
-        </div>
+        <span class="dossier-skill-tag">
+          <span class="dossier-language-code">{l.code}</span>
+          {l.language}
+          <span class="dossier-language-fluency">· {l.fluency}</span>
+        </span>
       ))}
     </div>
   </section>
@@ -433,24 +434,19 @@ const fmtDate = (d: string) => {
 
   /* Languages */
   .dossier-languages {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 0.5rem;
-  }
-
-  .dossier-language {
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.45rem 0.6rem;
   }
 
-  .dossier-language-name {
-    font-weight: 600;
-    font-size: 0.95rem;
+  .dossier-language-code {
+    font-weight: 700;
+    color: var(--brand-green);
+    letter-spacing: 0.06em;
   }
 
-  .dossier-language-level {
-    letter-spacing: 0.08em;
+  .dossier-language-fluency {
+    color: var(--ink-muted);
   }
 
   @media print {
@@ -477,6 +473,5 @@ const fmtDate = (d: string) => {
     .dossier-timeline-item { grid-template-columns: 1fr; gap: 0.35rem; }
     .dossier-timeline-item--org { grid-template-columns: 1fr; }
     .dossier-timeline-meta { flex-direction: row; flex-wrap: wrap; gap: 0.35rem 0.75rem; }
-    .dossier-languages { grid-template-columns: 1fr; }
   }
 </style>
