@@ -209,20 +209,8 @@ $$
 
 But our ultimate goal was to minimize the true risk $\mathcal{R}(f)$ defined on the _original_ distribution $\mathcal{D}$! The theoretical guarantees connecting $\mathcal{R}_{emp}$ and $\mathcal{R}$ from statistical learning theory heavily rely on that i.i.d. assumption – that $\mathcal{S}$ is a direct, representative sample of $\mathcal{D}$. By resampling, we've deliberately broken this assumption. We've trained our model on $\mathcal{D}'$. How well will it perform on $\mathcal{D}$? The theoretical link is severed, or at least significantly weakened, leading to a **distribution shift**. We have a mismatch between the training distribution $P_{train}(x, y)$ (which reflects $\mathcal{D}'$) and the test/deployment distribution $P_{test}(x, y)$ (which reflects the real-world $\mathcal{D}$). Specifically, resampling techniques typically introduce:
 
-- **Prior Probability Shift:**
-
-  $$
-  P_{train}(y) \neq P_{test}(y)
-  $$
-
-  We artificially changed the class balance.
-- **Covariate Shift:**
-
-  $$
-  P_{train}(x) \neq P_{test}(x)
-  $$
-
-  Over-sampling adds points only in certain regions; under-sampling removes points. The distribution of features $x$ is altered.
+- **Prior Probability Shift:** $P_{train}(y) \neq P_{test}(y)$. We artificially changed the class balance.
+- **Covariate Shift:** $P_{train}(x) \neq P_{test}(x)$. Over-sampling adds points only in certain regions; under-sampling removes points. The distribution of features $x$ is altered.
 
 <figure class="ml-fig" aria-label="Prior shift from resampling">
   <svg viewBox="0 0 560 150" role="img" aria-labelledby="ps-t ps-d">

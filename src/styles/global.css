@@ -623,6 +623,9 @@ pre code {
   }
 }
 @media (max-width: 640px) {
+  html {
+    font-size: 106.25%;
+  }
   .project-grid {
     grid-template-columns: 1fr;
   }
