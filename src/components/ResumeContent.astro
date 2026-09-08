@@ -80,14 +80,8 @@ const langFlag: Record<string, string> = {
     <div class="dossier-timeline">
       {work.map((job) => (
         <article class="dossier-timeline-item dossier-timeline-item--org">
-          <div class="dossier-timeline-side">
-            <div class="org-logo-wrap">
-              {job.logo ? <img src={job.logo} alt={`${job.name} logo`} class="org-logo" loading="lazy" /> : null}
-            </div>
-            <div class="dossier-timeline-meta">
-              <span class="dossier-label dossier-date">{fmtDate(job.startDate)} – {fmtDate(job.endDate ?? "")}</span>
-              <span class="dossier-label dossier-location">{job.location}</span>
-            </div>
+          <div class="org-logo-wrap">
+            {job.logo ? <img src={job.logo} alt={`${job.name} logo`} class="org-logo" loading="lazy" /> : null}
           </div>
           <div class="dossier-timeline-body">
             <h3 class="dossier-entry-title">
@@ -95,6 +89,10 @@ const langFlag: Record<string, string> = {
               <span class="dossier-at">@</span>
               <a href={job.url} target="_blank" rel="noopener noreferrer">{job.name}</a>
             </h3>
+            <div class="dossier-timeline-meta dossier-timeline-meta--under">
+              <span class="dossier-label dossier-date">{fmtDate(job.startDate)} – {fmtDate(job.endDate ?? "")}</span>
+              <span class="dossier-label dossier-location">{job.location}</span>
+            </div>
             {job.summary ? <p class="dossier-entry-summary">{job.summary}</p> : null}
             <ul class="dossier-highlights">
               {job.highlights.map((line) => (
@@ -113,14 +111,8 @@ const langFlag: Record<string, string> = {
     <div class="dossier-timeline">
       {cv.education.map((edu) => (
         <article class="dossier-timeline-item dossier-timeline-item--org">
-          <div class="dossier-timeline-side">
-            <div class="org-logo-wrap">
-              {"logo" in edu && edu.logo ? <img src={edu.logo as string} alt={`${edu.institution} logo`} class="org-logo" loading="lazy" /> : null}
-            </div>
-            <div class="dossier-timeline-meta">
-              <span class="dossier-label dossier-date">{fmtDate(edu.startDate)} – {fmtDate(edu.endDate)}</span>
-              {edu.specialization ? <span class="dossier-label dossier-specialization">{edu.specialization}</span> : null}
-            </div>
+          <div class="org-logo-wrap">
+            {"logo" in edu && edu.logo ? <img src={edu.logo as string} alt={`${edu.institution} logo`} class="org-logo" loading="lazy" /> : null}
           </div>
           <div class="dossier-timeline-body">
             <h3 class="dossier-entry-title">
@@ -128,6 +120,10 @@ const langFlag: Record<string, string> = {
               <span class="dossier-at">@</span>
               <span>{edu.institution}</span>
             </h3>
+            <div class="dossier-timeline-meta dossier-timeline-meta--under">
+              <span class="dossier-label dossier-date">{fmtDate(edu.startDate)} – {fmtDate(edu.endDate)}</span>
+              {edu.specialization ? <span class="dossier-label dossier-specialization">{edu.specialization}</span> : null}
+            </div>
           </div>
         </article>
       ))}
@@ -363,11 +359,11 @@ const langFlag: Record<string, string> = {
     grid-template-columns: auto minmax(0, 1fr);
   }
 
-  .dossier-timeline-side {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-    max-width: 10rem;
+  .dossier-timeline-meta--under {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.75rem;
+    margin: 0 0 0.5rem;
   }
 
   .org-logo-wrap {
