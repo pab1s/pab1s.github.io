@@ -99,18 +99,7 @@
   ],
   "skills": [
     {
-      "name": "Programming",
-      "keywords": [
-        "Python",
-        "SQL",
-        "C/C++",
-        "Java",
-        "LaTeX",
-        "R"
-      ]
-    },
-    {
-      "name": "Machine Learning & Data Science",
+      "name": "AI & ML",
       "keywords": [
         "Large Language Models (LLMs)",
         "Natural Language Processing (NLP)",
@@ -122,15 +111,21 @@
       ]
     },
     {
-      "name": "Technologies & Tools",
+      "name": "Tech Stack",
       "keywords": [
-        "Azure Databricks",
-        "Spark",
+        "Python",
         "PyTorch",
-        "MLflow",
-        "OpenCV",
         "Scikit-learn",
+        "OpenCV",
+        "MLflow",
+        "Apache Spark",
+        "Azure Databricks",
+        "SQL",
         "Git",
+        "Java",
+        "C/C++",
+        "R",
+        "LaTeX",
         "Jira",
         "Confluence"
       ]

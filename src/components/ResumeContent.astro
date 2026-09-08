@@ -35,6 +35,24 @@ const fmtDate = (d: string) => {
   return `${months[parseInt(month, 10)]} ${year}`;
 };
 
+// Brand icons for the Tech Stack skill group (missing key = text pill fallback)
+const techIcon: Record<string, string> = {
+  "Python": "/icons/tech/python.svg",
+  "PyTorch": "/icons/tech/pytorch.svg",
+  "Scikit-learn": "/icons/tech/scikitlearn.svg",
+  "OpenCV": "/icons/tech/opencv.svg",
+  "Apache Spark": "/icons/tech/spark.svg",
+  "Azure Databricks": "/icons/tech/azure.svg",
+  "SQL": "/icons/tech/sql.svg",
+  "Git": "/icons/tech/git.svg",
+  "Java": "/icons/tech/java.svg",
+  "C/C++": "/icons/tech/cplusplus.svg",
+  "R": "/icons/tech/r.svg",
+  "LaTeX": "/icons/tech/latex.svg",
+  "Jira": "/icons/tech/jira.svg",
+  "Confluence": "/icons/tech/confluence.svg",
+};
+
 // Circular flag icons keyed by language code in cv.json
 const langFlag: Record<string, string> = {
   ES: `<svg viewBox="0 0 24 24" aria-hidden="true"><clipPath id="flg-es"><circle cx="12" cy="12" r="12"/></clipPath><g clip-path="url(#flg-es)"><rect width="24" height="24" fill="#c60b1e"/><rect y="6" width="24" height="12" fill="#ffc400"/></g></svg>`,
@@ -176,12 +194,19 @@ const langFlag: Record<string, string> = {
         <div class="dossier-skill-group">
           <h3 class="dossier-label dossier-skill-category">{category.name}</h3>
           <div class="dossier-skill-items">
-            {category.keywords.map((skill) => (
-              <span class="dossier-skill-tag">
-                <span class="dossier-skill-dots" aria-hidden="true">{proficiencyDots()}</span>
-                {skill}
-              </span>
-            ))}
+            {category.keywords.map((skill) => {
+              const icon = category.name === "Tech Stack" ? techIcon[skill] : undefined;
+              return icon ? (
+                <span class="tech-icon" title={skill}>
+                  <img src={icon} alt={skill} loading="lazy" />
+                </span>
+              ) : (
+                <span class="dossier-skill-tag">
+                  <span class="dossier-skill-dots" aria-hidden="true">{proficiencyDots()}</span>
+                  {skill}
+                </span>
+              );
+            })}
           </div>
         </div>
       ))}
@@ -459,6 +484,23 @@ const langFlag: Record<string, string> = {
     font-size: 0.62rem;
     color: var(--brand-green);
     letter-spacing: 0.04em;
+  }
+
+  .tech-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0.45rem;
+    border-radius: 12px;
+    background: var(--surface-soft);
+  }
+
+  .tech-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
 
   /* Languages */
