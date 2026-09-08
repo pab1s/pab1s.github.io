@@ -4,6 +4,7 @@ import { siteConfig } from "../site-config";
 
 interface WorkItem {
   name: string;
+  logo?: string;
   position: string;
   location?: string;
   url: string;
@@ -33,6 +34,33 @@ const fmtDate = (d: string) => {
   const months = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   return `${months[parseInt(month, 10)]} ${year}`;
 };
+
+// Brand icons for the Tech Stack skill group (missing key = text pill fallback)
+const techIcon: Record<string, string> = {
+  "Python": "/icons/tech/python.svg",
+  "FastAPI": "/icons/tech/fastapi.svg",
+  "PyTorch": "/icons/tech/pytorch.svg",
+  "Scikit-learn": "/icons/tech/scikitlearn.svg",
+  "OpenCV": "/icons/tech/opencv.svg",
+  "MLflow": "/icons/tech/mlflow.svg",
+  "ChromaDB": "/icons/tech/chromadb.png",
+  "Apache Spark": "/icons/tech/spark.svg",
+  "Azure Databricks": "/icons/tech/databricks.svg",
+  "Delta Lake": "/icons/tech/deltalake.svg",
+  "PostgreSQL": "/icons/tech/postgresql.svg",
+  "Polars": "/icons/tech/polars.svg",
+  "Git": "/icons/tech/git.svg",
+  "Java": "/icons/tech/java.svg",
+  "C/C++": "/icons/tech/cplusplus.svg",
+};
+
+// Circular flag icons keyed by language code in cv.json
+const langFlag: Record<string, string> = {
+  ES: `<svg viewBox="0 0 24 24" aria-hidden="true"><clipPath id="flg-es"><circle cx="12" cy="12" r="12"/></clipPath><g clip-path="url(#flg-es)"><rect width="24" height="24" fill="#c60b1e"/><rect y="6" width="24" height="12" fill="#ffc400"/></g></svg>`,
+  EN: `<svg viewBox="0 0 24 24" aria-hidden="true"><clipPath id="flg-gb"><circle cx="12" cy="12" r="12"/></clipPath><g clip-path="url(#flg-gb)"><rect width="24" height="24" fill="#012169"/><path d="M0,0L24,24M24,0L0,24" stroke="#fff" stroke-width="4"/><path d="M0,0L24,24M24,0L0,24" stroke="#C8102E" stroke-width="1.4"/><path d="M12,0V24M0,12H24" stroke="#fff" stroke-width="7"/><path d="M12,0V24M0,12H24" stroke="#C8102E" stroke-width="4"/></g></svg>`,
+  FR: `<svg viewBox="0 0 24 24" aria-hidden="true"><clipPath id="flg-fr"><circle cx="12" cy="12" r="12"/></clipPath><g clip-path="url(#flg-fr)"><rect width="8" height="24" fill="#0055a4"/><rect x="8" width="8" height="24" fill="#fff"/><rect x="16" width="8" height="24" fill="#ef4135"/></g></svg>`,
+  KO: `<svg viewBox="0 0 24 24" aria-hidden="true"><clipPath id="flg-ko"><circle cx="12" cy="12" r="12"/></clipPath><g clip-path="url(#flg-ko)"><rect width="24" height="24" fill="#fff"/><circle cx="12" cy="12" r="5" fill="#CD2E3A"/><path d="M7,12A5,5 0 0,0 17,12Z" fill="#0047A0"/><circle cx="12" cy="9.5" r="2.5" fill="#0047A0"/><circle cx="12" cy="14.5" r="2.5" fill="#CD2E3A"/><g stroke="#000" stroke-width="1.1" stroke-linecap="round"><path d="M4,7l2.5-2.5M5.2,8.2l2.5-2.5M6.4,9.4l2.5-2.5"/><path d="M20,7l-2.5-2.5M18.8,8.2l-2.5-2.5M17.6,9.4l-2.5-2.5"/><path d="M4,17l2.5,2.5M5.2,15.8l2.5,2.5M6.4,14.6l2.5,2.5"/><path d="M20,17l-2.5,2.5M18.8,15.8l-2.5,2.5M17.6,14.6l-2.5,2.5"/></g></g></svg>`,
+};
 ---
 
 <section class="dossier">
@@ -43,7 +71,7 @@ const fmtDate = (d: string) => {
     <p class="dossier-currently">
       {siteConfig.currently}
       <span class="dossier-currently-meta">
-        {cv.basics.location.city}, {cv.basics.location.countryCode} · Reading · Cooking · Stargazing · Tinkering
+        {cv.basics.location.city}, {cv.basics.location.countryCode}
       </span>
     </p>
     <div class="dossier-contact">
@@ -54,28 +82,38 @@ const fmtDate = (d: string) => {
       {cv.basics.profiles.map((p, i) => (
         <>
           {i > 0 ? <span class="dossier-sep">·</span> : null}
-          <a href={p.url} target="_blank" rel="noopener noreferrer">{p.network}</a>
+          <a href={p.url} target="_blank" rel="noopener noreferrer" aria-label={p.network} class="dossier-contact-icon">
+            {p.network.toLowerCase() === "github" ? (
+              <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor">
+                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.419-1.305.762-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+              </svg>
+            ) : p.network.toLowerCase() === "linkedin" ? (
+              <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+              </svg>
+            ) : (
+              p.network
+            )}
+          </a>
         </>
       ))}
     </div>
-    <div class="ascii-rule"></div>
   </header>
 
   {/* Summary */}
   <section class="dossier-section">
-    <h2 class="dossier-section-title">§ Summary</h2>
+    <h2 class="dossier-section-title">Summary</h2>
     <p class="dossier-summary">{cv.basics.summary}</p>
   </section>
 
   {/* Experience */}
   <section class="dossier-section">
-    <h2 class="dossier-section-title">§ Experience</h2>
+    <h2 class="dossier-section-title">Experience</h2>
     <div class="dossier-timeline">
       {work.map((job) => (
-        <article class="dossier-timeline-item">
-          <div class="dossier-timeline-meta">
-            <span class="dossier-label dossier-date">{fmtDate(job.startDate)} – {fmtDate(job.endDate ?? "")}</span>
-            <span class="dossier-label dossier-location">{job.location}</span>
+        <article class="dossier-timeline-item dossier-timeline-item--org">
+          <div class="org-logo-wrap">
+            {job.logo ? <img src={job.logo} alt={`${job.name} logo`} class="org-logo" loading="lazy" /> : null}
           </div>
           <div class="dossier-timeline-body">
             <h3 class="dossier-entry-title">
@@ -83,6 +121,10 @@ const fmtDate = (d: string) => {
               <span class="dossier-at">@</span>
               <a href={job.url} target="_blank" rel="noopener noreferrer">{job.name}</a>
             </h3>
+            <div class="dossier-timeline-meta dossier-timeline-meta--under">
+              <span class="dossier-label dossier-date">{fmtDate(job.startDate)} – {fmtDate(job.endDate ?? "")}</span>
+              <span class="dossier-label dossier-location">{job.location}</span>
+            </div>
             {job.summary ? <p class="dossier-entry-summary">{job.summary}</p> : null}
             <ul class="dossier-highlights">
               {job.highlights.map((line) => (
@@ -97,13 +139,12 @@ const fmtDate = (d: string) => {
 
   {/* Education */}
   <section class="dossier-section">
-    <h2 class="dossier-section-title">§ Education</h2>
+    <h2 class="dossier-section-title">Education</h2>
     <div class="dossier-timeline">
       {cv.education.map((edu) => (
-        <article class="dossier-timeline-item">
-          <div class="dossier-timeline-meta">
-            <span class="dossier-label dossier-date">{fmtDate(edu.startDate)} – {fmtDate(edu.endDate)}</span>
-            {edu.specialization ? <span class="dossier-label dossier-specialization">{edu.specialization}</span> : null}
+        <article class="dossier-timeline-item dossier-timeline-item--org">
+          <div class="org-logo-wrap">
+            {"logo" in edu && edu.logo ? <img src={edu.logo as string} alt={`${edu.institution} logo`} class="org-logo" loading="lazy" /> : null}
           </div>
           <div class="dossier-timeline-body">
             <h3 class="dossier-entry-title">
@@ -111,13 +152,10 @@ const fmtDate = (d: string) => {
               <span class="dossier-at">@</span>
               <span>{edu.institution}</span>
             </h3>
-            {edu.courses?.length ? (
-              <ul class="dossier-courses">
-                {edu.courses.map((c) => (
-                  <li>{c}</li>
-                ))}
-              </ul>
-            ) : null}
+            <div class="dossier-timeline-meta dossier-timeline-meta--under">
+              <span class="dossier-label dossier-date">{fmtDate(edu.startDate)} – {fmtDate(edu.endDate)}</span>
+              {edu.specialization ? <span class="dossier-label dossier-specialization">{edu.specialization}</span> : null}
+            </div>
           </div>
         </article>
       ))}
@@ -126,17 +164,17 @@ const fmtDate = (d: string) => {
 
   {/* Projects */}
   <section class="dossier-section">
-    <h2 class="dossier-section-title">§ Projects</h2>
+    <h2 class="dossier-section-title">Projects</h2>
     <div class="dossier-timeline">
       {cv.projects.map((proj) => (
-        <article class="dossier-timeline-item">
-          <div class="dossier-timeline-meta">
-            <span class="dossier-label dossier-date">{fmtDate(proj.startDate)} – {fmtDate(proj.endDate)}</span>
-          </div>
+        <article class="dossier-timeline-item dossier-timeline-item--single">
           <div class="dossier-timeline-body">
             <h3 class="dossier-entry-title">
               <a href={proj.url} target="_blank" rel="noopener noreferrer">{proj.name}</a>
             </h3>
+            <div class="dossier-timeline-meta dossier-timeline-meta--under">
+              <span class="dossier-label dossier-date">{fmtDate(proj.startDate)} – {fmtDate(proj.endDate)}</span>
+            </div>
             <p class="dossier-entry-summary">{proj.description}</p>
             <ul class="dossier-highlights">
               {proj.highlights.map((line) => (
@@ -151,18 +189,25 @@ const fmtDate = (d: string) => {
 
   {/* Skills */}
   <section class="dossier-section">
-    <h2 class="dossier-section-title">§ Skills</h2>
+    <h2 class="dossier-section-title">Skills</h2>
     <div class="dossier-skills">
       {cv.skills.map((category) => (
         <div class="dossier-skill-group">
           <h3 class="dossier-label dossier-skill-category">{category.name}</h3>
           <div class="dossier-skill-items">
-            {category.keywords.map((skill) => (
-              <span class="dossier-skill-tag">
-                <span class="dossier-skill-dots" aria-hidden="true">{proficiencyDots()}</span>
-                {skill}
-              </span>
-            ))}
+            {category.keywords.map((skill) => {
+              const icon = category.name === "Tech Stack" ? techIcon[skill] : undefined;
+              return icon ? (
+                <span class="tech-icon" title={skill}>
+                  <img src={icon} alt={skill} loading="lazy" />
+                </span>
+              ) : (
+                <span class="dossier-skill-tag">
+                  <span class="dossier-skill-dots" aria-hidden="true">{proficiencyDots()}</span>
+                  {skill}
+                </span>
+              );
+            })}
           </div>
         </div>
       ))}
@@ -171,38 +216,19 @@ const fmtDate = (d: string) => {
 
   {/* Languages */}
   <section class="dossier-section">
-    <h2 class="dossier-section-title">§ Languages</h2>
+    <h2 class="dossier-section-title">Languages</h2>
     <div class="dossier-languages">
       {cv.languages.map((l) => (
-        <div class="dossier-language">
-          <span class="dossier-language-name">{l.language}</span>
-          <span class="dossier-label dossier-language-level">{l.fluency}</span>
-        </div>
+        l.code in langFlag ? (
+          <span class="dossier-skill-tag" title={l.language}>
+            <span class="lang-flag lang-flag--sm" set:html={langFlag[l.code]}></span>
+            {l.fluency}
+          </span>
+        ) : null
       ))}
     </div>
   </section>
 
-  {/* Volunteering */}
-  <section class="dossier-section">
-    <h2 class="dossier-section-title">§ Volunteering</h2>
-    <div class="dossier-timeline">
-      {cv.volunteer.map((v) => (
-        <article class="dossier-timeline-item">
-          <div class="dossier-timeline-meta">
-            <span class="dossier-label dossier-date">{fmtDate(v.startDate)} – {fmtDate(v.endDate ?? "")}</span>
-          </div>
-          <div class="dossier-timeline-body">
-            <h3 class="dossier-entry-title">
-              {v.position}
-              <span class="dossier-at">@</span>
-              <a href={v.url} target="_blank" rel="noopener noreferrer">{v.organization}</a>
-            </h3>
-            <p class="dossier-entry-summary">{v.summary}</p>
-          </div>
-        </article>
-      ))}
-    </div>
-  </section>
 </section>
 
 <style>
@@ -287,6 +313,15 @@ const fmtDate = (d: string) => {
     color: var(--ink);
   }
 
+  .dossier-contact-icon {
+    display: inline-flex;
+    text-decoration: none;
+  }
+
+  .dossier-contact-icon svg {
+    display: block;
+  }
+
   .dossier-sep {
     color: var(--line-strong);
   }
@@ -325,13 +360,6 @@ const fmtDate = (d: string) => {
     grid-template-columns: minmax(0, 10rem) minmax(0, 1fr);
     gap: 0.5rem 1.5rem;
     align-items: start;
-    padding-bottom: 1.25rem;
-    border-bottom: 1px solid var(--hairline);
-  }
-
-  .dossier-timeline-item:last-child {
-    padding-bottom: 0;
-    border-bottom: none;
   }
 
   .dossier-timeline-meta {
@@ -376,6 +404,33 @@ const fmtDate = (d: string) => {
     margin: 0 0.15rem;
   }
 
+  .dossier-timeline-item--org {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .dossier-timeline-item--single {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dossier-timeline-meta--under {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.75rem;
+    margin: 0 0 0.5rem;
+  }
+
+  .org-logo-wrap {
+    width: 4rem;
+    min-height: 4rem;
+  }
+
+  .org-logo {
+    width: 4rem;
+    height: 4rem;
+    object-fit: contain;
+    display: block;
+  }
+
   .dossier-entry-summary {
     font-family: var(--font-display);
     font-size: 1.15rem;
@@ -397,33 +452,11 @@ const fmtDate = (d: string) => {
     margin-bottom: 0.25rem;
   }
 
-  .dossier-courses {
-    margin: 0.35rem 0 0;
-    padding-left: 1.1em;
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--ink-muted);
-  }
-
-  .dossier-courses li {
-    margin-bottom: 0.15rem;
-  }
-
   /* Skills */
   .dossier-skills {
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
-  }
-
-  .dossier-skill-group {
-    border-bottom: 1px solid var(--hairline);
-    padding-bottom: 1rem;
-  }
-
-  .dossier-skill-group:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
   }
 
   .dossier-skill-category {
@@ -455,28 +488,46 @@ const fmtDate = (d: string) => {
     letter-spacing: 0.04em;
   }
 
+  .tech-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0.3rem;
+  }
+
+  .tech-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
   /* Languages */
   .dossier-languages {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 0.5rem;
-  }
-
-  .dossier-language {
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    padding: 0.35rem 0;
-    border-bottom: 1px solid var(--hairline);
+    flex-wrap: wrap;
+    gap: 0.45rem 0.6rem;
   }
 
-  .dossier-language-name {
-    font-weight: 600;
-    font-size: 0.95rem;
+  .lang-flag {
+    width: 2.75rem;
+    height: 2.75rem;
+    display: inline-flex;
+    flex: none;
   }
 
-  .dossier-language-level {
-    letter-spacing: 0.08em;
+  .lang-flag--sm {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .lang-flag svg {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: block;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
   }
 
   @media print {
@@ -489,7 +540,6 @@ const fmtDate = (d: string) => {
     }
     .dossier-timeline-item {
       break-inside: avoid;
-      border-bottom-style: solid;
     }
     .dossier-skill-tag {
       border: 1px solid var(--hairline);
@@ -502,7 +552,7 @@ const fmtDate = (d: string) => {
     .dossier-name { font-size: clamp(1.8rem, 8vw, 2.4rem); }
     .dossier-contact { flex-direction: column; align-items: flex-start; gap: 0.15rem; }
     .dossier-timeline-item { grid-template-columns: 1fr; gap: 0.35rem; }
+    .dossier-timeline-item--org { grid-template-columns: 1fr; }
     .dossier-timeline-meta { flex-direction: row; flex-wrap: wrap; gap: 0.35rem 0.75rem; }
-    .dossier-languages { grid-template-columns: 1fr; }
   }
 </style>

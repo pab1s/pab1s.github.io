@@ -24,6 +24,7 @@
   "work": [
     {
       "name": "Santander Bank",
+      "logo": "/logos/santander.png",
       "position": "ML Engineer",
       "location": "Madrid, Spain",
       "url": "https://www.santanderbank.com/",
@@ -40,52 +41,35 @@
   "education": [
     {
       "institution": "Escuela de Organización Industrial (EOI), Spain",
+      "logo": "/logos/eoi.png",
       "area": "Big Data & Business Analytics",
       "studyType": "Master of Science",
       "startDate": "2024-06",
-      "endDate": "2026-06",
-      "courses": [
-        "Big Data Architecture",
-        "Data Visualization",
-        "Natural Language Processing"
-      ]
+      "endDate": "2026-06"
     },
     {
       "institution": "University of Granada, Spain",
+      "logo": "/logos/ugr.png",
       "area": "Mathematics",
       "studyType": "Bachelor of Science",
       "startDate": "2019-09",
-      "endDate": "2024-07",
-      "courses": [
-        "Functional Analysis",
-        "Numerical Methods",
-        "Differential Equations"
-      ]
+      "endDate": "2024-07"
     },
     {
       "institution": "University of Granada, Spain",
+      "logo": "/logos/ugr.png",
       "area": "Computer Science",
       "studyType": "Bachelor of Science",
       "specialization": "Intelligent Systems",
       "startDate": "2019-09",
-      "endDate": "2024-07",
-      "courses": [
-        "Computer Vision",
-        "Metaheuristics",
-        "Artificial Intelligence"
-      ]
+      "endDate": "2024-07"
     },
     {
       "institution": "University of Łódź, Poland",
+      "logo": "/logos/university-lodz.png",
       "studyType": "Erasmus+ Programme",
       "startDate": "2022-09",
-      "endDate": "2023-07",
-      "courses": [
-        "Machine Learning",
-        "Operations Research",
-        "Statistical Inference",
-        "Stochastic Processes"
-      ]
+      "endDate": "2023-07"
     }
   ],
   "projects": [
@@ -115,18 +99,7 @@
   ],
   "skills": [
     {
-      "name": "Programming",
-      "keywords": [
-        "Python",
-        "SQL",
-        "C/C++",
-        "Java",
-        "LaTeX",
-        "R"
-      ]
-    },
-    {
-      "name": "Machine Learning & Data Science",
+      "name": "AI & ML",
       "keywords": [
         "Large Language Models (LLMs)",
         "Natural Language Processing (NLP)",
@@ -138,58 +111,46 @@
       ]
     },
     {
-      "name": "Technologies & Tools",
+      "name": "Tech Stack",
       "keywords": [
-        "Azure Databricks",
-        "Spark",
+        "Python",
+        "FastAPI",
         "PyTorch",
-        "MLflow",
-        "OpenCV",
         "Scikit-learn",
+        "OpenCV",
+        "MLflow",
+        "ChromaDB",
+        "Apache Spark",
+        "Azure Databricks",
+        "Delta Lake",
+        "PostgreSQL",
+        "Polars",
         "Git",
-        "Jira",
-        "Confluence"
+        "Java",
+        "C/C++"
       ]
     }
   ],
   "languages": [
     {
       "language": "Spanish",
-      "fluency": "Native"
+      "fluency": "Native",
+      "code": "ES"
     },
     {
       "language": "English",
-      "fluency": "Proficient (C1 Cambridge)"
+      "fluency": "Proficient (C1 Cambridge)",
+      "code": "EN"
     },
     {
       "language": "French",
-      "fluency": "Independent"
-    }
-  ],
-  "volunteer": [
-    {
-      "organization": "LibreIM",
-      "position": "Member and Collaborator",
-      "url": "https://libreim.github.io/",
-      "startDate": "2021-02",
-      "endDate": "Present",
-      "summary": "Developed and maintained extensive LaTeX notes for LibreIM, a non-profit organization, focusing on Formal Logic and Topology."
+      "fluency": "Independent",
+      "code": "FR"
     },
     {
-      "organization": "Busca Tu Profesor",
-      "position": "Private Tutor",
-      "url": "https://buscatuprofesor.es/",
-      "startDate": "2021-09",
-      "endDate": "2022-06",
-      "summary": "Conducted mathematics and basic programming lessons for high school students while managing college studies."
-    },
-    {
-      "organization": "Imhlala Panzi Scouts",
-      "position": "Member",
-      "url": "https://www.imhlala-panzi.com/",
-      "startDate": "2012",
-      "endDate": "2019",
-      "summary": "Organized charity and environmental tasks including natural environment cleanups, charity collections to aid minorities, awareness campaigns, and social inclusion activities."
+      "language": "Korean",
+      "fluency": "Independent",
+      "code": "KO"
     }
   ]
 }
