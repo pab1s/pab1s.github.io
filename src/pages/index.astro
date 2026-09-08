@@ -50,7 +50,6 @@ const featured = projectsData.projects.slice(0, 3);
   <section class="index-section" aria-labelledby="sec-notes">
     <div class="index-section-head">
       <h2 id="sec-notes">Latest posts</h2>
-      <a class="index-section-link" href="/blog/">All posts →</a>
     </div>
     <ul class="index-notes">
       {
@@ -64,6 +63,7 @@ const featured = projectsData.projects.slice(0, 3);
         ))
       }
     </ul>
+    <a class="featured-more" href="/blog/">See all posts →</a>
   </section>
 
   <section class="index-section" aria-label="Resume">
@@ -124,7 +124,6 @@ const featured = projectsData.projects.slice(0, 3);
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1.25rem;
-    margin-bottom: 1.75rem;
   }
 
   .featured-more {
@@ -137,6 +136,7 @@ const featured = projectsData.projects.slice(0, 3);
     border: 1px solid var(--hairline);
     border-radius: var(--r-none);
     padding: 0.6rem 1.2rem;
+    margin-top: 1.75rem;
   }
 
   .featured-more:hover {
