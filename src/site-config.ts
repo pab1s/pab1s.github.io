@@ -32,7 +32,7 @@ export const siteConfig = {
 } as const;
 
 export const telemetryLines = [
-  "Currently reading: The Book of Why",
+  "Currently reading: Designing Data-Intensive Applications",
   "Last experiment: LLM interpretability pipeline",
   "Stargazing: Tracking Jupiter's moons",
   "Tinkering with: Conformal prediction",
