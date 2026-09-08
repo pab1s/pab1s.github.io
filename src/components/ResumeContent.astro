@@ -216,11 +216,9 @@ const langFlag: Record<string, string> = {
     <h2 class="dossier-section-title">Languages</h2>
     <div class="dossier-languages">
       {cv.languages.map((l) => (
-        <span class="dossier-skill-tag">
-          {l.code in langFlag ? <span class="lang-flag" set:html={langFlag[l.code]}></span> : null}
-          {l.language}
-          <span class="dossier-language-fluency">· {l.fluency}</span>
-        </span>
+        l.code in langFlag ? (
+          <span class="lang-flag" title={`${l.language} · ${l.fluency}`} set:html={langFlag[l.code]}></span>
+        ) : null
       ))}
     </div>
   </section>
@@ -507,8 +505,8 @@ const langFlag: Record<string, string> = {
   }
 
   .lang-flag {
-    width: 1.25rem;
-    height: 1.25rem;
+    width: 2.75rem;
+    height: 2.75rem;
     display: inline-flex;
     flex: none;
   }
@@ -519,10 +517,6 @@ const langFlag: Record<string, string> = {
     border-radius: 50%;
     display: block;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
-  }
-
-  .dossier-language-fluency {
-    color: var(--ink-muted);
   }
 
   @media print {
