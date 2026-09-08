@@ -122,6 +122,7 @@
         "ChromaDB",
         "Apache Spark",
         "Azure Databricks",
+        "Delta Lake",
         "PostgreSQL",
         "Polars",
         "Git",
