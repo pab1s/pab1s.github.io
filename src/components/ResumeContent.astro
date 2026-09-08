@@ -34,6 +34,13 @@ const fmtDate = (d: string) => {
   const months = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   return `${months[parseInt(month, 10)]} ${year}`;
 };
+
+// Circular flag icons keyed by language code in cv.json
+const langFlag: Record<string, string> = {
+  ES: `<svg viewBox="0 0 24 24" aria-hidden="true"><clipPath id="flg-es"><circle cx="12" cy="12" r="12"/></clipPath><g clip-path="url(#flg-es)"><rect width="24" height="24" fill="#c60b1e"/><rect y="6" width="24" height="12" fill="#ffc400"/></g></svg>`,
+  EN: `<svg viewBox="0 0 24 24" aria-hidden="true"><clipPath id="flg-gb"><circle cx="12" cy="12" r="12"/></clipPath><g clip-path="url(#flg-gb)"><rect width="24" height="24" fill="#012169"/><path d="M0,0L24,24M24,0L0,24" stroke="#fff" stroke-width="4"/><path d="M0,0L24,24M24,0L0,24" stroke="#C8102E" stroke-width="1.4"/><path d="M12,0V24M0,12H24" stroke="#fff" stroke-width="7"/><path d="M12,0V24M0,12H24" stroke="#C8102E" stroke-width="4"/></g></svg>`,
+  FR: `<svg viewBox="0 0 24 24" aria-hidden="true"><clipPath id="flg-fr"><circle cx="12" cy="12" r="12"/></clipPath><g clip-path="url(#flg-fr)"><rect width="8" height="24" fill="#0055a4"/><rect x="8" width="8" height="24" fill="#fff"/><rect x="16" width="8" height="24" fill="#ef4135"/></g></svg>`,
+};
 ---
 
 <section class="dossier">
@@ -178,7 +185,7 @@ const fmtDate = (d: string) => {
     <div class="dossier-languages">
       {cv.languages.map((l) => (
         <span class="dossier-skill-tag">
-          <span class="dossier-language-code">{l.code}</span>
+          {l.code in langFlag ? <span class="lang-flag" set:html={langFlag[l.code]}></span> : null}
           {l.language}
           <span class="dossier-language-fluency">· {l.fluency}</span>
         </span>
@@ -439,10 +446,19 @@ const fmtDate = (d: string) => {
     gap: 0.45rem 0.6rem;
   }
 
-  .dossier-language-code {
-    font-weight: 700;
-    color: var(--brand-green);
-    letter-spacing: 0.06em;
+  .lang-flag {
+    width: 1.25rem;
+    height: 1.25rem;
+    display: inline-flex;
+    flex: none;
+  }
+
+  .lang-flag svg {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: block;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
   }
 
   .dossier-language-fluency {
