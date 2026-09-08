@@ -114,13 +114,6 @@ const fmtDate = (d: string) => {
               <span class="dossier-at">@</span>
               <span>{edu.institution}</span>
             </h3>
-            {edu.courses?.length ? (
-              <ul class="dossier-courses">
-                {edu.courses.map((c) => (
-                  <li>{c}</li>
-                ))}
-              </ul>
-            ) : null}
           </div>
           <div class="dossier-timeline-meta dossier-timeline-meta--right">
             <span class="dossier-label dossier-date">{fmtDate(edu.startDate)} – {fmtDate(edu.endDate)}</span>
@@ -423,18 +416,6 @@ const fmtDate = (d: string) => {
 
   .dossier-highlights li {
     margin-bottom: 0.25rem;
-  }
-
-  .dossier-courses {
-    margin: 0.35rem 0 0;
-    padding-left: 1.1em;
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--ink-muted);
-  }
-
-  .dossier-courses li {
-    margin-bottom: 0.15rem;
   }
 
   /* Skills */

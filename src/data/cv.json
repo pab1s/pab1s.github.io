@@ -44,12 +44,7 @@
       "area": "Big Data & Business Analytics",
       "studyType": "Master of Science",
       "startDate": "2024-06",
-      "endDate": "2026-06",
-      "courses": [
-        "Big Data Architecture",
-        "Data Visualization",
-        "Natural Language Processing"
-      ]
+      "endDate": "2026-06"
     },
     {
       "institution": "University of Granada, Spain",
@@ -57,12 +52,7 @@
       "area": "Mathematics",
       "studyType": "Bachelor of Science",
       "startDate": "2019-09",
-      "endDate": "2024-07",
-      "courses": [
-        "Functional Analysis",
-        "Numerical Methods",
-        "Differential Equations"
-      ]
+      "endDate": "2024-07"
     },
     {
       "institution": "University of Granada, Spain",
@@ -71,25 +61,14 @@
       "studyType": "Bachelor of Science",
       "specialization": "Intelligent Systems",
       "startDate": "2019-09",
-      "endDate": "2024-07",
-      "courses": [
-        "Computer Vision",
-        "Metaheuristics",
-        "Artificial Intelligence"
-      ]
+      "endDate": "2024-07"
     },
     {
       "institution": "University of Łódź, Poland",
       "logo": "/logos/university-lodz.png",
       "studyType": "Erasmus+ Programme",
       "startDate": "2022-09",
-      "endDate": "2023-07",
-      "courses": [
-        "Machine Learning",
-        "Operations Research",
-        "Statistical Inference",
-        "Stochastic Processes"
-      ]
+      "endDate": "2023-07"
     }
   ],
   "projects": [
