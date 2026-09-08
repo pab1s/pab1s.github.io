@@ -1,0 +1,198 @@
+---
+// Ambient Conway's Game of Life page background. One Life cell = one 16px CSS dot
+// pitch; live = 1px-radius dot at cell center; dead draws nothing (CSS dots show through).
+---
+<div class="life-easter-egg" aria-hidden="true"><code>// you pulled hard enough to read this universe's source<br>// formula_of_life: B3/S23 — born(n==3) survive(n==2||n==3)</code></div>
+<canvas class="life-background" aria-hidden="true"></canvas>
+<style is:global>
+  .life-easter-egg {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 6px 12px 0;
+    opacity: 0.8;
+  }
+  .life-easter-egg code {
+    font-size: 0.68rem;
+    white-space: nowrap;
+  }
+  @media (max-width: 640px) {
+    .life-easter-egg code {
+      white-space: normal;
+    }
+  }
+  @media print {
+    .life-background,
+    .life-easter-egg {
+      display: none !important;
+    }
+  }
+  .life-background {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+  }
+</style>
+<script is:inline>
+  (function () {
+    var PITCH = 16;
+    var RADIUS = 1;
+    var DENSITY = 0.12;
+    var TICK_MS = 125;
+    var RESEED_MS = 30000;
+    // Same hue as --brand-green #19e76e (25, 231, 110), much lighter via low alpha.
+    var LIVE_LIGHT = "rgba(25,231,110,0.65)";
+    var LIVE_DARK = "rgba(25,231,110,0.38)";
+
+    var canvas = document.querySelector("canvas.life-background");
+    if (!canvas) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      seedAndDrawOnce();
+      return;
+    }
+
+    var ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    var cols = 0;
+    var rows = 0;
+    var grid = new Uint8Array(0);
+    var next = new Uint8Array(0);
+    var timer = null;
+    var reseedTimer = null;
+
+    function liveColor() {
+      return document.documentElement.dataset.theme === "dark" ? LIVE_DARK : LIVE_LIGHT;
+    }
+
+    function resize() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var w = window.innerWidth;
+      var h = window.innerHeight;
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      cols = Math.ceil(w / PITCH);
+      rows = Math.ceil(h / PITCH);
+      grid = new Uint8Array(cols * rows);
+      next = new Uint8Array(cols * rows);
+    }
+
+    function seed() {
+      for (var i = 0; i < grid.length; i++) {
+        grid[i] = Math.random() < DENSITY ? 1 : 0;
+      }
+    }
+
+    function step() {
+      var alive = 0;
+      for (var y = 0; y < rows; y++) {
+        var yUp = ((y - 1 + rows) % rows) * cols;
+        var yMid = y * cols;
+        var yDn = ((y + 1) % rows) * cols;
+        for (var x = 0; x < cols; x++) {
+          var xL = (x - 1 + cols) % cols;
+          var xR = (x + 1) % cols;
+          var n =
+            grid[yUp + xL] + grid[yUp + x] + grid[yUp + xR] +
+            grid[yMid + xL] + grid[yMid + xR] +
+            grid[yDn + xL] + grid[yDn + x] + grid[yDn + xR];
+          var idx = yMid + x;
+          var live = grid[idx] === 1;
+          var out = live ? (n === 2 || n === 3 ? 1 : 0) : n === 3 ? 1 : 0;
+          next[idx] = out;
+          alive += out;
+        }
+      }
+      var tmp = grid;
+      grid = next;
+      next = tmp;
+      return alive;
+    }
+
+    function draw() {
+      var w = window.innerWidth;
+      var h = window.innerHeight;
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = liveColor();
+      for (var y = 0; y < rows; y++) {
+        var cy = y * PITCH + PITCH / 2;
+        var base = y * cols;
+        for (var x = 0; x < cols; x++) {
+          if (grid[base + x] !== 1) continue;
+          var cx = x * PITCH + PITCH / 2;
+          ctx.beginPath();
+          ctx.arc(cx, cy, RADIUS, 0, 6.283185307179586);
+          ctx.fill();
+        }
+      }
+    }
+
+    function tick() {
+      var alive = step();
+      if (alive === 0) seed();
+      draw();
+    }
+
+    function seedAndDrawOnce() {
+      var c = canvas.getContext("2d");
+      if (!c) return;
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(window.innerWidth * dpr);
+      canvas.height = Math.round(window.innerHeight * dpr);
+      c.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var lc = Math.ceil(window.innerWidth / PITCH);
+      var lr = Math.ceil(window.innerHeight / PITCH);
+      var g = new Uint8Array(lc * lr);
+      for (var i = 0; i < g.length; i++) g[i] = Math.random() < DENSITY ? 1 : 0;
+      c.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      c.fillStyle =
+        document.documentElement.dataset.theme === "dark" ? LIVE_DARK : LIVE_LIGHT;
+      for (var yy = 0; yy < lr; yy++) {
+        for (var xx = 0; xx < lc; xx++) {
+          if (g[yy * lc + xx] !== 1) continue;
+          c.beginPath();
+          c.arc(xx * PITCH + PITCH / 2, yy * PITCH + PITCH / 2, RADIUS, 0, 6.283185307179586);
+          c.fill();
+        }
+      }
+    }
+
+    function start() {
+      stop();
+      timer = window.setInterval(tick, TICK_MS);
+      reseedTimer = window.setInterval(function () {
+        seed();
+        draw();
+      }, RESEED_MS);
+    }
+
+    function stop() {
+      if (timer !== null) window.clearInterval(timer);
+      if (reseedTimer !== null) window.clearInterval(reseedTimer);
+      timer = null;
+      reseedTimer = null;
+    }
+
+    resize();
+    seed();
+    draw();
+    start();
+
+    window.addEventListener("resize", function () {
+      resize();
+      seed();
+      draw();
+    });
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) stop();
+      else start();
+    });
+    // BaseLayout dispatches `site-theme` on toggle; repaint live color without restarting.
+    document.addEventListener("site-theme", draw);
+  })();
+</script>
