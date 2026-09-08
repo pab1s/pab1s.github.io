@@ -56,7 +56,7 @@ const { ariaLabel = "Toggle light or dark theme" } = Astro.props;
     height: 2rem;
     padding: 0;
     margin: 0;
-    border: 1px solid var(--border-soft);
+    border: 1px solid transparent;
     border-radius: var(--r-none);
     background: var(--canvas);
     color: var(--ink);
@@ -65,7 +65,7 @@ const { ariaLabel = "Toggle light or dark theme" } = Astro.props;
 
   .theme-cycle-btn:hover {
     color: var(--ink);
-    border-color: var(--ink);
+    border-color: transparent;
     background: var(--brand-green);
   }
 
