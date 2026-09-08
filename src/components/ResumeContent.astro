@@ -38,6 +38,7 @@ const fmtDate = (d: string) => {
 // Brand icons for the Tech Stack skill group (missing key = text pill fallback)
 const techIcon: Record<string, string> = {
   "Python": "/icons/tech/python.svg",
+  "FastAPI": "/icons/tech/fastapi.svg",
   "PyTorch": "/icons/tech/pytorch.svg",
   "Scikit-learn": "/icons/tech/scikitlearn.svg",
   "OpenCV": "/icons/tech/opencv.svg",
@@ -46,6 +47,7 @@ const techIcon: Record<string, string> = {
   "Apache Spark": "/icons/tech/spark.svg",
   "Azure Databricks": "/icons/tech/databricks.svg",
   "PostgreSQL": "/icons/tech/postgresql.svg",
+  "Polars": "/icons/tech/polars.svg",
   "Git": "/icons/tech/git.svg",
   "Java": "/icons/tech/java.svg",
   "C/C++": "/icons/tech/cplusplus.svg",
@@ -217,7 +219,10 @@ const langFlag: Record<string, string> = {
     <div class="dossier-languages">
       {cv.languages.map((l) => (
         l.code in langFlag ? (
-          <span class="lang-flag" title={`${l.language} · ${l.fluency}`} set:html={langFlag[l.code]}></span>
+          <span class="dossier-skill-tag" title={l.language}>
+            <span class="lang-flag lang-flag--sm" set:html={langFlag[l.code]}></span>
+            {l.fluency}
+          </span>
         ) : null
       ))}
     </div>
@@ -509,6 +514,11 @@ const langFlag: Record<string, string> = {
     height: 2.75rem;
     display: inline-flex;
     flex: none;
+  }
+
+  .lang-flag--sm {
+    width: 1.5rem;
+    height: 1.5rem;
   }
 
   .lang-flag svg {

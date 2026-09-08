@@ -114,6 +114,7 @@
       "name": "Tech Stack",
       "keywords": [
         "Python",
+        "FastAPI",
         "PyTorch",
         "Scikit-learn",
         "OpenCV",
@@ -122,6 +123,7 @@
         "Apache Spark",
         "Azure Databricks",
         "PostgreSQL",
+        "Polars",
         "Git",
         "Java",
         "C/C++"
