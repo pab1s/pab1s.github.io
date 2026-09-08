@@ -136,14 +136,14 @@ const langFlag: Record<string, string> = {
     <h2 class="dossier-section-title">Projects</h2>
     <div class="dossier-timeline">
       {cv.projects.map((proj) => (
-        <article class="dossier-timeline-item">
-          <div class="dossier-timeline-meta">
-            <span class="dossier-label dossier-date">{fmtDate(proj.startDate)} – {fmtDate(proj.endDate)}</span>
-          </div>
+        <article class="dossier-timeline-item dossier-timeline-item--single">
           <div class="dossier-timeline-body">
             <h3 class="dossier-entry-title">
               <a href={proj.url} target="_blank" rel="noopener noreferrer">{proj.name}</a>
             </h3>
+            <div class="dossier-timeline-meta dossier-timeline-meta--under">
+              <span class="dossier-label dossier-date">{fmtDate(proj.startDate)} – {fmtDate(proj.endDate)}</span>
+            </div>
             <p class="dossier-entry-summary">{proj.description}</p>
             <ul class="dossier-highlights">
               {proj.highlights.map((line) => (
@@ -358,6 +358,10 @@ const langFlag: Record<string, string> = {
 
   .dossier-timeline-item--org {
     grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .dossier-timeline-item--single {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .dossier-timeline-meta--under {
